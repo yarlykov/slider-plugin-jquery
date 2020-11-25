@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/yarlykov/slider-plugin-jquery/issues"
   },
-  "homepage": "https://github.com/yarlykov/slider-plugin-jquery#readme"
+  "homepage": "https://github.com/yarlykov/slider-plugin-jquery#readme",
+  "devDependencies": {
+    "webpack": "^5.6.0",
+    "webpack-cli": "^4.2.0"
+  }
 }
