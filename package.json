@@ -1,0 +1,24 @@
+{
+  "name": "slider-plugin-jquery",
+  "version": "1.0.0",
+  "description": "Четвертое задание - плагин для [jQuery](https://jquery.com), в котором выполнен функционал «бегунка» (также называемого слайдером) - специальный контрол, который позволяет перетягиванием задавать какое-то числовое значение.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yarlykov/slider-plugin-jquery.git"
+  },
+  "keywords": [
+    "js",
+    "ts",
+    "jquery"
+  ],
+  "author": "Roman Yarlykov <yarlykov92@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yarlykov/slider-plugin-jquery/issues"
+  },
+  "homepage": "https://github.com/yarlykov/slider-plugin-jquery#readme"
+}
