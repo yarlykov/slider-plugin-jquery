@@ -4,7 +4,7 @@
   "description": "Четвертое задание - плагин для [jQuery](https://jquery.com), в котором выполнен функционал «бегунка» (также называемого слайдером) - специальный контрол, который позволяет перетягиванием задавать какое-то числовое значение.",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack",
+    "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production"
   },
   "repository": {
@@ -34,8 +34,9 @@
     "mini-css-extract-plugin": "^1.3.1",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.0",
-    "webpack": "^5.6.0",
-    "webpack-cli": "^4.2.0"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1"

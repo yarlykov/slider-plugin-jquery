@@ -16,6 +16,12 @@ module.exports = {
     filename: 'bundle.js',
     path: PATHS.dist,
   },
+  devServer: {
+    port: 8082,
+    index: 'index.html',
+    open: true
+  },
+  devtool: 'source-map',
   module: {
     rules: [
       {
