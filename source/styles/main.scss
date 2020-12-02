@@ -1,8 +1,29 @@
-.slider {
-  min-width: 800px;
-  max-width: 1280px;
-  min-height: 80vh;
-  border: 1px dashed black;
-  margin: 0 auto;
-  background: gray; 
+.demo-page {
+
+  &__wrapper {
+    display: grid;
+    grid-gap: 16px;
+    grid-template: 1fr 1fr/1fr 1fr;
+    min-height: 688px;
+    max-width: 1280px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  &__block {
+    box-sizing: border-box;
+    min-width: 616px;
+    max-width: 616px;
+    min-height: 320px;
+    padding: 16px;
+    border: 1px solid #E5E5E5;
+  }
+}
+
+.control-panel {
+  min-width: 240px;
+  max-width: 240px;
+  min-height: 288px;
+  background: #E5E5E5;
 }
