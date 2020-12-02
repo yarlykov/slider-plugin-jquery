@@ -33,6 +33,9 @@
 }
 
 .slider {
+  font-family: Lato, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -56,7 +59,7 @@
     border-radius: 4px;
     margin: 32px 16px 0 16px;
   }
-  
+
   &__fill {
     position: absolute;
     height: 6px;
@@ -90,11 +93,38 @@
     }
   }
 
+  &__tooltip {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff;
+    top: -25px;
+    left: -22%;
+    width: 28px;
+    height: 18px;
+    border-radius: 4px;
+    z-index: 4;
+    
+    &_arrow {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      transform: rotate(45deg);
+      background: #E75735;
+      top: 14px;
+      z-index: -1;     
+    }
+
+    &_orange {
+      background: #E75735;
+    }
+  }
+
   &__labels {
     position: absolute;
-    font-family: Lato, sans-serif;
-    font-size: 10px;
-    font-weight: 700;
     color: #c4c4c4;
     width: 100%;
     top: 10px;
