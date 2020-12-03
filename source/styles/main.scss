@@ -1,5 +1,6 @@
-.demo-page {
+@import '../styles/control-panel.scss';
 
+.demo-page {
   &__wrapper {
     display: grid;
     grid-gap: 16px;
@@ -25,12 +26,7 @@
   }
 }
 
-.control-panel {
-  min-width: 240px;
-  max-width: 240px;
-  min-height: 288px;
-  background: rgba(229, 229, 229, 0.4);
-}
+
 
 .slider {
   font-family: Lato, sans-serif;
