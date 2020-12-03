@@ -10,7 +10,7 @@
     margin: 0 auto;
     padding: 16px;
 
-    @media (max-width: 1280px) {
+    @media (max-width: 1279px) {
       grid-template: 1fr/1fr;
     } 
   }
@@ -89,7 +89,7 @@
       max-height: 6px;
     }
 
-    &_range {
+    &_horisontal_range {
       height: 6px;
       left: 25%;
       width: 50%;
@@ -100,6 +100,11 @@
       height: 53%;
       min-width: 6px;
       bottom: 0;
+    }
+
+    &_vertical_range {
+      height: 50%;
+      bottom: 23%;
     }
 
     &_orange {
@@ -132,6 +137,16 @@
     &_vertical {
       bottom: 50%;
       left: -6px;
+    }
+
+    &_vertical.slider__handle_range-first {
+      left: -6px;
+      bottom: 20%;
+    }
+
+    &_vertical.slider__handle_range-second {
+      left: -6px;
+      bottom: 70%;
     }
 
     &_range-first {
@@ -202,12 +217,12 @@
 
     &_horisontal {
       width: 100%;
-      top: 10px;
+      top: 14px;
     }
 
     &_vertical {
       height: 100%;
-      left: 10px;
+      left: 14px;
     }
   }
   
