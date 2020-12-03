@@ -168,19 +168,21 @@
 
   &__tooltip {
     position: absolute;
+    min-width: 28px;
+    height: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 2px 0 2px;
+
     font-size: 12px;
     font-weight: 400;
     color: #fff;
-    width: 28px;
-    height: 18px;
     border-radius: 4px;
     
     &_horisontal {
       top: -25px;
-      left: -4px;
+      left: -7px;
     }
 
     &_vertical {
@@ -199,7 +201,7 @@
 
     &_arrow_vertical {
       top: 6px;
-      left: 24px;
+      left: 28px;
     }
 
     &_orange {
@@ -243,6 +245,10 @@
     }
     &:nth-child(5) {
       left: 96%;
+    }
+
+    &_active {
+      color: #000;
     }
   }
 
