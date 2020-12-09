@@ -1,4 +1,1 @@
-import './module.ts';
-import './styles/main.scss';
-
-console.log('I am here');
+import '../source/demo-page/styles/main.scss';
