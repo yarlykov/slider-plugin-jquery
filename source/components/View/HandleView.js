@@ -28,7 +28,7 @@ class Handle {
   handleListener(event) {
     event.preventDefault();
 
-    this.shiftX = event.clientX - this.$handle.getBoundingClientRect().left;
+    this.horizontalShift = event.clientX - this.$handle.getBoundingClientRect().left;
 
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
@@ -37,18 +37,26 @@ class Handle {
   }
 
   onMouseMove(event) {
-    let newLeftPosition = event.clientX - this.shiftX - this.$slider.getBoundingClientRect().left;
+    let newLeftPosition = event.clientX - (this.horizontalShift / 2) - this.$slider.getBoundingClientRect().left;
 
     if (newLeftPosition < 0) {
       newLeftPosition = 0;
     }
 
-    let rightEdgePosition = this.$slider.offsetWidth - this.$handle.offsetWidth;
+    let rightEdgePosition = this.$slider.offsetWidth;
+    console.log(this.$slider.offsetWidth);
+
     if (newLeftPosition > rightEdgePosition) {
       newLeftPosition = rightEdgePosition;
     }
 
-    this.$handle.style.left = newLeftPosition + 'px';
+    let inPercentages = this.conversionToPercent(newLeftPosition, rightEdgePosition)
+
+    this.$handle.style.left = inPercentages;
+  }
+
+  conversionToPercent(currentValue, totalValue) {
+    return currentValue * 100 / totalValue + '%';
   }
 
   onMouseUp() {
