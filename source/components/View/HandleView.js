@@ -1,3 +1,4 @@
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 import { inherits } from "util";
 
 class Handle {
@@ -10,6 +11,12 @@ class Handle {
   _init() {
     this.$handle = this.el.querySelector('#handle')
     this.$slider = this.el.querySelector('.slider__scale')
+
+    this.tooltipSymbols = {
+      ruble: '₽',
+      dollar: '$',
+      yen: '¥',
+    }
   }
 
   _setup() {
@@ -44,19 +51,20 @@ class Handle {
     }
 
     let rightEdgePosition = this.$slider.offsetWidth;
-    console.log(this.$slider.offsetWidth);
 
     if (newLeftPosition > rightEdgePosition) {
       newLeftPosition = rightEdgePosition;
     }
 
     let inPercentages = this.conversionToPercent(newLeftPosition, rightEdgePosition)
+    this.$handle.style.left = inPercentages + '%';
 
-    this.$handle.style.left = inPercentages;
+    this.tooltip(inPercentages, this.tooltipSymbols.yen)
+    this.fill('width', inPercentages)
   }
 
   conversionToPercent(currentValue, totalValue) {
-    return currentValue * 100 / totalValue + '%';
+    return currentValue * 100 / totalValue;
   }
 
   onMouseUp() {
@@ -65,23 +73,28 @@ class Handle {
   } 
 
   position(position='left', percent) {
-    this.$handle = this.el.querySelector('.slider__handle')
-    this.$slider = this.el.querySelector('.slider__scale')
-
+    if (percent < 0) {
+      percent = 0;
+    }
 
     this.$handle.style = `${position}: ${percent}%`;
+
     this.tooltip(percent);
     this.fill('width', percent)
   }
 
-  tooltip(value) {
+  tooltip(currentValueInPercent, symbol='val') {
     this.$tooltip = this.el.querySelector('.tooltip__value')
-    this.$tooltip.textContent = `${value}¥`;
+    let intValue = Math.floor(currentValueInPercent)
+
+    this.$tooltip.textContent = `${intValue} ${symbol}`;
   }
 
-  fill(prop, value){
+  fill(prop, currentValueInPercent){
     this.$fill = this.el.querySelector('#fill')
-    this.$fill.style = `width: ${value}%`;
+    let floatValue = currentValueInPercent.toFixed(2);
+
+    this.$fill.style = `width: ${floatValue}%`;
   }
 }
 
