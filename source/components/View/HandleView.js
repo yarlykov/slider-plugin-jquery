@@ -3,15 +3,23 @@ import { inherits } from "util";
 
 class Handle {
   constructor(node) {
-    this.el = node;
+    this.$el = node;
+
     this._init();
     this._setup();
   }
 
   _init() {
-    this.$handle = this.el.querySelector('#handle')
-    this.$slider = this.el.querySelector('.slider__scale')
+    this.$handle = this.$el.querySelector('.slider__handle')
+    this.$slider = this.$el.querySelector('.slider__scale')
+    this.$tooltip = this.$el.querySelector('.tooltip__value')
+    this.$fill = this.$el.querySelector('.slider__fill')
 
+    this.handlePosition = {
+      current: 0,
+      max: 0,
+      inPercent: 0,
+    }
     this.tooltipSymbols = {
       ruble: '₽',
       dollar: '$',
@@ -28,10 +36,6 @@ class Handle {
     this.$handle.addEventListener('mousedown', this.handleListener)
   }
 
-  disableDragStart() {
-    return false;
-  }
-
   handleListener(event) {
     event.preventDefault();
 
@@ -39,38 +43,42 @@ class Handle {
 
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
-
     this.$handle.addEventListener('dragstart', this.disableDragStart)
   }
 
   onMouseMove(event) {
-    let newLeftPosition = event.clientX - (this.horizontalShift / 2) - this.$slider.getBoundingClientRect().left;
+    this.currentPosition(event)
+    this.maxPosition()
 
-    if (newLeftPosition < 0) {
-      newLeftPosition = 0;
-    }
+    this.handlePosition.inPercent = this.conversionToPercent(this.handlePosition.current, this.handlePosition.max);
+    console.log(this.handlePosition.inPercent);
+    this.$handle.style.left = this.handlePosition.inPercent + '%';
 
-    let rightEdgePosition = this.$slider.offsetWidth;
-
-    if (newLeftPosition > rightEdgePosition) {
-      newLeftPosition = rightEdgePosition;
-    }
-
-    let inPercentages = this.conversionToPercent(newLeftPosition, rightEdgePosition)
-    this.$handle.style.left = inPercentages + '%';
-
-    this.tooltip(inPercentages, this.tooltipSymbols.yen)
-    this.fill('width', inPercentages)
+    this.tooltip(this.handlePosition.inPercent, this.tooltipSymbols.yen)
+    this.fill('width', this.handlePosition.inPercent)
   }
 
-  conversionToPercent(currentValue, totalValue) {
-    return currentValue * 100 / totalValue;
+  currentPosition(event) {
+    let position = event.clientX - (this.horizontalShift / 2) - this.$slider.getBoundingClientRect().left
+
+    if (position < 0) {
+      position = 0;
+    }
+
+    this.handlePosition.current = position;
   }
 
-  onMouseUp() {
-    document.removeEventListener('mouseup', this.onMouseUp);
-    document.removeEventListener('mousemove', this.onMouseMove);
-  } 
+  maxPosition() {
+    this.handlePosition.max = this.$slider.offsetWidth;
+
+    if (this.handlePosition.current > this.handlePosition.max) {
+      this.handlePosition.current = this.handlePosition.max;
+    }
+  }
+
+  conversionToPercent(currentValue, maxValue) {
+    return currentValue * 100 / maxValue;
+  }
 
   position(position='left', percent) {
     if (percent < 0) {
@@ -84,17 +92,24 @@ class Handle {
   }
 
   tooltip(currentValueInPercent, symbol='val') {
-    this.$tooltip = this.el.querySelector('.tooltip__value')
     let intValue = Math.floor(currentValueInPercent)
 
     this.$tooltip.textContent = `${intValue} ${symbol}`;
   }
 
   fill(prop, currentValueInPercent){
-    this.$fill = this.el.querySelector('#fill')
     let floatValue = currentValueInPercent.toFixed(2);
 
     this.$fill.style = `width: ${floatValue}%`;
+  }
+
+  onMouseUp() {
+    document.removeEventListener('mouseup', this.onMouseUp);
+    document.removeEventListener('mousemove', this.onMouseMove);
+  } 
+
+  disableDragStart() {
+    return false;
   }
 }
 
