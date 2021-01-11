@@ -23,7 +23,7 @@ block content
           ]
         },
         slider: {
-          type: { horizontal: true, vertical: false },
+          type: { horizontal: true },
           range: false,
           labels: ["0", "25", "50", "75", "100"],
           tooltips: true,
@@ -33,6 +33,108 @@ block content
           },
           units: "¥",
           color: "orange"
+        } 
+      }
+    })
+
+    +demo-block({
+      options: {
+        controlPanel: {
+          controls: [
+            { title: "scale-min", type: "number", value: 0, disabled: false },
+            { title: "scale-max", type: "number", value: 100, disabled: false },
+            { title: "current", type: "number", value: 53, disabled: false },
+            { title: "step", type: "number", value: 25, disabled: false },
+            { title: "range-min", type: "number", value: 0, disabled: true },
+            { title: "range-max", type: "number", value: 0, disabled: true },
+          ],
+          viewElements: [
+            { title: "type", type: "select", option: ["vertical", "horizontal"] },
+            { title: "range", type: "checkbox", checked: false},
+            { title: "labels", type: "checkbox", checked: true},
+            { title: "tooltips", type: "checkbox", checked: true},
+            { title: "units", type: "text", value: "¥" },
+          ]
+        },
+        slider: {
+          type: { vertical: true },
+          range: false,
+          labels: ["100", "75", "50", "25", "0"],
+          tooltips: true,
+          defaultValue: {
+            single: "53",
+            range: ["25", "75"]
+          },
+          units: "¥",
+          color: "orange"
+        } 
+      }
+    })
+
+    +demo-block({
+      options: {
+        controlPanel: {
+          controls: [
+            { title: "scale-min", type: "number", value: 0, disabled: false },
+            { title: "scale-max", type: "number", value: 100, disabled: false },
+            { title: "current", type: "number", value: 0, disabled: true },
+            { title: "step", type: "number", value: 25, disabled: false },
+            { title: "range-min", type: "number", value: 25, disabled: false },
+            { title: "range-max", type: "number", value: 75, disabled: false },
+          ],
+          viewElements: [
+            { title: "type", type: "select", option: ["horizontal", "vertical"] },
+            { title: "range", type: "checkbox", checked: true},
+            { title: "labels", type: "checkbox", checked: true},
+            { title: "tooltips", type: "checkbox", checked: true},
+            { title: "units", type: "text", value: "¥" },
+          ]
+        },
+        slider: {
+          type: { horizontal: true },
+          range: true,
+          labels: ["0", "25", "50", "75", "100"],
+          tooltips: true,
+          defaultValue: {
+            single: "0",
+            range: ["25", "75"]
+          },
+          units: "¥",
+          color: "green"
+        } 
+      }
+    })
+
+    +demo-block({
+      options: {
+        controlPanel: {
+          controls: [
+            { title: "scale-min", type: "number", value: 0, disabled: false },
+            { title: "scale-max", type: "number", value: 100, disabled: false },
+            { title: "current", type: "number", value: 0, disabled: true },
+            { title: "step", type: "number", value: 25, disabled: false },
+            { title: "range-min", type: "number", value: 25, disabled: false },
+            { title: "range-max", type: "number", value: 75, disabled: false },
+          ],
+          viewElements: [
+            { title: "type", type: "select", option: ["vertical", "horizontal"] },
+            { title: "range", type: "checkbox", checked: true},
+            { title: "labels", type: "checkbox", checked: true},
+            { title: "tooltips", type: "checkbox", checked: true},
+            { title: "units", type: "text", value: "¥" },
+          ]
+        },
+        slider: {
+          type: { vertical: true },
+          range: true,
+          labels: ["100", "75", "50", "25", "0"],
+          tooltips: true,
+          defaultValue: {
+            single: "0",
+            range: ["25", "75"]
+          },
+          units: "¥",
+          color: "green"
         } 
       }
     })

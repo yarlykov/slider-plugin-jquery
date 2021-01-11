@@ -20,8 +20,8 @@ mixin control-panel({ controlPanel={} })
           if viewElement.type === 'select' 
             label.control-panel__control
               select.control-panel__select(name='' id='')
-                option(value='') horizontal
-                option(value='') vertical
+                option(value='') #{viewElement.option[0]}
+                option(value='') #{viewElement.option[1]}
               span.control-panel__title type
           else if viewElement.type === 'checkbox'
             label.control-panel__control

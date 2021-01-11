@@ -1,29 +1,49 @@
 mixin slider({ slider={} })
   -
     const { type={}, range=false, labels=[], tooltips=true, defaultValue={}, units="", color="" } = slider
+    const { horizontal=true, vertical=false } = type
 
     const typeModifier = type.horizontal ? "horizontal" : "vertical"
+    const rangeModifier = range ? "range" : ""
     const colorModifier = color
 
     const typeClass = `slider_${typeModifier}`
-    const scaleClass = `slider__scale_${typeModifier}`
+    const scaleTypeClass = `slider__scale_${typeModifier}`
 
-    const fillClass = `slider__fill_${typeModifier}`
+    const fillTypeClass = `slider__fill_${typeModifier}`
+    const rangeFillClass = `slider__fill_${typeModifier}_${rangeModifier}`
     const colorFillClass = `slider__fill_${colorModifier}`
 
-    const handleClass = `slider__handle_${typeModifier}`
+    const handleTypeClass = `slider__handle_${typeModifier}`
     const handleColorClass = `slider__handle_${colorModifier}`
 
-    const tooltipClass = `slider__tooltip_${typeModifier}`
+    const tooltipTypeClass = `slider__tooltip_${typeModifier}`
+    const tooltipArrowTypeClass = `slider__tooltip_arrow_${typeModifier}`
     const tooltipColorClass = `slider__tooltip_${colorModifier}`
 
+    const labelsClass = `slider__labels_${typeModifier}`
+    const labelsActiveClass = `slider__labels-item_active`
+
   #slider.slider(class=typeClass)
-    .slider__scale(class=scaleClass)
-      #fill.slider__fill(class=[fillClass, colorFillClass])
-      #handle.slider__handle(class=[handleClass, handleColorClass])
-        .slider__tooltip(class=[tooltipClass, tooltipColorClass])
-          span.tooltip__value #{defaultValue.single} #{units}
-          .slider__tooltip_arrow
-      .slider__labels.slider__labels_horizontal
-        each label in labels
-          .slider__labels-item #{label}
+    .slider__scale(class=scaleTypeClass)
+      #fill.slider__fill(class=[fillTypeClass, rangeFillClass, colorFillClass])
+      if range
+        .slider__handle.slider__handle_range-first(class=[handleTypeClass, handleColorClass])
+          .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass])
+            span.tooltip__value #{defaultValue.range[0]} #{units}
+            .slider__tooltip_arrow(class=tooltipArrowTypeClass)
+        .slider__handle.slider__handle_range-second(class=[handleTypeClass, handleColorClass])
+          .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass])
+            span.tooltip__value #{defaultValue.range[1]} #{units}
+            .slider__tooltip_arrow(class=tooltipArrowTypeClass)
+        .slider__labels(class=labelsClass)
+          each label in labels
+            .slider__labels-item #{label}
+      else
+        #handle.slider__handle(class=[handleTypeClass, handleColorClass])
+          .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass])
+            span.tooltip__value #{defaultValue.single} #{units}
+            .slider__tooltip_arrow
+        .slider__labels(class=labelsClass)
+          each label in labels
+            .slider__labels-item #{label}
