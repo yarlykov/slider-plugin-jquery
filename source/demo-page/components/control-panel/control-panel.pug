@@ -1,49 +1,42 @@
-.control-panel
-  .control-panel__block-control
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__input(type='number' value='0')
-        span.control-panel__title scale min
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__input(type='number' value='100')
-        span.control-panel__title scale max
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__input(type='number' value='53')
-        span.control-panel__title value
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__input(type='number' value='1')
-        span.control-panel__title step
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__input(type='number' value='' disabled='')
-        span.control-panel__title range min
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__input(type='number' value='' disabled='')
-        span.control-panel__title range max
+mixin control-panel({ controlPanel={} })
+  - const { controls, viewElements } = controlPanel
 
-  .control-panel__block-view
-    .control-panel__row
-      label.control-panel__control
-        select.control-panel__select(name='' id='')
-          option(value='') horizontal
-          option(value='') vertical
-        span.control-panel__title type
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__checkbox(type='checkbox')
-        span.control-panel__title range
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__checkbox(type='checkbox' checked='')
-        span.control-panel__title labels
-      label.control-panel__control
-        input.control-panel__checkbox(type='checkbox' checked='')
-        span.control-panel__title tooltips
-    .control-panel__row
-      label.control-panel__control
-        input.control-panel__input.control-panel__input_text(type='text' value='¥')
-        span.control-panel__title units  
+  .control-panel
+    .control-panel__block-control
+      each control in controls
+        .control-panel__row
+          label.control-panel__control
+            input.control-panel__input&attributes({
+              type: control.type,
+              value: control.value,
+              "data-title": control.title,
+              disabled: control.disabled,
+            })
+            span.control-panel__title #{control.title}
+
+    .control-panel__block-view
+      each viewElement in viewElements
+        .control-panel__row
+          if viewElement.type === 'select' 
+            label.control-panel__control
+              select.control-panel__select(name='' id='')
+                option(value='') horizontal
+                option(value='') vertical
+              span.control-panel__title type
+          else if viewElement.type === 'checkbox'
+            label.control-panel__control
+              input.control-panel__checkbox&attributes({
+                type: viewElement.type,
+                "data-title": viewElement.title,
+                checked: viewElement.checked
+              })
+              span.control-panel__title #{viewElement.title}
+          else
+            label.control-panel__control
+              input.control-panel__input.control-panel__input_text&attributes({
+                type: viewElement.type,
+                "data-title": viewElement.title,
+                value: viewElement.value
+              })
+              span.control-panel__title #{viewElement.title}
+              
