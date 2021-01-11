@@ -1,5 +1,5 @@
 mixin control-panel({ controlPanel={} })
-  - const { controls, viewElements } = controlPanel
+  - const { controls=[], viewElements=[] } = controlPanel
 
   .control-panel
     .control-panel__block-control
@@ -39,4 +39,3 @@ mixin control-panel({ controlPanel={} })
                 value: viewElement.value
               })
               span.control-panel__title #{viewElement.title}
-              

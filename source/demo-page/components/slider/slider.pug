@@ -1,13 +1,29 @@
-#slider.slider.slider_horizontal
-  .slider__scale.slider__scale_horizontal
-    #fill.slider__fill.slider__fill_horizontal.slider__fill_orange
-    #handle.slider__handle.slider__handle_orange.slider__handle_horizontal
-      .slider__tooltip.slider__tooltip_horizontal.slider__tooltip_orange
-        span.tooltip__value 53 &yen;
-        .slider__tooltip_arrow
-    .slider__labels.slider__labels_horizontal
-      .slider__labels-item 0
-      .slider__labels-item 25
-      .slider__labels-item 50
-      .slider__labels-item 75
-      .slider__labels-item 100
+mixin slider({ slider={} })
+  -
+    const { type={}, range=false, labels=[], tooltips=true, defaultValue={}, units="", color="" } = slider
+
+    const typeModifier = type.horizontal ? "horizontal" : "vertical"
+    const colorModifier = color
+
+    const typeClass = `slider_${typeModifier}`
+    const scaleClass = `slider__scale_${typeModifier}`
+
+    const fillClass = `slider__fill_${typeModifier}`
+    const colorFillClass = `slider__fill_${colorModifier}`
+
+    const handleClass = `slider__handle_${typeModifier}`
+    const handleColorClass = `slider__handle_${colorModifier}`
+
+    const tooltipClass = `slider__tooltip_${typeModifier}`
+    const tooltipColorClass = `slider__tooltip_${colorModifier}`
+
+  #slider.slider(class=typeClass)
+    .slider__scale(class=scaleClass)
+      #fill.slider__fill(class=[fillClass, colorFillClass])
+      #handle.slider__handle(class=[handleClass, handleColorClass])
+        .slider__tooltip(class=[tooltipClass, tooltipColorClass])
+          span.tooltip__value #{defaultValue.single} #{units}
+          .slider__tooltip_arrow
+      .slider__labels.slider__labels_horizontal
+        each label in labels
+          .slider__labels-item #{label}
