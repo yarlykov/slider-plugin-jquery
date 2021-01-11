@@ -74,7 +74,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'demo-page/layout/index.pug'
+      template: 'demo-page/page/demo-page.pug'
     }),
     new MiniCssExtractPlugin({
       filename: 'slider.css'
