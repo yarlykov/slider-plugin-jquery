@@ -60,6 +60,13 @@ module.exports = {
             ]
           }
         }
+      },
+      {
+        test: /\.pug$/,
+        loader: 'pug-loader',
+        options: {
+          pretty: true,
+        }
       }
     ]
   },
@@ -67,7 +74,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'demo-page/layout/index.html'
+      template: 'demo-page/layout/index.pug'
     }),
     new MiniCssExtractPlugin({
       filename: 'slider.css'
