@@ -36,30 +36,30 @@ class Handle {
     this.$handle.addEventListener('mousedown', this.handleListener)
   }
 
-  handleListener(event) {
-    event.preventDefault();
+  handleListener(mouseEvent) {
+    mouseEvent.preventDefault();
 
-    this.horizontalShift = event.clientX - this.$handle.getBoundingClientRect().left;
+    const handleProfile = this.$handle.getBoundingClientRect().left;
+    this.horizontalShift = mouseEvent.clientX - handleProfile;
 
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
     this.$handle.addEventListener('dragstart', this.disableDragStart)
   }
 
-  onMouseMove(event) {
-    this.currentPosition(event)
+  onMouseMove(moveEvent) {
+    this.currentPosition(moveEvent)
     this.maxPosition()
 
     this.handlePosition.inPercent = this.conversionToPercent(this.handlePosition.current, this.handlePosition.max);
-    console.log(this.handlePosition.inPercent);
     this.$handle.style.left = this.handlePosition.inPercent + '%';
 
     this.tooltip(this.handlePosition.inPercent, this.tooltipSymbols.yen)
     this.fill('width', this.handlePosition.inPercent)
   }
 
-  currentPosition(event) {
-    let position = event.clientX - (this.horizontalShift / 2) - this.$slider.getBoundingClientRect().left
+  currentPosition(moveEvent) {
+    let position = moveEvent.clientX - (this.horizontalShift / 2) - this.$slider.getBoundingClientRect().left
 
     if (position < 0) {
       position = 0;
@@ -103,7 +103,9 @@ class Handle {
     this.$fill.style = `width: ${floatValue}%`;
   }
 
-  onMouseUp() {
+  onMouseUp(up ) {
+    upEvent.preventDefault();
+
     document.removeEventListener('mouseup', this.onMouseUp);
     document.removeEventListener('mousemove', this.onMouseMove);
   } 
