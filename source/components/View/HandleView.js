@@ -103,7 +103,7 @@ class Handle {
     this.$fill.style = `width: ${floatValue}%`;
   }
 
-  onMouseUp(up ) {
+  onMouseUp(upEvent ) {
     upEvent.preventDefault();
 
     document.removeEventListener('mouseup', this.onMouseUp);
