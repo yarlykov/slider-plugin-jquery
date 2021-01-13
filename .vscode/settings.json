@@ -1,0 +1,13 @@
+{
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "px-to-rem.px-per-rem": 14,
+  "cSpell.words": ["mixins", "undiscounted"],
+  "liveServer.settings.port": 5501,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+  "prettier.disableLanguages": [
+    "js"
+  ],
+}
