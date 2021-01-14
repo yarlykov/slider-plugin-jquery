@@ -14,9 +14,9 @@ class Lever {
     this.$tooltip = this.$el.querySelector('.tooltip__value');
     this.$fill = this.$el.querySelector('.slider__fill');
 
-    this.leverPosition = {
-      current: 0,
-      max: 0,
+    this.leverCoords = {
+      min: 0,
+      max: 100,
       inPercent: 0,
     };
 
@@ -54,12 +54,14 @@ class Lever {
     this._currentPosition(moveEvent);
     this._maxPosition();
 
-    this.leverPosition.inPercent = this._transformToPercent();
-    this.leverChange(this.leverPosition.inPercent);
-    // ControlPanel.record(this.leverPosition.inPercent);
+    this.leverCoords.inPercent = this._transformToPercent();
+    this.leverChange(this.leverCoords.inPercent);
+    // ControlPanel.record(this.leverCoords.inPercent);
   }
 
-  leverChange(currentValueInPercent) {
+  leverChange(valueInPercent) {
+    const currentValueInPercent = this._checkOnExtremeValues(valueInPercent);
+
     this.$lever.style.left = `${currentValueInPercent}%`;
     this.tooltipChange(currentValueInPercent, this.tooltipSymbols.yen);
     this.fillChange('width', currentValueInPercent);
@@ -93,19 +95,32 @@ class Lever {
       position = 0;
     }
 
-    this.leverPosition.current = position;
+    this.leverCoords.current = position;
   }
 
   _maxPosition() {
-    this.leverPosition.max = this.$slider.offsetWidth;
+    this.leverCoords.max = this.$slider.offsetWidth;
 
-    if (this.leverPosition.current > this.leverPosition.max) {
-      this.leverPosition.current = this.leverPosition.max;
+    if (this.leverCoords.current > this.leverCoords.max) {
+      this.leverCoords.current = this.leverCoords.max;
     }
   }
 
   _transformToPercent() {
-    return (this.leverPosition.current * 100) / this.leverPosition.max;
+    return (this.leverCoords.current * 100) / this.leverCoords.max;
+  }
+
+  _checkOnExtremeValues(currentLeverValue) {
+    let newValue = 0;
+
+    if (currentLeverValue < this.leverCoords.min) {
+      newValue = this.leverCoords.min;
+    } else if (currentLeverValue > this.leverCoords.max) {
+      newValue = this.leverCoords.max;
+    } else {
+      newValue = currentLeverValue;
+    }
+    return newValue;
   }
 
   _disableDragStart() {
@@ -117,15 +132,3 @@ const mainNode = document.querySelector('#slider');
 
 const slider = new Lever(mainNode);
 window.slider = slider;
-
-// ПЕРЕНЕСТИ МЕТОД В ControlPanel
-// position(position = 'left', percent) {
-//   if (percent < 0) {
-//     this.percent = 0;
-//   }
-
-//   this.$lever.style = `${position}: ${percent}%`;
-
-//   this.tooltipChange(percent);
-//   this.fillChange('width', percent);
-// }
