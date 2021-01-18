@@ -1,4 +1,4 @@
-// import ControlPanel from './ControlPanel';
+import ControlPanel from './ControlPanel';
 
 class Lever {
   constructor(node) {
@@ -13,6 +13,8 @@ class Lever {
     this.$slider = this.$el.querySelector('.slider__scale');
     this.$tooltip = this.$el.querySelector('.tooltip__value');
     this.$fill = this.$el.querySelector('.slider__fill');
+
+    this.panel = new ControlPanel();
 
     this.leverCoords = {
       min: 0,
@@ -56,7 +58,6 @@ class Lever {
 
     this.leverCoords.inPercent = this._transformToPercent();
     this.leverChange(this.leverCoords.inPercent);
-    // ControlPanel.record(this.leverCoords.inPercent);
   }
 
   leverChange(valueInPercent) {
@@ -65,6 +66,8 @@ class Lever {
     this.$lever.style.left = `${currentValueInPercent}%`;
     this.tooltipChange(currentValueInPercent, this.tooltipSymbols.yen);
     this.fillChange('width', currentValueInPercent);
+
+    this.panel.record(Math.floor(valueInPercent));
   }
 
   tooltipChange(currentValueInPercent, tooltipSymbol = 'val') {
@@ -127,6 +130,7 @@ class Lever {
     return false;
   }
 }
+export default Lever;
 
 const mainNode = document.querySelector('#slider');
 
