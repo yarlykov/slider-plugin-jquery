@@ -4,6 +4,7 @@ import './demo-page/styles/main.scss';
 // import './components/View/ControlPanel';
 
 const slider = new Slider('#slider', {
-  components: []; 
+  components: [],
 });
+
 console.log(slider);
