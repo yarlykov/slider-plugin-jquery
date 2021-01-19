@@ -14,7 +14,7 @@ class Lever {
     this.$tooltip = this.$el.querySelector('.tooltip__value');
     this.$fill = this.$el.querySelector('.slider__fill');
 
-    this.panel = new ControlPanel();
+    this.ControlPanel = new ControlPanel();
 
     this.leverCoords = {
       min: 0,
@@ -67,7 +67,11 @@ class Lever {
     this.tooltipChange(currentValueInPercent, this.tooltipSymbols.yen);
     this.fillChange('width', currentValueInPercent);
 
-    this.panel.record(Math.floor(valueInPercent));
+    this.setPanelCurrentValue(valueInPercent);
+  }
+
+  setPanelCurrentValue(valueInPercent) {
+    this.ControlPanel.setCurrentValue(Math.floor(valueInPercent));
   }
 
   tooltipChange(currentValueInPercent, tooltipSymbol = 'val') {
