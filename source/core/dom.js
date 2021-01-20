@@ -4,7 +4,7 @@ class Dom {
       ? document.querySelector(selector)
       : selector;
   }
- 
+
   html(html) {
     if (typeof html === 'string') {
       this.$nativeElement.innerHTML = html;

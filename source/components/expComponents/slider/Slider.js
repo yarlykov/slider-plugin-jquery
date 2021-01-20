@@ -34,10 +34,19 @@ class Slider {
     `;
   }
 
+  getClasses() {
+    this.components = this.components.map((Component) => {
+      const $el = document.querySelector(`.${Component.className}`);
+      const component = new Component($el);
+      return component;
+    });
+  }
+
   getRoot() {
     const $root = $.create('div', 'demo-page__block');
-    const controlPanel = new ControlPanel();
-    const $controlPanel = $.create('div', ControlPanel.className);
+
+    const $controlPanel = $.create('div', 'control-panel');
+    const controlPanel = new ControlPanel($controlPanel);
     $controlPanel.html(controlPanel.toHTML());
 
     const $slider = $.create('div', 'slider');
@@ -52,6 +61,10 @@ class Slider {
 
   render() {
     this.$mainHtmlNode.append(this.getRoot());
+    this.getClasses();
+    this.components.forEach(component => {
+      component.init();
+    });
   }
 }
 

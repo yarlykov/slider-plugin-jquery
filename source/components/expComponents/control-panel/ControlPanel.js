@@ -1,6 +1,13 @@
 import SliderComponent from '../../../core/SliderComponent';
 
 class ControlPanel extends SliderComponent {
+  constructor($root) {
+    super($root, {
+      name: 'ControlPanel',
+      listeners: ['input'],
+    });
+  }
+
   toHTML() {
     return `
       <div class="control-panel__block-control">
@@ -77,6 +84,10 @@ class ControlPanel extends SliderComponent {
         </div>
       </div>
     `;
+  }
+
+  onInput(event) {
+    console.log('ControlPanel: onInput', event);
   }
 }
 ControlPanel.className = 'control-panel';
