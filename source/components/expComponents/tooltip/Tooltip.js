@@ -5,6 +5,6 @@ class Tooltip extends SliderComponent {
     return '<h1>Tooltip</h1>';
   }
 }
-Tooltip.className = '.slider__tooltip';
+Tooltip.className = 'slider__tooltip';
 
 export default Tooltip;
