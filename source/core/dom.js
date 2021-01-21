@@ -18,6 +18,12 @@ class Dom {
     return this;
   }
 
+  on(eventType, callback) {
+    console.log(this.$nativeElement);
+
+    this.$nativeElement.addEventListener(eventType, callback);
+  }
+
   append(node) {
     let domNode = node;
     if (domNode instanceof Dom) {
