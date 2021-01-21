@@ -89,6 +89,10 @@ class ControlPanel extends SliderComponent {
   onInput(event) {
     console.log('ControlPanel: onInput', event);
   }
+
+  onClick(event) {
+    console.log('ControlPanel: onClick', event);
+  }
 }
 ControlPanel.className = 'control-panel';
 

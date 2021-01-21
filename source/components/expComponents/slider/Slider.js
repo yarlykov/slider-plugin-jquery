@@ -1,16 +1,6 @@
-import $ from '../../../core/dom';
-import ControlPanel from '../control-panel/ControlPanel';
+import SliderComponent from '../../../core/SliderComponent';
 
-class Slider {
-  constructor(selector, options) {
-    this.init(selector);
-    this.components = options.components || [];
-  }
-
-  init(mainHtmlNode) {
-    this.$mainHtmlNode = $(mainHtmlNode);
-  }
-
+class Slider extends SliderComponent {
   toHTML() {
     return `
       <div class="slider slider_horizontal" id="slider">
@@ -33,39 +23,7 @@ class Slider {
       </div>
     `;
   }
-
-  getClasses() {
-    this.components = this.components.map((Component) => {
-      const $el = document.querySelector(`.${Component.className}`);
-      const component = new Component($el);
-      return component;
-    });
-  }
-
-  getRoot() {
-    const $root = $.create('div', 'demo-page__block');
-
-    const $controlPanel = $.create('div', 'control-panel');
-    const controlPanel = new ControlPanel($controlPanel);
-    $controlPanel.html(controlPanel.toHTML());
-
-    const $slider = $.create('div', 'slider');
-    $slider.$nativeElement.classList.add('slider_horizontal');
-    $slider.html(this.toHTML());
-
-    $root.append($controlPanel);
-    $root.append($slider);
-
-    return $root;
-  }
-
-  render() {
-    this.$mainHtmlNode.append(this.getRoot());
-    this.getClasses();
-    this.components.forEach(component => {
-      component.init();
-    });
-  }
 }
+Slider.className = 'slider';
 
 export default Slider;

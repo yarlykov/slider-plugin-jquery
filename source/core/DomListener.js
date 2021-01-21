@@ -1,3 +1,9 @@
+import capitalize from './utils';
+
+function getMethodName(eventName) {
+  return `on${capitalize(eventName)}`;
+}
+
 class DomListener {
   constructor($root, listeners = []) {
     if (!$root) {
@@ -8,7 +14,12 @@ class DomListener {
   }
 
   initDOMListeners() {
-    console.log(this.listeners);
+    this.listeners.forEach((listener) => {
+      const method = getMethodName(listener);
+      // console.log(this.$root['onClick']);
+
+      this.$root.on(listener, this[method]);
+    });
   }
 
   removeDOMListeners() {

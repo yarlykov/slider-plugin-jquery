@@ -19,8 +19,6 @@ class Dom {
   }
 
   on(eventType, callback) {
-    console.log(this.$nativeElement);
-
     this.$nativeElement.addEventListener(eventType, callback);
   }
 
