@@ -16,9 +16,13 @@ class DomListener {
   initDOMListeners() {
     this.listeners.forEach((listener) => {
       const method = getMethodName(listener);
-      // console.log(this.$root['onClick']);
+      if (!this[method]) {
+        throw new Error(
+          `Method ${method} is not implemented in ${this.name} Component`,
+        );
+      }
 
-      this.$root.on(listener, this[method]);
+      this.$root.on(listener, this[method].bind(this));
     });
   }
 

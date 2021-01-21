@@ -4,7 +4,7 @@ class ControlPanel extends SliderComponent {
   constructor($root) {
     super($root, {
       name: 'ControlPanel',
-      listeners: ['input'],
+      listeners: ['input', 'click'],
     });
   }
 
@@ -13,7 +13,7 @@ class ControlPanel extends SliderComponent {
       <div class="control-panel__block-control">
         <div class="control-panel__row">
           <label class="control-panel__control">
-            <input type="number" class="control-panel__input" value="0">
+            <input type="number" class="control-panel__input" value="0" data-title="scale-min">
             <span class="control-panel__title">scale min</span>
           </label>
         </div>
@@ -87,7 +87,7 @@ class ControlPanel extends SliderComponent {
   }
 
   onInput(event) {
-    console.log('ControlPanel: onInput', event);
+    console.log('ControlPanel: onInput', event.target.value);
   }
 
   onClick(event) {
