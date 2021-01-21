@@ -13,6 +13,10 @@ class SliderComponent extends DomListener {
   init() {
     this.initDOMListeners();
   }
+
+  destroy() {
+    this.removeDOMListeners();
+  }
 }
 
 export default SliderComponent;

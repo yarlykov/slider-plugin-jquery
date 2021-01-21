@@ -22,6 +22,10 @@ class Dom {
     this.$nativeElement.addEventListener(eventType, callback);
   }
 
+  off(eventType, callback) {
+    this.$nativeElement.removeEventListener(eventType, callback);
+  }
+
   append(node) {
     let domNode = node;
     if (domNode instanceof Dom) {
