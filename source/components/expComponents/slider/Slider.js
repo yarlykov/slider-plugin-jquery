@@ -3,7 +3,7 @@ import SliderComponent from '../../../core/SliderComponent';
 class Slider extends SliderComponent {
   toHTML() {
     return `
-      <div class="slider slider_horizontal" id="slider">
+      <div class="slider_horizontal" id="slider">
         <div class="slider__scale slider__scale_horizontal">
           <div class="slider__fill slider__fill_horizontal slider__fill_orange" id="fill"></div>
           <div class="slider__lever slider__lever_orange slider__lever_horizontal" id='lever'>
