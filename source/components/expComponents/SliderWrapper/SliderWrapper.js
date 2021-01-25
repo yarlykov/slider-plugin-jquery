@@ -1,8 +1,8 @@
 import $ from '../../../core/dom';
 
-class SliderBlock {
-  constructor(selector, options) {
-    this.init(selector);
+class SliderWrapper {
+  constructor(mainHtmlNode, options) {
+    this.init(mainHtmlNode);
     this.components = options.components || [];
   }
 
@@ -30,4 +30,4 @@ class SliderBlock {
   }
 }
 
-export default SliderBlock;
+export default SliderWrapper;
