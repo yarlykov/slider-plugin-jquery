@@ -57,6 +57,8 @@ class Slider extends SliderComponent {
   }
 
   onMousedown(mouseEvent) {
+    mouseEvent.preventDefault();
+
     if (mouseEvent.target.dataset.leverComponent === 'lever') {
       const orientation = mouseEvent.target.closest('[data-slider="horizontal"]')
         ? 'horizontal'
