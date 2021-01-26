@@ -38,6 +38,22 @@ class Dom {
     }
     return this;
   }
+
+  closest(selector) {
+    return this.$nativeElement.closest(selector);
+  }
+
+  querySelector(selector) {
+    return this.$nativeElement.querySelector(selector);
+  }
+
+  prev() {
+    return this.$nativeElement.previousElementSibling;
+  }
+
+  getCoords() {
+    return this.$nativeElement.getBoundingClientRect();
+  }
 }
 
 export default function $(selector) {
