@@ -11,7 +11,7 @@ class Slider extends SliderComponent {
 
   toHTML() {
     const horizontalSlider = `
-      <div class="slider_horizontal" id="slider">
+      <div class="slider slider_horizontal" data-slider="horizontal">
         <div class="slider__scale slider__scale_horizontal" data-scale-component="scale">
           <div class="slider__fill slider__fill_horizontal slider__fill_orange" data-component="fill"></div>
           <div class="slider__lever slider__lever_orange slider__lever_horizontal" data-lever-component="lever">
@@ -32,7 +32,7 @@ class Slider extends SliderComponent {
     `;
 
     const verticalSlider = `
-      <div class="slider_vertical" id="slider">
+      <div class=" slider slider_vertical" data-slider="vertical">
         <div class="slider__scale slider__scale_vertical" data-scale-component="scale">
           <div class="slider__fill slider__fill_vertical slider__fill_orange" data-component="fill"></div>
           <div class="slider__lever slider__lever_vertical slider__lever_orange" data-lever-component="lever">
@@ -52,11 +52,15 @@ class Slider extends SliderComponent {
       </div>
     `;
 
+    // return verticalSlider;
     return horizontalSlider;
   }
 
   onMousedown(mouseEvent) {
     if (mouseEvent.target.dataset.leverComponent === 'lever') {
+      const orientation = mouseEvent.target.closest('[data-slider="horizontal"]')
+        ? 'horizontal'
+        : 'vertical';
       const $lever = $(mouseEvent.target);
       const $leverParent = $($lever.closest('[data-scale-component="scale"]'));
       const coords = $leverParent.getCoords();
@@ -64,24 +68,42 @@ class Slider extends SliderComponent {
       const $fill = $($lever.prev());
 
       document.onmousemove = (moveEvent) => {
-        const delta = moveEvent.pageX - coords.left;
-        let currentPosition = (delta * 100) / coords.width;
+        if (orientation === 'horizontal') {
+          const delta = moveEvent.pageX - coords.left;
+          const leverPosition = (delta * 100) / coords.width;
+          const currentPosition = this._checkOnExtremeValues(leverPosition);
 
-        if (currentPosition < 0) {
-          currentPosition = 0;
-        } else if (currentPosition > 100) {
-          currentPosition = 100;
+          $lever.$nativeElement.style.left = `${currentPosition}%`;
+          $tooltipValue.$nativeElement.textContent = `${Math.ceil(currentPosition.toString())} ¥`;
+          $fill.$nativeElement.style.width = `${currentPosition}%`;
+        } else {
+          const delta = coords.bottom - moveEvent.pageY;
+          const leverPosition = (delta * 100) / coords.height;
+          const currentPosition = this._checkOnExtremeValues(leverPosition);
+
+          $lever.$nativeElement.style.bottom = `${currentPosition}%`;
+          $tooltipValue.$nativeElement.textContent = `${Math.ceil(currentPosition.toString())} ¥`;
+          $fill.$nativeElement.style.height = `${currentPosition}%`;
         }
-
-        $lever.$nativeElement.style.left = `${currentPosition}%`;
-        $tooltipValue.$nativeElement.textContent = `${Math.ceil(currentPosition.toString())} ¥`;
-        $fill.$nativeElement.style.width = `${currentPosition}%`;
       };
 
       document.onmouseup = () => {
         document.onmousemove = null;
       };
     }
+  }
+
+  _checkOnExtremeValues(currentLeverValue) {
+    let newValue = 0;
+
+    if (currentLeverValue < 0) {
+      newValue = 0;
+    } else if (currentLeverValue > 100) {
+      newValue = 100;
+    } else {
+      newValue = currentLeverValue;
+    }
+    return newValue;
   }
 }
 Slider.className = 'slider';
