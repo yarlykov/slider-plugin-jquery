@@ -4,7 +4,7 @@
 import Slider from './components/expComponents/slider/Slider';
 import ControlPanel from './components/expComponents/control-panel/ControlPanel';
 import SliderWrapper from './components/expComponents/SliderWrapper/SliderWrapper';
-import Scale from './components/expComponents/scale/Scale';
+// import Scale from './components/expComponents/scale/Scale';
 // import Lever from './components/expComponents/lever/Lever';
 // import Tooltip from './components/expComponents/tooltip/Tooltip';
 // import Fill from './components/expComponents/fill/Fill';
