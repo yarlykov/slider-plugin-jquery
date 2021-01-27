@@ -39,6 +39,14 @@ class Dom {
     return this;
   }
 
+  css(styles = {}) {
+    Object.keys(styles).forEach((key) => { this.$nativeElement.style[key] = styles[key]; });
+  }
+
+  text(textContent) {
+    this.$nativeElement.textContent = textContent;
+  }
+
   closest(selector) {
     return this.$nativeElement.closest(selector);
   }
@@ -48,7 +56,7 @@ class Dom {
   }
 
   prev() {
-    return this.$nativeElement.previousElementSibling;
+    return this.$nativeElement.previousElementSibling || null;
   }
 
   getCoords() {
