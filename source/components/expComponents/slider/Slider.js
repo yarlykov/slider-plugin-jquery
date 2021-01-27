@@ -1,5 +1,5 @@
 import SliderComponent from '../../../core/SliderComponent';
-import $ from '../../../core/dom';
+import movesTheSlider from './slider.movesTheSlider';
 
 class Slider extends SliderComponent {
   constructor($root) {
@@ -52,61 +52,20 @@ class Slider extends SliderComponent {
       </div>
     `;
 
-    return verticalSlider;
+    // return verticalSlider;
     return horizontalSlider;
   }
 
   onMousedown(mouseEvent) {
     mouseEvent.preventDefault();
-    const isLever = mouseEvent.target.dataset.leverComponent === 'lever';
 
-    if (isLever) {
-      const orientation = mouseEvent.target.closest('[data-slider="horizontal"]')
-        ? 'horizontal'
-        : 'vertical';
-      const $lever = $(mouseEvent.target);
-      const $leverParent = $($lever.closest('[data-scale-component="scale"]'));
-      const scaleCoords = $leverParent.getCoords();
-      const $tooltipValue = $($lever.querySelector('[data-lever-component="tooltip-value"]'));
-      const $fill = $($lever.prev());
-
-      document.onmousemove = (moveEvent) => {
-        if (orientation === 'horizontal') {
-          const delta = moveEvent.pageX - scaleCoords.left;
-          const positionInPercent = (delta * 100) / scaleCoords.width;
-          const currentPosition = this._checkOnExtremeValues(positionInPercent);
-
-          $lever.css({ left: `${currentPosition}%` });
-          $tooltipValue.text(`${Math.ceil(currentPosition.toString())} ¥`);
-          $fill.css({ width: `${currentPosition}%` });
-        } else if (orientation === 'vertical') {
-          const delta = scaleCoords.bottom - moveEvent.pageY;
-          const positionInPercent = (delta * 100) / scaleCoords.height;
-          const currentPosition = this._checkOnExtremeValues(positionInPercent);
-
-          $lever.css({ bottom: `${currentPosition}%` });
-          $tooltipValue.text(`${Math.ceil(currentPosition.toString())} ¥`);
-          $fill.css({ height: `${currentPosition}%` });
-        }
-      };
-
-      document.onmouseup = () => {
-        document.onmousemove = null;
-      };
+    if (this.isLever(mouseEvent)) {
+      movesTheSlider(mouseEvent);
     }
   }
 
-  _checkOnExtremeValues(currentLeverValue) {
-    let newValue = 0;
-
-    if (currentLeverValue < 0) {
-      newValue = 0;
-    } else if (currentLeverValue > 100) {
-      newValue = 100;
-    } else {
-      newValue = currentLeverValue;
-    }
-    return newValue;
+  isLever(mouseEvent) {
+    return mouseEvent.target.dataset.leverComponent === 'lever';
   }
 }
 Slider.className = 'slider';

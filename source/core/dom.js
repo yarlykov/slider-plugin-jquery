@@ -40,7 +40,11 @@ class Dom {
   }
 
   css(styles = {}) {
-    Object.keys(styles).forEach((key) => { this.$nativeElement.style[key] = styles[key]; });
+    Object
+      .keys(styles)
+      .forEach((key) => {
+        this.$nativeElement.style[key] = styles[key];
+      });
   }
 
   text(textContent) {
