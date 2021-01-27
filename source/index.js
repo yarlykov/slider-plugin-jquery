@@ -3,7 +3,7 @@
 
 import Slider from './components/expComponents/slider/Slider';
 import ControlPanel from './components/expComponents/control-panel/ControlPanel';
-import SliderWrapper from './components/expComponents/SliderWrapper/SliderWrapper';
+import Container from './components/expComponents/Container/Container';
 // import Scale from './components/expComponents/scale/Scale';
 // import Lever from './components/expComponents/lever/Lever';
 // import Tooltip from './components/expComponents/tooltip/Tooltip';
@@ -11,8 +11,8 @@ import SliderWrapper from './components/expComponents/SliderWrapper/SliderWrappe
 // import Labels from './components/expComponents/labels/Labels';
 import './demo-page/styles/main.scss';
 
-const sliderWrapper = new SliderWrapper('.demo-page__wrapper', {
+const container = new Container('.demo-page__wrapper', {
   components: [ControlPanel, Slider],
 });
 
-sliderWrapper.render();
+container.render();
