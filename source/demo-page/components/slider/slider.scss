@@ -172,13 +172,16 @@
       height: 7px;
       transform: rotate(45deg);
       background: inherit;
-      top: 14px;
       z-index: -1;
     }
 
     &_arrow_vertical {
       top: 6px;
       left: 28px;
+    }
+
+    &_arrow_horizontal {
+      top: 14px;
     }
 
     &_orange {

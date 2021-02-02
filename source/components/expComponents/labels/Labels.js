@@ -1,13 +1,31 @@
-import SliderComponent from '../../../core/SliderComponent';
+class Labels {
+  constructor(options = {}) {
+    this.options = options;
+  }
 
-class Labels extends SliderComponent {
+  createLabel(label = '0') {
+    return `<div class="slider__labels-item" data-label="${label}">${label}</div>`;
+  }
+
+  render() {
+    const { labels = [], orientation = '' } = this.options;
+    const items = orientation === 'vertical' ? labels.reverse() : labels;
+    const item = [];
+
+    for (let i = 0; i < items.length; i += 1) {
+      item.push(this.createLabel(items[i]));
+    }
+
+    return item.join(' ');
+  }
+
   toHTML() {
+    const { orientation = '' } = this.options;
+
     return `
-      <div class="slider__labels-item">0</div>
-      <div class="slider__labels-item">25</div>
-      <div class="slider__labels-item">50</div>
-      <div class="slider__labels-item">75</div>
-      <div class="slider__labels-item">100</div>
+      <div class="slider__labels slider__labels_${orientation}" data-component="labels">
+        ${this.render()}
+      </div>
     `;
   }
 }

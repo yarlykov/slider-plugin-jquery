@@ -1,8 +1,14 @@
-import SliderComponent from '../../../core/SliderComponent';
+class Fill {
+  constructor(options = {}) {
+    this.options = options;
+  }
 
-class Fill extends SliderComponent {
   toHTML() {
-    return '';
+    const { orientation = '' } = this.options;
+
+    return `
+      <div class="slider__fill slider__fill_${orientation} slider__fill_orange" data-component="fill"></div>
+    `;
   }
 }
 Fill.className = 'slider__fill';

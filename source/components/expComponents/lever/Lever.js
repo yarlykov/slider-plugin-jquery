@@ -1,11 +1,23 @@
 import SliderComponent from '../../../core/SliderComponent';
+import movesTheSlider from '../slider/slider.movesTheSlider';
+import Tooltip from '../tooltip/Tooltip';
 
-class Lever extends SliderComponent {
+class Lever {
+  constructor(options) {
+    this.options = options;
+    this.prepare();
+  }
+
+  prepare() {
+    this.$tooltip = new Tooltip(this.options);
+  }
+
   toHTML() {
+    const { orientation } = this.options;
+
     return `
-      <div class="slider__tooltip slider__tooltip_horizontal slider__tooltip_orange">
-        <span class="tooltip__value">53 ¥</span>
-        <div class="slider__tooltip_arrow"></div>
+      <div class="slider__lever slider__lever_orange slider__lever_${orientation}" data-lever-component="lever">
+        ${this.$tooltip.toHTML()}
       </div>
     `;
   }
