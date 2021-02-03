@@ -7,7 +7,7 @@ class Fill {
     const { orientation = '' } = this.options;
 
     return `
-      <div class="slider__fill slider__fill_${orientation} slider__fill_orange" data-component="fill"></div>
+      <div class="slider__fill slider__fill_${orientation} slider__fill_orange" data-scale-component="fill"></div>
     `;
   }
 }

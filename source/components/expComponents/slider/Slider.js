@@ -1,5 +1,6 @@
 import SliderComponent from '../../../core/SliderComponent';
 import movesTheSlider from './slider.movesTheSlider';
+import clickedOnSliderScale from './slider.clickedOnSliderScale';
 import Scale from '../scale/Scale';
 
 class Slider extends SliderComponent {
@@ -30,10 +31,17 @@ class Slider extends SliderComponent {
 
   onMousedown(mouseEvent) {
     mouseEvent.preventDefault();
+    if (this.isScale(mouseEvent)) {
+      clickedOnSliderScale(mouseEvent);
+    }
 
     if (this.isLever(mouseEvent)) {
       movesTheSlider(mouseEvent);
     }
+  }
+
+  isScale(mouseEvent) {
+    return mouseEvent.target.dataset.scaleComponent || null;
   }
 
   isLever(mouseEvent) {
