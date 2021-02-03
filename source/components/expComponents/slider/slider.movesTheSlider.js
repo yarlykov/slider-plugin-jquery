@@ -8,7 +8,7 @@ function movesTheSlider(mouseEvent) {
   const $lever = $(mouseEvent.target);
   const $leverParent = $($lever.closest('[data-scale-component="scale"]'));
   const scaleCoords = $leverParent.getCoords();
-  const $tooltipValue = $($lever.querySelector('[data-lever-component="tooltip-value"]'));
+  const $tooltipValue = $($lever.find('[data-lever-component="tooltip-value"]'));
   const $fill = $($lever.prev());
 
   document.onmousemove = (moveEvent) => {

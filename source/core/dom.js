@@ -55,7 +55,7 @@ class Dom {
     return this.$nativeElement.closest(selector);
   }
 
-  querySelector(selector) {
+  find(selector) {
     return this.$nativeElement.querySelector(selector);
   }
 
