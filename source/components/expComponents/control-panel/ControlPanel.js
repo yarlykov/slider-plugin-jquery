@@ -4,7 +4,7 @@ class ControlPanel extends SliderComponent {
   constructor($root) {
     super($root, {
       name: 'ControlPanel',
-      listeners: ['input', 'click'],
+      listeners: ['input', 'click', 'keydown'],
     });
   }
 
@@ -81,6 +81,10 @@ class ControlPanel extends SliderComponent {
 
   onClick(event) {
     console.log('ControlPanel: onClick', event);
+  }
+
+  onKeydown(event) {
+    console.log(event);
   }
 }
 ControlPanel.className = 'control-panel';
