@@ -4,10 +4,11 @@ import clickedOnSliderScale from './slider.clickedOnSliderScale';
 import Scale from '../scale/Scale';
 
 class Slider extends SliderComponent {
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'slider',
       listeners: ['mousedown'],
+      ...options,
     });
   }
 
@@ -17,6 +18,12 @@ class Slider extends SliderComponent {
       labels: ['0', '25', '50', '75', '100'],
     };
     this.$scale = new Scale(this.options);
+  }
+
+  init() {
+    super.init();
+    const lever = document.querySelector('[data-lever-component="lever"]');
+    this.emitter.makeSubscribe('it is working', (text) => lever.style.left = `${text}%`);
   }
 
   toHTML() {

@@ -1,10 +1,11 @@
 import SliderComponent from '../../../core/SliderComponent';
 
 class ControlPanel extends SliderComponent {
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'ControlPanel',
-      listeners: ['input', 'click', 'keydown'],
+      listeners: ['input'],
+      ...options,
     });
   }
 
@@ -76,15 +77,14 @@ class ControlPanel extends SliderComponent {
   }
 
   onInput(event) {
-    console.log('ControlPanel: onInput', event.target.value);
+    const text = event.target.value;
+    this.emitter.emit('it is working', text);
   }
 
   onClick(event) {
-    console.log('ControlPanel: onClick', event);
   }
 
   onKeydown(event) {
-    console.log(event);
   }
 }
 ControlPanel.className = 'control-panel';
