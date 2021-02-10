@@ -1,8 +1,5 @@
 import $ from '../../../core/dom';
 import { checkOnExtremeValues } from '../../../core/utils';
-import Emitter from '../../../core/Emitter';
-
-const emitter = new Emitter();
 
 function movesTheSlider(mouseEvent) {
   const orientation = mouseEvent.target.closest('[data-slider="horizontal"]')
