@@ -4,11 +4,11 @@ class Lever extends SliderComponent {
   constructor($root, options) {
     super($root, {
       name: 'Lever',
-      listeners: ['input'],
+      listeners: [],
       ...options,
     });
   }
 }
-Lever.className = 'slider__lever';
+Lever.dataId = '[data-id="lever"]';
 
 export default Lever;

@@ -10,8 +10,10 @@ class ControlPanel extends SliderComponent {
   }
 
   onInput(event) {
+    console.log(event.target.value);
   }
 }
 ControlPanel.className = 'control-panel';
+ControlPanel.dataId = '[data-id="control-panel"]';
 
 export default ControlPanel;

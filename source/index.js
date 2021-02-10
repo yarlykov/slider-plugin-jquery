@@ -1,18 +1,28 @@
 // import './components/View/LeverView';
 // import './components/View/ControlPanel';
 
-import Slider from './components/slider/Slider';
-import ControlPanel from './components/control-panel/ControlPanel';
 import Container from './components/Container/Container';
-// import Scale from './components/expComponents/scale/Scale';
-// import Lever from './components/expComponents/lever/Lever';
-// import Tooltip from './components/expComponents/tooltip/Tooltip';
-// import Fill from './components/expComponents/fill/Fill';
-// import Labels from './components/expComponents/labels/Labels';
+import ControlPanel from './components/control-panel/ControlPanel';
+import Slider from './components/slider/Slider';
+import Fill from './components/fill/Fill';
+import Labels from './components/labels/Labels';
+import Lever from './components/lever/Lever';
+import Scale from './components/scale/Scale';
+import Tooltip from './components/tooltip/Tooltip';
+
 import './demo-page/styles/main.scss';
 
-const container = new Container('.demo-page__wrapper', {
-  components: [ControlPanel, Slider],
-});
+// const wrapper = document.querySelectorAll('.demo-page__block');
 
-container.render();
+// wrapper.forEach((node) => {
+//   console.log(node);
+//   const container = new Container(node, {
+//     components: [ControlPanel, Slider, Fill, Labels, Lever, Scale, Tooltip],
+//   });
+//   container.render();
+// });
+
+const container = new Container('.demo-page__block', {
+  components: [ControlPanel, Slider, Fill, Labels, Lever, Scale, Tooltip],
+});
+container.getRoot();

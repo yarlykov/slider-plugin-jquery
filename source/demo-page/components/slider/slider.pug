@@ -24,11 +24,11 @@ mixin slider({ slider={} })
     const labelsClass = `slider__labels_${typeModifier}`
     const labelsActiveClass = `slider__labels-item_active`
 
-  #slider.slider(class=typeClass)
-    .slider__scale(class=scaleTypeClass)
-      #fill.slider__fill(class=[fillTypeClass, rangeFillClass, colorFillClass])
+  .slider(class=typeClass data-id="slider" data-slider="horizontal")
+    .slider__scale(class=scaleTypeClass data-id="scale" data-scale-component="scale")
+      .slider__fill(class=[fillTypeClass, rangeFillClass, colorFillClass] data-id="fill")
       if range
-        .slider__lever.slider__lever_range-first(class=[leverTypeClass, leverColorClass])
+        .slider__lever.slider__lever_range-first(class=[leverTypeClass, leverColorClass] )
           .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass])
             span.tooltip__value #{defaultValue.range[0]} #{units}
             .slider__tooltip_arrow(class=tooltipArrowTypeClass)
@@ -40,10 +40,10 @@ mixin slider({ slider={} })
           each label in labels
             .slider__labels-item #{label}
       else
-        #lever.slider__lever(class=[leverTypeClass, leverColorClass])
-          .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass])
-            span.tooltip__value #{defaultValue.single} #{units}
+        .slider__lever(class=[leverTypeClass, leverColorClass] data-id="lever" data-lever-component="lever")
+          .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip")
+            span.tooltip__value(data-lever-component="tooltip-value") #{defaultValue.single} #{units}
             .slider__tooltip_arrow
-        .slider__labels(class=labelsClass)
+        .slider__labels(class=labelsClass data-id="labels")
           each label in labels
             .slider__labels-item #{label}

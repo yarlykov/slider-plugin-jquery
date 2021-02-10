@@ -5,14 +5,10 @@ import clickedOnSliderScale from './slider.clickedOnSliderScale';
 class Slider extends SliderComponent {
   constructor($root, options) {
     super($root, {
-      name: 'slider',
+      name: 'Slider',
       listeners: ['mousedown'],
       ...options,
     });
-  }
-
-  init() {
-    super.init();
   }
 
   onMousedown(mouseEvent) {
@@ -34,6 +30,6 @@ class Slider extends SliderComponent {
     return mouseEvent.target.dataset.leverComponent === 'lever';
   }
 }
-Slider.className = 'slider';
+Slider.dataId = '[data-id="slider"]';
 
 export default Slider;

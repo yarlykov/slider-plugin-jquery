@@ -3,12 +3,12 @@ import SliderComponent from '../../core/SliderComponent';
 class Tooltip extends SliderComponent {
   constructor($root, options) {
     super($root, {
-      name: 'slider',
+      name: 'Tooltip',
       listeners: [],
       ...options,
     });
   }
 }
-Tooltip.className = 'slider__tooltip';
+Tooltip.dataId = '[data-id="tooltip"]';
 
 export default Tooltip;

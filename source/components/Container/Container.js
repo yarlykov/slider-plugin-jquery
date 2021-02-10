@@ -13,25 +13,18 @@ class Container {
   }
 
   getRoot() {
-    // const $root = $.create('div', 'demo-page__block');
-    const $root = $.create('div', 'demo-page');
     const componentOptions = {
       emitter: this.emitter,
     };
 
     this.components = this.components.map((Component) => {
-      const $el = $.create('div', Component.className);
-      const component = new Component($el, componentOptions);
-      // $el.html(component.toHTML());
-      // $root.append($el);
+      const $root = $(this.$mainHtmlNode.find(Component.dataId));
+      const component = new Component($root, componentOptions);
       return component;
     });
-    return $root;
   }
 
   render() {
-    this.$mainHtmlNode.append(this.getRoot());
-
     this.components.forEach((component) => component.init());
   }
 }

@@ -9,6 +9,6 @@ class Scale extends SliderComponent {
     });
   }
 }
-Scale.className = 'slider__scale';
+Scale.dataId = '[data-id="scale"]';
 
 export default Scale;

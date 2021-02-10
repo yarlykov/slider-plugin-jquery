@@ -1,7 +1,7 @@
 mixin control-panel({ controlPanel={} })
   - const { controls=[], viewElements=[] } = controlPanel
 
-  .control-panel
+  .control-panel(data-id="control-panel")
     .control-panel__block-control
       each control in controls
         .control-panel__row

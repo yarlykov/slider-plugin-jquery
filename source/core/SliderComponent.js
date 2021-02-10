@@ -5,7 +5,7 @@ class SliderComponent extends DomListener {
     super($root, options.listeners);
     this.name = options.name || '';
     this.emitter = options.emitter;
-    this.prepare();
+    this.init();
   }
 
   prepare() {}
