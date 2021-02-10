@@ -1,5 +1,5 @@
-import $ from '../../../core/dom';
-import { checkOnExtremeValues } from '../../../core/utils';
+import $ from '../../core/dom';
+import { checkOnExtremeValues } from '../../core/utils';
 
 function movesTheSlider(mouseEvent) {
   const orientation = mouseEvent.target.closest('[data-slider="horizontal"]')

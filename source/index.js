@@ -1,9 +1,9 @@
 // import './components/View/LeverView';
 // import './components/View/ControlPanel';
 
-import Slider from './components/expComponents/slider/Slider';
-import ControlPanel from './components/expComponents/control-panel/ControlPanel';
-import Container from './components/expComponents/Container/Container';
+import Slider from './components/slider/Slider';
+import ControlPanel from './components/control-panel/ControlPanel';
+import Container from './components/Container/Container';
 // import Scale from './components/expComponents/scale/Scale';
 // import Lever from './components/expComponents/lever/Lever';
 // import Tooltip from './components/expComponents/tooltip/Tooltip';

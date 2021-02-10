@@ -1,5 +1,5 @@
-import $ from '../../../core/dom';
-import Emitter from '../../../core/Emitter';
+import $ from '../../core/dom';
+import Emitter from '../../core/Emitter';
 
 class Container {
   constructor(mainHtmlNode, options) {
@@ -13,7 +13,8 @@ class Container {
   }
 
   getRoot() {
-    const $root = $.create('div', 'demo-page__block');
+    // const $root = $.create('div', 'demo-page__block');
+    const $root = $.create('div', 'demo-page');
     const componentOptions = {
       emitter: this.emitter,
     };
@@ -21,8 +22,8 @@ class Container {
     this.components = this.components.map((Component) => {
       const $el = $.create('div', Component.className);
       const component = new Component($el, componentOptions);
-      $el.html(component.toHTML());
-      $root.append($el);
+      // $el.html(component.toHTML());
+      // $root.append($el);
       return component;
     });
     return $root;

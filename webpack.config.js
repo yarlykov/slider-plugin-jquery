@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PATHS = {
   source: path.resolve(__dirname, './source'),
   dist: path.resolve(__dirname, './dist'),
-}
+};
 
 module.exports = {
   context: PATHS.source,
@@ -19,7 +19,7 @@ module.exports = {
   devServer: {
     port: 8082,
     index: 'index.html',
-    open: true
+    open: true,
   },
   devtool: 'source-map',
   module: {
@@ -42,42 +42,42 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
               '@babel/preset-env',
-              '@babel/preset-typescript'
-            ]
-          }
-        }
+              '@babel/preset-typescript',
+            ],
+          },
+        },
       },
       {
         test: /\.pug$/,
         loader: 'pug-loader',
         options: {
           pretty: true,
-        }
-      }
-    ]
+        },
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'demo-page/page/demo-page.pug'
+      template: 'demo-page/page/demo-page.pug',
     }),
     new MiniCssExtractPlugin({
-      filename: 'slider.css'
-    })
-  ]
-}
+      filename: 'slider.css',
+    }),
+  ],
+};

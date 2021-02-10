@@ -1,5 +1,5 @@
-import $ from '../../../core/dom';
-import { checkOnExtremeValues } from '../../../core/utils';
+import $ from '../../core/dom';
+import { checkOnExtremeValues } from '../../core/utils';
 
 function clickedOnSliderScale(mouseEvent) {
   const $scale = mouseEvent.target.dataset.scaleComponent === 'scale' ? $(mouseEvent.target) : $(mouseEvent.target.parentNode);
