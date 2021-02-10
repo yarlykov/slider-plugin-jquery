@@ -77,14 +77,6 @@ class ControlPanel extends SliderComponent {
   }
 
   onInput(event) {
-    const text = event.target.value;
-    this.emitter.emit('it is working', text);
-  }
-
-  onClick(event) {
-  }
-
-  onKeydown(event) {
   }
 }
 ControlPanel.className = 'control-panel';

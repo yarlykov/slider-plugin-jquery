@@ -22,8 +22,6 @@ class Slider extends SliderComponent {
 
   init() {
     super.init();
-    const lever = document.querySelector('[data-lever-component="lever"]');
-    this.emitter.makeSubscribe('it is working', (text) => lever.style.left = `${text}%`);
   }
 
   toHTML() {

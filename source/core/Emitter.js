@@ -14,6 +14,9 @@ class Emitter {
   }
 
   makeSubscribe(event, fn) {
+    // если в массиве this.listeners нет ключей, то присвоится пустой массив
+    // в противном случае, массив с ключами
+    // чтобы на каждой итерации не перезаписывать его
     this.listeners[event] = this.listeners[event] || [];
     this.listeners[event].push(fn);
     return () => {
