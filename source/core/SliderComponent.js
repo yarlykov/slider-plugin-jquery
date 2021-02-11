@@ -5,14 +5,30 @@ class SliderComponent extends DomListener {
     super($root, options.listeners);
     this.name = options.name || '';
     this.emitter = options.emitter;
+    this.unsubscriptions = [];
+
+    this.prepare();
+  }
+
+  prepare() {
   }
 
   init() {
     this.initDOMListeners();
   }
 
+  $emit(event, ...args) {
+    this.emitter.emit(event, ...args);
+  }
+
+  $on(event, fn) {
+    const unsubscribe = this.emitter.makeSubscribe(event, fn);
+    this.unsubscriptions.push(unsubscribe);
+  }
+
   destroy() {
     this.removeDOMListeners();
+    this.unsubscriptions.forEach((unsubscribe) => unsubscribe());
   }
 }
 

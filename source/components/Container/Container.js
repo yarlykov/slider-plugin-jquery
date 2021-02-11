@@ -28,6 +28,10 @@ class Container {
   initAllComponents() {
     this.components.forEach((component) => component.init());
   }
+
+  destroyAllComponents() {
+    this.components.forEach((component) => component.destroy());
+  }
 }
 
 export default Container;
