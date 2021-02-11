@@ -27,9 +27,9 @@ class Slider extends SliderComponent {
   }
 
   isLever(mouseEvent) {
-    return mouseEvent.target.dataset.leverComponent === 'lever';
+    return mouseEvent.target.dataset.id === 'lever';
   }
 }
-Slider.dataId = '[data-id="slider"]';
+Slider.id = '[data-id="slider"]';
 
 export default Slider;

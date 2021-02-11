@@ -13,7 +13,6 @@ class ControlPanel extends SliderComponent {
     console.log(event.target.value);
   }
 }
-ControlPanel.className = 'control-panel';
-ControlPanel.dataId = '[data-id="control-panel"]';
+ControlPanel.id = '[data-id="control-panel"]';
 
 export default ControlPanel;

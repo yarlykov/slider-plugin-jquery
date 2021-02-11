@@ -18,13 +18,14 @@ class Container {
     };
 
     this.components = this.components.map((Component) => {
-      const $root = $(this.$mainHtmlNode.find(Component.dataId));
+      const $root = $(this.$mainHtmlNode.find(Component.id));
       const component = new Component($root, componentOptions);
       return component;
     });
+    this.initAllComponents();
   }
 
-  render() {
+  initAllComponents() {
     this.components.forEach((component) => component.init());
   }
 }

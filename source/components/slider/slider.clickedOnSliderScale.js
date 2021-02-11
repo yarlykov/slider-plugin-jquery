@@ -4,9 +4,9 @@ import { checkOnExtremeValues } from '../../core/utils';
 function clickedOnSliderScale(mouseEvent) {
   const $scale = mouseEvent.target.dataset.scaleComponent === 'scale' ? $(mouseEvent.target) : $(mouseEvent.target.parentNode);
   const scaleCoords = $scale.getCoords();
-  const $tooltipValue = $($scale.find('[data-lever-component="tooltip-value"]'));
-  const $fill = $($scale.find('[data-scale-component="fill"]'));
-  const $lever = $($scale.find('[data-lever-component="lever"]'));
+  const $tooltipValue = $($scale.find('[data-id="tooltip-value"]'));
+  const $fill = $($scale.find('[data-id="fill"]'));
+  const $lever = $($scale.find('[data-id="lever"]'));
   const delta = mouseEvent.pageX - scaleCoords.left;
   const positionInPercent = (delta * 100) / scaleCoords.width;
   const currentPosition = checkOnExtremeValues(positionInPercent);

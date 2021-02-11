@@ -9,6 +9,6 @@ class Tooltip extends SliderComponent {
     });
   }
 }
-Tooltip.dataId = '[data-id="tooltip"]';
+Tooltip.id = '[data-id="tooltip"]';
 
 export default Tooltip;

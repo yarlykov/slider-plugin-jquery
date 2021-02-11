@@ -6,9 +6,9 @@ function movesTheSlider(mouseEvent) {
     ? 'horizontal'
     : 'vertical';
   const $lever = $(mouseEvent.target);
-  const $leverParent = $($lever.closest('[data-scale-component="scale"]'));
+  const $leverParent = $($lever.closest('[data-id="scale"]'));
   const scaleCoords = $leverParent.getCoords();
-  const $tooltipValue = $($lever.find('[data-lever-component="tooltip-value"]'));
+  const $tooltipValue = $($lever.find('[data-id="tooltip-value"]'));
   const $fill = $($lever.prev());
 
   document.onmousemove = (moveEvent) => {

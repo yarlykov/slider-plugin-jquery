@@ -1,7 +1,7 @@
 class Dom {
   constructor(selector) {
     this.$nativeElement = typeof selector === 'string'
-      ? document.querySelector(selector)
+      ? this.findDocument(selector)
       : selector;
   }
 
@@ -57,6 +57,10 @@ class Dom {
 
   find(selector) {
     return this.$nativeElement.querySelector(selector);
+  }
+
+  findDocument(selector) {
+    return document.querySelector(selector);
   }
 
   prev() {

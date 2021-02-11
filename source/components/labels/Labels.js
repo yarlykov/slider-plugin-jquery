@@ -9,6 +9,6 @@ class Labels extends SliderComponent {
     });
   }
 }
-Labels.dataId = '[data-id="labels"]';
+Labels.id = '[data-id="labels"]';
 
 export default Labels;

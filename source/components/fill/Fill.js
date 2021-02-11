@@ -9,6 +9,6 @@ class Fill extends SliderComponent {
     });
   }
 }
-Fill.dataId = '[data-id="fill"]';
+Fill.id = '[data-id="fill"]';
 
 export default Fill;

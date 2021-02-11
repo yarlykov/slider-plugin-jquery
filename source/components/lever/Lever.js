@@ -9,6 +9,6 @@ class Lever extends SliderComponent {
     });
   }
 }
-Lever.dataId = '[data-id="lever"]';
+Lever.id = '[data-id="lever"]';
 
 export default Lever;
