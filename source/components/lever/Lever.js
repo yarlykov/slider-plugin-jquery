@@ -8,6 +8,16 @@ class Lever extends SliderComponent {
       ...options,
     });
   }
+
+  init() {
+    super.init();
+
+    this.subscribe('lever:mousemove', this.setLever);
+  }
+
+  setLever(currentPosition, $element) {
+    $element.css({ left: `${currentPosition}%` });
+  }
 }
 Lever.id = '[data-id="lever"]';
 

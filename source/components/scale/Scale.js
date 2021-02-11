@@ -8,6 +8,10 @@ class Scale extends SliderComponent {
       ...options,
     });
   }
+
+  init() {
+    super.init();
+  }
 }
 Scale.id = '[data-id="scale"]';
 
