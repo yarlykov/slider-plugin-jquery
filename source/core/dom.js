@@ -48,7 +48,14 @@ class Dom {
   }
 
   text(textContent) {
-    this.$nativeElement.textContent = textContent;
+    if (typeof textContent === 'string') {
+      this.$nativeElement.textContent = textContent;
+      return this;
+    }
+    if (this.$nativeElement.tagName.toLowerCase() === 'input') {
+      return this.$nativeElement.value.trim();
+    }
+    return this.$nativeElement.textContent.trim();
   }
 
   closest(selector) {
