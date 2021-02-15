@@ -12,6 +12,7 @@ class ControlPanel extends SliderComponent {
   }
 
   init() {
+    super.init();
     this.currentInput = this.$root.find('[data-title="current"]');
     this.subscribe('lever:mousemove', (currentPosition) => {
       this.currentInput.value = Math.ceil(currentPosition.toString());
@@ -19,7 +20,7 @@ class ControlPanel extends SliderComponent {
   }
 
   onInput(event) {
-    console.log(event.target.value);
+    this.$emit('input:current', event.target.value);
   }
 }
 ControlPanel.id = '[data-id="control-panel"]';
