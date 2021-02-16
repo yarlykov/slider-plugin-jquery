@@ -1,5 +1,5 @@
 import SliderComponent from '../../core/SliderComponent';
-import $ from '../../core/dom';
+import { checkOnExtremeValues } from '../../core/utils';
 
 class ControlPanel extends SliderComponent {
   constructor($root, options) {
@@ -8,19 +8,21 @@ class ControlPanel extends SliderComponent {
       listeners: ['input'],
       ...options,
     });
-    this.$root = $root;
   }
 
   init() {
     super.init();
     this.currentInput = this.$root.find('[data-title="current"]');
-    this.subscribe('lever:mousemove', (currentPosition) => {
-      this.currentInput.value = Math.ceil(currentPosition.toString());
-    });
+    this.subscribe('lever:mousemove', this.setCurrentValue.bind(this));
+  }
+
+  setCurrentValue(sliderValue) {
+    this.currentInput.value = Math.ceil(sliderValue.toString());
   }
 
   onInput(event) {
-    this.$emit('input:current', event.target.value);
+    const value = checkOnExtremeValues(Number(event.target.value));
+    this.$emit('input:current', value.toString());
   }
 }
 ControlPanel.id = '[data-id="control-panel"]';

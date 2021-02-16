@@ -1,6 +1,4 @@
 import SliderComponent from '../../core/SliderComponent';
-// import movesTheSlider from './slider.movesTheSlider';
-import clickedOnSliderScale from './slider.clickedOnSliderScale';
 import { checkOnExtremeValues } from '../../core/utils';
 import $ from '../../core/dom';
 
@@ -13,10 +11,14 @@ class Slider extends SliderComponent {
     });
   }
 
+  init() {
+    super.init();
+  }
+
   onMousedown(mouseEvent) {
     mouseEvent.preventDefault();
     if (this.isScale(mouseEvent)) {
-      clickedOnSliderScale(mouseEvent);
+      this.clickedOnSliderScale(mouseEvent);
     }
 
     if (this.isLever(mouseEvent)) {
@@ -36,9 +38,8 @@ class Slider extends SliderComponent {
     const orientation = mouseEvent.target.closest('[data-slider="horizontal"]')
       ? 'horizontal'
       : 'vertical';
-    const $lever = $(mouseEvent.target);
-    const $leverParent = $($lever.closest('[data-id="scale"]'));
-    const scaleCoords = $leverParent.getCoords();
+    const $scale = $(this.$root.find('[data-id="scale"]'));
+    const scaleCoords = $scale.getCoords();
 
     document.onmousemove = (moveEvent) => {
       if (orientation === 'horizontal') {
@@ -46,16 +47,31 @@ class Slider extends SliderComponent {
         const positionInPercent = (delta * 100) / scaleCoords.width;
         const currentPosition = checkOnExtremeValues(positionInPercent);
 
-        this.$emit('lever:mousemove', currentPosition, $lever);
+        this.$emit('lever:mousemove', currentPosition);
       } else if (orientation === 'vertical') {
         const delta = scaleCoords.bottom - moveEvent.pageY;
         const positionInPercent = (delta * 100) / scaleCoords.height;
         const currentPosition = checkOnExtremeValues(positionInPercent);
 
-        this.$emit('lever:mousemove', currentPosition, $lever);
+        this.$emit('lever:mousemove', currentPosition);
       }
     };
+    this.onMouseup();
+  }
 
+  clickedOnSliderScale(mouseEvent) {
+    const $scale = mouseEvent.target.dataset.scaleComponent === 'scale' ? $(mouseEvent.target) : $(mouseEvent.target.parentNode);
+    const scaleCoords = $scale.getCoords();
+    const delta = mouseEvent.pageX - scaleCoords.left;
+    const positionInPercent = (delta * 100) / scaleCoords.width;
+    const currentPosition = checkOnExtremeValues(positionInPercent);
+
+    this.$emit('lever:mousemove', currentPosition);
+    this.onMouseup();
+    this.movesTheSlider(mouseEvent);
+  }
+
+  onMouseup() {
     document.onmouseup = () => {
       document.onmousemove = null;
       document.onmouseup = null;

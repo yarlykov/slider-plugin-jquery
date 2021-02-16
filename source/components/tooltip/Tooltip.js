@@ -13,13 +13,14 @@ class Tooltip extends SliderComponent {
 
   init() {
     super.init();
+    this.tooltipValue = $(this.$tooltip.find('[data-id="tooltip-value"]'));
 
-    this.subscribe('lever:mousemove', this.setTooltip);
+    this.subscribe('lever:mousemove', this.setTooltip.bind(this));
+    this.subscribe('input:current', this.setTooltip.bind(this));
   }
 
-  setTooltip(currentPosition = 0, $element) {
-    const tooltipValue = $($element.find('[data-id="tooltip-value"]'));
-    tooltipValue.text(`${Math.ceil(currentPosition.toString())} ¥`);
+  setTooltip(currentPosition = 0) {
+    this.tooltipValue.text(`${Math.ceil(currentPosition.toString())} ¥`);
   }
 }
 Tooltip.id = '[data-id="tooltip"]';

@@ -12,13 +12,14 @@ class Fill extends SliderComponent {
 
   init() {
     super.init();
+    this.$fill = this.$root;
 
-    this.subscribe('lever:mousemove', this.setFill);
+    this.subscribe('lever:mousemove', this.setFill.bind(this));
+    this.subscribe('input:current', this.setFill.bind(this));
   }
 
-  setFill(currentPosition, $element) {
-    const $fill = $($element.prev());
-    $fill.css({ width: `${currentPosition}%` });
+  setFill(currentPosition) {
+    this.$fill.css({ width: `${currentPosition}%` });
   }
 }
 Fill.id = '[data-id="fill"]';
