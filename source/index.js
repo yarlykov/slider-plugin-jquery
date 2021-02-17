@@ -10,6 +10,9 @@ import Lever from './components/lever/Lever';
 import Scale from './components/scale/Scale';
 import Tooltip from './components/tooltip/Tooltip';
 
+import rootReducer from './redux/rootReducer';
+import CreateStore from './core/CreateStore';
+
 import './demo-page/styles/main.scss';
 
 // const wrapper = document.querySelectorAll('.demo-page__block');
@@ -21,8 +24,11 @@ import './demo-page/styles/main.scss';
 //   });
 //   container.render();
 // });
+const store = new CreateStore(rootReducer);
 
 const container = new Container('.demo-page__block', {
   components: [ControlPanel, Slider, Fill, Labels, Lever, Scale, Tooltip],
+  store,
 });
+
 container.getRoot();
