@@ -20,18 +20,11 @@ class Slider extends SliderComponent {
     if (this.isScale(mouseEvent)) {
       this.clickedOnSliderScale(mouseEvent);
     }
-
-    if (this.isLever(mouseEvent)) {
-      this.movesTheSlider(mouseEvent);
-    }
+    this.movesTheSlider(mouseEvent);
   }
 
   isScale(mouseEvent) {
     return mouseEvent.target.dataset.scaleComponent || null;
-  }
-
-  isLever(mouseEvent) {
-    return mouseEvent.target.dataset.id === 'lever';
   }
 
   movesTheSlider(mouseEvent) {
