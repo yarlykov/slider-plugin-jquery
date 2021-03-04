@@ -18,4 +18,12 @@ function checkOnExtremeValues(currentLeverValue) {
   return newValue;
 }
 
-export { capitalize, checkOnExtremeValues };
+function storage(key, data = null) {
+  if (!data) {
+    return JSON.parse(localStorage.getItem(key));
+  }
+  localStorage.setItem(key, JSON.stringify(data));
+  return key;
+}
+
+export { capitalize, checkOnExtremeValues, storage };
