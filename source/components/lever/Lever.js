@@ -13,8 +13,8 @@ class Lever extends SliderComponent {
     super.init();
     this.$lever = this.$root;
 
-    this.subscribe('lever:mousemove', this.setLever.bind(this));
-    this.subscribe('input:current', this.setLever.bind(this));
+    this.$on('lever:mousemove', this.setLever.bind(this));
+    this.$on('input:current', this.setLever.bind(this));
   }
 
   setLever(currentPosition) {

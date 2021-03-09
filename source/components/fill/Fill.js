@@ -14,8 +14,8 @@ class Fill extends SliderComponent {
     super.init();
     this.$fill = this.$root;
 
-    this.subscribe('lever:mousemove', this.setFill.bind(this));
-    this.subscribe('input:current', this.setFill.bind(this));
+    this.$on('lever:mousemove', this.setFill.bind(this));
+    this.$on('input:current', this.setFill.bind(this));
   }
 
   setFill(currentPosition) {

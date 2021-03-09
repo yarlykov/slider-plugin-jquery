@@ -13,7 +13,11 @@ class ControlPanel extends SliderComponent {
   init() {
     super.init();
     this.currentInput = this.$root.find('[data-title="current"]');
-    this.subscribe('lever:mousemove', this.setCurrentValue.bind(this));
+    this.$on('lever:mousemove', this.setCurrentValue.bind(this));
+
+    this.$subscribe((state) => {
+      console.log('ControlPanelState:', state);
+    });
   }
 
   setCurrentValue(sliderValue) {
@@ -23,6 +27,8 @@ class ControlPanel extends SliderComponent {
   onInput(event) {
     const value = checkOnExtremeValues(Number(event.target.value));
     this.$emit('input:current', value.toString());
+
+    this.$dispatch({ type: 'TEST' });
   }
 }
 ControlPanel.id = '[data-id="control-panel"]';

@@ -15,8 +15,8 @@ class Tooltip extends SliderComponent {
     super.init();
     this.tooltipValue = $(this.$tooltip.find('[data-id="tooltip-value"]'));
 
-    this.subscribe('lever:mousemove', this.setTooltip.bind(this));
-    this.subscribe('input:current', this.setTooltip.bind(this));
+    this.$on('lever:mousemove', this.setTooltip.bind(this));
+    this.$on('input:current', this.setTooltip.bind(this));
   }
 
   setTooltip(currentPosition = 0) {
