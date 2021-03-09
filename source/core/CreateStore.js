@@ -16,7 +16,7 @@ class CreateStore {
 
   dispatch(action) {
     this.state = this.rootReducer(this.state, action);
-    this.listeners.forEach((listener) => listener(action));
+    this.listeners.forEach((listener) => listener(this.state));
   }
 
   getState() {
