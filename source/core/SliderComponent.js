@@ -5,8 +5,9 @@ class SliderComponent extends DomListener {
     super($root, options.listeners);
     this.name = options.name || '';
     this.emitter = options.emitter;
-    this.subscribe = this.$on;
     this.unsubscriptions = [];
+    this.store = options.store;
+    this.storeSub = null;
 
     this.prepare();
   }
@@ -27,9 +28,18 @@ class SliderComponent extends DomListener {
     this.unsubscriptions.push(unsubscribe);
   }
 
+  $dispatch(action) {
+    this.store.dispatch(action);
+  }
+
+  $subscribe(fn) {
+    this.storeSub = this.store.subscribe(fn);
+  }
+
   destroy() {
     this.removeDOMListeners();
     this.unsubscriptions.forEach((unsubscribe) => unsubscribe());
+    this.storeSub.unsubscribe();
   }
 }
 

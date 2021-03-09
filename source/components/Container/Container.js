@@ -6,6 +6,7 @@ class Container {
     this.init(mainHtmlNode);
     this.components = options.components || [];
     this.emitter = new Emitter();
+    this.store = options.store;
   }
 
   init(mainHtmlNode) {
@@ -15,6 +16,7 @@ class Container {
   getRoot() {
     const componentOptions = {
       emitter: this.emitter,
+      store: this.store,
     };
 
     this.components = this.components.map((Component) => {

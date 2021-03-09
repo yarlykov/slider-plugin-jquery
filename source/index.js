@@ -14,6 +14,7 @@ import rootReducer from './redux/rootReducer';
 import CreateStore from './core/CreateStore';
 
 import './demo-page/styles/main.scss';
+import { storage } from './core/utils';
 
 // const wrapper = document.querySelectorAll('.demo-page__block');
 
@@ -24,7 +25,14 @@ import './demo-page/styles/main.scss';
 //   });
 //   container.render();
 // });
-const store = new CreateStore(rootReducer);
+const store = new CreateStore(rootReducer, {
+  sliderPositionState: {},
+}); 
+
+store.subscribe((state) => {
+  console.log('state', state);
+  storage('slider-state', state);
+});
 
 const container = new Container('.demo-page__block', {
   components: [ControlPanel, Slider, Fill, Labels, Lever, Scale, Tooltip],
