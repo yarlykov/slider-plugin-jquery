@@ -27,10 +27,9 @@ import { storage } from './core/utils';
 // });
 const store = new CreateStore(rootReducer, {
   sliderPositionState: {},
-}); 
+});
 
 store.subscribe((state) => {
-  console.log('state', state);
   storage('slider-state', state);
 });
 

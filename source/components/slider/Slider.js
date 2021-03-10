@@ -20,36 +20,62 @@ class Slider extends SliderComponent {
     if (this.isScale(mouseEvent)) {
       this.clickedOnSliderScale(mouseEvent);
     }
-    this.movesTheSlider(mouseEvent);
+    this.sliderPositionChange(mouseEvent);
   }
 
   isScale(mouseEvent) {
     return mouseEvent.target.dataset.scaleComponent || null;
   }
 
+  // isLever(mouseEvent) {
+  //   return mouseEvent.target.dataset.id === 'lever'
+  // }
+
+  async sliderPositionChange(mouseEvent) {
+    try {
+      const data = await this.movesTheSlider(mouseEvent);
+      this.$dispatch({ type: 'SLIDER_POSITION_CHANGE', data });
+      // console.log('Slider data:', sliderData);
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  }
+
   movesTheSlider(mouseEvent) {
-    const orientation = mouseEvent.target.closest('[data-slider="horizontal"]')
-      ? 'horizontal'
-      : 'vertical';
-    const $scale = $(this.$root.find('[data-id="scale"]'));
-    const scaleCoords = $scale.getCoords();
+    return new Promise((resolve) => {
+      const orientation = mouseEvent.target.closest('[data-slider="horizontal"]')
+        ? 'horizontal'
+        : 'vertical';
+      const $scale = $(this.$root.find('[data-id="scale"]'));
+      const scaleCoords = $scale.getCoords();
+      let currentPosition;
 
-    document.onmousemove = (moveEvent) => {
-      if (orientation === 'horizontal') {
-        const delta = moveEvent.pageX - scaleCoords.left;
-        const positionInPercent = (delta * 100) / scaleCoords.width;
-        const currentPosition = checkOnExtremeValues(positionInPercent);
+      document.onmousemove = (moveEvent) => {
+        if (orientation === 'horizontal') {
+          const delta = moveEvent.pageX - scaleCoords.left;
+          const positionInPercent = (delta * 100) / scaleCoords.width;
+          currentPosition = checkOnExtremeValues(positionInPercent);
 
-        this.$emit('lever:mousemove', currentPosition);
-      } else if (orientation === 'vertical') {
-        const delta = scaleCoords.bottom - moveEvent.pageY;
-        const positionInPercent = (delta * 100) / scaleCoords.height;
-        const currentPosition = checkOnExtremeValues(positionInPercent);
+          this.$emit('lever:mousemove', currentPosition);
+        } else if (orientation === 'vertical') {
+          const delta = scaleCoords.bottom - moveEvent.pageY;
+          const positionInPercent = (delta * 100) / scaleCoords.height;
+          currentPosition = checkOnExtremeValues(positionInPercent);
 
-        this.$emit('lever:mousemove', currentPosition);
-      }
-    };
-    this.onMouseup();
+          this.$emit('lever:mousemove', currentPosition);
+        }
+      };
+
+      document.onmouseup = () => {
+        document.onmousemove = null;
+        document.onmouseup = null;
+
+        resolve({
+          value: Math.ceil(currentPosition),
+          id: 'currentPosition',
+        });
+      };
+    });
   }
 
   clickedOnSliderScale(mouseEvent) {
@@ -59,9 +85,9 @@ class Slider extends SliderComponent {
     const positionInPercent = (delta * 100) / scaleCoords.width;
     const currentPosition = checkOnExtremeValues(positionInPercent);
 
-    this.$emit('lever:mousemove', currentPosition);
     this.onMouseup();
-    this.movesTheSlider(mouseEvent);
+    // this.movesTheSlider(mouseEvent);
+    this.$emit('lever:mousemove', currentPosition);
   }
 
   onMouseup() {
