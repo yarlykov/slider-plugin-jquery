@@ -1,5 +1,5 @@
 import SliderComponent from '../../core/SliderComponent';
-import { checkOnExtremeValues } from '../../core/utils';
+import { checkOnExtremeValues, storage } from '../../core/utils';
 
 class ControlPanel extends SliderComponent {
   constructor($root, options) {
@@ -13,10 +13,12 @@ class ControlPanel extends SliderComponent {
   init() {
     super.init();
     this.currentInput = this.$root.find('[data-title="current"]');
+    this.setCurrentValue(this.state.currentValue);
+
     this.$on('lever:mousemove', this.setCurrentValue.bind(this));
 
     this.$subscribe((state) => {
-      console.log('ControlPanelState:', state);
+      console.log('State:', state);
     });
   }
 
@@ -26,9 +28,13 @@ class ControlPanel extends SliderComponent {
 
   onInput(event) {
     const value = checkOnExtremeValues(Number(event.target.value));
-    this.$emit('input:current', value.toString());
+    const data = {
+      value,
+      id: 'currentPosition',
+    };
 
-    this.$dispatch({ type: 'TEST' });
+    this.$emit('input:current', value.toString());
+    this.$dispatch({ type: 'SLIDER_POSITION_CHANGE', data });
   }
 }
 ControlPanel.id = '[data-id="control-panel"]';

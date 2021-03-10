@@ -1,4 +1,5 @@
 import DomListener from './DomListener';
+import { storage } from './utils';
 
 class SliderComponent extends DomListener {
   constructor($root, options = {}) {
@@ -8,11 +9,20 @@ class SliderComponent extends DomListener {
     this.unsubscriptions = [];
     this.store = options.store;
     this.storeSub = null;
+    this.state = this.getSliderStateFromStorage();
 
     this.prepare();
   }
 
   prepare() {
+  }
+
+  getSliderStateFromStorage() {
+    const storageState = this.store.getState();
+
+    return {
+      currentValue: storageState.sliderPositionState.value || 0,
+    };
   }
 
   init() {

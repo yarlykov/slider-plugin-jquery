@@ -15,7 +15,7 @@ function checkOnExtremeValues(currentLeverValue) {
   } else {
     newValue = currentLeverValue;
   }
-  return newValue;
+  return Math.ceil(newValue);
 }
 
 function storage(key, data = null) {
