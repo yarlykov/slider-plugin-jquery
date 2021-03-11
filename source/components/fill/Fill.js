@@ -13,7 +13,7 @@ class Fill extends SliderComponent {
   init() {
     super.init();
     this.$fill = this.$root;
-    this.setFill(this.state.currentValue);
+    this.setFill(this.state.value); // refactor
 
     this.$on('lever:mousemove', this.setFill.bind(this));
     this.$on('input:current', this.setFill.bind(this));

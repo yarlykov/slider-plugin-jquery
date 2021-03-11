@@ -1,6 +1,8 @@
 import SliderComponent from '../../core/SliderComponent';
 import { checkOnExtremeValues } from '../../core/utils';
 import $ from '../../core/dom';
+import { SLIDER_POSITION_CHANGE } from '../../redux/types';
+import * as actions from '../../redux/actions';
 
 class Slider extends SliderComponent {
   constructor($root, options) {
@@ -34,7 +36,7 @@ class Slider extends SliderComponent {
   async sliderPositionChange(mouseEvent) {
     try {
       const data = await this.movesTheSlider(mouseEvent);
-      this.$dispatch({ type: 'SLIDER_POSITION_CHANGE', data });
+      this.$dispatch(actions.changeSlider(data));
       // console.log('Slider data:', sliderData);
     } catch (e) {
       throw new Error(e.message);

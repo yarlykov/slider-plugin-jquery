@@ -15,6 +15,7 @@ import CreateStore from './core/CreateStore';
 
 import './demo-page/styles/main.scss';
 import { storage } from './core/utils';
+import initialState from './redux/initialState';
 
 // const wrapper = document.querySelectorAll('.demo-page__block');
 
@@ -25,7 +26,8 @@ import { storage } from './core/utils';
 //   });
 //   container.render();
 // });
-const store = new CreateStore(rootReducer, storage('slider-state'));
+
+const store = new CreateStore(rootReducer, initialState);
 
 store.subscribe((state) => {
   storage('slider-state', state);

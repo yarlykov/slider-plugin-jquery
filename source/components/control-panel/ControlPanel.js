@@ -1,5 +1,6 @@
 import SliderComponent from '../../core/SliderComponent';
-import { checkOnExtremeValues, storage } from '../../core/utils';
+import { checkOnExtremeValues } from '../../core/utils';
+import * as actions from '../../redux/actions';
 
 class ControlPanel extends SliderComponent {
   constructor($root, options) {
@@ -8,18 +9,18 @@ class ControlPanel extends SliderComponent {
       listeners: ['input'],
       ...options,
     });
-  }
+  } 
 
   init() {
     super.init();
     this.currentInput = this.$root.find('[data-title="current"]');
-    this.setCurrentValue(this.state.currentValue);
+    this.setCurrentValue(this.state.value); // refactor
 
     this.$on('lever:mousemove', this.setCurrentValue.bind(this));
 
-    this.$subscribe((state) => {
-      console.log('State:', state);
-    });
+    // this.$subscribe((state) => {
+    //   console.log('State:', state);
+    // });
   }
 
   setCurrentValue(sliderValue) {
@@ -30,11 +31,11 @@ class ControlPanel extends SliderComponent {
     const value = checkOnExtremeValues(Number(event.target.value));
     const data = {
       value,
-      id: 'currentPosition',
+      id: 'inputData',
     };
 
     this.$emit('input:current', value.toString());
-    this.$dispatch({ type: 'SLIDER_POSITION_CHANGE', data });
+    this.$dispatch(actions.changeSlider(data));
   }
 }
 ControlPanel.id = '[data-id="control-panel"]';

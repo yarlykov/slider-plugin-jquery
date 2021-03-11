@@ -2,7 +2,7 @@ import { storage } from '../core/utils';
 
 const defaultState = {
   sliderPositionState: {
-    value: 53,
+    value: 42,
   },
 };
 
