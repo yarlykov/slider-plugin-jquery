@@ -1,5 +1,4 @@
 import SliderComponent from '../../core/SliderComponent';
-import $ from '../../core/dom';
 
 class Fill extends SliderComponent {
   constructor($root, options) {

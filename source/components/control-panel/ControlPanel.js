@@ -9,7 +9,7 @@ class ControlPanel extends SliderComponent {
       listeners: ['input'],
       ...options,
     });
-  } 
+  }
 
   init() {
     super.init();
@@ -17,10 +17,6 @@ class ControlPanel extends SliderComponent {
     this.setCurrentValue(this.state.value); // refactor
 
     this.$on('lever:mousemove', this.setCurrentValue.bind(this));
-
-    // this.$subscribe((state) => {
-    //   console.log('State:', state);
-    // });
   }
 
   setCurrentValue(sliderValue) {
