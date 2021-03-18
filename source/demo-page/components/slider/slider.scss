@@ -1,3 +1,7 @@
+.slider-plugin {
+  display: flex;
+}
+
 .slider {
   display: flex;
   width: 100%;
@@ -11,8 +15,6 @@
   &_horizontal {
     width: 100%;
     min-width: 320px;
-    min-height: 60px;
-    margin-left: 16px;
   }
 
   &_vertical {
@@ -50,7 +52,7 @@
 
     &_horizontal {
       height: 6px;
-      width: 0%;
+      width: 42%;
       max-height: 6px;
     }
 
@@ -103,7 +105,7 @@
     }
 
     &_horizontal {
-      left: 0%;
+      left: 42%;
       top: -6px;
       transform: translateX(-50%);
     }

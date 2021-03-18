@@ -9,7 +9,7 @@ block content
           controls: [
             { title: "scale-min", type: "number", value: 0, disabled: false },
             { title: "scale-max", type: "number", value: 100, disabled: false },
-            { title: "current", type: "number", disabled: false },
+            { title: "current", type: "number", value: 42, disabled: false },
             { title: "step", type: "number", value: 25, disabled: false },
             { title: "range-min", type: "number", value: 0, disabled: true },
             { title: "range-max", type: "number", value: 0, disabled: true },
@@ -28,7 +28,7 @@ block content
           labels: ["0", "25", "50", "75", "100"],
           tooltips: true,
           defaultValue: {
-            single: "",
+            single: "42",
             range: ["25", "75"]
           },
           units: "¥",
