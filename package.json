@@ -5,6 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "webpack-dev-server --mode development",
+    "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "lint": "eslint source",
     "lint:fix": "eslint source --fix"

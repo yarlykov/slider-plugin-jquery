@@ -4,7 +4,7 @@ mixin slider({ slider={} })
     const { horizontal=true, vertical=false } = type
 
     const typeModifier = type.horizontal ? "horizontal" : "vertical"
-    const rangeModifier = range ? "range" : ""
+    const rangeModifier = range ? "range" : "single"
     const colorModifier = color
 
     const typeClass = `slider_${typeModifier}`
