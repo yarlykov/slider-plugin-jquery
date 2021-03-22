@@ -84,7 +84,7 @@
     }
   }
 
-  &__lever {
+  &__knob {
     position: absolute;
     width: 18px;
     height: 18px;
@@ -117,12 +117,12 @@
       transform: translateY(50%);
     }
 
-    &_vertical.slider__lever_range-first {
+    &_vertical.slider__knob_range-first {
       left: -6px;
       bottom: 25%;
     }
 
-    &_vertical.slider__lever_range-second {
+    &_vertical.slider__knob_range-second {
       left: -6px;
       bottom: 75%;
     }

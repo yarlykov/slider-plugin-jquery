@@ -7,12 +7,12 @@ function addTooltip() {
     `;
 }
 
-function createLever() {
+function createKnob() {
   return `
-      <div class="slider__lever slider__lever_horizontal slider__lever_orange" data-id="lever">
+      <div class="slider__knob slider__knob_horizontal slider__knob_orange" data-id="knob">
         ${addTooltip()}
       </div>
     `;
 }
 
-export default createLever;
+export default createKnob;

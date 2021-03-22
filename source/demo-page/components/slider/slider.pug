@@ -14,8 +14,8 @@ mixin slider({ slider={} })
     const rangeFillClass = `slider__fill_${typeModifier}_${rangeModifier}`
     const colorFillClass = `slider__fill_${colorModifier}`
 
-    const leverTypeClass = `slider__lever_${typeModifier}`
-    const leverColorClass = `slider__lever_${colorModifier}`
+    const knobTypeClass = `slider__knob_${typeModifier}`
+    const knobColorClass = `slider__knob_${colorModifier}`
 
     const tooltipTypeClass = `slider__tooltip_${typeModifier}`
     const tooltipArrowTypeClass = `slider__tooltip_arrow_${typeModifier}`
@@ -29,12 +29,12 @@ mixin slider({ slider={} })
       .slider__scale(class=scaleTypeClass data-id="scale" data-scale-component="scale")
         .slider__fill(class=[fillTypeClass, rangeFillClass, colorFillClass] data-id="fill" data-scale-component="fill")
         if range
-          .slider__lever.slider__lever_range-first(class=[leverTypeClass, leverColorClass] data-id="lever" data-lever="first")
+          .slider__knob.slider__knob_range-first(class=[knobTypeClass, knobColorClass] data-id="knob" data-knob="first")
             .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip" data-tooltip="first")
               span.tooltip__value(data-id="tooltip-value" data-tooltip-value="first") #{defaultValue.range[0]} #{units}
               .slider__tooltip_arrow(class=tooltipArrowTypeClass)
 
-          .slider__lever.slider__lever_range-second(class=[leverTypeClass, leverColorClass] data-id="lever" data-lever="second")
+          .slider__knob.slider__knob_range-second(class=[knobTypeClass, knobColorClass] data-id="knob" data-knob="second")
             .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip" data-tooltip="second")
               span.tooltip__value(data-id="tooltip-value" data-tooltip-value="second") #{defaultValue.range[1]} #{units}
               .slider__tooltip_arrow(class=tooltipArrowTypeClass)
@@ -43,7 +43,7 @@ mixin slider({ slider={} })
             each label in labels
               .slider__labels-item #{label}
         else
-          .slider__lever(class=[leverTypeClass, leverColorClass] data-id="lever")
+          .slider__knob(class=[knobTypeClass, knobColorClass] data-id="knob")
             .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip")
               span.tooltip__value(data-id="tooltip-value") #{defaultValue.single} #{units}
               .slider__tooltip_arrow
