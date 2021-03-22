@@ -1,4 +1,4 @@
-import View from './components/View';
+import View from './components/View/View';
 import './demo-page/styles/main.scss';
 
 const slider = document.querySelector('.slider-plugin');
