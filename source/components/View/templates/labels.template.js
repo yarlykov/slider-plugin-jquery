@@ -9,7 +9,7 @@ function toLabel(maxLabelCount = 100) {
   return labels.join('');
 }
 
-function createLabel() {
+function createLabels() {
   return `
       <div class="slider__labels slider__labels_horizontal" data-id="labels">
         ${toLabel(100)}
@@ -17,4 +17,4 @@ function createLabel() {
     `;
 }
 
-export default createLabel;
+export default createLabels;
