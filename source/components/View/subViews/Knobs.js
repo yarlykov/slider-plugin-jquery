@@ -5,6 +5,8 @@ class Knobs extends View {
   constructor(root, options) {
     super(root, options);
     this.root = root;
+    this.options = options;
+    // console.log('Knobs', root);
   }
 
   render() {
@@ -12,7 +14,7 @@ class Knobs extends View {
     if (!scale) {
       throw new Error('Ooops... scale is not found');
     }
-    this.knob = createKnob();
+    this.knob = createKnob(this.options);
 
     scale.insertAdjacentHTML('beforeend', this.knob);
   }
