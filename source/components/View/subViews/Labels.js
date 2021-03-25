@@ -10,8 +10,6 @@ class Labels extends View {
   }
 
   render() {
-
-
     const scale = this.root.querySelector('[data-id="scale"]');
 
     if (!scale) {

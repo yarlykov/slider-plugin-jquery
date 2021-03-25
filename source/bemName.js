@@ -7,7 +7,7 @@ function isString(string) {
   return '';
 }
 
-function bemNames(names = {}) {
+function bemName(names = {}) {
   const { b = '', e = '', m = '' } = names;
   const haveAll = (isString(b) && isString(e) && isString(m)) !== '';
   const blockAndElement = (isString(b) && isString(e)) !== '';
@@ -25,4 +25,4 @@ function bemNames(names = {}) {
   return `${b}`;
 }
 
-export default bemNames;
+export default bemName;

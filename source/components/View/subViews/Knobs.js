@@ -1,22 +1,40 @@
-import createKnob from '../templates/knob.template';
-import View from '../View';
+import bemName from '../../../bemName';
 
-class Knobs extends View {
-  constructor(root, options) {
-    super(root, options);
-    this.root = root;
+class Knobs {
+  constructor(options) {
     this.options = options;
-    // console.log('Knobs', root);
+
+    this.init();
   }
 
-  render() {
-    const scale = this.root.querySelector('[data-id="scale"]');
-    if (!scale) {
-      throw new Error('Ooops... scale is not found');
-    }
-    this.knob = createKnob(this.options);
+  init() {
+    this.orientation = this.options.display.type;
+    this.color = this.options.display.color;
 
-    scale.insertAdjacentHTML('beforeend', this.knob);
+    this.createClassName();
+  }
+
+  createClassName() {
+    this.className = {
+      knob: bemName({b: 'knob'}),
+      sliderKnob: bemName({ b: 'slider', e: 'knob' }),
+      sliderKnobColor: bemName({ b: 'slider', e: 'knob', m: this.color }),
+      sliderKnobOrientation: bemName({ b: 'slider', e: 'knob', m: this.orientation }),
+    };
+  }
+
+  getSimpleTemplate() {
+    const {
+      knob,
+      sliderKnob,
+      sliderKnobColor,
+      sliderKnobOrientation,
+    } = this.className;
+
+    return `
+      <div class="${sliderKnob} ${sliderKnobOrientation} ${sliderKnobColor} " data-id="${knob}">
+      </div>
+    `;
   }
 }
 
