@@ -7,17 +7,18 @@ class View {
   }
 
   init() {
-    this.options.display.type = this.options.display.type === 'vertical'
+    this.options.orientation = this.options.orientation === 'vertical'
       ? 'vertical'
       : 'horizontal';
-    this.options.display.color = this.options.display.color === 'green'
+    this.options.type = this.options.type === 'simple'
+      ? 'simple'
+      : 'range';
+    this.options.color = this.options.color === 'green'
       ? 'green'
       : 'orange';
-    this.type = this.options.display.range ? 'range' : 'simple';
 
     const factory = new SliderFactory();
-    const slider = factory.create(this.options, this.type);
-    this.root.innerHTML = slider.getTemplate();
+    factory.create(this.options, this.root);
   }
 }
 

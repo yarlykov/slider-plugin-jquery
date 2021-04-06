@@ -1,9 +1,10 @@
 import SimpleSlider from './SimpleSlider';
 
 class SliderFactory {
-  create(options, type = 'simple') {
+  create(options, root) {
+    const { type } = options;
     const Slider = SliderFactory.list[type] || SliderFactory.list.simple;
-    const slider = new Slider(options);
+    const slider = new Slider(options, root);
 
     return slider;
   }

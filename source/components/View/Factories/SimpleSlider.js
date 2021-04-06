@@ -1,40 +1,30 @@
-import bemName from '../../../bemName';
 import Scale from '../subViews/Scale';
 
 class SimpleSlider {
-  constructor(options) {
+  constructor(options, root) {
     this.options = options;
+    this.root = root;
 
     this.init();
   }
 
   init() {
-    const scale = new Scale(this.options);
-    this.scale = scale.getSimpleTemplate();
-    this.orientation = this.options.display.type;
+    this.orientation = this.options.orientation;
+    this.scale = new Scale(this.orientation);
 
-    this.createClassName();
+    this.createSlider();
   }
 
-  createClassName() {
-    this.className = {
-      slider: bemName({ b: 'slider' }),
-      sliderOrientation: bemName({ b: 'slider', m: this.orientation }),
-    };
-  }
+  createSlider() {
+    const sliderWrapper = document.createElement('div');
+    sliderWrapper.classList.add('slider', `slider_${this.orientation}`);
+    sliderWrapper.setAttribute('data-id', 'slider');
+    this.root.insertAdjacentHTML('afterbegin', sliderWrapper.outerHTML);
 
-  getTemplate() {
-    const {
-      slider,
-      sliderOrientation,
-    } = this.className;
-
-    const template = `
-      <div class="${slider} ${sliderOrientation}"data-id="${slider}">
-        ${this.scale}
-      </div>
-    `;
-    return template;
+    this.scale.createScale();
+    if (this.options.labels && typeof this.options.labels === 'boolean') {
+      console.log('yes');
+    }
   }
 }
 
