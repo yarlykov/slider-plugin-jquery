@@ -1,5 +1,3 @@
-import Scale from '../subViews/Scale';
-
 class SimpleSlider {
   constructor(options, root) {
     this.options = options;
@@ -10,21 +8,22 @@ class SimpleSlider {
 
   init() {
     this.orientation = this.options.orientation;
-    this.scale = new Scale(this.orientation);
+    this.color = this.options.color;
 
     this.createSlider();
   }
 
   createSlider() {
-    const sliderWrapper = document.createElement('div');
-    sliderWrapper.classList.add('slider', `slider_${this.orientation}`);
-    sliderWrapper.setAttribute('data-id', 'slider');
-    this.root.insertAdjacentHTML('afterbegin', sliderWrapper.outerHTML);
+    // const sliderWrapper = document.createElement('div');
+    // sliderWrapper.classList.add('slider', `slider_${this.orientation}`);
+    // sliderWrapper.setAttribute('data-id', 'slider');
+    // this.root.insertAdjacentHTML('afterbegin', sliderWrapper.outerHTML);
 
-    this.scale.createScale();
-    if (this.options.labels && typeof this.options.labels === 'boolean') {
-      console.log('yes');
-    }
+    const sliderElements = this.options.elements;
+    sliderElements.forEach((Element) => {
+      const element = new Element();
+      element.create(this.options);
+    });
   }
 }
 

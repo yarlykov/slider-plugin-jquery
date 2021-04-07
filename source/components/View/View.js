@@ -10,9 +10,6 @@ class View {
     this.options.orientation = this.options.orientation === 'vertical'
       ? 'vertical'
       : 'horizontal';
-    this.options.type = this.options.type === 'simple'
-      ? 'simple'
-      : 'range';
     this.options.color = this.options.color === 'green'
       ? 'green'
       : 'orange';

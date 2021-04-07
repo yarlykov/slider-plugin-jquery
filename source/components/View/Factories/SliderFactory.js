@@ -1,17 +1,26 @@
-import SimpleSlider from './SimpleSlider';
+import Fill from '../subViews/Fill';
+import Scale from '../subViews/Scale';
+import Wrapper from '../subViews/Wrapper';
 
 class SliderFactory {
   create(options, root) {
-    const { type } = options;
-    const Slider = SliderFactory.list[type] || SliderFactory.list.simple;
-    const slider = new Slider(options, root);
+    const { elements } = options;
 
-    return slider;
+    SliderFactory.baseComponent.forEach((Component) => {
+      const component = new Component();
+      component.create(options, root);
+    });
+
+    if (typeof elements.fill === 'boolean' && elements.fill) {
+      const fill = new Fill();
+      fill.create(options);
+    }
   }
 }
 
-SliderFactory.list = {
-  simple: SimpleSlider,
-};
+SliderFactory.baseComponent = [
+  Wrapper,
+  Scale,
+];
 
 export default SliderFactory;
