@@ -11,10 +11,13 @@ const PATHS = {
 module.exports = {
   context: PATHS.source,
   mode: 'development',
-  entry: ['@babel/polyfill', './index.js'],
+  entry: ['@babel/polyfill', './index.ts'],
   output: {
     filename: 'bundle.js',
     path: PATHS.dist,
+  },
+  resolve: {
+    extensions: ['.ts', '.js', '.json'],
   },
   devServer: {
     port: 8082,
