@@ -1,31 +1,31 @@
 import SliderFactory from './Factories/SliderFactory';
 
-  interface Options {
-    min?: number;
-    max?: number;
-    step?: number;
-    currentValue?: number;
-    rangeMin?: number;
-    rangeMax?: number;
-    orientation?: string;
-    range?: boolean;
-    elements?: {
-      fill?: boolean;
-    };
-    units?: string;
-    color?: string;
-  }
+interface OptionsInterface {
+  min?: number;
+  max?: number;
+  step?: number;
+  currentValue?: number;
+  rangeMin?: number;
+  rangeMax?: number;
+  orientation?: string;
+  range?: boolean;
+  elements?: {
+    fill?: boolean;
+  };
+  units?: string;
+  color?: string;
+}
 
-class View {  
-  root: HTMLElement;
-  options: Options;
+class View {
+  root: HTMLElement | null;
+  options: OptionsInterface;
 
-  constructor(root: HTMLElement, options: Options) {
+  constructor(root: HTMLElement | null, options: OptionsInterface) {
     this.root = root;
     this.options = options;
   }
 
-  init() {
+  public init(): void {
     this.options.orientation =
       this.options.orientation === 'vertical' ? 'vertical' : 'horizontal';
     this.options.color = this.options.color === 'green' ? 'green' : 'orange';
@@ -35,4 +35,4 @@ class View {
   }
 }
 
-export default View;
+export { OptionsInterface, View };

@@ -1,7 +1,7 @@
 import './demo-page/styles/main.scss';
-import View from './components/View/View';
+import { View } from './components/View/View';
 
-const slider: HTMLElement = document.querySelector('.slider-plugin');
+const slider: HTMLElement | null = document.querySelector('.slider-plugin') || null;
 
 const view = new View(slider, {
   min: 0,
