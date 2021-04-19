@@ -1,4 +1,4 @@
-import { OptionsInterface } from '../../View/View';
+import { OptionsInterface } from '../../View';
 
 class Wrapper {
   create(options: OptionsInterface, root: HTMLElement): void {

@@ -1,6 +1,6 @@
 import Fill from '../subViews/Fill';
 import Scale from '../subViews/Scale';
-import Wrapper from '../subViews/Wrapper';
+import Wrapper from '../subViews/Wrapper/Wrapper';
 import { OptionsInterface } from '../../View/View';
 
 class SliderFactory {
