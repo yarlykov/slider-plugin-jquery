@@ -1,13 +1,14 @@
 import { OptionsInterface } from '../../View';
 
 class Wrapper {
-  create(options: OptionsInterface, root: HTMLElement): void {
+  create(options: OptionsInterface, root: HTMLElement): HTMLElement {
     const { orientation } = options;
 
     const sliderWrapper = document.createElement('div');
     sliderWrapper.classList.add('slider', `slider_${orientation}`);
     sliderWrapper.setAttribute('data-id', 'slider');
     root.insertAdjacentHTML('afterbegin', sliderWrapper.outerHTML);
+    return root;
   }
 }
 
