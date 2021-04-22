@@ -2,7 +2,7 @@ import { OptionsInterface } from '../../View';
 
 class Wrapper {
   create(options: OptionsInterface, root: HTMLElement): HTMLElement {
-    const { orientation } = options;
+    const { orientation = 'horizontal' } = options;
 
     const sliderWrapper = document.createElement('div');
     sliderWrapper.classList.add('slider', `slider_${orientation}`);
