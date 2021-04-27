@@ -1,7 +1,9 @@
 import './demo-page/styles/main.scss';
 import { View } from './components/View/View';
+import Model from './components/Model/Model';
 
-const slider: HTMLElement | null = document.querySelector('.slider-plugin') || null;
+const slider: HTMLElement | null =
+  document.querySelector('.slider-plugin') || null;
 
 const view = new View(slider, {
   min: 0,
@@ -12,11 +14,12 @@ const view = new View(slider, {
   rangeMax: 42,
   orientation: 'horizontal',
   range: false,
-  elements: {
-    fill: true,
-  },
+  fill: true,
   units: '¥',
   color: 'orange',
 });
 
 view.init();
+
+declare let window: any;
+window.sliderApp = new Model();
