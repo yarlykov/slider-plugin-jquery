@@ -19,11 +19,11 @@ class SimpleSlider {
     // sliderWrapper.setAttribute('data-id', 'slider');
     // this.root.insertAdjacentHTML('afterbegin', sliderWrapper.outerHTML);
 
-    const sliderElements = this.options.elements;
-    sliderElements.forEach((Element) => {
-      const element = new Element();
-      element.create(this.options);
-    });
+    // const sliderElements = this.options.elements;
+    // sliderElements.forEach((Element) => {
+    //   const element = new Element();
+    //   element.create(this.options);
+    // });
   }
 }
 

@@ -7,14 +7,14 @@ class SliderFactory {
   static baseComponent: any;
 
   public create(options: OptionsInterface, root: HTMLElement | null): void {
-    const { elements } = options;
+    const { fill } = options;
 
     SliderFactory.baseComponent.forEach((Component: new () => any) => {
       const component = new Component();
       component.create(options, root);
     });
 
-    if (typeof elements?.fill === 'boolean' && elements.fill) {
+    if (typeof fill === 'boolean' && fill) {
       const fill = new Fill();
       fill.create(options);
     }

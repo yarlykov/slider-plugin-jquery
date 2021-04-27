@@ -1,20 +1,5 @@
 import SliderFactory from './Factories/SliderFactory';
-
-interface OptionsInterface {
-  min?: number;
-  max?: number;
-  step?: number;
-  currentValue?: number;
-  rangeMin?: number;
-  rangeMax?: number;
-  orientation?: string;
-  range?: boolean;
-  elements?: {
-    fill?: boolean;
-  };
-  units?: string;
-  color?: string;
-}
+import { OptionsInterface } from '../interfaces';
 
 class View {
   root: HTMLElement | null;
