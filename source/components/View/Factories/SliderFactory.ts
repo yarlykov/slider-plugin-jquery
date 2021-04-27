@@ -1,12 +1,12 @@
 import Fill from '../subViews/Fill';
 import Scale from '../subViews/Scale';
 import Wrapper from '../subViews/Wrapper/Wrapper';
-import { OptionsInterface } from '../../View/View';
+import { IOptions } from '../../View/View';
 
 class SliderFactory {
   static baseComponent: any;
 
-  public create(options: OptionsInterface, root: HTMLElement | null): void {
+  public create(options: IOptions, root: HTMLElement | null): void {
     const { fill } = options;
 
     SliderFactory.baseComponent.forEach((Component: new () => any) => {

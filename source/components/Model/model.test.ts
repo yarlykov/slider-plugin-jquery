@@ -1,9 +1,9 @@
 import Model from './Model';
-import { OptionsInterface } from '../View/View';
+import { IOptions } from '../View/View';
 
 describe('Model:', () => {
   let model: any;
-  const initialState: OptionsInterface = {
+  const initialState: IOptions = {
     min: 0,
     max: 0,
     step: 0,

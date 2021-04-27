@@ -1,7 +1,7 @@
-import { OptionsInterface } from '../../View/View';
+import { IOptions } from '../../View/View';
 
 class Scale {
-  create(options: OptionsInterface): void {
+  create(options: IOptions): void {
     const { orientation } = options;
     const sliderWrapper: HTMLElement | null = document.querySelector(
       '[data-id="slider"]',
@@ -12,10 +12,10 @@ class Scale {
       </div>
       `;
 
-      if (sliderWrapper === null) {
-        throw new Error('Scale element is not found');
-      }
-      sliderWrapper.innerHTML = scaleTemplate;
+    if (sliderWrapper === null) {
+      throw new Error('Scale element is not found');
+    }
+    sliderWrapper.innerHTML = scaleTemplate;
   }
 }
 

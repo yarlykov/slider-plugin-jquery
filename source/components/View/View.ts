@@ -1,11 +1,11 @@
 import SliderFactory from './Factories/SliderFactory';
-import { OptionsInterface } from '../interfaces';
+import { IOptions } from '../interfaces';
 
 class View {
   root: HTMLElement | null;
-  options: OptionsInterface;
+  options: IOptions;
 
-  constructor(root: HTMLElement | null, options: OptionsInterface) {
+  constructor(root: HTMLElement | null, options: IOptions) {
     this.root = root;
     this.options = options;
   }
@@ -20,4 +20,4 @@ class View {
   }
 }
 
-export { OptionsInterface, View };
+export { IOptions, View };

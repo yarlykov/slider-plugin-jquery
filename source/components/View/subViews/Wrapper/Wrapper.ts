@@ -1,7 +1,7 @@
-import { OptionsInterface } from '../../View';
+import { IOptions } from '../../View';
 
 class Wrapper {
-  create(options: OptionsInterface, root: HTMLElement): HTMLElement {
+  create(options: IOptions, root: HTMLElement): HTMLElement {
     const { orientation = 'horizontal' } = options;
 
     const sliderWrapper = document.createElement('div');

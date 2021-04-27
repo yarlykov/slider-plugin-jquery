@@ -1,31 +1,30 @@
-import {OptionsInterface} from '../interfaces'
+import defaultState from '../../initialState';
+import { IOptions } from '../interfaces';
 
 type optionsValue = number & string & boolean;
 
 class Model {
-  state: OptionsInterface;
+  private state: IOptions;
 
   constructor() {
-    this.state = {};
+    this.state = defaultState || {};
   }
 
-  setState(state: OptionsInterface) {
+  public setState(state: IOptions) {
     this.state = state;
   }
 
-  getState(): OptionsInterface {
+  public getState(): IOptions {
     return this.state;
   }
 
-  setValue<K extends keyof OptionsInterface>(key: K, value: optionsValue) {
+  public setValue<K extends keyof IOptions>(key: K, value: optionsValue) {
     this.state[key] = value;
   }
 
-  getValue<K extends keyof OptionsInterface>(key: K) {
+  public getValue<K extends keyof IOptions>(key: K) {
     return this.state[key];
   }
-
 }
 
 export default Model;
-

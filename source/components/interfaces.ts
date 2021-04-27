@@ -1,4 +1,4 @@
-interface OptionsInterface {
+interface IOptions {
   min?: number;
   max?: number;
   step?: number;
@@ -12,4 +12,4 @@ interface OptionsInterface {
   color?: string;
 }
 
-export {OptionsInterface};
+export { IOptions };

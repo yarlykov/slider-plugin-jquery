@@ -1,7 +1,7 @@
-import { OptionsInterface } from '../../View/View';
+import { IOptions } from '../../View/View';
 
 class Fill {
-  create(options: OptionsInterface): void {
+  create(options: IOptions): void {
     const { orientation = 'horizontal', color = 'orange' } = options;
     const scale = document.querySelector('[data-id="scale"]');
 
