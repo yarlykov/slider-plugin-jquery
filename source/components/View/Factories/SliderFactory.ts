@@ -1,6 +1,5 @@
 import Fill from '../subViews/Fill';
-import Scale from '../subViews/Scale';
-import Wrapper from '../subViews/Wrapper/Wrapper';
+import Scale from '../subViews/Scale/Scale';
 import { IOptions } from '../../View/View';
 
 class SliderFactory {
@@ -11,16 +10,16 @@ class SliderFactory {
 
     SliderFactory.baseComponent.forEach((Component: new () => any) => {
       const component = new Component();
-      component.create(options, root);
+      component.display(options, root);
     });
 
     if (typeof fill === 'boolean' && fill) {
       const fill = new Fill();
-      fill.create(options);
+      fill.display(options);
     }
   }
 }
 
-SliderFactory.baseComponent = [Wrapper, Scale];
+SliderFactory.baseComponent = [Scale];
 
 export default SliderFactory;

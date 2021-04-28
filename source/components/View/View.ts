@@ -11,10 +11,6 @@ class View {
   }
 
   public init(): void {
-    this.options.orientation =
-      this.options.orientation === 'vertical' ? 'vertical' : 'horizontal';
-    this.options.color = this.options.color === 'green' ? 'green' : 'orange';
-
     const factory = new SliderFactory();
     factory.create(this.options, this.root);
   }

@@ -5,7 +5,7 @@ interface IOptions {
   currentValue?: number;
   rangeMin?: number;
   rangeMax?: number;
-  orientation?: string;
+  orientation?: 'horizontal' | 'vertical';
   range?: boolean;
   fill?: boolean;
   units?: string;
