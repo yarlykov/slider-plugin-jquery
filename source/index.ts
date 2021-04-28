@@ -1,25 +1,15 @@
 import './demo-page/styles/main.scss';
 import { View } from './components/View/View';
 import Model from './components/Model/Model';
+import Presenter from './components/Presenter/Presenter';
+import defaultState from './initialState';
 
 const slider: HTMLElement | null =
   document.querySelector('.slider-plugin') || null;
 
-const view = new View(slider, {
-  min: 0,
-  max: 100,
-  step: 25,
-  currentValue: 42,
-  rangeMin: 21,
-  rangeMax: 42,
-  orientation: 'horizontal',
-  range: false,
-  fill: true,
-  units: '¥',
-  color: 'orange',
-});
+const view = new View(slider, defaultState);
 
 view.init();
 
 declare let window: any;
-window.sliderApp = new Model();
+window.sliderApp = new Presenter(new Model(), new View(slider, {}));
