@@ -10,7 +10,7 @@ describe('Model:', () => {
     currentValue: 0,
     rangeMin: 0,
     rangeMax: 0,
-    orientation: 'orientation',
+    orientation: 'horizontal',
     range: false,
     fill: false,
     units: '',
@@ -36,7 +36,7 @@ describe('Model:', () => {
 
   test('getValue should return value', () => {
     expect(model.getValue('min')).toBe(0);
-    expect(model.getValue('orientation')).toBe('orientation');
+    expect(model.getValue('orientation')).toBe('horizontal');
     expect(model.getValue('range')).toBe(false);
     expect(model.getValue('units')).toBe('');
   });

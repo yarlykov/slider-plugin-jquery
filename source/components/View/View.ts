@@ -1,19 +1,30 @@
-import SliderFactory from './Factories/SliderFactory';
 import { IOptions } from '../interfaces';
+import Scale from './subViews/Scale/Scale';
+import Fill from './subViews/Fill';
 
 class View {
-  root: HTMLElement | null;
+  root: HTMLElement;
   options: IOptions;
+  orientation: string;
 
-  constructor(root: HTMLElement | null, options: IOptions) {
+  constructor(root: HTMLElement, options: IOptions) {
     this.root = root;
     this.options = options;
+    this.orientation = this.options.orientation || 'horizontal';
+
+    this.init();
   }
 
   public init(): void {
-    const factory = new SliderFactory();
-    factory.create(this.options, this.root);
+    const scale = new Scale();
+    const fill = new Fill();
+
+    scale.display(this.orientation, this.root);
+
+    if (this.options.fill) {
+      fill.display(this.options);
+    }
   }
 }
 
-export { IOptions, View };
+export default View ;
