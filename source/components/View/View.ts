@@ -13,27 +13,14 @@ class View {
   }
 
   public init(options: IOptions): void {
-    if (!options) throw new Error('options is not defined')
-    const orientation: string = options.orientation || 'horizontal';
+    if (!options) throw new Error('options is not defined');
+    const elements = [Scale, Fill, Knobs, Labels, Tooltips];
 
-    const scale = new Scale();
-    const fill = new Fill();
-    const knob = new Knobs();
-    const labels = new Labels();
-    const tooltips = new Tooltips();
-
-    scale.display(orientation, this.root);
-    if (options.fill) {
-      fill.display(options);
-    }
-    knob.display(options);
-    if (options.labels) {
-      labels.display(options);
-    }
-    if (options.tooltips) {
-      tooltips.display(options);
-    }
+    elements.forEach(Element => {
+      const element = new Element();
+      element.display(options, this.root)
+    })
   }
 }
 
-export default View ;
+export default View;

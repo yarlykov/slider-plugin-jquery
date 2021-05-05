@@ -1,13 +1,17 @@
 import { IOptions } from '../../interfaces';
 
 class Tooltips {
-  display(options: IOptions) {
+  display(options: IOptions, root: HTMLElement) {
     const {
       orientation = 'horizontal',
       color = 'orange',
       currentValue = 0,
+      tooltips = false,
     } = options;
-    const knob = document.querySelector('[data-id="knob"]');
+    const knob = root.querySelector('[data-id="knob"]');
+
+    if (!knob) throw new Error('Ooops... scale is not found');
+
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
@@ -18,7 +22,7 @@ class Tooltips {
           </div>
   `;
 
-    knob?.insertAdjacentHTML('afterbegin', tooltipTemplate);
+    if (tooltips) knob.insertAdjacentHTML('afterbegin', tooltipTemplate);
   }
 }
 export default Tooltips;

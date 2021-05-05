@@ -1,15 +1,12 @@
 import { IOptions } from '../../interfaces';
 
 class Labels {
-  display(options: IOptions) {
-    const scale = document.querySelector('[data-id="scale"]');
+  display(options: IOptions, root: HTMLElement) {
+    const scale = root.querySelector('[data-id="scale"]');
 
-    if (!scale) {
-      throw new Error('Ooops... scale is not found');
-    }
+    if (!scale) throw new Error('Ooops... scale is not found');
     const labels = this.createLabels(options);
-
-    scale.insertAdjacentHTML('beforeend', labels);
+    if (options.labels) scale.insertAdjacentHTML('beforeend', labels);
   }
 
   toLabel(
