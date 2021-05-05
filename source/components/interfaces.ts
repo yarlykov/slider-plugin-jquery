@@ -8,7 +8,8 @@ interface IOptions {
   orientation?: 'horizontal' | 'vertical';
   range?: boolean;
   fill?: boolean;
-  units?: string;
+  labels?: boolean;
+  tooltips?: boolean;
   color?: string;
 }
 

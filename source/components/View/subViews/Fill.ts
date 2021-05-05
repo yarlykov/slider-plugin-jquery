@@ -1,4 +1,4 @@
-import { IOptions } from '../../View/View';
+import { IOptions } from "../../interfaces";
 
 class Fill {
   display(options: IOptions): void {
@@ -14,7 +14,7 @@ class Fill {
     if (scale === null) {
       throw new Error('Scale element is not found');
     }
-    scale.innerHTML = fillTemplate;
+    scale.insertAdjacentHTML('afterbegin', fillTemplate);
   }
 }
 

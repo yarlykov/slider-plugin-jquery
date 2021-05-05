@@ -1,3 +1,4 @@
+import defaultState from '../../initialState';
 import { IOptions } from '../interfaces';
 
 type optionsValue = number & string & boolean;
@@ -6,7 +7,7 @@ class Model {
   private state: IOptions;
 
   constructor() {
-    this.state = {};
+    this.state = defaultState || {};
   }
 
   public setState(state: IOptions) {

@@ -10,7 +10,8 @@ const defaultState: IOptions = {
   orientation: 'horizontal',
   range: false,
   fill: true,
-  units: '¥',
+  labels: true,
+  tooltips: true,
   color: 'orange',
 };
 
