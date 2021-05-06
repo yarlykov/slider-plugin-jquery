@@ -1,8 +1,3 @@
-#slider-plugin {
-  display: flex;
-  width: 100%;
-}
-
 .slider {
   display: flex;
   width: 100%;
@@ -12,6 +7,11 @@
 
   font-family: Lato, sans-serif;
   font-size: 10px;
+
+  &__wrapper {
+    display: flex;
+    width: 100%;
+  }
 
   &_horizontal {
     width: 100%;

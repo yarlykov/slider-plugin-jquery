@@ -13,7 +13,7 @@ class View {
   }
 
   public init(options: IOptions): void {
-    if (!options) throw new Error('options is not defined');
+    if (!options) throw new Error('options were not passed');
     const elements = [Scale, Fill, Knobs, Labels, Tooltips];
 
     elements.forEach(Element => {

@@ -6,7 +6,10 @@ mixin demo-block({ options={} })
 
   section.demo-page__block
     +control-panel({ controlPanel })
-    #slider-plugin
+    #sliderSingleHorizontal.slider__wrapper
+  section.demo-page__block
+    +control-panel({ controlPanel })
+    #sliderSingleVertical.slider__wrapper
     //- +slider({ slider })
 
     //- .slider.slider_horizontal

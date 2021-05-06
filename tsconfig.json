@@ -4,6 +4,8 @@
     "module": "commonjs",
     "strict": true,
     "sourceMap": true,
+    "esModuleInterop": true,
+    "suppressImplicitAnyIndexErrors": true, /*нужно для разработки, потом убрать (используется в app.ts => window[index])*/
   },
   "exclude": ["node_modules"]
 }
