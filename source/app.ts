@@ -17,11 +17,54 @@ declare global {
 
     return this.each(function () {
       const app = new Presenter(new Model(), new View(this));
+      if (options) {
+        app.view.init(options);
+      }
 
-      window[index] = app;
+      window[index] = app; /*для разработки - удалить*/
     });
   };
 })(jQuery);
 
-$('#sliderSingleHorizontal').sliderPlugin();
-$('#sliderSingleVertical').sliderPlugin();
+$('#sliderSingleHorizontal').sliderPlugin({
+  currentValue: 36,
+  orientation: 'horizontal',
+  fill: true,
+  labels: true,
+  tooltips: true,
+  color: 'orange',
+});
+
+$('#sliderSingleVertical').sliderPlugin({
+  step: 25,
+  currentValue: 57,
+  orientation: 'vertical',
+  fill: true,
+  labels: true,
+  tooltips: true,
+  color: 'orange',
+});
+
+/* ++++++++++++++++ RANGE +++++++++++++++++ */
+
+$('#sliderRangeHorizontal').sliderPlugin({
+  rangeMin: 35,
+  rangeMax: 72,
+  orientation: 'horizontal',
+  range: true,
+  fill: true,
+  labels: true,
+  tooltips: true,
+  color: 'green',
+});
+
+$('#sliderRangeVertical').sliderPlugin({
+  range: true,
+  rangeMin: 13,
+  rangeMax: 62,
+  orientation: 'vertical',
+  fill: true,
+  tooltips: true,
+  labels: true,
+  color: 'green',
+});

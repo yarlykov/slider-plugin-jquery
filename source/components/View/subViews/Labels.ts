@@ -12,7 +12,7 @@ class Labels {
   toLabel(
     minLabelCount: number = 0,
     maxLabelCount: number = 100,
-    step: number = 1,
+    step: number = 25,
     orientation: string = 'horizontal',
   ): string {
     const stepValue = step === 0 ? 1 : step;

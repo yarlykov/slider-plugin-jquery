@@ -3,7 +3,7 @@ import { IOptions } from '../../../interfaces';
 
 class Scale {
   public display(options: IOptions, root: HTMLElement): HTMLElement {
-    const { orientation } = options;
+    const { orientation = 'horizontal' } = options;
     const sliderWrapperHTML = createElement('div', [
       'slider',
       `slider_${orientation}`,
@@ -17,6 +17,7 @@ class Scale {
     scaleHTML.setAttribute('data-id', 'scale');
 
     sliderWrapperHTML.append(scaleHTML);
+    root.innerHTML = '';
     root.append(sliderWrapperHTML);
     return root;
   }

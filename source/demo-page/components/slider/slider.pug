@@ -1,52 +1,56 @@
 mixin slider({ slider={} })
-  -
-    const { type={}, range=false, labels=[], tooltips=true, defaultValue={}, units="", color="" } = slider
-    const { horizontal=true, vertical=false } = type
 
-    const typeModifier = type.horizontal ? "horizontal" : "vertical"
-    const rangeModifier = range ? "range" : "single"
-    const colorModifier = color
+  div(id=`${slider.anchor}`).slider__wrapper
 
-    const typeClass = `slider_${typeModifier}`
-    const scaleTypeClass = `slider__scale_${typeModifier}`
 
-    const fillTypeClass = `slider__fill_${typeModifier}`
-    const rangeFillClass = `slider__fill_${typeModifier}_${rangeModifier}`
-    const colorFillClass = `slider__fill_${colorModifier}`
+  
+  //-   const { type={}, range=false, labels=[], tooltips=true, defaultValue={}, units="", color="" } = slider
+  //-   const { horizontal=true, vertical=false } = type
 
-    const knobTypeClass = `slider__knob_${typeModifier}`
-    const knobColorClass = `slider__knob_${colorModifier}`
+  //-   const typeModifier = type.horizontal ? "horizontal" : "vertical"
+  //-   const rangeModifier = range ? "range" : "single"
+  //-   const colorModifier = color
 
-    const tooltipTypeClass = `slider__tooltip_${typeModifier}`
-    const tooltipArrowTypeClass = `slider__tooltip_arrow_${typeModifier}`
-    const tooltipColorClass = `slider__tooltip_${colorModifier}`
+  //-   const typeClass = `slider_${typeModifier}`
+  //-   const scaleTypeClass = `slider__scale_${typeModifier}`
 
-    const labelsClass = `slider__labels_${typeModifier}`
-    const labelsActiveClass = `slider__labels-item_active`
+  //-   const fillTypeClass = `slider__fill_${typeModifier}`
+  //-   const rangeFillClass = `slider__fill_${typeModifier}_${rangeModifier}`
+  //-   const colorFillClass = `slider__fill_${colorModifier}`
 
-  .slider-plugin
-    .slider(class=typeClass data-id="slider" data-slider="horizontal")
-      .slider__scale(class=scaleTypeClass data-id="scale" data-scale-component="scale")
-        .slider__fill(class=[fillTypeClass, rangeFillClass, colorFillClass] data-id="fill" data-scale-component="fill")
-        if range
-          .slider__knob.slider__knob_range-first(class=[knobTypeClass, knobColorClass] data-id="knob" data-knob="first")
-            .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip" data-tooltip="first")
-              span.tooltip__value(data-id="tooltip-value" data-tooltip-value="first") #{defaultValue.range[0]} #{units}
-              .slider__tooltip_arrow(class=tooltipArrowTypeClass)
+  //-   const knobTypeClass = `slider__knob_${typeModifier}`
+  //-   const knobColorClass = `slider__knob_${colorModifier}`
 
-          .slider__knob.slider__knob_range-second(class=[knobTypeClass, knobColorClass] data-id="knob" data-knob="second")
-            .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip" data-tooltip="second")
-              span.tooltip__value(data-id="tooltip-value" data-tooltip-value="second") #{defaultValue.range[1]} #{units}
-              .slider__tooltip_arrow(class=tooltipArrowTypeClass)
-          .slider__labels(class=labelsClass data-id="labels")
+  //-   const tooltipTypeClass = `slider__tooltip_${typeModifier}`
+  //-   const tooltipArrowTypeClass = `slider__tooltip_arrow_${typeModifier}`
+  //-   const tooltipColorClass = `slider__tooltip_${colorModifier}`
 
-            each label in labels
-              .slider__labels-item #{label}
-        else
-          .slider__knob(class=[knobTypeClass, knobColorClass] data-id="knob")
-            .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip")
-              span.tooltip__value(data-id="tooltip-value") #{defaultValue.single} #{units}
-              .slider__tooltip_arrow
-          .slider__labels(class=labelsClass data-id="labels")
-            each label in labels
-              .slider__labels-item #{label}
+  //-   const labelsClass = `slider__labels_${typeModifier}`
+  //-   const labelsActiveClass = `slider__labels-item_active`
+
+  //- .slider-plugin
+  //-   .slider(class=typeClass data-id="slider" data-slider="horizontal")
+  //-     .slider__scale(class=scaleTypeClass data-id="scale" data-scale-component="scale")
+  //-       .slider__fill(class=[fillTypeClass, rangeFillClass, colorFillClass] data-id="fill" data-scale-component="fill")
+  //-       if range
+  //-         .slider__knob.slider__knob_range-first(class=[knobTypeClass, knobColorClass] data-id="knob" data-knob="first")
+  //-           .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip" data-tooltip="first")
+  //-             span.tooltip__value(data-id="tooltip-value" data-tooltip-value="first") #{defaultValue.range[0]} #{units}
+  //-             .slider__tooltip_arrow(class=tooltipArrowTypeClass)
+
+  //-         .slider__knob.slider__knob_range-second(class=[knobTypeClass, knobColorClass] data-id="knob" data-knob="second")
+  //-           .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip" data-tooltip="second")
+  //-             span.tooltip__value(data-id="tooltip-value" data-tooltip-value="second") #{defaultValue.range[1]} #{units}
+  //-             .slider__tooltip_arrow(class=tooltipArrowTypeClass)
+  //-         .slider__labels(class=labelsClass data-id="labels")
+
+  //-           each label in labels
+  //-             .slider__labels-item #{label}
+  //-       else
+  //-         .slider__knob(class=[knobTypeClass, knobColorClass] data-id="knob")
+  //-           .slider__tooltip(class=[tooltipTypeClass, tooltipColorClass] data-id="tooltip")
+  //-             span.tooltip__value(data-id="tooltip-value") #{defaultValue.single} #{units}
+  //-             .slider__tooltip_arrow
+  //-         .slider__labels(class=labelsClass data-id="labels")
+  //-           each label in labels
+  //-             .slider__labels-item #{label}
