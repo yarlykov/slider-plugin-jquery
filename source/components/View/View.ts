@@ -14,12 +14,13 @@ class View {
 
   public init(options: IOptions): void {
     if (!options) throw new Error('options were not passed');
+
     const elements = [Scale, Fill, Knobs, Labels, Tooltips];
 
-    elements.forEach(Element => {
-      const element = new Element();
-      element.display(options, this.root)
-    })
+    elements.forEach((Element) => {
+      const element = new Element(options, this.root);
+      element.display();
+    });
   }
 }
 
