@@ -11,20 +11,18 @@ declare global {
   }
 }
 
-(function ($) {
-  $.fn.sliderPlugin = function (options) {
-    const index: string = this[0].id; /*для разработки - удалить*/
+$.fn.sliderPlugin = function (options) {
+  const index: string = this[0].id; /*для разработки - удалить*/
 
-    return this.each(function () {
-      const app = new Presenter(new Model(), new View(this));
-      if (options) {
-        app.view.init(options);
-      }
+  return this.each(function () {
+    const app = new Presenter(new Model(), new View(this));
+    if (options) {
+      app.view.init(options);
+    }
 
-      window[index] = app; /*для разработки - удалить*/
-    });
-  };
-})(jQuery);
+    window[index] = app; /*для разработки - удалить*/
+  });
+};
 
 $('#sliderSingleHorizontal').sliderPlugin({
   currentValue: 36,
