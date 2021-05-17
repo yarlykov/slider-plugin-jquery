@@ -1,17 +1,21 @@
+import Emitter from '../../Emitter';
 import defaultState from '../../initialState';
 import { IOptions } from '../interfaces';
 
 type optionsValue = number & string & boolean;
 
-class Model {
+class Model extends Emitter {
   private state: IOptions;
 
   constructor() {
+    super();
     this.state = defaultState || {};
   }
 
   public setState(state: IOptions) {
-    this.state = state;
+    this.state = { ...this.state, ...state };
+
+    this.emit('changeState', this.state);
   }
 
   public getState(): IOptions {
@@ -20,6 +24,8 @@ class Model {
 
   public setValue<K extends keyof IOptions>(key: K, value: optionsValue) {
     this.state[key] = value;
+
+    this.emit('changeState', this.state);
   }
 
   public getValue<K extends keyof IOptions>(key: K) {
