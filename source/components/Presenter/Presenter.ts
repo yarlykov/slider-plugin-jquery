@@ -14,6 +14,20 @@ class Presenter {
     this.model.subscribe('changeState', (data: IOptions) => {
       this.view.init(data);
     });
+
+    this.model.subscribe('changeValue', (data: IOptions) => {
+      this.view.update(data);
+    });
+
+    const control = root.previousElementSibling as Element;
+    const input = control.querySelector(
+      '[data-title="current"]',
+    ) as HTMLElement;
+    
+    input.addEventListener('change', (event: Event) => {
+      let value = event.target.value;
+      this.model.setValue('currentValue', Number(value));
+    });
   }
 }
 

@@ -18,6 +18,17 @@ class Tooltips extends SliderComponent {
     }
   }
 
+  update(data: any) {
+    // убрать any
+    const tooltip = this.root.querySelector(
+      '[data-id="tooltip-value"]',
+    ) as HTMLElement;
+
+    if (data.key === 'currentValue' && tooltip) {
+      tooltip.innerText = `${data.currentValue}`;
+    }
+  }
+
   getTemplate() {
     const { orientation, color, currentValue } = this.options;
     const verticalTooltipClass =

@@ -25,7 +25,7 @@ class Model extends Emitter {
   public setValue<K extends keyof IOptions>(key: K, value: optionsValue) {
     this.state[key] = value;
 
-    this.emit('changeState', this.state);
+    this.emit('changeValue', {key, ...this.state});
   }
 
   public getValue<K extends keyof IOptions>(key: K) {

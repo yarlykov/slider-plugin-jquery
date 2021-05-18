@@ -8,6 +8,16 @@ class Knobs extends SliderComponent {
     scale.insertAdjacentHTML('beforeend', this.getTemplate());
   }
 
+  update(data: any) {
+    // убрать any
+    const knob = this.root.querySelector('[data-id="knob"]') as HTMLElement;
+
+    if (data.key === 'currentValue') {
+      const directionOfMove = data.orientation === 'horizontal' ? 'left' : 'bottom'
+      knob.style[directionOfMove] = `${data.currentValue}%`;
+    }
+  }
+
   getTemplate() {
     const {
       orientation = 'horizontal',
@@ -18,8 +28,7 @@ class Knobs extends SliderComponent {
       rangeMax = 75,
     } = this.options;
 
-    const directionOfMove: string =
-      orientation === 'horizontal' ? 'left' : 'bottom';
+    const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
 
     if (range) {
       return `
@@ -29,13 +38,13 @@ class Knobs extends SliderComponent {
         <div class="slider__knob slider__knob_range-second slider__knob_${orientation} 
         slider__knob_${color}" data-id="knob" data-knob="second" 
         style="${directionOfMove}: ${rangeMax}%"></div>
-    `
+    `;
     }
 
     return `
       <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
         data-id="knob" style="${directionOfMove}: ${currentValue}%"></div>
-    `
+    `;
   }
 }
 

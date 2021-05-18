@@ -9,6 +9,16 @@ class Fill extends SliderComponent {
       return scale.insertAdjacentHTML('afterbegin', this.getTemplate());
   }
 
+  update(data: any) {
+    // убрать any
+    const fill = this.root.querySelector('[data-id="fill"]') as HTMLElement;
+
+    if (data.key === 'currentValue' && fill) {
+      const wayOfFilling = data.orientation === 'horizontal' ? 'width' : 'height';
+      fill.style[wayOfFilling] = `${data.currentValue}%`;
+    }
+  }
+
   getTemplate() {
     const {
       range = false,
@@ -20,14 +30,16 @@ class Fill extends SliderComponent {
     } = this.options;
 
     const isHorizontal = orientation === 'horizontal';
-    const wayOfFilling: string = isHorizontal ? 'width' : 'height';
+    const wayOfFilling = isHorizontal ? 'width' : 'height';
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
 
     if (range)
       return `
       <div class="slider__fill slider__fill_${orientation} 
       slider__fill_${orientation}_range slider__fill_${color}" data-id="fill" 
-      style="${wayOfFilling}: ${rangeMax - rangeMin}%; ${wayOfMove}: ${rangeMin}%"></div>
+      style="${wayOfFilling}: ${
+        rangeMax - rangeMin
+      }%; ${wayOfMove}: ${rangeMin}%"></div>
     `;
 
     return `

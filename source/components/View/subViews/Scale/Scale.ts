@@ -1,21 +1,21 @@
 import Slider from '../SliderComponent';
 
 class Scale extends Slider {
-  _element!: string;
+  private element!: string;
 
   display() {
     this.root.innerHTML = '';
-    this.root.insertAdjacentHTML('afterbegin', this.element);
+    this.root.insertAdjacentHTML('afterbegin', this.getElement());
   }
 
-  get element() {
-    if (this._element) {
+  getElement() {
+    if (this.element) {
       console.log('i am save');
-      return this._element;
+      return this.element;
     }
 
-    this._element = this.getTemplate();
-    return this._element;
+    this.element = this.getTemplate();
+    return this.element;
   }
 
   getTemplate() {
