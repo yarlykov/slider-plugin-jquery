@@ -1,0 +1,39 @@
+.slider {
+  &__fill {
+    position: absolute;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &_horizontal {
+      height: 6px;
+      width: 42%;
+      max-height: 6px;
+    }
+
+    &_horizontal_range {
+      height: 6px;
+      left: 25%;
+      width: 50%;
+    }
+
+    &_vertical {
+      width: 6px;
+      height: 42%;
+      min-width: 6px;
+      bottom: 0;
+    }
+
+    &_vertical_range {
+      height: 50%;
+      bottom: 23%;
+    }
+
+    &_orange {
+      background: #e75735;
+    }
+
+    &_green {
+      background: #4eb7a8;
+    }
+  }
+}

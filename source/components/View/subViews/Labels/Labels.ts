@@ -1,4 +1,5 @@
-import SliderComponent from './SliderComponent';
+import './labels.scss';
+import SliderComponent from '../SliderComponent';
 
 class Labels extends SliderComponent {
   display() {

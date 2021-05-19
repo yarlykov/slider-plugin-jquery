@@ -1,5 +1,6 @@
-import { IOptions } from '../../interfaces';
-import SliderComponent from './SliderComponent';
+import './fill.scss';
+import { IOptions } from '../../../interfaces';
+import SliderComponent from '../SliderComponent';
 
 class Fill extends SliderComponent {
   display() {

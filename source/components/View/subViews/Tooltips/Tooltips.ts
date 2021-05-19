@@ -1,5 +1,6 @@
-import { IOptions } from '../../interfaces';
-import SliderComponent from './SliderComponent';
+import './tooltips.scss';
+import { IOptions } from '../../../interfaces';
+import SliderComponent from '../SliderComponent';
 
 class Tooltips extends SliderComponent {
   private firstTooltip!: FirstTooltip;
@@ -16,7 +17,7 @@ class Tooltips extends SliderComponent {
       this.secondTooltip.display();
     } else if (tooltips) {
       const knob = this.root.querySelector('[data-id="knob"]');
-      
+
       if (!knob) throw new Error('Knob element is not found');
       knob.insertAdjacentHTML('afterbegin', this.getTemplate());
     }

@@ -1,0 +1,53 @@
+.slider {
+  &__tooltip {
+    position: absolute;
+    min-width: 28px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2px 0 2px;
+
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff;
+    border-radius: 4px;
+
+    &_horizontal {
+      top: -25px;
+      left: -7px;
+    }
+
+    &_vertical {
+      right: 25px;
+    }
+
+    &_arrow {
+      position: absolute;
+      top: 15px;
+      width: 7px;
+      height: 7px;
+      transform: rotate(45deg);
+      background: inherit;
+      z-index: -1;
+    }
+
+    &_arrow_vertical {
+      top: 6px;
+      left: 28px;
+    }
+
+    &_arrow_horizontal {
+      top: 14px;
+    }
+
+    &_orange {
+      background: #e75735;
+    }
+
+    &_green {
+      background: #4eb7a8;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+.slider {
+  &__knob {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 0.5px rgba(0, 0, 0, 0.2);
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+
+    &:active {
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 5px 0.5px rgba(0, 0, 0, 0.5);
+    }
+
+    &_horizontal {
+      left: 42%;
+      top: -6px;
+      transform: translateX(-50%);
+    }
+
+    &_vertical {
+      bottom: 42%;
+      left: -6px;
+      transform: translateY(50%);
+    }
+
+    &_vertical.slider__knob_range-first {
+      left: -6px;
+      bottom: 25%;
+    }
+
+    &_vertical.slider__knob_range-second {
+      left: -6px;
+      bottom: 75%;
+    }
+
+    &_range-first {
+      left: 25%;
+    }
+
+    &_range-second {
+      left: 75%;
+    }
+
+    &_orange {
+      background: #e75735;
+    }
+
+    &_green {
+      background: #4eb7a8;
+    }
+  }
+}

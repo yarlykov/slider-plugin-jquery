@@ -1,3 +1,4 @@
+import './scale.scss';
 import Slider from '../SliderComponent';
 
 class Scale extends Slider {
@@ -19,7 +20,7 @@ class Scale extends Slider {
   }
 
   getTemplate() {
-    const { orientation } = this.options;
+    const { orientation = 'horizontal' } = this.options;
     return `
       <div class="slider slider_${orientation}">
         <div class="slider__scale slider__scale_${orientation}" data-id="scale"></div>

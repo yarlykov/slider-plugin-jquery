@@ -1,9 +1,9 @@
 import { IOptions } from '../interfaces';
 import Scale from './subViews/Scale/Scale';
-import Fill from './subViews/Fill';
-import Labels from './subViews/Labels';
-import Knobs from './subViews/Knobs';
-import Tooltips from './subViews/Tooltips';
+import Fill from './subViews/Fill/Fill';
+import Labels from './subViews/Labels/Labels';
+import Knobs from './subViews/Knobs/Knobs';
+import Tooltips from './subViews/Tooltips/Tooltips';
 
 class View {
   root: HTMLElement;

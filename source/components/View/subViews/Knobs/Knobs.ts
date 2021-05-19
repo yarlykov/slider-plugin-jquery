@@ -1,5 +1,6 @@
-import { IOptions } from '../../interfaces';
-import SliderComponent from './SliderComponent';
+import './knobs.scss';
+import { IOptions } from '../../../interfaces';
+import SliderComponent from '../SliderComponent';
 
 class Knobs extends SliderComponent {
   private firstKnob!: FirstKnob;
@@ -23,7 +24,7 @@ class Knobs extends SliderComponent {
 
   update(state: IOptions) {
     const knob = this.root.querySelector('[data-id="knob"]') as HTMLElement;
-    
+
     if (state.range) {
       this.firstKnob.update(state);
       this.secondKnob.update(state);
@@ -46,9 +47,7 @@ class Knobs extends SliderComponent {
 
 class FirstKnob extends SliderComponent {
   update(state: IOptions) {
-    const knob = this.root.querySelector(
-      '[data-knob="first"]',
-    ) as HTMLElement;
+    const knob = this.root.querySelector('[data-knob="first"]') as HTMLElement;
     const directionOfMove =
       state.orientation === 'horizontal' ? 'left' : 'bottom';
     knob.style[directionOfMove] = `${state.rangeMin}%`;
@@ -65,9 +64,7 @@ class FirstKnob extends SliderComponent {
 
 class SecondKnob extends SliderComponent {
   update(state: IOptions) {
-    const knob = this.root.querySelector(
-      '[data-knob="second"]',
-    ) as HTMLElement;
+    const knob = this.root.querySelector('[data-knob="second"]') as HTMLElement;
     const directionOfMove =
       state.orientation === 'horizontal' ? 'left' : 'bottom';
     knob.style[directionOfMove] = `${state.rangeMax}%`;
