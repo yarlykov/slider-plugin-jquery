@@ -15,7 +15,7 @@ abstract class SliderComponent extends Emitter {
     this.root = root;
   }
 
-  update(data: Object): void {}
+  update(state: IOptions): void {}
 }
 
 export default SliderComponent;

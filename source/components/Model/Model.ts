@@ -14,7 +14,6 @@ class Model extends Emitter {
 
   public setState(state: IOptions) {
     this.state = { ...this.state, ...state };
-
     this.emit('changeState', this.state);
   }
 
@@ -22,14 +21,18 @@ class Model extends Emitter {
     return this.state;
   }
 
-  public setValue<K extends keyof IOptions>(key: K, value: optionsValue) {
-    this.state[key] = value;
+  public setValue<K extends keyof IOptions>(keyState: K, valueState: optionsValue) {
+    this.state[keyState] = valueState;
 
-    this.emit('changeValue', {key, ...this.state});
+    if (!Number.isInteger(valueState)) {
+      this.emit('changeState', this.state);
+    } else {
+      this.emit('changeValue', this.state);
+    }
   }
 
-  public getValue<K extends keyof IOptions>(key: K) {
-    return this.state[key];
+  public getValue<K extends keyof IOptions>(keyState: K) {
+    return this.state[keyState];
   }
 }
 
