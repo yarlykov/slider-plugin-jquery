@@ -1,3 +1,4 @@
+import { IOptions } from '../../interfaces';
 import SliderComponent from './SliderComponent';
 
 class Fill extends SliderComponent {
@@ -9,42 +10,33 @@ class Fill extends SliderComponent {
       return scale.insertAdjacentHTML('afterbegin', this.getTemplate());
   }
 
-  update(data: any) {
-    // убрать any
+  update(state: IOptions) {
     const fill = this.root.querySelector('[data-id="fill"]') as HTMLElement;
+    const {
+      orientation = 'horizontal',
+      range,
+      rangeMin = 0,
+      rangeMax = 100,
+      currentValue,
+    } = state;
 
-    if (data.key === 'currentValue' && fill) {
-      const wayOfFilling = data.orientation === 'horizontal' ? 'width' : 'height';
-      fill.style[wayOfFilling] = `${data.currentValue}%`;
+    const isHorizontal = orientation === 'horizontal';
+    const wayOfFilling: string = isHorizontal ? 'width' : 'height';
+    const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
+
+    if (fill && range) {
+      fill.style[wayOfFilling] = `${rangeMax - rangeMin}%`;
+      fill.style[wayOfMove] = `${rangeMin}%`;
+    } else if (fill) {
+      fill.style[wayOfFilling] = `${currentValue}%`;
     }
   }
 
   getTemplate() {
-    const {
-      range = false,
-      color = 'orange',
-      orientation,
-      rangeMin = 0,
-      rangeMax = 100,
-      currentValue = 42,
-    } = this.options;
-
-    const isHorizontal = orientation === 'horizontal';
-    const wayOfFilling = isHorizontal ? 'width' : 'height';
-    const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
-
-    if (range)
-      return `
-      <div class="slider__fill slider__fill_${orientation} 
-      slider__fill_${orientation}_range slider__fill_${color}" data-id="fill" 
-      style="${wayOfFilling}: ${
-        rangeMax - rangeMin
-      }%; ${wayOfMove}: ${rangeMin}%"></div>
-    `;
+    const { color = 'orange', orientation = 'horizontal' } = this.options;
 
     return `
-      <div class="slider__fill slider__fill_${orientation} slider__fill_${color} "data-id="fill"
-      data-scale-component="fill"style="${wayOfFilling}: ${currentValue}%;"></div>
+      <div class="slider__fill slider__fill_${orientation} slider__fill_${color} "data-id="fill"></div>
     `;
   }
 }

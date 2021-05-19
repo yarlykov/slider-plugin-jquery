@@ -18,6 +18,7 @@ class View {
     if (!options) throw new Error('options were not passed');
 
     const elements = [Scale, Fill, Knobs, Labels, Tooltips];
+    this.components = [];
 
     elements.forEach((Element) => {
       const element = new Element(options, this.root);
