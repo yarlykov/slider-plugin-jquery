@@ -1,6 +1,7 @@
 import './tooltips.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
+import { fromPercentToValue } from '../../../../utils/utils';
 
 class Tooltips extends SliderComponent {
   private firstTooltip!: FirstTooltip;
@@ -32,7 +33,7 @@ class Tooltips extends SliderComponent {
       this.firstTooltip.update(state);
       this.secondTooltip.update(state);
     } else if (tooltip) {
-      tooltip.innerText = `${state.currentValue}`;
+      tooltip.innerText = `${fromPercentToValue(state)}`;
     }
   }
 

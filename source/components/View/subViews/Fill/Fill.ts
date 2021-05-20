@@ -1,6 +1,7 @@
 import './fill.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
+import { calcStepForElementRender, fromValueToPercent } from '../../../../utils/utils';
 
 class Fill extends SliderComponent {
   display() {
@@ -29,7 +30,7 @@ class Fill extends SliderComponent {
       fill.style[wayOfFilling] = `${rangeMax - rangeMin}%`;
       fill.style[wayOfMove] = `${rangeMin}%`;
     } else if (fill) {
-      fill.style[wayOfFilling] = `${currentValue}%`;
+      fill.style[wayOfFilling] = `${calcStepForElementRender(state)}%`;
     }
   }
 
