@@ -1,37 +1,24 @@
 import './knobs.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
+import { calcStepForElementRender, getCoords } from '../../../../utils/utils';
 
-class Knobs extends SliderComponent {
-  private firstKnob!: FirstKnob;
-  private secondKnob!: SecondKnob;
-
+class Knob extends SliderComponent {
   display() {
-    const { range } = this.options;
     const scale = this.root.querySelector('[data-id="scale"]');
     if (!scale) throw new Error('Scale element is not found');
 
-    if (range) {
-      this.firstKnob = new FirstKnob(this.options, this.root);
-      this.secondKnob = new SecondKnob(this.options, this.root);
-
-      scale.insertAdjacentHTML('beforeend', this.firstKnob.getTemplate());
-      scale.insertAdjacentHTML('beforeend', this.secondKnob.getTemplate());
-    } else {
-      scale.insertAdjacentHTML('beforeend', this.getTemplate());
-    }
+    scale.insertAdjacentHTML('beforeend', this.getTemplate());
+    this.addListeners(this.options);
   }
 
   update(state: IOptions) {
     const knob = this.root.querySelector('[data-id="knob"]') as HTMLElement;
 
-    if (state.range) {
-      this.firstKnob.update(state);
-      this.secondKnob.update(state);
-    } else if (knob) {
+    if (knob) {
       const directionOfMove =
         state.orientation === 'horizontal' ? 'left' : 'bottom';
-      knob.style[directionOfMove] = `${state.currentValue}%`;
+      knob.style[directionOfMove] = `${calcStepForElementRender(state)}%`;
     }
   }
 
@@ -43,9 +30,55 @@ class Knobs extends SliderComponent {
         data-id="knob"></div>
     `;
   }
+
+  addListeners(state: IOptions) {
+    const knob = this.root.querySelector('[data-id="knob"]');
+    const scale = this.root.querySelector('[data-id="scale"]');
+    const { min, max, step } = state;
+
+    knob?.addEventListener('mousedown', (event) => {
+      let sliderCoords = getCoords(scale as HTMLElement);
+      let knobCoords = getCoords(knob as HTMLElement);
+      let shift = event.pageX - knobCoords.left;
+
+      document.onmousemove = (event) => {
+        event.preventDefault();
+        let left =
+          ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
+          100;
+
+        if (left < 0) left = 0;
+        if (left > 100) left = 100;
+
+        let stepCount = (max - min) / step;
+        let stepPercent = 100 / stepCount;
+        let stepLeft = Math.round(left / stepPercent) * stepPercent;
+
+        if (stepLeft < 0) stepLeft = 0;
+        if (stepLeft > 100) stepLeft = 100;
+        this.emit('mousemove', stepLeft);
+
+        let result = ((stepLeft / stepPercent) * step).toFixed();
+        let values = result + min;
+        result = Number(values);
+      };
+
+      document.onmouseup = () => {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+    });
+  }
 }
 
 class FirstKnob extends SliderComponent {
+  display() {
+    const scale = this.root.querySelector('[data-id="scale"]');
+    if (!scale) throw new Error('Scale element is not found');
+
+    scale.insertAdjacentHTML('beforeend', this.getTemplate());
+  }
+
   update(state: IOptions) {
     const knob = this.root.querySelector('[data-knob="first"]') as HTMLElement;
     const directionOfMove =
@@ -63,6 +96,13 @@ class FirstKnob extends SliderComponent {
 }
 
 class SecondKnob extends SliderComponent {
+  display() {
+    const scale = this.root.querySelector('[data-id="scale"]');
+    if (!scale) throw new Error('Scale element is not found');
+
+    scale.insertAdjacentHTML('beforeend', this.getTemplate());
+  }
+
   update(state: IOptions) {
     const knob = this.root.querySelector('[data-knob="second"]') as HTMLElement;
     const directionOfMove =
@@ -79,4 +119,4 @@ class SecondKnob extends SliderComponent {
   }
 }
 
-export default Knobs;
+export { Knob, FirstKnob, SecondKnob };

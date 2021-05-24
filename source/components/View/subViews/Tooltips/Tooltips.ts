@@ -3,20 +3,11 @@ import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
 import { fromPercentToValue } from '../../../../utils/utils';
 
-class Tooltips extends SliderComponent {
-  private firstTooltip!: FirstTooltip;
-  private secondTooltip!: SecondTooltip;
-
+class Tooltip extends SliderComponent {
   display() {
-    const { tooltips = false, range = false } = this.options;
+    const { tooltips = false } = this.options;
 
-    if (tooltips && range) {
-      this.firstTooltip = new FirstTooltip(this.options, this.root);
-      this.secondTooltip = new SecondTooltip(this.options, this.root);
-
-      this.firstTooltip.display();
-      this.secondTooltip.display();
-    } else if (tooltips) {
+    if (tooltips) {
       const knob = this.root.querySelector('[data-id="knob"]');
 
       if (!knob) throw new Error('Knob element is not found');
@@ -29,12 +20,7 @@ class Tooltips extends SliderComponent {
       '[data-id="tooltip-value"]',
     ) as HTMLElement;
 
-    if (state.tooltips && state.range) {
-      this.firstTooltip.update(state);
-      this.secondTooltip.update(state);
-    } else if (tooltip) {
-      tooltip.innerText = `${fromPercentToValue(state)}`;
-    }
+    if (tooltip) tooltip.innerText = `${fromPercentToValue(state)}`;
   }
 
   getTemplate() {
@@ -110,4 +96,4 @@ class SecondTooltip extends SliderComponent {
   }
 }
 
-export default Tooltips;
+export { Tooltip, FirstTooltip, SecondTooltip };
