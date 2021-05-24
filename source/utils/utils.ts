@@ -65,9 +65,20 @@ function fromValueToPercent(state: IOptions) {
   return percent;
 }
 
+ function getCoords(elem: HTMLElement): Object {
+    let boxLeft = elem.getBoundingClientRect().left;
+    let boxRight = elem.getBoundingClientRect().right;
+
+    return {
+      left: boxLeft + pageXOffset,
+      width: boxRight - boxLeft,
+    };
+  }
+
 export {
   createElement,
   calcStepForElementRender,
   fromPercentToValue,
   fromValueToPercent,
+  getCoords
 };
