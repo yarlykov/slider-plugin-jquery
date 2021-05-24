@@ -1,35 +1,49 @@
 import { IOptions } from '../interfaces';
-import Scale from './subViews/Scale/Scale';
-import Fill from './subViews/Fill/Fill';
-import Labels from './subViews/Labels/Labels';
-import Knobs from './subViews/Knobs/Knobs';
-import Tooltips from './subViews/Tooltips/Tooltips';
+import Emitter from '../../Emitter';
+import SliderFactory from '../factories';
 
-class View {
+class View extends Emitter {
   root: HTMLElement;
-  components: any[];
+  public type!: string;
+  public componentList!: {};
+  private components!: any[];
 
   constructor(root: HTMLElement) {
+    super();
     this.root = root;
-    this.components = [];
   }
 
   public init(options: IOptions): void {
     if (!options) throw new Error('options were not passed');
 
-    const elements = [Scale, Fill, Knobs, Labels, Tooltips];
     this.components = [];
+    this.type = options.range ? 'range' : 'simple';
+    const sliderFactory = new SliderFactory();
+    const slider = sliderFactory.create(this.type);
 
-    elements.forEach((Element) => {
-      const element = new Element(options, this.root);
-      this.components.push(element);
-      element.display();
-    });
+    this.components = slider.createComponents(options, this.root);
+
+    this.displaySlider();
+    this.createComponentList();
+    // this.componentList.knobs.subscribe('mousemove', (data) =>
+    //   this.emit('mousemove', data),
+    // );
+    console.log(this.components);
   }
 
   public update(data: Object) {
-    this.components.forEach((component) => {
-      component.update(data);
+    this.components.forEach((component) => component.update(data));
+  }
+
+  private displaySlider() {
+    this.components.forEach((element) => element.display());
+  }
+
+  private createComponentList() {
+    this.componentList = {};
+
+    this.components.forEach((element) => {
+      this.componentList[element.constructor.name.toLowerCase()] = element;
     });
   }
 }
