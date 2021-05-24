@@ -11,28 +11,46 @@ class Labels extends SliderComponent {
   }
 
   getTemplate() {
-    const { orientation = 'horizontal', min, max, step } = this.options;
+    const { orientation = 'horizontal', min, max } = this.options;
 
     return `
       <div class="slider__labels slider__labels_${orientation}" data-id="labels">
-        ${this.toLabel(min, max, step)}
+        ${this.toLabel(min, max)}
       </div>
     `;
   }
 
-  toLabel(
-    minLabelCount: number = 0,
-    maxLabelCount: number = 100,
-    step: number = 25,
-  ): string {
+  toLabel(minLabelCount: number = 0, maxLabelCount: number = 100): string {
     const { orientation } = this.options;
-    const stepValue = step === 0 ? 1 : step;
+    const step = Math.round(maxLabelCount - minLabelCount);
+    
+    
     const labels = [];
-    const nextLabelCount = (maxLabelCount * stepValue) / 100;
 
-    for (let i = minLabelCount; i <= maxLabelCount; i += nextLabelCount) {
-      const label = `<div class="slider__labels-item">${i}</div>`;
-      labels.push(label);
+    for (let i = 0; i <= 4; i += 1) {
+      const label = document.createElement('div');
+      label.className = 'slider__labels-item';
+      if (i === 0) {
+        label.innerText = `${minLabelCount}`;
+        label.style.left = `${0}%`
+      }
+      if (i === 1) {
+        label.innerText = `${((25 * step) / 100 + minLabelCount).toFixed()}`;
+        label.style.left = `${25}%`;
+      }
+      if (i === 2) {
+        label.innerText = `${(50 * step) / 100 + minLabelCount}`;
+        label.style.left = `${50}%`;
+      }
+      if (i === 3) {
+        label.innerText = `${(75 * step) / 100 + minLabelCount}`;
+        label.style.left = `${75}%`;
+      }
+      if (i === 4) {
+        label.innerText = `${maxLabelCount}`;
+        label.style.left = `${100}%`;
+      }
+      labels.push(label.outerHTML);
     }
 
     if (orientation === 'vertical') return labels.reverse().join('');
