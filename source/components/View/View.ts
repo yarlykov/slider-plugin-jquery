@@ -25,10 +25,8 @@ class View extends Emitter {
 
     this.displaySlider();
     this.createComponentList();
-    // this.componentList.knobs.subscribe('mousemove', (data) =>
-    //   this.emit('mousemove', data),
-    // );
-    console.log(this.components);
+
+    this.bind();
   }
 
   public update(data: Object) {
@@ -39,11 +37,19 @@ class View extends Emitter {
     this.components.forEach((element) => element.display());
   }
 
+  bind() {
+    if (this.type === 'simple') {
+      this.componentList.Knob.subscribe('mousemove', (data: number) =>
+        this.emit('slider:mousemove', data),
+      );
+    }
+  }
+
   private createComponentList() {
     this.componentList = {};
 
     this.components.forEach((element) => {
-      this.componentList[element.constructor.name.toLowerCase()] = element;
+      this.componentList[element.constructor.name] = element;
     });
   }
 }

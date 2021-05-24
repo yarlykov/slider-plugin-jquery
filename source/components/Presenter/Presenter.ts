@@ -21,6 +21,7 @@ class Presenter {
 
     input.addEventListener('change', (event: Event) => {
       let value = event.target.value;
+
       this.model.setValue('currentValue', Number(value));
     });
   }
@@ -34,6 +35,10 @@ class Presenter {
     this.model.subscribe('changeValue', (data: IOptions) => {
       this.view.update(data);
     });
+
+    this.view.subscribe('slider:mousemove', (data: number) =>
+      this.model.setValue('currentValue', Number(data)),
+    );
   }
 }
 
