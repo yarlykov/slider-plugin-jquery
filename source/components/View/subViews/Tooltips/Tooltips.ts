@@ -1,7 +1,10 @@
 import './tooltips.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
-import { fromPercentToValue, fromValueToPercent } from '../../../../utils/utils';
+import {
+  fromPercentToValue,
+  fromValueToPercent,
+} from '../../../../utils/utils';
 
 class Tooltip extends SliderComponent {
   display() {
@@ -39,10 +42,14 @@ class Tooltip extends SliderComponent {
 
 class FirstTooltip extends SliderComponent {
   display() {
-    const firstKnob = this.root.querySelector('[data-knob="first"]');
-    if (!firstKnob) throw new Error('First knob element is not found');
+    const { tooltips = false } = this.options;
 
-    firstKnob.insertAdjacentHTML('afterbegin', this.getTemplate());
+    if (tooltips) {
+      const firstKnob = this.root.querySelector('[data-knob="first"]');
+      if (!firstKnob) throw new Error('First knob element is not found');
+
+      firstKnob.insertAdjacentHTML('afterbegin', this.getTemplate());
+    }
   }
 
   update(state: IOptions) {
@@ -50,7 +57,7 @@ class FirstTooltip extends SliderComponent {
       '[data-id="tooltip-value-first"]',
     ) as HTMLElement;
 
-    tooltipFirst.innerText = `${state.rangeMin}`;
+    if (tooltipFirst) tooltipFirst.innerText = `${state.rangeMin}`;
   }
 
   getTemplate() {
@@ -69,17 +76,21 @@ class FirstTooltip extends SliderComponent {
 
 class SecondTooltip extends SliderComponent {
   display() {
-    const secondKnob = this.root.querySelector('[data-knob="second"]');
-    if (!secondKnob) throw new Error('First knob element is not found');
+    const { tooltips = false } = this.options;
 
-    secondKnob.insertAdjacentHTML('afterbegin', this.getTemplate());
+    if (tooltips) {
+      const secondKnob = this.root.querySelector('[data-knob="second"]');
+      if (!secondKnob) throw new Error('Second knob element is not found');
+
+      secondKnob.insertAdjacentHTML('afterbegin', this.getTemplate());
+    }
   }
 
   update(state: IOptions) {
-    const tooltipFirst = this.root.querySelector(
+    const tooltipSecond = this.root.querySelector(
       '[data-id="tooltip-value-second"]',
     ) as HTMLElement;
-    tooltipFirst.innerText = `${state.rangeMax}`;
+    if (tooltipSecond) tooltipSecond.innerText = `${state.rangeMax}`;
   }
 
   getTemplate() {
