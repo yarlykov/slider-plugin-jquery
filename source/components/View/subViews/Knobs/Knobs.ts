@@ -1,7 +1,14 @@
 import './knobs.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
-import { calcStepForElementRender, getCoords } from '../../../../utils/utils';
+import {
+  calcStepForElementRender,
+  fromPercentToValue,
+  fromValueToPercent,
+  getSliderCoords,
+  getPageCoords,
+  getPosition,
+} from '../../../../utils/utils';
 
 class Knob extends SliderComponent {
   display() {
@@ -18,7 +25,7 @@ class Knob extends SliderComponent {
     if (knob) {
       const directionOfMove =
         state.orientation === 'horizontal' ? 'left' : 'bottom';
-      knob.style[directionOfMove] = `${calcStepForElementRender(state)}%`;
+      knob.style[directionOfMove] = `${fromValueToPercent(state)}%`;
     }
   }
 
@@ -34,33 +41,36 @@ class Knob extends SliderComponent {
   addListeners(state: IOptions) {
     const knob = this.root.querySelector('[data-id="knob"]');
     const scale = this.root.querySelector('[data-id="scale"]');
-    const { min, max, step } = state;
+    const { min = 0, max = 100, step = 1, orientation = 'horizontal' } = state;
 
-    knob?.addEventListener('mousedown', (event) => {
-      let sliderCoords = getCoords(scale as HTMLElement);
-      let knobCoords = getCoords(knob as HTMLElement);
-      let shift = event.pageX - knobCoords.left;
+    knob?.addEventListener('mousedown', () => {
+      // let knobCoords = getCoords(knob as HTMLElement);
+      // let shift = event.pageX - knobCoords.left;
 
       document.onmousemove = (event) => {
         event.preventDefault();
-        let left =
-          ((event.pageX - shift - sliderCoords.left) / sliderCoords.width) *
-          100;
+        const sliderCoords = getSliderCoords(scale as HTMLElement);
+        const pageCoords = getPageCoords(event);
 
-        if (left < 0) left = 0;
-        if (left > 100) left = 100;
+        const position = getPosition(orientation, sliderCoords, pageCoords);
+
+        /* отвечает за пересчет полученных проц в проц с учетом шага */
 
         let stepCount = (max - min) / step;
         let stepPercent = 100 / stepCount;
-        let stepLeft = Math.round(left / stepPercent) * stepPercent;
+        let stepPosition = Math.round(position / stepPercent) * stepPercent;
 
-        if (stepLeft < 0) stepLeft = 0;
-        if (stepLeft > 100) stepLeft = 100;
-        this.emit('mousemove', stepLeft);
+        if (stepPosition < 0) stepPosition = 0;
+        if (stepPosition > 100) stepPosition = 100;
 
-        let result = ((stepLeft / stepPercent) * step).toFixed();
-        let values = result + min;
-        result = Number(values);
+        /* отвечает за пересчет в нужное конечное значение в зависимости от шага */
+
+        let interimValue = (stepPosition / stepPercent) * step;
+        let value = interimValue + min;
+
+        if (value > max) value = max;
+
+        this.emit('mousemove', value);
       };
 
       document.onmouseup = () => {

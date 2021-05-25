@@ -7,10 +7,10 @@ function createElement(tag: string, className?: string[]): HTMLElement {
 
   return element;
 }
-/* 
-* Этот алгоритм работает когда 
-* передаются значения положения ползунка на странице
-*/
+/*
+ * Этот алгоритм работает когда
+ * передаются значения положения ползунка на странице
+ */
 function calcStepForElementRender(state: IOptions): number {
   let { min = 0, max = 0, step = 0, currentValue = 0 } = state;
 
@@ -24,10 +24,10 @@ function calcStepForElementRender(state: IOptions): number {
 
   return Number(elemPosition);
 }
-/* 
-* Этот алгоритм работает когда 
-* значения ползунка нужно пересчитать в значения шкалы
-*/
+/*
+ * Этот алгоритм работает когда
+ * значения ползунка нужно пересчитать в значения шкалы
+ */
 
 function fromPercentToValue(state: IOptions): number {
   let { min = 0, max = 0, step = 0, currentValue = 0 } = state;
@@ -46,39 +46,76 @@ function fromPercentToValue(state: IOptions): number {
   return Number(value);
 }
 
-/* 
-* Этот алгоритм пересчитывает 
-* переданные значения в проценты 
-* исходя из диапазона 
-* например если задавать значения из контрольной панели
-*/
+/*
+ * Этот алгоритм пересчитывает
+ * переданные значения в проценты
+ * исходя из диапазона
+ * например если задавать значения из контрольной панели
+ */
 function fromValueToPercent(state: IOptions) {
   let { min = 0, max = 0, step = 0, currentValue = 0 } = state;
 
   let stepCount = (max - min) / step;
   let stepPercent = 100 / stepCount;
   let percent = Math.round(((currentValue - min) / step) * stepPercent);
-  
+
   if (percent > 100) percent = 100;
   if (percent < 0) percent = 0;
 
   return percent;
 }
 
- function getCoords(elem: HTMLElement): Object {
-    let boxLeft = elem.getBoundingClientRect().left;
-    let boxRight = elem.getBoundingClientRect().right;
+function getSliderCoords(elem: HTMLElement): Object {
+  let boxLeft = elem.getBoundingClientRect().left;
+  let boxTop = elem.getBoundingClientRect().top;
+  let boxRight = elem.getBoundingClientRect().right;
+  let boxBottom = elem.getBoundingClientRect().bottom;
 
-    return {
-      left: boxLeft + pageXOffset,
-      width: boxRight - boxLeft,
-    };
+  return {
+    left: boxLeft + pageXOffset,
+    bottom: boxBottom + pageYOffset,
+    width: boxRight - boxLeft,
+    height: boxBottom - boxTop,
+  };
+}
+
+function getPageCoords(event: Event) {
+  const pageX = event.pageX;
+  const pageY = event.pageY;
+
+  return {
+    pageX,
+    pageY,
+  };
+}
+
+function getPosition(
+  orientation: string,
+  sliderCoords: object,
+  pageCoords: object,
+): number {
+  const horizontal = orientation === 'horizontal';
+  let position = 0;
+
+  if (horizontal) {
+    position =
+      ((pageCoords.pageX - sliderCoords.left) / sliderCoords.width) * 100;
+  } else {
+    position =
+      ((sliderCoords.bottom - pageCoords.pageY) / sliderCoords.height) * 100;
   }
+  if (position < 0) position = 0;
+  if (position > 100) position = 100;
+
+  return position;
+}
 
 export {
   createElement,
   calcStepForElementRender,
   fromPercentToValue,
   fromValueToPercent,
-  getCoords
+  getSliderCoords,
+  getPageCoords,
+  getPosition,
 };
