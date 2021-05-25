@@ -44,9 +44,6 @@ class Knob extends SliderComponent {
     const { min = 0, max = 100, step = 1, orientation = 'horizontal' } = state;
 
     knob?.addEventListener('mousedown', () => {
-      // let knobCoords = getCoords(knob as HTMLElement);
-      // let shift = event.pageX - knobCoords.left;
-
       document.onmousemove = (event) => {
         event.preventDefault();
         const sliderCoords = getSliderCoords(scale as HTMLElement);
@@ -87,6 +84,46 @@ class FirstKnob extends SliderComponent {
     if (!scale) throw new Error('Scale element is not found');
 
     scale.insertAdjacentHTML('beforeend', this.getTemplate());
+    this.addListeners(this.options);
+  }
+
+  addListeners(state: IOptions) {
+    const knob = this.root.querySelector('[data-knob="first"]');
+    const scale = this.root.querySelector('[data-id="scale"]');
+    const { min = 0, max = 100, step = 1, orientation = 'horizontal' } = state;
+
+    knob?.addEventListener('mousedown', () => {
+      document.onmousemove = (event) => {
+        event.preventDefault();
+        const sliderCoords = getSliderCoords(scale as HTMLElement);
+        const pageCoords = getPageCoords(event);
+
+        const position = getPosition(orientation, sliderCoords, pageCoords);
+
+        /* отвечает за пересчет полученных проц в проц с учетом шага */
+
+        let stepCount = (max - min) / step;
+        let stepPercent = 100 / stepCount;
+        let stepPosition = Math.round(position / stepPercent) * stepPercent;
+
+        if (stepPosition < 0) stepPosition = 0;
+        if (stepPosition > 100) stepPosition = 100;
+
+        /* отвечает за пересчет в нужное конечное значение в зависимости от шага */
+
+        let interimValue = (stepPosition / stepPercent) * step;
+        let value = interimValue + min;
+
+        if (value > max) value = max;
+
+        this.emit('mousemove', value);
+      };
+
+      document.onmouseup = () => {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+    });
   }
 
   update(state: IOptions) {
@@ -111,6 +148,46 @@ class SecondKnob extends SliderComponent {
     if (!scale) throw new Error('Scale element is not found');
 
     scale.insertAdjacentHTML('beforeend', this.getTemplate());
+    this.addListeners(this.options);
+  }
+
+  addListeners(state: IOptions) {
+    const knob = this.root.querySelector('[data-knob="second"]');
+    const scale = this.root.querySelector('[data-id="scale"]');
+    const { min = 0, max = 100, step = 1, orientation = 'horizontal' } = state;
+
+    knob?.addEventListener('mousedown', () => {
+      document.onmousemove = (event) => {
+        event.preventDefault();
+        const sliderCoords = getSliderCoords(scale as HTMLElement);
+        const pageCoords = getPageCoords(event);
+
+        const position = getPosition(orientation, sliderCoords, pageCoords);
+
+        /* отвечает за пересчет полученных проц в проц с учетом шага */
+
+        let stepCount = (max - min) / step;
+        let stepPercent = 100 / stepCount;
+        let stepPosition = Math.round(position / stepPercent) * stepPercent;
+
+        if (stepPosition < 0) stepPosition = 0;
+        if (stepPosition > 100) stepPosition = 100;
+
+        /* отвечает за пересчет в нужное конечное значение в зависимости от шага */
+
+        let interimValue = (stepPosition / stepPercent) * step;
+        let value = interimValue + min;
+
+        if (value > max) value = max;
+
+        this.emit('mousemove', value);
+      };
+
+      document.onmouseup = () => {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+    });
   }
 
   update(state: IOptions) {

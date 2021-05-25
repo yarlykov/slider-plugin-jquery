@@ -5,7 +5,7 @@ import SliderFactory from '../factories';
 class View extends Emitter {
   root: HTMLElement;
   public type!: string;
-  public componentList!: {};
+  public componentList!: any;
   private components!: any[];
 
   constructor(root: HTMLElement) {
@@ -41,6 +41,16 @@ class View extends Emitter {
     if (this.type === 'simple') {
       this.componentList.Knob.subscribe('mousemove', (data: number) =>
         this.emit('slider:mousemove', data),
+      );
+      this.componentList.Scale.subscribe('scale:click', (data) =>
+        console.log(data),
+      );
+    } else {
+      this.componentList.FirstKnob.subscribe('mousemove', (data) =>
+        this.emit('firstKnob:mousemove', data),
+      );
+      this.componentList.SecondKnob.subscribe('mousemove', (data) =>
+        this.emit('secondKnob:mousemove', data),
       );
     }
   }

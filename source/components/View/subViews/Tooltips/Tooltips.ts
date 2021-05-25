@@ -1,7 +1,7 @@
 import './tooltips.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
-import { fromPercentToValue } from '../../../../utils/utils';
+import { fromPercentToValue, fromValueToPercent } from '../../../../utils/utils';
 
 class Tooltip extends SliderComponent {
   display() {
@@ -20,7 +20,7 @@ class Tooltip extends SliderComponent {
       '[data-id="tooltip-value"]',
     ) as HTMLElement;
 
-    if (tooltip) tooltip.innerText = `${fromPercentToValue(state)}`;
+    if (tooltip) tooltip.innerText = `${state.currentValue}`;
   }
 
   getTemplate() {
