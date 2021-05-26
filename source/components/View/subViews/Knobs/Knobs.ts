@@ -2,8 +2,6 @@ import './knobs.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
 import {
-  calcStepForElementRender,
-  fromPercentToValue,
   fromValueToPercent,
   getSliderCoords,
   getPageCoords,
@@ -50,6 +48,7 @@ class Knob extends SliderComponent {
         const pageCoords = getPageCoords(event);
 
         const position = getPosition(orientation, sliderCoords, pageCoords);
+        
 
         /* отвечает за пересчет полученных проц в проц с учетом шага */
 
@@ -59,15 +58,18 @@ class Knob extends SliderComponent {
 
         if (stepPosition < 0) stepPosition = 0;
         if (stepPosition > 100) stepPosition = 100;
+        
 
         /* отвечает за пересчет в нужное конечное значение в зависимости от шага */
 
         let interimValue = (stepPosition / stepPercent) * step;
         let value = interimValue + min;
 
-        if (value > max) value = max;
-
-        this.emit('mousemove', value);
+        if (value > max){
+          value = max;
+        } 
+        
+        this.emit('mousemove', value.toFixed());
       };
 
       document.onmouseup = () => {

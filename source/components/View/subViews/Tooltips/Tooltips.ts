@@ -1,10 +1,6 @@
 import './tooltips.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
-import {
-  fromPercentToValue,
-  fromValueToPercent,
-} from '../../../../utils/utils';
 
 class Tooltip extends SliderComponent {
   display() {

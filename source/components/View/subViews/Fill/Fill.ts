@@ -1,7 +1,7 @@
 import './fill.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
-import { calcStepForElementRender, fromPercentToValue, fromValueToPercent } from '../../../../utils/utils';
+import { fromValueToPercent } from '../../../../utils/utils';
 
 class Fill extends SliderComponent {
   display() {
