@@ -1,19 +1,23 @@
 import Emitter from '../../Emitter';
 import defaultState from '../../initialState';
 import { IOptions } from '../interfaces';
+import Validation from './Validation';
 
 type optionsValue = number & string & boolean;
 
 class Model extends Emitter {
-  private state: IOptions;
+  private state: IOptions = defaultState;
+  private validation: Validation;
 
   constructor() {
     super();
-    this.state = defaultState || {};
+    this.validation = new Validation();
   }
 
   public setState(state: IOptions) {
-    this.state = { ...this.state, ...state };
+    const newState = { ...this.state, ...state };
+    this.state = this.validation.checkState(newState);
+  
     this.emit('changeState', this.state);
   }
 
@@ -21,7 +25,10 @@ class Model extends Emitter {
     return this.state;
   }
 
-  public setValue<K extends keyof IOptions>(keyState: K, valueState: optionsValue) {
+  public setValue<K extends keyof IOptions>(
+    keyState: K,
+    valueState: optionsValue,
+  ) {
     this.state[keyState] = valueState;
 
     if (!Number.isInteger(valueState)) {
