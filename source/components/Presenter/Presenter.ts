@@ -27,12 +27,12 @@ class Presenter {
   }
 
   bind() {
-    this.model.subscribe('changeState', (data: IOptions) => {
+    this.model.subscribe('stateChanged', (data: IOptions) => {
       this.view.init(data);
       this.view.update(data);
     });
 
-    this.model.subscribe('changeValue', (data: IOptions) => {
+    this.model.subscribe('valueChanged', (data: IOptions) => {
       this.view.update(data);
     });
 

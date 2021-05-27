@@ -48,7 +48,6 @@ class Knob extends SliderComponent {
         const pageCoords = getPageCoords(event);
 
         const position = getPosition(orientation, sliderCoords, pageCoords);
-        
 
         /* отвечает за пересчет полученных проц в проц с учетом шага */
 
@@ -58,17 +57,16 @@ class Knob extends SliderComponent {
 
         if (stepPosition < 0) stepPosition = 0;
         if (stepPosition > 100) stepPosition = 100;
-        
 
         /* отвечает за пересчет в нужное конечное значение в зависимости от шага */
 
         let interimValue = (stepPosition / stepPercent) * step;
         let value = interimValue + min;
 
-        if (value > max){
-          value = max;
-        } 
-        
+        // if (value > max){
+        //   value = max;
+        // }
+
         this.emit('mousemove', value.toFixed());
       };
 
@@ -129,10 +127,14 @@ class FirstKnob extends SliderComponent {
   }
 
   update(state: IOptions) {
-    const knob = this.root.querySelector('[data-knob="first"]') as HTMLElement;
+    const knobFirst = this.root.querySelector(
+      '[data-knob="first"]',
+    ) as HTMLElement;
+
     const directionOfMove =
       state.orientation === 'horizontal' ? 'left' : 'bottom';
-    knob.style[directionOfMove] = `${state.rangeMin}%`;
+
+    knobFirst.style[directionOfMove] = `${state.rangeMin}%`;
   }
 
   getTemplate() {
@@ -193,10 +195,14 @@ class SecondKnob extends SliderComponent {
   }
 
   update(state: IOptions) {
-    const knob = this.root.querySelector('[data-knob="second"]') as HTMLElement;
+    const knobSecond = this.root.querySelector(
+      '[data-knob="second"]',
+    ) as HTMLElement;
+
     const directionOfMove =
       state.orientation === 'horizontal' ? 'left' : 'bottom';
-    knob.style[directionOfMove] = `${state.rangeMax}%`;
+
+    knobSecond.style[directionOfMove] = `${state.rangeMax}%`;
   }
 
   getTemplate() {
