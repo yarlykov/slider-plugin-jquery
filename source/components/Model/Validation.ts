@@ -4,18 +4,18 @@ import { IOptions } from '../interfaces';
 class Validation {
   min!: number;
   max!: number;
-  rangeMin!: number;
-  rangeMax!: number;
   step!: number;
   value!: number;
+  rangeMin!: number;
+  rangeMax!: number;
 
   checkState(state: IOptions) {
     this.min = state.min || 0;
     this.max = state.max || 0;
-    this.rangeMin = state.rangeMin || 0;
-    this.rangeMax = state.rangeMax || 0;
     this.step = state.step || 1;
     this.value = state.currentValue || 0;
+    this.rangeMin = state.rangeMin || 0;
+    this.rangeMax = state.rangeMax || 0;
 
     this.checkMinMax(this.min, this.max);
     this.checkStep(this.max, this.step);
@@ -32,7 +32,7 @@ class Validation {
     };
   }
 
-  checkValue(value: number) {
+  checkValue(value: number): number {
     const stepCount = (this.max - this.min) / this.step;
     const stepPercent = 100 / stepCount;
 
@@ -42,15 +42,28 @@ class Validation {
       step: this.step,
       currentValue: value,
     });
-    
+
     const stepPosition = Math.round(valueInPercent / stepPercent) * this.step;
     let correctValue = stepPosition + this.min;
-    
+
+    if (valueInPercent >= 100 && correctValue !== this.max)
+      correctValue = this.max;
+
     return correctValue;
   }
 
+  checkMinRange(value: number): number {
+    if (value >= this.rangeMax) value = this.rangeMax;
+    return this.checkValue(value);
+  }
+
+  checkMaxRange(value: number): number {
+    if (value <= this.rangeMin) value = this.rangeMin;
+    return this.checkValue(value);
+  }
+
   checkStep(max: number, step: number) {
-    if (step < 0) this.step = 1;
+    if (step <= 0) this.step = 1;
     if (step > max) this.step = max;
   }
 
@@ -74,8 +87,8 @@ class Validation {
     }
     if (rangeMin <= this.min) rangeMin = this.min;
     if (rangeMax >= this.max) rangeMax = this.max;
-    this.rangeMin = rangeMin;
-    this.rangeMax = rangeMax;
+    this.rangeMin = this.checkValue(rangeMin);
+    this.rangeMax = this.checkValue(rangeMax);
   }
 }
 

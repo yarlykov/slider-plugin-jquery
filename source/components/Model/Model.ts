@@ -17,8 +17,8 @@ class Model extends Emitter {
   public setState(state: IOptions) {
     const newState = { ...this.state, ...state };
     this.state = this.validation.checkState(newState);
-  
-    this.emit('changeState', this.state);
+
+    this.emit('stateChanged', this.state);
   }
 
   public getState(): IOptions {
@@ -29,12 +29,23 @@ class Model extends Emitter {
     keyState: K,
     valueState: optionsValue,
   ) {
-    this.state[keyState] = valueState;
-
-    if (!Number.isInteger(valueState)) {
-      this.emit('changeState', this.state);
+    let value = 0;
+    if (keyState === 'currentValue') {
+      value = this.validation.checkValue(valueState);
+    } else if (keyState === 'rangeMin') {
+      value = this.validation.checkMinRange(valueState);
+    } else if (keyState === 'rangeMax') {
+      value = this.validation.checkMaxRange(valueState);
     } else {
-      this.emit('changeValue', this.state);
+      value = valueState;
+    }
+    this.state[keyState] = value;
+
+    if (!Number.isInteger(valueState) || keyState === 'step') {
+      console.log('state is changed');
+      this.emit('stateChanged', this.validation.checkState(this.state));
+    } else {
+      this.emit('valueChanged', this.validation.checkState(this.state));
     }
   }
 
