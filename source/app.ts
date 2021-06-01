@@ -1,56 +1,81 @@
 import $ from 'jquery';
-import './demo-page/styles/main.scss';;
+import './demo-page/styles/main.scss';
 import Presenter from './components/Presenter/Presenter';
 import { IOptions } from './components/interfaces';
 
+type optionsValue = number & string & boolean;
+
 declare global {
   interface JQuery {
-    sliderPlugin: (options?: IOptions) => void;
+    sliderPlugin: (
+      options?: keyof typeof methods | IOptions,
+      name?: string,
+      value?: optionsValue,
+    ) => void;
   }
 }
 
-$.fn.sliderPlugin = function (options) {
-  const index: string = this[0].id; /*для разработки - удалить*/
+const methods = {
+  init: function (this: JQuery, options: IOptions = {}) {
+    const index: string = this[0].id; /*для разработки - удалить*/
 
-  return this.each(function () {
-    const app = new Presenter(this);
-    if (options) {
-      app.model.setState(options);
-    }
+    return this.each(function () {
+      $(this).data().sliderPlugin = new Presenter(this);
 
-    window[index] = app; /*для разработки - удалить*/
-  });
+      if (options) {
+        const app = $(this).data('sliderPlugin');
+
+        app.model.setState(options);
+        window[index] = app; /*для разработки - удалить*/
+      }
+    });
+  },
+
+  setValue: function (this: JQuery, name: string, value: optionsValue) {
+    const sliderPlugin = $(this).data('sliderPlugin');
+
+    sliderPlugin.model.setValue(`${name}`, value);
+  },
+
+  onChange(this: JQuery, func: Function) {
+    $(this).on('onChange', (args) => func(args));
+  },
 };
 
-$('#sliderSingleHorizontal').sliderPlugin({
-  currentValue: 36,
-  orientation: 'horizontal',
-  fill: true,
-  labels: true,
-  tooltips: true,
-  color: 'orange',
+$.fn.sliderPlugin = function (method) {
+  if (methods[method as string]) {
+    return methods[method as string].apply(
+      this,
+      Array.prototype.slice.call(arguments, 1),
+    );
+  } else if (typeof method === 'object' || !method) {
+    return methods.init.apply(this, arguments as optionsValue);
+  } else {
+    $.error(`Метод с именем ${method} не существует`);
+  }
+};
+
+const slider = $('#sliderSingleHorizontal');
+slider.sliderPlugin({
+  currentValue: 50,
+  min: -10,
+  max: 300,
+  step: 25,
 });
 
 $('#sliderSingleVertical').sliderPlugin({
-  step: 25,
-  currentValue: 57,
+  max: 110,
   orientation: 'vertical',
-  fill: true,
-  labels: true,
-  tooltips: true,
-  color: 'orange',
+  color: 'green',
 });
 
 /* ++++++++++++++++ RANGE +++++++++++++++++ */
 
 $('#sliderRangeHorizontal').sliderPlugin({
-  rangeMin: 35,
-  rangeMax: 72,
+  rangeMin: 72,
+  rangeMax: 34,
   orientation: 'horizontal',
   range: true,
-  fill: true,
-  labels: true,
-  tooltips: true,
   color: 'green',
 });
 
@@ -59,8 +84,5 @@ $('#sliderRangeVertical').sliderPlugin({
   rangeMin: 13,
   rangeMax: 62,
   orientation: 'vertical',
-  fill: true,
-  tooltips: true,
-  labels: true,
   color: 'green',
 });
