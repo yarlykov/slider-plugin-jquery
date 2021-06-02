@@ -12,9 +12,12 @@ const PATHS = {
 module.exports = {
   context: PATHS.source,
   mode: 'development',
-  entry: ['@babel/polyfill', './app.ts'],
+  entry: {
+    plugin: ['@babel/polyfill', './app.ts'],
+    demo: ['./demo-page/index.ts'],
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: PATHS.dist,
   },
   resolve: {
@@ -81,7 +84,7 @@ module.exports = {
       template: 'demo-page/page/demo-page.pug',
     }),
     new MiniCssExtractPlugin({
-      filename: 'slider.css',
+      filename: '[name].css',
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',

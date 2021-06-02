@@ -1,5 +1,3 @@
-import $ from 'jquery';
-import './demo-page/styles/main.scss';
 import Presenter from './components/Presenter/Presenter';
 import { IOptions } from './components/interfaces';
 
@@ -21,6 +19,7 @@ const methods = {
 
     return this.each(function () {
       $(this).data().sliderPlugin = new Presenter(this);
+      $(this).data().state = options;
 
       if (options) {
         const app = $(this).data('sliderPlugin');
@@ -54,35 +53,3 @@ $.fn.sliderPlugin = function (method) {
     $.error(`Метод с именем ${method} не существует`);
   }
 };
-
-const slider = $('#sliderSingleHorizontal');
-slider.sliderPlugin({
-  currentValue: 50,
-  min: -10,
-  max: 300,
-  step: 25,
-});
-
-$('#sliderSingleVertical').sliderPlugin({
-  max: 110,
-  orientation: 'vertical',
-  color: 'green',
-});
-
-/* ++++++++++++++++ RANGE +++++++++++++++++ */
-
-$('#sliderRangeHorizontal').sliderPlugin({
-  rangeMin: 72,
-  rangeMax: 34,
-  orientation: 'horizontal',
-  range: true,
-  color: 'green',
-});
-
-$('#sliderRangeVertical').sliderPlugin({
-  range: true,
-  rangeMin: 13,
-  rangeMax: 62,
-  orientation: 'vertical',
-  color: 'green',
-});
