@@ -34,10 +34,10 @@ class DemoBlock {
       '[data-title="step"]',
     ) as HTMLInputElement;
     this.min = this.panel.querySelector(
-      '[data-title="scale-min"]',
+      '[data-title="min"]',
     ) as HTMLInputElement;
     this.max = this.panel.querySelector(
-      '[data-title="scale-max"]',
+      '[data-title="max"]',
     ) as HTMLInputElement;
     this.rangeMin = this.panel.querySelector(
       '[data-title="range-min"]',
