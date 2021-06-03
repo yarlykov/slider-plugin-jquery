@@ -18,7 +18,7 @@ class DemoBlock {
 
   constructor(root: JQuery<HTMLElement>) {
     this.root = root;
-    
+
     this.init();
   }
 
@@ -60,20 +60,18 @@ class DemoBlock {
     this.tooltips = this.panel.querySelector(
       '[data-title="tooltips"]',
     ) as HTMLInputElement;
-    
 
     this.state = this.root.sliderPlugin('getState');
-    this.current.value = `${this.state.currentValue}`;
+    this.current.value = `${this.state.current}`;
     this.min.value = `${this.state.min}`;
     this.max.value = `${this.state.max}`;
     this.step.value = `${this.state.step}`;
-    this.orientation.value = `${this.state.orientation}`
-    
+    this.orientation.value = `${this.state.orientation}`;
+
     this.fill.checked = this.state.fill as boolean;
     this.range.checked = this.state.range as boolean;
     this.labels.checked = this.state.labels as boolean;
-    
-    
+
     this.root.sliderPlugin('onChange', (event: CustomEvent) => {
       this.state = event.detail;
       if (this.state.range) {
@@ -87,7 +85,7 @@ class DemoBlock {
         this.rangeMin.disabled = true;
         this.rangeMax.disabled = true;
       }
-      this.current.value = event.detail.currentValue;
+      this.current.value = event.detail.current;
       this.step.value = event.detail.step;
       this.min.value = event.detail.min;
       this.max.value = event.detail.max;
@@ -101,7 +99,7 @@ class DemoBlock {
     this.current.addEventListener('change', () => {
       let value: number = 0;
       value = Number(this.current.value);
-      this.root.sliderPlugin('setValue', 'currentValue', value);
+      this.root.sliderPlugin('setValue', 'current', value);
     });
 
     this.step.addEventListener('change', () => {

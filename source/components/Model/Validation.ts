@@ -13,7 +13,7 @@ class Validation {
     this.min = state.min || 0;
     this.max = state.max || 0;
     this.step = state.step || 1;
-    this.value = state.currentValue || 0;
+    this.value = state.current || 0;
     this.rangeMin = state.rangeMin || 0;
     this.rangeMax = state.rangeMax || 0;
 
@@ -26,7 +26,7 @@ class Validation {
       min: this.min,
       max: this.max,
       step: this.step,
-      currentValue: this.checkValue(this.value),
+      current: this.checkValue(this.value),
       rangeMin: this.rangeMin,
       rangeMax: this.rangeMax,
     };
@@ -40,7 +40,7 @@ class Validation {
       min: this.min,
       max: this.max,
       step: this.step,
-      currentValue: value,
+      current: value,
     });
 
     const stepPosition = Math.round(valueInPercent / stepPercent) * this.step;

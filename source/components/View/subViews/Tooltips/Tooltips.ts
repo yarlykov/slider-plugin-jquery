@@ -19,7 +19,7 @@ class Tooltip extends SliderComponent {
       '[data-id="tooltip-value"]',
     ) as HTMLElement;
 
-    if (tooltip) tooltip.innerText = `${state.currentValue}`;
+    if (tooltip) tooltip.innerText = `${state.current}`;
   }
 
   getTemplate() {

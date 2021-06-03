@@ -4,7 +4,7 @@ import DemoBlock from './DemoBlock';
 
 const slider = $('#sliderSingleHorizontal');
 slider.sliderPlugin({
-  currentValue: 50,
+  current: 50,
   min: -10,
   max: 300,
   step: 25,

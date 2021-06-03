@@ -15,11 +15,11 @@ function createElement(tag: string, className?: string[]): HTMLElement {
  * например если задавать значения из контрольной панели
  */
 function fromValueToPercent(state: IOptions) {
-  let { min = 0, max = 0, step = 0, currentValue = 0 } = state;
+  let { min = 0, max = 0, step = 0, current = 0 } = state;
 
   let stepCount = (max - min) / step;
   let stepPercent = 100 / stepCount;
-  let percent = ((currentValue - min) / step) * stepPercent;
+  let percent = ((current - min) / step) * stepPercent;
 
   if (percent > 100) percent = 100;
   if (percent < 0) percent = 0;

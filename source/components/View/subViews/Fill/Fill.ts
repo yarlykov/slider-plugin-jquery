@@ -19,7 +19,7 @@ class Fill extends SliderComponent {
       range,
       rangeMin = 0,
       rangeMax = 100,
-      currentValue,
+      current,
     } = state;
 
     const isHorizontal = orientation === 'horizontal';

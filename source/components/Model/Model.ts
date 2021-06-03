@@ -30,7 +30,7 @@ class Model extends Emitter {
     valueState: optionsValue,
   ) {
     let value = 0;
-    if (keyState === 'currentValue') {
+    if (keyState === 'current') {
       value = this.validation.checkValue(valueState);
     } else if (keyState === 'rangeMin') {
       value = this.validation.checkMinRange(valueState);

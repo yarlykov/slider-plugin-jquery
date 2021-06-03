@@ -2,7 +2,7 @@ interface IOptions {
   min?: number;
   max?: number;
   step?: number;
-  currentValue?: number;
+  current?: number;
   rangeMin?: number;
   rangeMax?: number;
   orientation?: 'horizontal' | 'vertical';
