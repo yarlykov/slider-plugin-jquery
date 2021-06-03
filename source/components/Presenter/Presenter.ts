@@ -5,35 +5,38 @@ import View from '../View/View';
 class Presenter {
   public model: any;
   public view: any;
+  root: HTMLElement;
 
   constructor(root: HTMLElement) {
+    this.root = root;
     this.model = new Model();
     this.view = new View(root);
     this.view.init(this.model.state);
     this.view.update(this.model.state);
 
     this.bind();
-
-    const control = root.previousElementSibling as Element;
-    const input = control.querySelector(
-      '[data-title="current"]',
-    ) as HTMLElement;
-
-    input.addEventListener('change', (event: Event) => {
-      let value = event.target.value;
-
-      this.model.setValue('currentValue', Number(value));
-    });
   }
 
   bind() {
     this.model.subscribe('stateChanged', (data: IOptions) => {
       this.view.init(data);
       this.view.update(data);
+
+      this.root.dispatchEvent(
+        new CustomEvent('onChange', {
+          detail: this.model.state,
+        }),
+      );
     });
 
     this.model.subscribe('valueChanged', (data: IOptions) => {
       this.view.update(data);
+
+      this.root.dispatchEvent(
+        new CustomEvent('onChange', {
+          detail: this.model.state,
+        }),
+      );
     });
 
     this.view.subscribe('slider:mousemove', (data: number) => {
