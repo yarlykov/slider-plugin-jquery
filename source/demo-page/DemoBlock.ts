@@ -10,6 +10,11 @@ class DemoBlock {
   rangeMin!: HTMLInputElement;
   rangeMax!: HTMLInputElement;
   current!: HTMLInputElement;
+  orientation!: HTMLSelectElement;
+  fill!: HTMLInputElement;
+  range!: HTMLInputElement;
+  labels!: HTMLInputElement;
+  tooltips!: HTMLInputElement;
 
   constructor(root: JQuery<HTMLElement>) {
     this.root = root;
@@ -40,7 +45,35 @@ class DemoBlock {
     this.rangeMax = this.panel.querySelector(
       '[data-title="range-max"]',
     ) as HTMLInputElement;
+    this.orientation = this.panel.querySelector(
+      '[data-title="orientation"]',
+    ) as HTMLSelectElement;
+    this.fill = this.panel.querySelector(
+      '[data-title="fill"]',
+    ) as HTMLInputElement;
+    this.range = this.panel.querySelector(
+      '[data-title="range"]',
+    ) as HTMLInputElement;
+    this.labels = this.panel.querySelector(
+      '[data-title="labels"]',
+    ) as HTMLInputElement;
+    this.tooltips = this.panel.querySelector(
+      '[data-title="tooltips"]',
+    ) as HTMLInputElement;
+    
 
+    this.state = this.root.sliderPlugin('getState');
+    this.current.value = `${this.state.currentValue}`;
+    this.min.value = `${this.state.min}`;
+    this.max.value = `${this.state.max}`;
+    this.step.value = `${this.state.step}`;
+    this.orientation.value = `${this.state.orientation}`
+    
+    this.fill.checked = this.state.fill as boolean;
+    this.range.checked = this.state.range as boolean;
+    this.labels.checked = this.state.labels as boolean;
+    
+    
     this.root.sliderPlugin('onChange', (event: CustomEvent) => {
       this.state = event.detail;
       if (this.state.range) {
@@ -58,10 +91,16 @@ class DemoBlock {
       this.step.value = event.detail.step;
       this.min.value = event.detail.min;
       this.max.value = event.detail.max;
+      this.orientation.value = event.detail.orientation;
+      this.fill.checked = event.detail.fill;
+      this.range.checked = event.detail.range;
+      this.labels.checked = event.detail.labels;
+      this.tooltips.checked = event.detail.tooltips;
     });
 
     this.current.addEventListener('change', () => {
-      const value: number = Number(this.current.value);
+      let value: number = 0;
+      value = Number(this.current.value);
       this.root.sliderPlugin('setValue', 'currentValue', value);
     });
 
@@ -88,6 +127,31 @@ class DemoBlock {
     this.rangeMin.addEventListener('change', () => {
       const value: number = Number(this.rangeMin.value);
       this.root.sliderPlugin('setValue', 'rangeMax', value);
+    });
+
+    this.orientation.addEventListener('change', () => {
+      const value: string = this.orientation.value;
+      this.root.sliderPlugin('setValue', 'orientation', value);
+    });
+
+    this.fill.addEventListener('change', () => {
+      const value: boolean = this.fill.checked;
+      this.root.sliderPlugin('setValue', 'fill', value);
+    });
+
+    this.range.addEventListener('change', () => {
+      const value: boolean = this.range.checked;
+      this.root.sliderPlugin('setValue', 'range', value);
+    });
+
+    this.labels.addEventListener('change', () => {
+      const value: boolean = this.labels.checked;
+      this.root.sliderPlugin('setValue', 'labels', value);
+    });
+
+    this.tooltips.addEventListener('change', () => {
+      const value: boolean = this.tooltips.checked;
+      this.root.sliderPlugin('setValue', 'tooltips', value);
     });
   }
 }
