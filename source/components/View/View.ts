@@ -46,10 +46,10 @@ class View extends Emitter {
         console.log(data),
       );
     } else {
-      this.componentList.FirstKnob.subscribe('mousemove', (data) =>
+      this.componentList.FirstKnob.subscribe('mousemove', (data: number) =>
         this.emit('firstKnob:mousemove', data),
       );
-      this.componentList.SecondKnob.subscribe('mousemove', (data) =>
+      this.componentList.SecondKnob.subscribe('mousemove', (data: number) => 
         this.emit('secondKnob:mousemove', data),
       );
     }

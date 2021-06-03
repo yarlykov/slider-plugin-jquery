@@ -14,12 +14,12 @@ class Fill extends SliderComponent {
 
   update(state: IOptions) {
     const fill = this.root.querySelector('[data-id="fill"]') as HTMLElement;
-    const {
+    let {
       orientation = 'horizontal',
       range,
       rangeMin = 0,
       rangeMax = 100,
-      current,
+      current = 0,
     } = state;
 
     const isHorizontal = orientation === 'horizontal';
@@ -27,10 +27,13 @@ class Fill extends SliderComponent {
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
 
     if (fill && range) {
+      rangeMin = fromValueToPercent(state, rangeMin);
+      rangeMax = fromValueToPercent(state, rangeMax);
+
       fill.style[wayOfFilling] = `${rangeMax - rangeMin}%`;
       fill.style[wayOfMove] = `${rangeMin}%`;
     } else if (fill) {
-      fill.style[wayOfFilling] = `${fromValueToPercent(state)}%`;
+      fill.style[wayOfFilling] = `${fromValueToPercent(state, current)}%`;
     }
   }
 

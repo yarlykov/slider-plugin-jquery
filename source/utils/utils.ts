@@ -14,12 +14,12 @@ function createElement(tag: string, className?: string[]): HTMLElement {
  * исходя из диапазона
  * например если задавать значения из контрольной панели
  */
-function fromValueToPercent(state: IOptions) {
-  let { min = 0, max = 0, step = 0, current = 0 } = state;
+function fromValueToPercent(state: IOptions, value: number) {
+  let { min = 0, max = 0, step = 0 } = state;
 
   let stepCount = (max - min) / step;
   let stepPercent = 100 / stepCount;
-  let percent = ((current - min) / step) * stepPercent;
+  let percent = ((value - min) / step) * stepPercent;
 
   if (percent > 100) percent = 100;
   if (percent < 0) percent = 0;

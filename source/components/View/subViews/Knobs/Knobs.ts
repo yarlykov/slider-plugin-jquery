@@ -23,7 +23,9 @@ class Knob extends SliderComponent {
     if (knob) {
       const directionOfMove =
         state.orientation === 'horizontal' ? 'left' : 'bottom';
-      knob.style[directionOfMove] = `${fromValueToPercent(state)}%`;
+      const { current = 0 } = state;
+
+      knob.style[directionOfMove] = `${fromValueToPercent(state, current)}%`;
     }
   }
 
@@ -116,7 +118,7 @@ class FirstKnob extends SliderComponent {
 
         if (value > max) value = max;
 
-        this.emit('mousemove', value);
+        this.emit('mousemove', value.toFixed());
       };
 
       document.onmouseup = () => {
@@ -133,8 +135,12 @@ class FirstKnob extends SliderComponent {
 
     const directionOfMove =
       state.orientation === 'horizontal' ? 'left' : 'bottom';
+    const { rangeMin = 0 } = state;
 
-    knobFirst.style[directionOfMove] = `${state.rangeMin}%`;
+    knobFirst.style[directionOfMove] = `${fromValueToPercent(
+      state,
+      rangeMin,
+    )}%`;
   }
 
   getTemplate() {
@@ -184,7 +190,7 @@ class SecondKnob extends SliderComponent {
 
         if (value > max) value = max;
 
-        this.emit('mousemove', value);
+        this.emit('mousemove', value.toFixed());
       };
 
       document.onmouseup = () => {
@@ -201,8 +207,12 @@ class SecondKnob extends SliderComponent {
 
     const directionOfMove =
       state.orientation === 'horizontal' ? 'left' : 'bottom';
+    const { rangeMax = 0 } = state;
 
-    knobSecond.style[directionOfMove] = `${state.rangeMax}%`;
+    knobSecond.style[directionOfMove] = `${fromValueToPercent(
+      state,
+      rangeMax,
+    )}%`;
   }
 
   getTemplate() {

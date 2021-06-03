@@ -40,8 +40,7 @@ class Validation {
       min: this.min,
       max: this.max,
       step: this.step,
-      current: value,
-    });
+    }, value);
 
     const stepPosition = Math.round(valueInPercent / stepPercent) * this.step;
     let correctValue = stepPosition + this.min;
