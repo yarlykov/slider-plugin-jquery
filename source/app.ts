@@ -9,7 +9,7 @@ declare global {
       options?: keyof typeof methods | IOptions,
       name?: string,
       value?: optionsValue,
-    ) => void;
+    ) => IOptions;
   }
 }
 
@@ -19,7 +19,6 @@ const methods = {
 
     return this.each(function () {
       $(this).data().sliderPlugin = new Presenter(this);
-      $(this).data().state = options;
 
       if (options) {
         const app = $(this).data('sliderPlugin');
@@ -28,6 +27,13 @@ const methods = {
         window[index] = app; /*для разработки - удалить*/
       }
     });
+  },
+
+  getState: function(this: JQuery): Object {
+    const sliderPlugin = $(this).data('sliderPlugin');
+
+    const state = sliderPlugin.model.getState();
+    return state;
   },
 
   setValue: function (this: JQuery, name: string, value: optionsValue) {
