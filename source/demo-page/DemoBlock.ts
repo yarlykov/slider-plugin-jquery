@@ -4,12 +4,13 @@ class DemoBlock {
   root: JQuery<HTMLElement>;
   state: IOptions = {};
   panel!: HTMLElement;
-  step!: HTMLInputElement;
+
   min!: HTMLInputElement;
   max!: HTMLInputElement;
+  current!: HTMLInputElement;
+  step!: HTMLInputElement;
   rangeMin!: HTMLInputElement;
   rangeMax!: HTMLInputElement;
-  current!: HTMLInputElement;
   orientation!: HTMLSelectElement;
   fill!: HTMLInputElement;
   range!: HTMLInputElement;
@@ -27,17 +28,17 @@ class DemoBlock {
       .get(0)
       .parentElement?.querySelector('[data-id="control-panel"]') as HTMLElement;
 
-    this.current = this.panel.querySelector(
-      '[data-title="current"]',
-    ) as HTMLInputElement;
-    this.step = this.panel.querySelector(
-      '[data-title="step"]',
-    ) as HTMLInputElement;
     this.min = this.panel.querySelector(
       '[data-title="min"]',
     ) as HTMLInputElement;
     this.max = this.panel.querySelector(
       '[data-title="max"]',
+    ) as HTMLInputElement;
+    this.current = this.panel.querySelector(
+      '[data-title="current"]',
+    ) as HTMLInputElement;
+    this.step = this.panel.querySelector(
+      '[data-title="step"]',
     ) as HTMLInputElement;
     this.rangeMin = this.panel.querySelector(
       '[data-title="range-min"]',
@@ -62,15 +63,24 @@ class DemoBlock {
     ) as HTMLInputElement;
 
     this.state = this.root.sliderPlugin('getState');
-    this.current.value = `${this.state.current}`;
     this.min.value = `${this.state.min}`;
     this.max.value = `${this.state.max}`;
+    this.current.value = `${this.state.current}`;
     this.step.value = `${this.state.step}`;
-    this.orientation.value = `${this.state.orientation}`;
 
+    if (this.state.range) {
+      this.current.disabled = true;
+      this.rangeMin.disabled = false;
+      this.rangeMax.disabled = false;
+      this.rangeMin.value = `${this.state.rangeMin}`;
+      this.rangeMax.value = `${this.state.rangeMax}`;
+    }
+
+    this.orientation.value = `${this.state.orientation}`;
     this.fill.checked = this.state.fill as boolean;
     this.range.checked = this.state.range as boolean;
     this.labels.checked = this.state.labels as boolean;
+    this.tooltips.checked = this.state.tooltips as boolean;
 
     this.root.sliderPlugin('onChange', (event: CustomEvent) => {
       this.state = event.detail;
