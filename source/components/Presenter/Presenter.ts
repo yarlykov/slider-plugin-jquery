@@ -43,10 +43,6 @@ class Presenter {
       this.model.setValue('current', Number(data));
     });
 
-    this.view.subscribe('firstKnob:mousemove', (data: number) => {
-      this.model.setValue('rangeMin', Number(data));
-    });
-
     this.view.subscribe('secondKnob:mousemove', (data: number) => {
       this.model.setValue('rangeMax', Number(data));
     });

@@ -8,7 +8,6 @@ describe('Model:', () => {
     max: 0,
     step: 0,
     current: 0,
-    rangeMin: 0,
     rangeMax: 0,
     orientation: 'horizontal',
     range: false,

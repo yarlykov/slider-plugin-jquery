@@ -38,20 +38,18 @@ class View extends Emitter {
   }
 
   bind() {
-    if (this.type === 'simple') {
-      this.componentList.Knob.subscribe('mousemove', (data: number) =>
-        this.emit('slider:mousemove', data),
-      );
-      this.componentList.Scale.subscribe('scale:click', (data) =>
-        console.log(data),
-      );
-    } else {
-      this.componentList.FirstKnob.subscribe('mousemove', (data: number) =>
-        this.emit('firstKnob:mousemove', data),
-      );
-      this.componentList.SecondKnob.subscribe('mousemove', (data: number) => 
+    this.componentList.Knob.subscribe('mousemove', (data: number) =>
+      this.emit('slider:mousemove', data),
+    );
+
+    if (this.type === 'range') {
+      this.componentList.SecondKnob.subscribe('mousemove', (data: number) =>
         this.emit('secondKnob:mousemove', data),
       );
+
+      // this.componentList.Scale.subscribe('scale:click', (data) =>
+      //   console.log(data),
+      // );
     }
   }
 

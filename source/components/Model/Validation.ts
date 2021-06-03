@@ -5,29 +5,31 @@ class Validation {
   min!: number;
   max!: number;
   step!: number;
-  value!: number;
-  rangeMin!: number;
+  current!: number;
   rangeMax!: number;
 
   checkState(state: IOptions) {
     this.min = state.min || 0;
     this.max = state.max || 0;
     this.step = state.step || 1;
-    this.value = state.current || 0;
-    this.rangeMin = state.rangeMin || 0;
+    this.current = state.current || 0;
     this.rangeMax = state.rangeMax || 0;
 
     this.checkMinMax(this.min, this.max);
     this.checkStep(this.max, this.step);
-    this.checkRangeMinMax(this.rangeMin, this.rangeMax);
+
+    if (state.range) {
+      this.checkMinRange(this.current);
+      this.checkMaxRange(this.rangeMax);
+      this.checkRangeMinMax(this.current, this.rangeMax);
+    }
 
     return {
       ...state,
       min: this.min,
       max: this.max,
       step: this.step,
-      current: this.checkValue(this.value),
-      rangeMin: this.rangeMin,
+      current: this.checkValue(this.current),
       rangeMax: this.rangeMax,
     };
   }
@@ -57,7 +59,7 @@ class Validation {
   }
 
   checkMaxRange(value: number): number {
-    if (value <= this.rangeMin) value = this.rangeMin;
+    if (value <= this.current) value = this.current;
     return this.checkValue(value);
   }
 
@@ -77,16 +79,17 @@ class Validation {
     this.max = max;
   }
 
-  checkRangeMinMax(rangeMin: number, rangeMax: number) {
+  checkRangeMinMax(current: number, rangeMax: number) {
     let swap = 0;
-    if (rangeMin >= rangeMax) {
-      swap = rangeMin;
-      rangeMin = rangeMax;
+
+    if (current >= rangeMax) {
+      swap = current;
+      current = rangeMax;
       rangeMax = swap;
     }
-    if (rangeMin <= this.min) rangeMin = this.min;
+    if (current <= this.min) current = this.min;
     if (rangeMax >= this.max) rangeMax = this.max;
-    this.rangeMin = this.checkValue(rangeMin);
+    this.current = this.checkValue(current);
     this.rangeMax = this.checkValue(rangeMax);
   }
 }

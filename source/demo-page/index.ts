@@ -22,7 +22,6 @@ new DemoBlock(vertical);
 
 const range = $('#sliderRangeHorizontal');
 range.sliderPlugin({
-  rangeMin: 72,
   rangeMax: 34,
   orientation: 'horizontal',
   range: true,
@@ -33,7 +32,6 @@ new DemoBlock(range);
 const rangeVertical = $('#sliderRangeVertical');
 rangeVertical.sliderPlugin({
   range: true,
-  rangeMin: 13,
   rangeMax: 62,
   orientation: 'vertical',
   color: 'green',

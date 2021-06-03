@@ -5,7 +5,6 @@ const defaultState: IOptions = {
   max: 100,
   step: 25,
   current: 42,
-  rangeMin: 21,
   rangeMax: 42,
   orientation: 'horizontal',
   range: false,

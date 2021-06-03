@@ -17,7 +17,6 @@ class Fill extends SliderComponent {
     let {
       orientation = 'horizontal',
       range,
-      rangeMin = 0,
       rangeMax = 100,
       current = 0,
     } = state;
@@ -25,15 +24,15 @@ class Fill extends SliderComponent {
     const isHorizontal = orientation === 'horizontal';
     const wayOfFilling: string = isHorizontal ? 'width' : 'height';
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
+    current = fromValueToPercent(state, current);
 
     if (fill && range) {
-      rangeMin = fromValueToPercent(state, rangeMin);
       rangeMax = fromValueToPercent(state, rangeMax);
 
-      fill.style[wayOfFilling] = `${rangeMax - rangeMin}%`;
-      fill.style[wayOfMove] = `${rangeMin}%`;
+      fill.style[wayOfFilling] = `${rangeMax - current}%`;
+      fill.style[wayOfMove] = `${current}%`;
     } else if (fill) {
-      fill.style[wayOfFilling] = `${fromValueToPercent(state, current)}%`;
+      fill.style[wayOfFilling] = `${current}%`;
     }
   }
 

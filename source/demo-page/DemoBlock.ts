@@ -9,7 +9,6 @@ class DemoBlock {
   max!: HTMLInputElement;
   current!: HTMLInputElement;
   step!: HTMLInputElement;
-  rangeMin!: HTMLInputElement;
   rangeMax!: HTMLInputElement;
   orientation!: HTMLSelectElement;
   fill!: HTMLInputElement;
@@ -40,9 +39,6 @@ class DemoBlock {
     this.step = this.panel.querySelector(
       '[data-title="step"]',
     ) as HTMLInputElement;
-    this.rangeMin = this.panel.querySelector(
-      '[data-title="range-min"]',
-    ) as HTMLInputElement;
     this.rangeMax = this.panel.querySelector(
       '[data-title="range-max"]',
     ) as HTMLInputElement;
@@ -69,10 +65,7 @@ class DemoBlock {
     this.step.value = `${this.state.step}`;
 
     if (this.state.range) {
-      this.current.disabled = true;
-      this.rangeMin.disabled = false;
       this.rangeMax.disabled = false;
-      this.rangeMin.value = `${this.state.rangeMin}`;
       this.rangeMax.value = `${this.state.rangeMax}`;
     }
 
@@ -85,14 +78,9 @@ class DemoBlock {
     this.root.sliderPlugin('onChange', (event: CustomEvent) => {
       this.state = event.detail;
       if (this.state.range) {
-        this.current.disabled = true;
-        this.rangeMin.disabled = false;
-        this.rangeMin.value = event.detail.rangeMin;
         this.rangeMax.disabled = false;
         this.rangeMax.value = event.detail.rangeMax;
       } else {
-        this.current.disabled = false;
-        this.rangeMin.disabled = true;
         this.rangeMax.disabled = true;
       }
       this.current.value = event.detail.current;
@@ -129,11 +117,6 @@ class DemoBlock {
 
     this.rangeMax.addEventListener('change', () => {
       const value: number = Number(this.rangeMax.value);
-      this.root.sliderPlugin('setValue', 'rangeMax', value);
-    });
-
-    this.rangeMin.addEventListener('change', () => {
-      const value: number = Number(this.rangeMin.value);
       this.root.sliderPlugin('setValue', 'rangeMax', value);
     });
 

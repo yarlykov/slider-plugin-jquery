@@ -3,7 +3,6 @@ interface IOptions {
   max?: number;
   step?: number;
   current?: number;
-  rangeMin?: number;
   rangeMax?: number;
   orientation?: 'horizontal' | 'vertical';
   range?: boolean;

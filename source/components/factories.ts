@@ -1,12 +1,8 @@
 import { IOptions } from './interfaces';
 import Scale from './View/subViews/Scale/Scale';
 import Fill from './View/subViews/Fill/Fill';
-import { FirstKnob, Knob, SecondKnob } from './View/subViews/Knobs/Knobs';
-import {
-  FirstTooltip,
-  SecondTooltip,
-  Tooltip,
-} from './View/subViews/Tooltips/Tooltips';
+import { Knob, SecondKnob } from './View/subViews/Knobs/Knobs';
+import { Tooltip, SecondTooltip } from './View/subViews/Tooltips/Tooltips';
 import Labels from './View/subViews/Labels/Labels';
 
 class SimpleSlider {
@@ -27,9 +23,9 @@ class RangeSlider {
     const elements = [
       Scale,
       Fill,
-      FirstKnob,
+      Knob,
       SecondKnob,
-      FirstTooltip,
+      Tooltip,
       SecondTooltip,
       Labels,
     ];
