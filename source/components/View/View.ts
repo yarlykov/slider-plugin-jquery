@@ -38,7 +38,11 @@ class View extends Emitter {
   }
 
   bind() {
-    this.componentList.Knob.subscribe('mousemove', (data: number) =>
+    this.componentList.Knob.subscribe('changeValue', (data: number) =>
+      this.emit('slider:mousemove', data),
+    );
+
+    this.componentList.Scale.subscribe('changeValue', (data) =>
       this.emit('slider:mousemove', data),
     );
 
@@ -46,10 +50,6 @@ class View extends Emitter {
       this.componentList.SecondKnob.subscribe('mousemove', (data: number) =>
         this.emit('secondKnob:mousemove', data),
       );
-
-      // this.componentList.Scale.subscribe('scale:click', (data) =>
-      //   console.log(data),
-      // );
     }
   }
 
