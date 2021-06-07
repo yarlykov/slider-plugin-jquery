@@ -40,12 +40,13 @@ class Model extends Emitter {
       value = valueState;
     }
     this.state[keyState] = value;
+    this.state = this.validation.checkState(this.state);
 
     if (!Number.isInteger(valueState) || keyState === 'step') {
       console.log('state is changed');
-      this.emit('stateChanged', this.validation.checkState(this.state));
+      this.emit('stateChanged', this.state);
     } else {
-      this.emit('valueChanged', this.validation.checkState(this.state));
+      this.emit('valueChanged', this.state);
     }
   }
 

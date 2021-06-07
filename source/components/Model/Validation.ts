@@ -23,8 +23,8 @@ class Validation {
       this.checkMaxRange(this.rangeMax);
       this.checkRangeMinMax(this.current, this.rangeMax);
     }
-
-    return {
+    
+    const result = {
       ...state,
       min: this.min,
       max: this.max,
@@ -32,17 +32,22 @@ class Validation {
       current: this.checkValue(this.current),
       rangeMax: this.rangeMax,
     };
+    
+    return result;
   }
 
   checkValue(value: number): number {
     const stepCount = (this.max - this.min) / this.step;
     const stepPercent = 100 / stepCount;
 
-    const valueInPercent = fromValueToPercent({
-      min: this.min,
-      max: this.max,
-      step: this.step,
-    }, value);
+    const valueInPercent = fromValueToPercent(
+      {
+        min: this.min,
+        max: this.max,
+        step: this.step,
+      },
+      value,
+    );
 
     const stepPosition = Math.round(valueInPercent / stepPercent) * this.step;
     let correctValue = stepPosition + this.min;
