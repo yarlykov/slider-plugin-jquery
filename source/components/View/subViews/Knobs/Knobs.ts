@@ -3,29 +3,37 @@ import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
 import {
   fromValueToPercent,
-  getSliderCoords,
+  getCoords,
   getPageCoords,
   getPosition,
+  getValueWithStep,
 } from '../../../../utils/utils';
 
 class Knob extends SliderComponent {
-  display() {
-    const scale = this.root.querySelector('[data-id="scale"]');
-    if (!scale) throw new Error('Scale element is not found');
+  scale!: HTMLElement;
+  knob!: HTMLElement;
 
-    scale.insertAdjacentHTML('beforeend', this.getTemplate());
-    this.addListeners(this.options);
+  display() {
+    this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
+    if (!this.scale) throw new Error('Scale element is not found');
+
+    this.scale.insertAdjacentHTML('beforeend', this.getTemplate());
+
+    this.knob = this.root.querySelector('[data-id="knob"]') as HTMLElement;
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.knob.addEventListener('mousedown', this.onMouseDown);
   }
 
   update(state: IOptions) {
-    const knob = this.root.querySelector('[data-id="knob"]') as HTMLElement;
-
-    if (knob) {
+    if (this.knob) {
       const directionOfMove =
         state.orientation === 'horizontal' ? 'left' : 'bottom';
       const { current = 0 } = state;
 
-      knob.style[directionOfMove] = `${fromValueToPercent(state, current)}%`;
+      this.knob.style[directionOfMove] = `${fromValueToPercent(
+        state,
+        current,
+      )}%`;
     }
   }
 
@@ -38,45 +46,29 @@ class Knob extends SliderComponent {
     `;
   }
 
-  addListeners(state: IOptions) {
-    const knob = this.root.querySelector('[data-id="knob"]');
-    const scale = this.root.querySelector('[data-id="scale"]');
-    const { min = 0, max = 100, step = 1, orientation = 'horizontal' } = state;
+  onMouseDown() {
+    const {
+      min = 0,
+      max = 100,
+      step = 1,
+      orientation = 'horizontal',
+    } = this.options;
 
-    knob?.addEventListener('mousedown', () => {
-      document.onmousemove = (event) => {
-        event.preventDefault();
-        const sliderCoords = getSliderCoords(scale as HTMLElement);
-        const pageCoords = getPageCoords(event);
+    document.onmousemove = (mouseEvent) => {
+      mouseEvent.preventDefault();
+      const scaleCoords = getCoords(this.scale);
 
-        const position = getPosition(orientation, sliderCoords, pageCoords);
+      const pageCoords = getPageCoords(mouseEvent);
+      const position = getPosition(orientation, scaleCoords, pageCoords);
+      const correctValue = getValueWithStep(min, max, step, position);
 
-        /* отвечает за пересчет полученных проц в проц с учетом шага */
+      this.emit('changeValue', correctValue.toFixed());
+    };
 
-        let stepCount = (max - min) / step;
-        let stepPercent = 100 / stepCount;
-        let stepPosition = Math.round(position / stepPercent) * stepPercent;
-
-        if (stepPosition < 0) stepPosition = 0;
-        if (stepPosition > 100) stepPosition = 100;
-
-        /* отвечает за пересчет в нужное конечное значение в зависимости от шага */
-
-        let interimValue = (stepPosition / stepPercent) * step;
-        let value = interimValue + min;
-
-        // if (value > max){
-        //   value = max;
-        // }
-
-        this.emit('mousemove', value.toFixed());
-      };
-
-      document.onmouseup = () => {
-        document.onmousemove = null;
-        document.onmouseup = null;
-      };
-    });
+    document.onmouseup = () => {
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
   }
 }
 
@@ -97,10 +89,10 @@ class SecondKnob extends SliderComponent {
     knob?.addEventListener('mousedown', () => {
       document.onmousemove = (event) => {
         event.preventDefault();
-        const sliderCoords = getSliderCoords(scale as HTMLElement);
+        const scaleCoords = getCoords(scale as HTMLElement);
         const pageCoords = getPageCoords(event);
 
-        const position = getPosition(orientation, sliderCoords, pageCoords);
+        const position = getPosition(orientation, scaleCoords, pageCoords);
 
         /* отвечает за пересчет полученных проц в проц с учетом шага */
 

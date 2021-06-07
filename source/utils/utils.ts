@@ -15,7 +15,7 @@ function createElement(tag: string, className?: string[]): HTMLElement {
  * например если задавать значения из контрольной панели
  */
 function fromValueToPercent(state: IOptions, value: number) {
-  let { min = 0, max = 0, step = 0 } = state;
+  let { min = 0, max = 0, step = 1 } = state;
 
   let stepCount = (max - min) / step;
   let stepPercent = 100 / stepCount;
@@ -27,7 +27,21 @@ function fromValueToPercent(state: IOptions, value: number) {
   return percent;
 }
 
-function getSliderCoords(elem: HTMLElement): Object {
+function getValueWithStep(
+  min: number = 0,
+  max: number = 0,
+  step: number = 1,
+  valueInPercent: number = 0,
+) {
+  const stepCount = (max - min) / step;
+  const stepPercent = 100 / stepCount;
+  const stepPosition = Math.round(valueInPercent / stepPercent) * step;
+  const valueWithStep = stepPosition + min;
+
+  return valueWithStep;
+}
+
+function getCoords(elem: HTMLElement): Object {
   let boxLeft = elem.getBoundingClientRect().left;
   let boxTop = elem.getBoundingClientRect().top;
   let boxRight = elem.getBoundingClientRect().right;
@@ -73,7 +87,8 @@ function getPosition(
 export {
   createElement,
   fromValueToPercent,
-  getSliderCoords,
+  getCoords,
   getPageCoords,
   getPosition,
+  getValueWithStep,
 };

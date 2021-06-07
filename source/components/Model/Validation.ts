@@ -1,4 +1,4 @@
-import { fromValueToPercent } from '../../utils/utils';
+import { fromValueToPercent, getValueWithStep } from '../../utils/utils';
 import { IOptions } from '../interfaces';
 
 class Validation {
@@ -23,7 +23,7 @@ class Validation {
       this.checkMaxRange(this.rangeMax);
       this.checkRangeMinMax(this.current, this.rangeMax);
     }
-    
+
     const result = {
       ...state,
       min: this.min,
@@ -32,14 +32,11 @@ class Validation {
       current: this.checkValue(this.current),
       rangeMax: this.rangeMax,
     };
-    
+
     return result;
   }
 
   checkValue(value: number): number {
-    const stepCount = (this.max - this.min) / this.step;
-    const stepPercent = 100 / stepCount;
-
     const valueInPercent = fromValueToPercent(
       {
         min: this.min,
@@ -49,8 +46,12 @@ class Validation {
       value,
     );
 
-    const stepPosition = Math.round(valueInPercent / stepPercent) * this.step;
-    let correctValue = stepPosition + this.min;
+    let correctValue = getValueWithStep(
+      this.min,
+      this.max,
+      this.step,
+      valueInPercent,
+    );
 
     if (valueInPercent >= 100 && correctValue !== this.max)
       correctValue = this.max;
