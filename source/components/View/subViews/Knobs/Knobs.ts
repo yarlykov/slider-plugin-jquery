@@ -46,7 +46,7 @@ class Knob extends SliderComponent {
     `;
   }
 
-  onMouseDown() {
+  onMouseDown(mouseEvent: Event) {
     const {
       min = 0,
       max = 100,

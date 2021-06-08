@@ -42,8 +42,11 @@ class View extends Emitter {
       this.emit('slider:mousemove', data),
     );
 
-    this.componentList.Scale.subscribe('changeValue', (data) =>
+    this.componentList.Scale.subscribe('scale:value', (data) =>
       this.emit('slider:mousemove', data),
+    );
+    this.componentList.Scale.subscribe('scale:target', (data) =>
+      this.componentList.Knob.onMouseDown(data),
     );
 
     if (this.type === 'range') {

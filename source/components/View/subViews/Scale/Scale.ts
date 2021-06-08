@@ -22,19 +22,22 @@ class Scale extends Slider {
   }
 
   onMouseDown(mouseEvent: Event) {
-    const {
-      min = 0,
-      max = 100,
-      step = 1,
-      orientation = 'horizontal',
-    } = this.options;
+    if (mouseEvent.target.dataset.id === 'scale' || mouseEvent.target.dataset.id === 'fill') {
+      const {
+        min = 0,
+        max = 100,
+        step = 1,
+        orientation = 'horizontal',
+      } = this.options;
 
-    const scaleCoords = getCoords(this.scale);
-    const pageCoords = getPageCoords(mouseEvent);
-    const position = getPosition(orientation, scaleCoords, pageCoords);
-    const correctValue = getValueWithStep(min, max, step, position);
+      const scaleCoords = getCoords(this.scale);
+      const pageCoords = getPageCoords(mouseEvent);
+      const position = getPosition(orientation, scaleCoords, pageCoords);
+      const correctValue = getValueWithStep(min, max, step, position);
 
-    this.emit('changeValue', correctValue.toFixed());
+      this.emit('scale:value', correctValue.toFixed());
+      this.emit('scale:target', mouseEvent);
+    }
   }
 
   getElement() {
