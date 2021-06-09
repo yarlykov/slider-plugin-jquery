@@ -1,0 +1,75 @@
+import './knobs.scss';
+import { IOptions } from '../../../interfaces';
+import SliderComponent from '../SliderComponent';
+import {
+  fromValueToPercent,
+  getCoords,
+  getPageCoords,
+  getPosition,
+  getValueWithStep,
+} from '../../../../utils/utils';
+
+class Knob extends SliderComponent {
+  scale!: HTMLElement;
+  knob!: HTMLElement;
+
+  display() {
+    this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
+    if (!this.scale) throw new Error('Scale element is not found');
+
+    this.scale.insertAdjacentHTML('beforeend', this.getTemplate());
+    this.knob = this.root.querySelector('[data-id="knob"]') as HTMLElement;
+
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.knob.addEventListener('mousedown', this.onMouseDown);
+  }
+
+  update(state: IOptions) {
+    if (this.knob) {
+      const directionOfMove =
+        state.orientation === 'horizontal' ? 'left' : 'bottom';
+      const { current = 0 } = state;
+
+      this.knob.style[directionOfMove] = `${fromValueToPercent(
+        state,
+        current,
+      )}%`;
+    }
+  }
+
+  getTemplate() {
+    const { orientation = 'horizontal', color = 'orange' } = this.options;
+
+    return `
+      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
+        data-id="knob"></div>
+    `;
+  }
+
+  onMouseDown(mouseEvent: Event) {
+    const {
+      min = 0,
+      max = 100,
+      step = 1,
+      orientation = 'horizontal',
+    } = this.options;
+
+    document.onmousemove = (mouseEvent) => {
+      mouseEvent.preventDefault();
+      const scaleCoords = getCoords(this.scale);
+
+      const pageCoords = getPageCoords(mouseEvent);
+      const position = getPosition(orientation, scaleCoords, pageCoords);
+      const correctValue = getValueWithStep(min, max, step, position);
+
+      this.emit('changeValue', correctValue.toFixed());
+    };
+
+    document.onmouseup = () => {
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
+  }
+}
+
+export default Knob;
