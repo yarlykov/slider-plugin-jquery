@@ -8,7 +8,7 @@ class Fill extends SliderComponent {
     const scale = this.root.querySelector('[data-id="scale"]');
     if (!scale) throw new Error('Scale element is not found');
 
-    if (this.options.fill)
+    if (this.state.fill)
       return scale.insertAdjacentHTML('afterbegin', this.getTemplate());
   }
 
@@ -37,7 +37,7 @@ class Fill extends SliderComponent {
   }
 
   getTemplate() {
-    const { color = 'orange', orientation = 'horizontal' } = this.options;
+    const { color = 'orange', orientation = 'horizontal' } = this.state;
 
     return `
       <div class="slider__fill slider__fill_${orientation} slider__fill_${color} "data-id="fill"></div>

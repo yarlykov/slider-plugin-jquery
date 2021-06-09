@@ -40,7 +40,7 @@ class SecondKnob extends SliderComponent {
   }
 
   getTemplate() {
-    const { orientation = 'horizontal', color = 'orange' } = this.options;
+    const { orientation = 'horizontal', color = 'orange' } = this.state;
 
     return `
       <div class="slider__knob slider__knob_range-first slider__knob_${orientation} slider__knob_${color}" data-knob="second"></div>
@@ -53,7 +53,7 @@ class SecondKnob extends SliderComponent {
       max = 100,
       step = 1,
       orientation = 'horizontal',
-    } = this.options;
+    } = this.state;
 
     document.onmousemove = (mouseEvent) => {
       mouseEvent.preventDefault();

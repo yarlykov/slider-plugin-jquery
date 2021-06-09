@@ -4,7 +4,7 @@ import SliderComponent from '../SliderComponent';
 
 class Tooltip extends SliderComponent {
   display() {
-    const { tooltips = false } = this.options;
+    const { tooltips = false } = this.state;
 
     if (tooltips) {
       const knob = this.root.querySelector('[data-id="knob"]');
@@ -23,7 +23,7 @@ class Tooltip extends SliderComponent {
   }
 
   getTemplate() {
-    const { orientation, color } = this.options;
+    const { orientation, color } = this.state;
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
@@ -38,7 +38,7 @@ class Tooltip extends SliderComponent {
 
 class SecondTooltip extends SliderComponent {
   display() {
-    const { tooltips = false } = this.options;
+    const { tooltips = false } = this.state;
 
     if (tooltips) {
       const secondKnob = this.root.querySelector('[data-knob="second"]');
@@ -56,7 +56,7 @@ class SecondTooltip extends SliderComponent {
   }
 
   getTemplate() {
-    const { orientation, color } = this.options;
+    const { orientation, color } = this.state;
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 

@@ -6,12 +6,12 @@ class Labels extends SliderComponent {
     const scale = this.root.querySelector('[data-id="scale"]');
     if (!scale) throw new Error('Ooops... scale is not found');
 
-    if (this.options.labels)
+    if (this.state.labels)
       scale.insertAdjacentHTML('beforeend', this.getTemplate());
   }
 
   getTemplate() {
-    const { orientation = 'horizontal', min, max } = this.options;
+    const { orientation = 'horizontal', min, max } = this.state;
 
     return `
       <div class="slider__labels slider__labels_${orientation}" data-id="labels">
@@ -21,7 +21,7 @@ class Labels extends SliderComponent {
   }
 
   toLabel(minLabelCount: number = 0, maxLabelCount: number = 100): string {
-    const { orientation } = this.options;
+    const { orientation } = this.state;
     const step = Math.round(maxLabelCount - minLabelCount);
     
     

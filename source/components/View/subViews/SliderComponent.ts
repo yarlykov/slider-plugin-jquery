@@ -2,7 +2,7 @@ import Emitter from '../../../Emitter';
 import { IOptions } from '../../interfaces';
 
 abstract class SliderComponent extends Emitter {
-  options: IOptions;
+  state: IOptions;
   root: HTMLElement;
 
   constructor(options: IOptions, root: HTMLElement) {
@@ -11,11 +11,13 @@ abstract class SliderComponent extends Emitter {
       throw new Error('Can`t instantiate SliderComponent, only concrete one');
     }
 
-    this.options = options || {};
     this.root = root;
+    this.state = options || {};
   }
 
-  update(state: IOptions): void {}
+  update(state: IOptions): void {
+    this.state = state;
+  }
 }
 
 export default SliderComponent;
