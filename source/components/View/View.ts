@@ -42,15 +42,24 @@ class View extends Emitter {
       this.emit('slider:mousemove', data),
     );
 
-    this.componentList.Scale.subscribe('scale:value', (data) =>
+    this.componentList.Scale.subscribe('scale:current', (data) =>
       this.emit('slider:mousemove', data),
     );
-    this.componentList.Scale.subscribe('scale:target', (data) =>
-      this.componentList.Knob.onMouseDown(data),
+
+    this.componentList.Scale.subscribe('scale:rangeMax', (data) =>
+      this.emit('secondKnob:mousemove', data),
     );
 
+    this.componentList.Scale.subscribe('scale:target', (event: MouseEvent) => {
+      this.componentList.Knob.onMouseDown(event);
+    });
+
+    this.componentList.Scale.subscribe('scale:targetMax', (event: MouseEvent) => {
+      this.componentList.SecondKnob.onMouseDown(event);
+    });
+
     if (this.type === 'range') {
-      this.componentList.SecondKnob.subscribe('mousemove', (data: number) =>
+      this.componentList.SecondKnob.subscribe('changeValue', (data: number) =>
         this.emit('secondKnob:mousemove', data),
       );
     }
