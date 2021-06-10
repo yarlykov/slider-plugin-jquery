@@ -7,13 +7,15 @@ class Labels extends SliderComponent {
     const scale = this.root.querySelector('[data-id="scale"]');
     if (!scale) throw new Error('Ooops... scale is not found');
 
-    if (this.state.labels)
+    if (this.state.labels) {
       scale.insertAdjacentHTML('beforeend', this.getTemplate());
+      const labels = this.root.querySelector(
+        '[data-id="labels"]',
+      ) as HTMLElement;
 
-    const labels = this.root.querySelector('[data-id="labels"]') as HTMLElement;
-
-    this.onMouseDown = this.onMouseDown.bind(this);
-    labels.addEventListener('mousedown', this.onMouseDown);
+      this.onMouseDown = this.onMouseDown.bind(this);
+      labels.addEventListener('mousedown', this.onMouseDown);
+    }
   }
 
   getTemplate() {
