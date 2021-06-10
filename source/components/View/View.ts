@@ -46,6 +46,14 @@ class View extends Emitter {
       this.emit('slider:mousemove', data),
     );
 
+    this.componentList.Labels.subscribe('labels:current', (data) =>
+      this.emit('slider:mousemove', data),
+    );
+
+    this.componentList.Labels.subscribe('labels:rangeMax', (data) =>
+      this.emit('secondKnob:mousemove', data),
+    );
+
     this.componentList.Scale.subscribe('scale:rangeMax', (data) =>
       this.emit('secondKnob:mousemove', data),
     );

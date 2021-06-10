@@ -1,5 +1,6 @@
 import './labels.scss';
 import SliderComponent from '../SliderComponent';
+import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
 
 class Labels extends SliderComponent {
   display() {
@@ -8,54 +9,88 @@ class Labels extends SliderComponent {
 
     if (this.state.labels)
       scale.insertAdjacentHTML('beforeend', this.getTemplate());
+
+    const labels = this.root.querySelector('[data-id="labels"]') as HTMLElement;
+
+    this.onMouseDown = this.onMouseDown.bind(this);
+    labels.addEventListener('mousedown', this.onMouseDown);
   }
 
   getTemplate() {
-    const { orientation = 'horizontal', min, max } = this.state;
+    const { orientation = 'horizontal' } = this.state;
 
     return `
       <div class="slider__labels slider__labels_${orientation}" data-id="labels">
-        ${this.toLabel(min, max)}
+        ${this.getLabels()}
       </div>
     `;
   }
 
-  toLabel(minLabelCount: number = 0, maxLabelCount: number = 100): string {
+  getLabels(): string {
+    const { min = 0, max = 0, step = 1 } = this.state;
+
+    const itemLabels: string[] = [];
+    let labelValues: number[] = [20, 40, 60, 80];
+
+    labelValues = labelValues
+      .map((value) => getValueWithStep(min, max, step, value))
+      .concat(min, max)
+      .sort((a, b) => a - b);
+
+    labelValues.forEach((value) => {
+      itemLabels.push(this.createLabel(value));
+    });
+
+    return itemLabels.join('');
+  }
+
+  createLabel(labelPosition: number = 0): string {
     const { orientation } = this.state;
-    const step = Math.round(maxLabelCount - minLabelCount);
-    
-    
-    const labels = [];
+    const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
+    const labelPosWithPercent = fromValueToPercent(
+      this.state,
+      labelPosition,
+    ).toFixed(2);
 
-    for (let i = 0; i <= 4; i += 1) {
-      const label = document.createElement('div');
-      label.className = 'slider__labels-item';
-      if (i === 0) {
-        label.innerText = `${minLabelCount}`;
-        label.style.left = `${0}%`
+    const label = `
+      <div class="slider__labels-item" 
+      style="${directionOfMove}: ${labelPosWithPercent}%;"
+      data-value=${labelPosWithPercent}>
+        ${labelPosition}
+      </div>
+    `;
+
+    return label;
+  }
+
+  onMouseDown(event: MouseEvent) {
+    if (event.target instanceof HTMLElement) {
+      const {
+        min,
+        max = 0,
+        step = 1,
+        current = 0,
+        rangeMax = 0,
+        range = false,
+      } = this.state;
+
+      const targetValue = Number(event.target.dataset.value);
+      let correctValue = getValueWithStep(min, max, step, targetValue);
+      if (targetValue === 100) correctValue = max;
+
+      if (range) {
+        const delta = (rangeMax - current) / 2;
+        const leftHalfOfScale = current + delta;
+        if (correctValue >= leftHalfOfScale) {
+          this.emit('labels:rangeMax', correctValue);
+        } else {
+          this.emit('labels:current', correctValue);
+        }
+      } else {
+        this.emit('labels:current', correctValue);
       }
-      if (i === 1) {
-        label.innerText = `${((25 * step) / 100 + minLabelCount).toFixed()}`;
-        label.style.left = `${25}%`;
-      }
-      if (i === 2) {
-        label.innerText = `${(50 * step) / 100 + minLabelCount}`;
-        label.style.left = `${50}%`;
-      }
-      if (i === 3) {
-        label.innerText = `${(75 * step) / 100 + minLabelCount}`;
-        label.style.left = `${75}%`;
-      }
-      if (i === 4) {
-        label.innerText = `${maxLabelCount}`;
-        label.style.left = `${100}%`;
-      }
-      labels.push(label.outerHTML);
     }
-
-    if (orientation === 'vertical') return labels.reverse().join('');
-    return labels.join('');
-  } // REFACTOR THIS!!!!!!!!!!
+  }
 }
 
 export default Labels;
