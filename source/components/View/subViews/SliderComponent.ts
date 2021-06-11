@@ -16,7 +16,7 @@ abstract class SliderComponent extends Emitter {
   }
 
   update(state: IOptions): void {
-    this.state = state;
+    this.state = Object.assign({}, state);
   }
 }
 

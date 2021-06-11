@@ -100,6 +100,36 @@ class DemoBlock {
       this.root.sliderPlugin('setValue', 'current', value);
     });
 
+    this.current.addEventListener('keydown', (event: KeyboardEvent) => {
+      const { current = 0, step = 0 } = this.state;
+      const { code } = event;
+
+      let newValue: number = 0;
+      if (code === 'ArrowUp' || code === 'ArrowRight') {
+        newValue = current + step;
+        this.root.sliderPlugin('setValue', 'current', newValue);
+      }
+      if (code === 'ArrowDown' || code === 'ArrowLeft') {
+        newValue = current - step;
+        this.root.sliderPlugin('setValue', 'current', newValue);
+      }
+    });
+
+    this.rangeMax.addEventListener('keydown', (event: KeyboardEvent) => {
+      const { rangeMax = 0, step = 0 } = this.state;
+      const { code } = event;
+
+      let newValue: number = 0;
+      if (code === 'ArrowUp' || code === 'ArrowRight') {
+        newValue = rangeMax + step;
+        this.root.sliderPlugin('setValue', 'rangeMax', newValue);
+      }
+      if (code === 'ArrowDown' || code === 'ArrowLeft') {
+        newValue = rangeMax - step;
+        this.root.sliderPlugin('setValue', 'rangeMax', newValue);
+      }
+    });
+
     this.step.addEventListener('change', () => {
       const value: number = Number(this.step.value);
       this.root.sliderPlugin('setValue', 'step', value);

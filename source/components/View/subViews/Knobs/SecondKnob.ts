@@ -22,11 +22,19 @@ class SecondKnob extends SliderComponent {
       '[data-knob="second"]',
     ) as HTMLElement;
 
+    this.addEventListeners();
+  }
+
+  addEventListeners() {
     this.onMouseDown = this.onMouseDown.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     this.secondKnob.addEventListener('mousedown', this.onMouseDown);
+    this.secondKnob.addEventListener('keydown', this.onKeyDown);
   }
 
   update(state: IOptions) {
+    this.state = Object.assign({}, state);
+
     if (this.secondKnob) {
       const directionOfMove =
         state.orientation === 'horizontal' ? 'left' : 'bottom';
@@ -43,7 +51,8 @@ class SecondKnob extends SliderComponent {
     const { orientation = 'horizontal', color = 'orange' } = this.state;
 
     return `
-      <div class="slider__knob slider__knob_range-first slider__knob_${orientation} slider__knob_${color}" data-knob="second"></div>
+      <div class="slider__knob slider__knob_range-first slider__knob_${orientation} slider__knob_${color}" 
+      data-knob="second" role="slider" tabindex="0"></div>
     `;
   }
 
@@ -70,6 +79,22 @@ class SecondKnob extends SliderComponent {
       document.onmousemove = null;
       document.onmouseup = null;
     };
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    const { rangeMax = 0, step = 1 } = this.state;
+    const { code } = event;
+
+    let newValue = 0;
+
+    if (code === 'ArrowRight' || code === 'ArrowUp') {
+      newValue = rangeMax + step;
+      this.emit('changeValue', newValue);
+    }
+    if (code === 'ArrowLeft' || code === 'ArrowDown') {
+      newValue = rangeMax - step;
+      this.emit('changeValue', newValue);
+    }
   }
 }
 
