@@ -3,6 +3,7 @@ import { IOptions } from '../../interfaces';
 
 abstract class SliderComponent extends Emitter {
   state: IOptions;
+
   root: HTMLElement;
 
   constructor(options: IOptions, root: HTMLElement) {
@@ -16,7 +17,7 @@ abstract class SliderComponent extends Emitter {
   }
 
   update(state: IOptions): void {
-    this.state = Object.assign({}, state);
+    this.state = { ...state };
   }
 }
 

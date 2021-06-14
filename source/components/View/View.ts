@@ -4,8 +4,11 @@ import SliderFactory from '../factories';
 
 class View extends Emitter {
   root: HTMLElement;
+
   public type!: string;
+
   public componentList!: any;
+
   private components!: any[];
 
   constructor(root: HTMLElement) {
@@ -38,25 +41,15 @@ class View extends Emitter {
   }
 
   bind() {
-    this.componentList.Knob.subscribe('changeValue', (data: number) =>
-      this.emit('slider:mousemove', data),
-    );
+    this.componentList.Knob.subscribe('changeValue', (data: number) => this.emit('slider:mousemove', data));
 
-    this.componentList.Scale.subscribe('scale:valueFrom', (data) =>
-      this.emit('slider:mousemove', data),
-    );
+    this.componentList.Scale.subscribe('scale:valueFrom', (data) => this.emit('slider:mousemove', data));
 
-    this.componentList.Labels.subscribe('labels:valueFrom', (data) =>
-      this.emit('slider:mousemove', data),
-    );
+    this.componentList.Labels.subscribe('labels:valueFrom', (data) => this.emit('slider:mousemove', data));
 
-    this.componentList.Labels.subscribe('labels:valueTo', (data) =>
-      this.emit('secondKnob:mousemove', data),
-    );
+    this.componentList.Labels.subscribe('labels:valueTo', (data) => this.emit('secondKnob:mousemove', data));
 
-    this.componentList.Scale.subscribe('scale:valueTo', (data) =>
-      this.emit('secondKnob:mousemove', data),
-    );
+    this.componentList.Scale.subscribe('scale:valueTo', (data) => this.emit('secondKnob:mousemove', data));
 
     this.componentList.Scale.subscribe('scale:target', (event: MouseEvent) => {
       this.componentList.Knob.onMouseDown(event);
@@ -70,9 +63,7 @@ class View extends Emitter {
     );
 
     if (this.type === 'range') {
-      this.componentList.SecondKnob.subscribe('changeValue', (data: number) =>
-        this.emit('secondKnob:mousemove', data),
-      );
+      this.componentList.SecondKnob.subscribe('changeValue', (data: number) => this.emit('secondKnob:mousemove', data));
     }
   }
 

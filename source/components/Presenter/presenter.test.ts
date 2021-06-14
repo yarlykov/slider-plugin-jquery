@@ -5,6 +5,6 @@ describe('Presenter:', () => {
     const mockClassModel = jest.fn();
     const mockClassView = jest.fn();
 
-    expect(new Presenter(new mockClassModel(),new mockClassView())).toBeInstanceOf(Presenter);
+    expect(new Presenter(new mockClassModel(), new mockClassView())).toBeInstanceOf(Presenter);
   });
 });

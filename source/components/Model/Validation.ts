@@ -3,9 +3,13 @@ import { IOptions } from '../interfaces';
 
 class Validation {
   min!: number;
+
   max!: number;
+
   step!: number;
+
   valueFrom!: number;
+
   valueTo!: number;
 
   checkState(state: IOptions) {
@@ -53,8 +57,7 @@ class Validation {
       valueInPercent,
     );
 
-    if (valueInPercent >= 100 && correctValue !== this.max)
-      correctValue = this.max;
+    if (valueInPercent >= 100 && correctValue !== this.max) correctValue = this.max;
 
     return correctValue;
   }

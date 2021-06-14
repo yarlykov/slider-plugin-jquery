@@ -46,7 +46,7 @@ class Labels extends SliderComponent {
     return itemLabels.join('');
   }
 
-  createLabel(labelPosition: number = 0): string {
+  createLabel(labelPosition = 0): string {
     const { orientation } = this.state;
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const labelPosWithPercent = fromValueToPercent(

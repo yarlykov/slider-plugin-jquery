@@ -14,8 +14,8 @@ declare global {
 }
 
 const methods = {
-  init: function (this: JQuery, options: IOptions = {}) {
-    const index: string = this[0].id; /*для разработки - удалить*/
+  init(this: JQuery, options: IOptions = {}) {
+    const index: string = this[0].id; /* для разработки - удалить */
 
     return this.each(function () {
       $(this).data().sliderPlugin = new Presenter(this);
@@ -24,19 +24,19 @@ const methods = {
         const app = $(this).data('sliderPlugin');
 
         app.model.setState(options);
-        window[index] = app; /*для разработки - удалить*/
+        window[index] = app; /* для разработки - удалить */
       }
     });
   },
 
-  getState: function(this: JQuery): Object {
+  getState(this: JQuery): Object {
     const sliderPlugin = $(this).data('sliderPlugin');
 
     const state = sliderPlugin.model.getState();
     return state;
   },
 
-  setValue: function (this: JQuery, name: string, value: optionsValue) {
+  setValue(this: JQuery, name: string, value: optionsValue) {
     const sliderPlugin = $(this).data('sliderPlugin');
 
     sliderPlugin.model.setValue(`${name}`, value);
@@ -53,9 +53,8 @@ $.fn.sliderPlugin = function (method) {
       this,
       Array.prototype.slice.call(arguments, 1),
     );
-  } else if (typeof method === 'object' || !method) {
+  } if (typeof method === 'object' || !method) {
     return methods.init.apply(this, arguments as optionsValue);
-  } else {
-    $.error(`Метод с именем ${method} не существует`);
   }
+  $.error(`Метод с именем ${method} не существует`);
 };

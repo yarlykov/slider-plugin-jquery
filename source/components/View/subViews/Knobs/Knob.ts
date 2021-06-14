@@ -11,6 +11,7 @@ import {
 
 class Knob extends SliderComponent {
   scale!: HTMLElement;
+
   knob!: HTMLElement;
 
   display() {
@@ -31,11 +32,10 @@ class Knob extends SliderComponent {
   }
 
   update(state: IOptions) {
-    this.state = Object.assign({}, state);
+    this.state = { ...state };
 
     if (this.knob) {
-      const directionOfMove =
-        state.orientation === 'horizontal' ? 'left' : 'bottom';
+      const directionOfMove = state.orientation === 'horizontal' ? 'left' : 'bottom';
       const { valueFrom = 0 } = state;
 
       this.knob.style[directionOfMove] = `${fromValueToPercent(

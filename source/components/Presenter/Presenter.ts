@@ -4,7 +4,9 @@ import View from '../View/View';
 
 class Presenter {
   public model: any;
+
   public view: any;
+
   root: HTMLElement;
 
   constructor(root: HTMLElement) {

@@ -9,6 +9,7 @@ import SliderComponent from '../SliderComponent';
 
 class Scale extends SliderComponent {
   private element!: string;
+
   scale!: HTMLElement;
 
   display() {
@@ -42,9 +43,8 @@ class Scale extends SliderComponent {
 
   isTarget(event: MouseEvent) {
     if (event.target instanceof HTMLElement) {
-      const target =
-        event.target.dataset.id === 'scale' ||
-        event.target.dataset.id === 'fill';
+      const target = event.target.dataset.id === 'scale'
+        || event.target.dataset.id === 'fill';
       return target;
     }
   }

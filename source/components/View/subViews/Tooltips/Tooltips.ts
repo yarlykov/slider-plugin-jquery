@@ -24,8 +24,7 @@ class Tooltip extends SliderComponent {
 
   getTemplate() {
     const { orientation, color } = this.state;
-    const verticalTooltipClass =
-      orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
+    const verticalTooltipClass = orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
       <div class="slider__tooltip slider__tooltip_${orientation} slider__tooltip_${color}">
@@ -57,8 +56,7 @@ class SecondTooltip extends SliderComponent {
 
   getTemplate() {
     const { orientation, color } = this.state;
-    const verticalTooltipClass =
-      orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
+    const verticalTooltipClass = orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
       <div class="slider__tooltip slider__tooltip_${orientation} slider__tooltip_${color}" data-tooltip="second">

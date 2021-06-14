@@ -15,10 +15,10 @@ function createElement(tag: string, className?: string[]): HTMLElement {
  * например если задавать значения из контрольной панели
  */
 function fromValueToPercent(state: IOptions, value: number) {
-  let { min = 0, max = 0, step = 1 } = state;
+  const { min = 0, max = 0, step = 1 } = state;
 
-  let stepCount = (max - min) / step;
-  let stepPercent = 100 / stepCount;
+  const stepCount = (max - min) / step;
+  const stepPercent = 100 / stepCount;
   let percent = ((value - min) / step) * stepPercent;
 
   if (percent > 100) percent = 100;
@@ -28,10 +28,10 @@ function fromValueToPercent(state: IOptions, value: number) {
 }
 
 function getValueWithStep(
-  min: number = 0,
-  max: number = 0,
-  step: number = 1,
-  valueInPercent: number = 0,
+  min = 0,
+  max = 0,
+  step = 1,
+  valueInPercent = 0,
 ) {
   const stepCount = (max - min) / step;
   const stepPercent = 100 / stepCount;
@@ -42,10 +42,10 @@ function getValueWithStep(
 }
 
 function getCoords(elem: HTMLElement): Object {
-  let boxLeft = elem.getBoundingClientRect().left;
-  let boxTop = elem.getBoundingClientRect().top;
-  let boxRight = elem.getBoundingClientRect().right;
-  let boxBottom = elem.getBoundingClientRect().bottom;
+  const boxLeft = elem.getBoundingClientRect().left;
+  const boxTop = elem.getBoundingClientRect().top;
+  const boxRight = elem.getBoundingClientRect().right;
+  const boxBottom = elem.getBoundingClientRect().bottom;
 
   return {
     left: boxLeft + pageXOffset,
@@ -56,8 +56,8 @@ function getCoords(elem: HTMLElement): Object {
 }
 
 function getPageCoords(event: Event) {
-  const pageX = event.pageX;
-  const pageY = event.pageY;
+  const { pageX } = event;
+  const { pageY } = event;
 
   return {
     pageX,
@@ -74,11 +74,9 @@ function getPosition(
   let position = 0;
 
   if (horizontal) {
-    position =
-      ((pageCoords.pageX - sliderCoords.left) / sliderCoords.width) * 100;
+    position = ((pageCoords.pageX - sliderCoords.left) / sliderCoords.width) * 100;
   } else {
-    position =
-      ((sliderCoords.bottom - pageCoords.pageY) / sliderCoords.height) * 100;
+    position = ((sliderCoords.bottom - pageCoords.pageY) / sliderCoords.height) * 100;
   }
 
   return position;

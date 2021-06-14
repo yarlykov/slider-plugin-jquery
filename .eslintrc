@@ -6,15 +6,18 @@
     "node": true,
     "jest/globals": true
   },
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "airbnb/base",
-    "plugin:fsd/all"
+    "plugin:fsd/all",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
     "$": "readonly",
     "jQuery": "readonly"
   },
-  "plugins": ["fsd", "jest"],
+  "plugins": ["@typescript-eslint", "fsd", "jest"],
   "rules": {
     "linebreak-style": "warn",
     "no-underscore-dangle": "off",

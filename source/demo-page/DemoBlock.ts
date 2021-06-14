@@ -2,18 +2,29 @@ import { IOptions } from '../components/interfaces';
 
 class DemoBlock {
   root: JQuery<HTMLElement>;
+
   state: IOptions = {};
+
   panel!: HTMLElement;
 
   min!: HTMLInputElement;
+
   max!: HTMLInputElement;
+
   valueFrom!: HTMLInputElement;
+
   step!: HTMLInputElement;
+
   valueTo!: HTMLInputElement;
+
   orientation!: HTMLSelectElement;
+
   fill!: HTMLInputElement;
+
   range!: HTMLInputElement;
+
   labels!: HTMLInputElement;
+
   tooltips!: HTMLInputElement;
 
   constructor(root: JQuery<HTMLElement>) {
@@ -95,7 +106,7 @@ class DemoBlock {
     });
 
     this.valueFrom.addEventListener('change', () => {
-      let value: number = 0;
+      let value = 0;
       value = Number(this.valueFrom.value);
       this.root.sliderPlugin('setValue', 'valueFrom', value);
     });
@@ -104,7 +115,7 @@ class DemoBlock {
       const { valueFrom = 0, step = 0 } = this.state;
       const { code } = event;
 
-      let newValue: number = 0;
+      let newValue = 0;
       if (code === 'ArrowUp' || code === 'ArrowRight') {
         newValue = valueFrom + step;
         this.root.sliderPlugin('setValue', 'valueFrom', newValue);
@@ -119,7 +130,7 @@ class DemoBlock {
       const { valueTo = 0, step = 0 } = this.state;
       const { code } = event;
 
-      let newValue: number = 0;
+      let newValue = 0;
       if (code === 'ArrowUp' || code === 'ArrowRight') {
         newValue = valueTo + step;
         this.root.sliderPlugin('setValue', 'valueTo', newValue);
@@ -131,27 +142,27 @@ class DemoBlock {
     });
 
     this.step.addEventListener('change', () => {
-      const value: number = Number(this.step.value);
+      const value = Number(this.step.value);
       this.root.sliderPlugin('setValue', 'step', value);
     });
 
     this.min.addEventListener('change', () => {
-      const value: number = Number(this.min.value);
+      const value = Number(this.min.value);
       this.root.sliderPlugin('setValue', 'min', value);
     });
 
     this.max.addEventListener('change', () => {
-      const value: number = Number(this.max.value);
+      const value = Number(this.max.value);
       this.root.sliderPlugin('setValue', 'max', value);
     });
 
     this.valueTo.addEventListener('change', () => {
-      const value: number = Number(this.valueTo.value);
+      const value = Number(this.valueTo.value);
       this.root.sliderPlugin('setValue', 'valueTo', value);
     });
 
     this.orientation.addEventListener('change', () => {
-      const value: string = this.orientation.value;
+      const { value } = this.orientation;
       this.root.sliderPlugin('setValue', 'orientation', value);
     });
 

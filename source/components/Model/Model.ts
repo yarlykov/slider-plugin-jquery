@@ -7,6 +7,7 @@ type optionsValue = number & string & boolean;
 
 class Model extends Emitter {
   private state: IOptions = defaultState;
+
   private validation: Validation;
 
   constructor() {

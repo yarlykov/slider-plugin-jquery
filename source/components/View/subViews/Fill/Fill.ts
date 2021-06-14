@@ -8,8 +8,7 @@ class Fill extends SliderComponent {
     const scale = this.root.querySelector('[data-id="scale"]');
     if (!scale) throw new Error('Scale element is not found');
 
-    if (this.state.fill)
-      return scale.insertAdjacentHTML('afterbegin', this.getTemplate());
+    if (this.state.fill) return scale.insertAdjacentHTML('afterbegin', this.getTemplate());
   }
 
   update(state: IOptions) {
