@@ -36,11 +36,11 @@ class Knob extends SliderComponent {
     if (this.knob) {
       const directionOfMove =
         state.orientation === 'horizontal' ? 'left' : 'bottom';
-      const { current = 0 } = state;
+      const { valueFrom = 0 } = state;
 
       this.knob.style[directionOfMove] = `${fromValueToPercent(
         state,
-        current,
+        valueFrom,
       )}%`;
     }
   }
@@ -79,17 +79,17 @@ class Knob extends SliderComponent {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    const { current = 0, step = 1 } = this.state;
+    const { valueFrom = 0, step = 1 } = this.state;
     const { code } = event;
 
     let newValue = 0;
 
     if (code === 'ArrowRight' || code === 'ArrowUp') {
-      newValue = current + step;
+      newValue = valueFrom + step;
       this.emit('changeValue', newValue);
     }
     if (code === 'ArrowLeft' || code === 'ArrowDown') {
-      newValue = current - step;
+      newValue = valueFrom - step;
       this.emit('changeValue', newValue);
     }
   }

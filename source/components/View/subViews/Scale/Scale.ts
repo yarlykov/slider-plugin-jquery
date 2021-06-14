@@ -54,8 +54,8 @@ class Scale extends SliderComponent {
       const {
         min = 0,
         max = 100,
-        current = 0,
-        rangeMax = 0,
+        valueFrom = 0,
+        valueTo = 0,
         step = 1,
         orientation = 'horizontal',
         range = false,
@@ -67,17 +67,17 @@ class Scale extends SliderComponent {
       const correctValue = getValueWithStep(min, max, step, position);
 
       if (range) {
-        const delta = (rangeMax - current) / 2;
-        const leftHalfOfScale = current + delta;
+        const delta = (valueTo - valueFrom) / 2;
+        const leftHalfOfScale = valueFrom + delta;
         if (correctValue >= leftHalfOfScale) {
-          this.emit('scale:rangeMax', correctValue.toFixed());
+          this.emit('scale:valueTo', correctValue.toFixed());
           this.emit('scale:targetMax', event);
         } else {
-          this.emit('scale:current', correctValue.toFixed());
+          this.emit('scale:valueFrom', correctValue.toFixed());
           this.emit('scale:target', event);
         }
       } else {
-        this.emit('scale:current', correctValue.toFixed());
+        this.emit('scale:valueFrom', correctValue.toFixed());
         this.emit('scale:target', event);
       }
     }

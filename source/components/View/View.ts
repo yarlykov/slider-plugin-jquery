@@ -42,19 +42,19 @@ class View extends Emitter {
       this.emit('slider:mousemove', data),
     );
 
-    this.componentList.Scale.subscribe('scale:current', (data) =>
+    this.componentList.Scale.subscribe('scale:valueFrom', (data) =>
       this.emit('slider:mousemove', data),
     );
 
-    this.componentList.Labels.subscribe('labels:current', (data) =>
+    this.componentList.Labels.subscribe('labels:valueFrom', (data) =>
       this.emit('slider:mousemove', data),
     );
 
-    this.componentList.Labels.subscribe('labels:rangeMax', (data) =>
+    this.componentList.Labels.subscribe('labels:valueTo', (data) =>
       this.emit('secondKnob:mousemove', data),
     );
 
-    this.componentList.Scale.subscribe('scale:rangeMax', (data) =>
+    this.componentList.Scale.subscribe('scale:valueTo', (data) =>
       this.emit('secondKnob:mousemove', data),
     );
 
@@ -62,9 +62,12 @@ class View extends Emitter {
       this.componentList.Knob.onMouseDown(event);
     });
 
-    this.componentList.Scale.subscribe('scale:targetMax', (event: MouseEvent) => {
-      this.componentList.SecondKnob.onMouseDown(event);
-    });
+    this.componentList.Scale.subscribe(
+      'scale:targetMax',
+      (event: MouseEvent) => {
+        this.componentList.SecondKnob.onMouseDown(event);
+      },
+    );
 
     if (this.type === 'range') {
       this.componentList.SecondKnob.subscribe('changeValue', (data: number) =>

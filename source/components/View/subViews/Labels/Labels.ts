@@ -71,8 +71,8 @@ class Labels extends SliderComponent {
         min,
         max = 0,
         step = 1,
-        current = 0,
-        rangeMax = 0,
+        valueFrom = 0,
+        valueTo = 0,
         range = false,
       } = this.state;
 
@@ -81,15 +81,15 @@ class Labels extends SliderComponent {
       if (targetValue === 100) correctValue = max;
 
       if (range) {
-        const delta = (rangeMax - current) / 2;
-        const leftHalfOfScale = current + delta;
+        const delta = (valueTo - valueFrom) / 2;
+        const leftHalfOfScale = valueFrom + delta;
         if (correctValue >= leftHalfOfScale) {
-          this.emit('labels:rangeMax', correctValue);
+          this.emit('labels:valueTo', correctValue);
         } else {
-          this.emit('labels:current', correctValue);
+          this.emit('labels:valueFrom', correctValue);
         }
       } else {
-        this.emit('labels:current', correctValue);
+        this.emit('labels:valueFrom', correctValue);
       }
     }
   }

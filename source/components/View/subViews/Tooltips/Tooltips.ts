@@ -19,7 +19,7 @@ class Tooltip extends SliderComponent {
       '[data-id="tooltip-value"]',
     ) as HTMLElement;
 
-    if (tooltip) tooltip.innerText = `${state.current}`;
+    if (tooltip) tooltip.innerText = `${state.valueFrom}`;
   }
 
   getTemplate() {
@@ -52,7 +52,7 @@ class SecondTooltip extends SliderComponent {
     const tooltipSecond = this.root.querySelector(
       '[data-id="tooltip-value-second"]',
     ) as HTMLElement;
-    if (tooltipSecond) tooltipSecond.innerText = `${state.rangeMax}`;
+    if (tooltipSecond) tooltipSecond.innerText = `${state.valueTo}`;
   }
 
   getTemplate() {

@@ -17,22 +17,22 @@ class Fill extends SliderComponent {
     let {
       orientation = 'horizontal',
       range,
-      rangeMax = 100,
-      current = 0,
+      valueTo = 100,
+      valueFrom = 0,
     } = state;
 
     const isHorizontal = orientation === 'horizontal';
     const wayOfFilling: string = isHorizontal ? 'width' : 'height';
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
-    current = fromValueToPercent(state, current);
+    valueFrom = fromValueToPercent(state, valueFrom);
 
     if (fill && range) {
-      rangeMax = fromValueToPercent(state, rangeMax);
+      valueTo = fromValueToPercent(state, valueTo);
 
-      fill.style[wayOfFilling] = `${rangeMax - current}%`;
-      fill.style[wayOfMove] = `${current}%`;
+      fill.style[wayOfFilling] = `${valueTo - valueFrom}%`;
+      fill.style[wayOfMove] = `${valueFrom}%`;
     } else if (fill) {
-      fill.style[wayOfFilling] = `${current}%`;
+      fill.style[wayOfFilling] = `${valueFrom}%`;
     }
   }
 

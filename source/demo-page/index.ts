@@ -4,7 +4,7 @@ import DemoBlock from './DemoBlock';
 
 const slider = $('#sliderSingleHorizontal');
 slider.sliderPlugin({
-  current: 50,
+  valueFrom: 50,
   min: -10,
   max: 300,
   step: 25,
@@ -22,7 +22,7 @@ new DemoBlock(vertical);
 
 const range = $('#sliderRangeHorizontal');
 range.sliderPlugin({
-  rangeMax: 34,
+  valueTo: 34,
   orientation: 'horizontal',
   range: true,
   color: 'green',
@@ -32,7 +32,7 @@ new DemoBlock(range);
 const rangeVertical = $('#sliderRangeVertical');
 rangeVertical.sliderPlugin({
   range: true,
-  rangeMax: 62,
+  valueTo: 62,
   orientation: 'vertical',
   color: 'green',
 });

@@ -7,8 +7,8 @@ describe('Model:', () => {
     min: 0,
     max: 0,
     step: 0,
-    current: 0,
-    rangeMax: 0,
+    valueFrom: 0,
+    valueTo: 0,
     orientation: 'horizontal',
     range: false,
     fill: false,
@@ -41,8 +41,8 @@ describe('Model:', () => {
   });
 
   test('should write value type "number" using setValue and return from getValue', () => {
-    model.setValue('current', 42);
-    expect(model.getValue('current')).toBe(42);
+    model.setValue('valueFrom', 42);
+    expect(model.getValue('valueFrom')).toBe(42);
   });
 
   test('should write value type "string" using setValue and return from getValue', () => {

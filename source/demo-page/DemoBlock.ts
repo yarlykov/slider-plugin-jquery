@@ -7,9 +7,9 @@ class DemoBlock {
 
   min!: HTMLInputElement;
   max!: HTMLInputElement;
-  current!: HTMLInputElement;
+  valueFrom!: HTMLInputElement;
   step!: HTMLInputElement;
-  rangeMax!: HTMLInputElement;
+  valueTo!: HTMLInputElement;
   orientation!: HTMLSelectElement;
   fill!: HTMLInputElement;
   range!: HTMLInputElement;
@@ -33,14 +33,14 @@ class DemoBlock {
     this.max = this.panel.querySelector(
       '[data-title="max"]',
     ) as HTMLInputElement;
-    this.current = this.panel.querySelector(
-      '[data-title="current"]',
+    this.valueFrom = this.panel.querySelector(
+      '[data-title="from"]',
     ) as HTMLInputElement;
     this.step = this.panel.querySelector(
       '[data-title="step"]',
     ) as HTMLInputElement;
-    this.rangeMax = this.panel.querySelector(
-      '[data-title="range-max"]',
+    this.valueTo = this.panel.querySelector(
+      '[data-title="to"]',
     ) as HTMLInputElement;
     this.orientation = this.panel.querySelector(
       '[data-title="orientation"]',
@@ -61,12 +61,12 @@ class DemoBlock {
     this.state = this.root.sliderPlugin('getState');
     this.min.value = `${this.state.min}`;
     this.max.value = `${this.state.max}`;
-    this.current.value = `${this.state.current}`;
+    this.valueFrom.value = `${this.state.valueFrom}`;
     this.step.value = `${this.state.step}`;
 
     if (this.state.range) {
-      this.rangeMax.disabled = false;
-      this.rangeMax.value = `${this.state.rangeMax}`;
+      this.valueTo.disabled = false;
+      this.valueTo.value = `${this.state.valueTo}`;
     }
 
     this.orientation.value = `${this.state.orientation}`;
@@ -78,12 +78,12 @@ class DemoBlock {
     this.root.sliderPlugin('onChange', (event: CustomEvent) => {
       this.state = event.detail;
       if (this.state.range) {
-        this.rangeMax.disabled = false;
-        this.rangeMax.value = event.detail.rangeMax;
+        this.valueTo.disabled = false;
+        this.valueTo.value = event.detail.valueTo;
       } else {
-        this.rangeMax.disabled = true;
+        this.valueTo.disabled = true;
       }
-      this.current.value = event.detail.current;
+      this.valueFrom.value = event.detail.valueFrom;
       this.step.value = event.detail.step;
       this.min.value = event.detail.min;
       this.max.value = event.detail.max;
@@ -94,39 +94,39 @@ class DemoBlock {
       this.tooltips.checked = event.detail.tooltips;
     });
 
-    this.current.addEventListener('change', () => {
+    this.valueFrom.addEventListener('change', () => {
       let value: number = 0;
-      value = Number(this.current.value);
-      this.root.sliderPlugin('setValue', 'current', value);
+      value = Number(this.valueFrom.value);
+      this.root.sliderPlugin('setValue', 'valueFrom', value);
     });
 
-    this.current.addEventListener('keydown', (event: KeyboardEvent) => {
-      const { current = 0, step = 0 } = this.state;
+    this.valueFrom.addEventListener('keydown', (event: KeyboardEvent) => {
+      const { valueFrom = 0, step = 0 } = this.state;
       const { code } = event;
 
       let newValue: number = 0;
       if (code === 'ArrowUp' || code === 'ArrowRight') {
-        newValue = current + step;
-        this.root.sliderPlugin('setValue', 'current', newValue);
+        newValue = valueFrom + step;
+        this.root.sliderPlugin('setValue', 'valueFrom', newValue);
       }
       if (code === 'ArrowDown' || code === 'ArrowLeft') {
-        newValue = current - step;
-        this.root.sliderPlugin('setValue', 'current', newValue);
+        newValue = valueFrom - step;
+        this.root.sliderPlugin('setValue', 'valueFrom', newValue);
       }
     });
 
-    this.rangeMax.addEventListener('keydown', (event: KeyboardEvent) => {
-      const { rangeMax = 0, step = 0 } = this.state;
+    this.valueTo.addEventListener('keydown', (event: KeyboardEvent) => {
+      const { valueTo = 0, step = 0 } = this.state;
       const { code } = event;
 
       let newValue: number = 0;
       if (code === 'ArrowUp' || code === 'ArrowRight') {
-        newValue = rangeMax + step;
-        this.root.sliderPlugin('setValue', 'rangeMax', newValue);
+        newValue = valueTo + step;
+        this.root.sliderPlugin('setValue', 'valueTo', newValue);
       }
       if (code === 'ArrowDown' || code === 'ArrowLeft') {
-        newValue = rangeMax - step;
-        this.root.sliderPlugin('setValue', 'rangeMax', newValue);
+        newValue = valueTo - step;
+        this.root.sliderPlugin('setValue', 'valueTo', newValue);
       }
     });
 
@@ -145,9 +145,9 @@ class DemoBlock {
       this.root.sliderPlugin('setValue', 'max', value);
     });
 
-    this.rangeMax.addEventListener('change', () => {
-      const value: number = Number(this.rangeMax.value);
-      this.root.sliderPlugin('setValue', 'rangeMax', value);
+    this.valueTo.addEventListener('change', () => {
+      const value: number = Number(this.valueTo.value);
+      this.root.sliderPlugin('setValue', 'valueTo', value);
     });
 
     this.orientation.addEventListener('change', () => {

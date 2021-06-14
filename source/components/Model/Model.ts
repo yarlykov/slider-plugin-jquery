@@ -30,11 +30,11 @@ class Model extends Emitter {
     valueState: optionsValue,
   ) {
     let value = 0;
-    if (keyState === 'current' && this.state.range) {
+    if (keyState === 'valueFrom' && this.state.range) {
       value = this.validation.checkMinRange(valueState);
-    } else if (keyState === 'current') {
+    } else if (keyState === 'valueFrom') {
       value = this.validation.checkValue(valueState);
-    } else if (keyState === 'rangeMax') {
+    } else if (keyState === 'valueTo') {
       value = this.validation.checkMaxRange(valueState);
     } else {
       value = valueState;

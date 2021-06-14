@@ -38,11 +38,11 @@ class SecondKnob extends SliderComponent {
     if (this.secondKnob) {
       const directionOfMove =
         state.orientation === 'horizontal' ? 'left' : 'bottom';
-      const { rangeMax = 0 } = state;
+      const { valueTo = 0 } = state;
 
       this.secondKnob.style[directionOfMove] = `${fromValueToPercent(
         state,
-        rangeMax,
+        valueTo,
       )}%`;
     }
   }
@@ -82,17 +82,17 @@ class SecondKnob extends SliderComponent {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    const { rangeMax = 0, step = 1 } = this.state;
+    const { valueTo = 0, step = 1 } = this.state;
     const { code } = event;
 
     let newValue = 0;
 
     if (code === 'ArrowRight' || code === 'ArrowUp') {
-      newValue = rangeMax + step;
+      newValue = valueTo + step;
       this.emit('changeValue', newValue);
     }
     if (code === 'ArrowLeft' || code === 'ArrowDown') {
-      newValue = rangeMax - step;
+      newValue = valueTo - step;
       this.emit('changeValue', newValue);
     }
   }

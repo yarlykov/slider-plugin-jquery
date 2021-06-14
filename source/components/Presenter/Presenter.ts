@@ -40,11 +40,11 @@ class Presenter {
     });
 
     this.view.subscribe('slider:mousemove', (data: number) => {
-      this.model.setValue('current', Number(data));
+      this.model.setValue('valueFrom', Number(data));
     });
 
     this.view.subscribe('secondKnob:mousemove', (data: number) => {
-      this.model.setValue('rangeMax', Number(data));
+      this.model.setValue('valueTo', Number(data));
     });
   }
 }

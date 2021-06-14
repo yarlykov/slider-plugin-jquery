@@ -5,23 +5,23 @@ class Validation {
   min!: number;
   max!: number;
   step!: number;
-  current!: number;
-  rangeMax!: number;
+  valueFrom!: number;
+  valueTo!: number;
 
   checkState(state: IOptions) {
     this.min = state.min || 0;
     this.max = state.max || 0;
     this.step = state.step || 1;
-    this.current = state.current || 0;
-    this.rangeMax = state.rangeMax || 0;
+    this.valueFrom = state.valueFrom || 0;
+    this.valueTo = state.valueTo || 0;
 
     this.checkMinMax(this.min, this.max);
     this.checkStep(this.max, this.step);
 
     if (state.range) {
-      this.checkMinRange(this.current);
-      this.checkMaxRange(this.rangeMax);
-      this.checkRangeMinMax(this.current, this.rangeMax);
+      this.checkMinRange(this.valueFrom);
+      this.checkMaxRange(this.valueTo);
+      this.checkRangeMinMax(this.valueFrom, this.valueTo);
     }
 
     const result = {
@@ -29,8 +29,8 @@ class Validation {
       min: this.min,
       max: this.max,
       step: this.step,
-      current: this.checkValue(this.current),
-      rangeMax: this.rangeMax,
+      valueFrom: this.checkValue(this.valueFrom),
+      valueTo: this.valueTo,
     };
 
     return result;
@@ -60,12 +60,12 @@ class Validation {
   }
 
   checkMinRange(value: number): number {
-    if (value >= this.rangeMax) value = this.rangeMax;
+    if (value >= this.valueTo) value = this.valueTo;
     return this.checkValue(value);
   }
 
   checkMaxRange(value: number): number {
-    if (value <= this.current) value = this.current;
+    if (value <= this.valueFrom) value = this.valueFrom;
     return this.checkValue(value);
   }
 
@@ -85,18 +85,18 @@ class Validation {
     this.max = max;
   }
 
-  checkRangeMinMax(current: number, rangeMax: number) {
+  checkRangeMinMax(valueFrom: number, valueTo: number) {
     let swap = 0;
 
-    if (current >= rangeMax) {
-      swap = current;
-      current = rangeMax;
-      rangeMax = swap;
+    if (valueFrom >= valueTo) {
+      swap = valueFrom;
+      valueFrom = valueTo;
+      valueTo = swap;
     }
-    if (current <= this.min) current = this.min;
-    if (rangeMax >= this.max) rangeMax = this.max;
-    this.current = this.checkValue(current);
-    this.rangeMax = this.checkValue(rangeMax);
+    if (valueFrom <= this.min) valueFrom = this.min;
+    if (valueTo >= this.max) valueTo = this.max;
+    this.valueFrom = this.checkValue(valueFrom);
+    this.valueTo = this.checkValue(valueTo);
   }
 }
 

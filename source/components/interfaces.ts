@@ -2,8 +2,8 @@ interface IOptions {
   min?: number;
   max?: number;
   step?: number;
-  current?: number;
-  rangeMax?: number;
+  valueFrom?: number;
+  valueTo?: number;
   orientation?: 'horizontal' | 'vertical';
   range?: boolean;
   fill?: boolean;
