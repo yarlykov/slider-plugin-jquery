@@ -19,6 +19,7 @@
   },
   "plugins": ["@typescript-eslint", "fsd", "jest"],
   "rules": {
+    "import/extensions": "off",
     "linebreak-style": "warn",
     "no-underscore-dangle": "off",
     "no-new": "warn",
@@ -30,5 +31,12 @@
     "fsd/jq-use-js-prefix-in-selector": "error",
     "fsd/no-function-declaration-in-event-listener": "error",
     "fsd/split-conditionals": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    }
   }
 }

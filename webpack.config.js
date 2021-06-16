@@ -1,8 +1,8 @@
 const path = require('path');
-const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const PATHS = {
   source: path.resolve(__dirname, './source'),
@@ -13,7 +13,7 @@ module.exports = {
   context: PATHS.source,
   mode: 'development',
   entry: {
-    plugin: ['@babel/polyfill', './app.ts'],
+    plugin: ['./app.ts'],
     demo: ['./demo-page/index.ts'],
   },
   output: {
@@ -86,10 +86,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-    }),
+    new BundleAnalyzerPlugin(),
   ],
 };

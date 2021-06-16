@@ -1,5 +1,4 @@
 import './page/demo-page.scss';
-import '../app';
 import DemoBlock from './DemoBlock';
 
 const slider = $('#sliderSingleHorizontal');
