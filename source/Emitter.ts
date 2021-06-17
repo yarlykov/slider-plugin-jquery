@@ -1,28 +1,30 @@
+import { EventCallback, Events, IOptions } from './components/interfaces';
+
 class Emitter {
-  private observers: Object;
+  private observers: Events;
 
   constructor() {
     this.observers = {};
   }
 
-  public emit(event: string, data: number | string | Object): void {
+  public emit(event: string, data: number | string | IOptions): void {
     if (!Array.isArray(this.observers[event])) {
       throw new Error('Nonexistent observer');
     }
 
-    this.observers[event].forEach((observer: Function) => {
+    this.observers[event].forEach((observer: EventCallback) => {
       observer(data);
     });
   }
 
-  public subscribe(event: string, fn: Function): void {
+  public subscribe(event: string, fn: EventCallback): void {
     this.observers[event] = this.observers[event] || [];
     this.observers[event].push(fn);
   }
 
-  public unsubscribe(event: string, fn: Function): void {
+  public unsubscribe(event: string, fn: EventCallback): void {
     this.observers[event] = this.observers[event].filter(
-      (observer: Function) => observer !== fn,
+      (observer: EventCallback) => observer !== fn,
     );
   }
 }

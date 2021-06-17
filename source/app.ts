@@ -3,16 +3,6 @@ import { IOptions } from './components/interfaces';
 
 type optionsValue = number & string & boolean;
 
-declare global {
-  interface JQuery {
-    sliderPlugin: (
-      options?: keyof typeof methods | IOptions,
-      name?: string,
-      value?: optionsValue,
-    ) => IOptions;
-  }
-}
-
 const methods = {
   init(this: JQuery, options: IOptions = {}) {
     const index: string = this[0].id; /* для разработки - удалить */
@@ -47,13 +37,24 @@ const methods = {
   },
 };
 
+declare global {
+  interface JQuery {
+    sliderPlugin: (
+      options?: keyof typeof methods | IOptions,
+      name?: string,
+      value?: optionsValue,
+    ) => IOptions;
+  }
+}
+
 $.fn.sliderPlugin = function (method) {
   if (methods[method as string]) {
     return methods[method as string].apply(
       this,
       Array.prototype.slice.call(arguments, 1),
     );
-  } if (typeof method === 'object' || !method) {
+  }
+  if (typeof method === 'object' || !method) {
     return methods.init.apply(this, arguments as optionsValue);
   }
   $.error(`Метод с именем ${method} не существует`);

@@ -12,4 +12,10 @@ interface IOptions {
   color?: string;
 }
 
-export { IOptions };
+type EventCallback = (data?: IOptions | number | string) => void;
+
+interface Events {
+  [key: string]: EventCallback[];
+}
+
+export { IOptions, EventCallback, Events };
