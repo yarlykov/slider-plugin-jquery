@@ -3,8 +3,6 @@ import defaultState from '../../initialState';
 import { IOptions } from '../interfaces';
 import Validation from './Validation';
 
-type optionsValue = number & string & boolean;
-
 class Model extends Emitter {
   private state: IOptions = defaultState;
 
@@ -26,33 +24,48 @@ class Model extends Emitter {
     return this.state;
   }
 
+  public getValue<K extends keyof IOptions>(keyState: K) {
+    return this.state[keyState];
+  }
+
   public setValue<K extends keyof IOptions>(
     keyState: K,
-    valueState: optionsValue,
+    valueState: IOptions[K],
   ) {
-    let value = 0;
-    if (keyState === 'valueFrom' && this.state.range) {
-      value = this.validation.checkMinRange(valueState);
-    } else if (keyState === 'valueFrom') {
-      value = this.validation.checkValue(valueState);
-    } else if (keyState === 'valueTo') {
-      value = this.validation.checkMaxRange(valueState);
-    } else {
-      value = valueState;
-    }
-    this.state[keyState] = value;
+    this.checkStateValue(keyState, valueState);
     this.state = this.validation.checkState(this.state);
 
-    if (!Number.isInteger(valueState) || keyState === 'step') {
-      console.log('state is changed');
-      this.emit('stateChanged', this.state);
-    } else {
+    if (this.isValue(keyState)) {
       this.emit('valueChanged', this.state);
+    } else {
+      this.emit('stateChanged', this.state);
+      console.log('state is changed');
     }
   }
 
-  public getValue<K extends keyof IOptions>(keyState: K) {
-    return this.state[keyState];
+  private checkStateValue<K extends keyof IOptions>(
+    keyState: K,
+    valueState: IOptions[K],
+  ): void {
+    let value: number;
+    const rangeValueFrom = keyState === 'valueFrom' && this.state.range;
+    const valueFrom = keyState === 'valueFrom';
+    const valueTo = keyState === 'valueTo';
+
+    if (rangeValueFrom) {
+      value = this.validation.checkMinRange(valueState as number);
+    } else if (valueFrom) {
+      value = this.validation.checkValue(valueState as number);
+    } else if (valueTo) {
+      value = this.validation.checkMaxRange(valueState as number);
+    } else {
+      value = valueState as number;
+    }
+    this.state[keyState] = value as IOptions[K];
+  }
+
+  private isValue<K extends keyof IOptions>(keyState: K): boolean {
+    return keyState === 'valueFrom' || keyState === 'valueTo';
   }
 }
 

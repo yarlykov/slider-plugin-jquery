@@ -1,19 +1,20 @@
+import { IOptions } from '../interfaces';
 import Model from './Model';
-import { IOptions } from '../View/View';
 
 describe('Model:', () => {
-  let model: any;
+  let model: Model;
   const initialState: IOptions = {
     min: 0,
-    max: 0,
-    step: 0,
+    max: 1,
+    step: 1,
     valueFrom: 0,
     valueTo: 0,
     orientation: 'horizontal',
     range: false,
     fill: false,
-    units: '',
-    color: '',
+    labels: false,
+    tooltips: false,
+    color: 'orange',
   };
 
   beforeEach(() => {
@@ -37,12 +38,11 @@ describe('Model:', () => {
     expect(model.getValue('min')).toBe(0);
     expect(model.getValue('orientation')).toBe('horizontal');
     expect(model.getValue('range')).toBe(false);
-    expect(model.getValue('units')).toBe('');
   });
 
   test('should write value type "number" using setValue and return from getValue', () => {
-    model.setValue('valueFrom', 42);
-    expect(model.getValue('valueFrom')).toBe(42);
+    model.setValue('valueFrom', 1);
+    expect(model.getValue('valueFrom')).toBe(1);
   });
 
   test('should write value type "string" using setValue and return from getValue', () => {

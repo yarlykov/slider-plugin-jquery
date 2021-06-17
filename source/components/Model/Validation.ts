@@ -14,7 +14,7 @@ class Validation {
 
   checkState(state: IOptions) {
     this.min = state.min || 0;
-    this.max = state.max || 0;
+    this.max = state.max || 1;
     this.step = state.step || 1;
     this.valueFrom = state.valueFrom || 0;
     this.valueTo = state.valueTo || 0;

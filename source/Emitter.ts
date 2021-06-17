@@ -7,14 +7,15 @@ class Emitter {
     this.observers = {};
   }
 
-  public emit(event: string, data: number | string | IOptions): void {
+  public emit(event: string, data: number | string | IOptions): boolean {
     if (!Array.isArray(this.observers[event])) {
-      throw new Error('Nonexistent observer');
+      return false;
     }
 
     this.observers[event].forEach((observer: EventCallback) => {
       observer(data);
     });
+    return true;
   }
 
   public subscribe(event: string, fn: EventCallback): void {
