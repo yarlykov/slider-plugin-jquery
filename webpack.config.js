@@ -1,91 +1,64 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { merge } = require('webpack-merge');
+const styles = require('./webpack/styles')
+const pug = require('./webpack/pug')
+const typeScript = require('./webpack/typeScript')
+const devServer = require('./webpack/devServer');
+const devtool = require('./webpack/devtool')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const PATHS = {
   source: path.resolve(__dirname, './source'),
   dist: path.resolve(__dirname, './dist'),
 };
 
-module.exports = {
-  context: PATHS.source,
-  mode: 'development',
-  entry: {
-    plugin: ['./app.ts'],
-    demo: ['./demo-page/index.ts'],
-  },
-  output: {
-    filename: '[name].js',
-    path: PATHS.dist,
-  },
-  resolve: {
-    extensions: ['.ts', '.js', '.json'],
-  },
-  devServer: {
-    port: 8082,
-    index: 'index.html',
-    open: true,
-  },
-  devtool: 'source-map',
-  module: {
-    rules: [
-      {
-        test: /\.(s[ac]ss|css)$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: { sourceMap: true },
-          },
-          {
-            loader: 'sass-loader',
-            options: { sourceMap: true },
-          },
-        ],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-typescript',
-            ],
-          },
-        },
-      },
-      {
-        test: /\.pug$/,
-        loader: 'pug-loader',
-        options: {
-          pretty: true,
-        },
-      },
+const devMode = process.env.NODE_ENV === 'development';
+
+const common = merge([
+  {
+    context: PATHS.source,
+    target: devMode ? "web" : "browserslist",
+    entry: {
+      plugin: ['./app.ts'],
+      demo: ['./demo-page/index.ts'],
+    },
+    optimization: {
+      minimize: false,
+    },
+    output: {
+      filename: '[name].js',
+      path: PATHS.dist,
+      clean: true,
+    },
+    resolve: {
+      extensions: ['.ts', '.js', '.json'],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: 'demo-page/page/demo-page.pug',
+      }),
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+      }),
     ],
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'demo-page/page/demo-page.pug',
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-    }),
-    new BundleAnalyzerPlugin(),
-  ],
+  pug(devMode),
+  styles(),
+  typeScript(),
+]);
+
+module.exports = function () {
+  if (devMode) {
+    return merge([
+      common,
+      devServer(),
+      devtool(),
+    ])
+  } else {
+    return merge([
+      common,
+    ])
+  }
 };
