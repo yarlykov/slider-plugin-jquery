@@ -39,7 +39,7 @@ class Model extends Emitter {
       this.emit('valueChanged', this.state);
     } else {
       this.emit('stateChanged', this.state);
-      console.log('state is changed');
+      // console.log('state is changed');
     }
   }
 
