@@ -12,9 +12,9 @@ class Validation {
 
   valueTo!: number;
 
-  checkState(state: IOptions) {
+  checkState(state: IOptions): IOptions {
     this.min = state.min || 0;
-    this.max = state.max || 1;
+    this.max = state.max || 0;
     this.step = state.step || 1;
     this.valueFrom = state.valueFrom || 0;
     this.valueTo = state.valueTo || 0;
@@ -57,7 +57,10 @@ class Validation {
       valueInPercent,
     );
 
-    if (valueInPercent >= 100 && correctValue !== this.max) correctValue = this.max;
+    if (valueInPercent >= 100 && correctValue !== this.max) {
+      correctValue = this.max;
+    }
+    if (correctValue > this.max) correctValue = this.max;
 
     return correctValue;
   }
@@ -72,12 +75,12 @@ class Validation {
     return this.checkValue(value);
   }
 
-  checkStep(max: number, step: number) {
+  checkStep(max: number, step: number): void {
     if (step <= 0) this.step = 1;
     if (step > max) this.step = max;
   }
 
-  checkMinMax(min: number, max: number) {
+  checkMinMax(min: number, max: number): void {
     let swap = 0;
     if (min >= max) {
       swap = min;
@@ -88,7 +91,7 @@ class Validation {
     this.max = max;
   }
 
-  checkRangeMinMax(valueFrom: number, valueTo: number) {
+  checkRangeMinMax(valueFrom: number, valueTo: number): void {
     let swap = 0;
 
     if (valueFrom >= valueTo) {
