@@ -1,20 +1,23 @@
 import { IOptions } from '../components/interfaces';
 
+type coords = {
+  pageX?: number;
+  pageY?: number;
+  left?: number;
+  bottom?: number;
+  width?: number;
+  height?: number;
+};
+
 function createElement(tag: string, className?: string[]): HTMLElement {
   const element = document.createElement(tag);
 
   if (className) element.classList.add(...className);
 
-  return element;
+  return element; // remove function??
 }
 
-/*
- * Этот алгоритм пересчитывает
- * переданные значения в проценты
- * исходя из диапазона
- * например если задавать значения из контрольной панели
- */
-function fromValueToPercent(state: IOptions, value: number) {
+function fromValueToPercent(state: IOptions, value: number): number {
   const { min = 0, max = 0, step = 1 } = state;
 
   const stepCount = (max - min) / step;
@@ -32,7 +35,7 @@ function getValueWithStep(
   max = 0,
   step = 1,
   valueInPercent = 0,
-) {
+): number {
   const stepCount = (max - min) / step;
   const stepPercent = 100 / stepCount;
   const stepPosition = Math.round(valueInPercent / stepPercent) * step;
@@ -41,21 +44,23 @@ function getValueWithStep(
   return valueWithStep;
 }
 
-function getCoords(elem: HTMLElement): Object {
+function getCoords(elem: HTMLElement): coords {
   const boxLeft = elem.getBoundingClientRect().left;
   const boxTop = elem.getBoundingClientRect().top;
   const boxRight = elem.getBoundingClientRect().right;
   const boxBottom = elem.getBoundingClientRect().bottom;
+  const offsetX = window.pageXOffset;
+  const offsetY = window.pageYOffset;
 
   return {
-    left: boxLeft + pageXOffset,
-    bottom: boxBottom + pageYOffset,
+    left: boxLeft + offsetX,
+    bottom: boxBottom + offsetY,
     width: boxRight - boxLeft,
     height: boxBottom - boxTop,
   };
 }
 
-function getPageCoords(event: Event) {
+function getPageCoords(event: MouseEvent): coords {
   const { pageX } = event;
   const { pageY } = event;
 
@@ -67,16 +72,23 @@ function getPageCoords(event: Event) {
 
 function getPosition(
   orientation: string,
-  sliderCoords: object,
-  pageCoords: object,
+  sliderCoords: coords,
+  pageCoords: coords,
 ): number {
   const horizontal = orientation === 'horizontal';
   let position = 0;
+  const { pageX = 0, pageY = 0 } = pageCoords;
+  const {
+    left = 0,
+    bottom = 0,
+    width = 0,
+    height = 0,
+  } = sliderCoords;
 
   if (horizontal) {
-    position = ((pageCoords.pageX - sliderCoords.left) / sliderCoords.width) * 100;
+    position = ((pageX - left) / width) * 100;
   } else {
-    position = ((sliderCoords.bottom - pageCoords.pageY) / sliderCoords.height) * 100;
+    position = ((bottom - pageY) / height) * 100;
   }
 
   return position;
