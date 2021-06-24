@@ -8,7 +8,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "airbnb/base",
+    "eslint:recommended",
     "plugin:fsd/all",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
@@ -19,11 +19,8 @@
   },
   "plugins": ["@typescript-eslint", "fsd", "jest"],
   "rules": {
-    "import/extensions": "off",
     "linebreak-style": "warn",
-    "no-underscore-dangle": "off",
     "no-new": "warn",
-    "class-methods-use-this": "off",
     "func-names": "warn",
     "fsd/hof-name-prefix": "error",
     "fsd/no-heavy-constructor": "error",
