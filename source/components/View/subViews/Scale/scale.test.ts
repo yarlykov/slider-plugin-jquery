@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import Scale from './Scale';
 
 describe('Scale: display ', () => {
@@ -5,12 +9,12 @@ describe('Scale: display ', () => {
   let root: HTMLElement;
 
   beforeEach(() => {
-    scale = new Scale();
     root = document.createElement('div');
+    scale = new Scale({}, root);
   });
 
   test('should return Scale instance', () => {
-    expect(new Scale()).toBeInstanceOf(Scale);
+    expect(new Scale({}, root)).toBeInstanceOf(Scale);
   });
 
   // test('should return scale HTMLElement', () => {

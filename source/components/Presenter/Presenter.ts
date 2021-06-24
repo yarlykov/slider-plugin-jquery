@@ -1,11 +1,10 @@
-import { IOptions } from '../interfaces';
 import Model from '../Model/Model';
 import View from '../View/View';
 
 class Presenter {
-  public model: any;
+  private model: Model;
 
-  public view: any;
+  private view: View;
 
   root: HTMLElement;
 
@@ -13,41 +12,48 @@ class Presenter {
     this.root = root;
     this.model = new Model();
     this.view = new View(root);
+    this.init();
+  }
+
+  private init(): void {
     this.view.init(this.model.state);
     this.view.update(this.model.state);
 
-    this.bind();
+    this.bindModelEvents();
+    this.bindViewEvents();
   }
 
-  bind() {
-    this.model.subscribe('stateChanged', (data: IOptions) => {
-      this.view.init(data);
-      this.view.update(data);
-
-      this.root.dispatchEvent(
-        new CustomEvent('onChange', {
-          detail: this.model.state,
-        }),
-      );
+  private bindModelEvents(): void {
+    this.model.subscribe('stateChanged', (state) => {
+      if (state instanceof Object) {
+        this.view.init(state);
+        this.view.update(state);
+      }
+      this.customEvent();
     });
 
-    this.model.subscribe('valueChanged', (data: IOptions) => {
-      this.view.update(data);
+    this.model.subscribe('valueChanged', (state) => {
+      if (state instanceof Object) this.view.update(state);
+      this.customEvent();
+    });
+  }
 
-      this.root.dispatchEvent(
-        new CustomEvent('onChange', {
-          detail: this.model.state,
-        }),
-      );
+  private bindViewEvents(): void {
+    this.view.subscribe('slider:mousemove', (valueFrom) => {
+      this.model.setValue('valueFrom', Number(valueFrom));
     });
 
-    this.view.subscribe('slider:mousemove', (data: number) => {
-      this.model.setValue('valueFrom', Number(data));
+    this.view.subscribe('secondKnob:mousemove', (valueTo) => {
+      this.model.setValue('valueTo', Number(valueTo));
     });
+  }
 
-    this.view.subscribe('secondKnob:mousemove', (data: number) => {
-      this.model.setValue('valueTo', Number(data));
-    });
+  private customEvent(): void {
+    this.root.dispatchEvent(
+      new CustomEvent('onChange', {
+        detail: this.model.state,
+      }),
+    );
   }
 }
 

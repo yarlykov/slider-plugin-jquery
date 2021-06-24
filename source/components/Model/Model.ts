@@ -1,4 +1,4 @@
-import Emitter from '../../Emitter';
+import Emitter from '../../Emitter/Emitter';
 import defaultState from '../../initialState';
 import { IOptions } from '../interfaces';
 import Validation from './Validation';

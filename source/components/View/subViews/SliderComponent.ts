@@ -1,4 +1,4 @@
-import Emitter from '../../../Emitter';
+import Emitter from '../../../Emitter/Emitter';
 import { IOptions } from '../../interfaces';
 
 abstract class SliderComponent extends Emitter {

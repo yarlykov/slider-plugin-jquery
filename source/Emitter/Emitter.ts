@@ -1,5 +1,7 @@
 import { EventCallback, Events, IOptions } from '../components/interfaces';
 
+type data = number | string | IOptions | undefined;
+
 class Emitter {
   private observers: Events;
 
@@ -7,7 +9,7 @@ class Emitter {
     this.observers = {};
   }
 
-  public emit(event: string, data: number | string | IOptions): boolean {
+  public emit(event: string, data: data): boolean {
     if (!Array.isArray(this.observers[event])) {
       return false;
     }

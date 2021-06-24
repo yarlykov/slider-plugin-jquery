@@ -23,7 +23,7 @@ describe('Model:', () => {
   });
 
   test('should return a class instance', () => {
-    expect(new Model()).toBeInstanceOf(Model);
+    expect(model).toBeInstanceOf(Model);
   });
 
   test('getState should be defined', () => {
@@ -55,13 +55,13 @@ describe('Model:', () => {
     expect(model.getValue('range')).toBe(true);
   });
 
-  test('should return correct "valueFrom" and "valueTo"', () => {    
+  test('should return correct "valueFrom" and "valueTo"', () => {
     model.setValue('range', true);
     model.setValue('max', 100);
     model.setValue('step', 25);
     model.setValue('valueTo', 20);
     model.setValue('valueFrom', 80);
-    
+
     expect(model.getValue('valueFrom')).toBe(25);
     expect(model.getValue('valueTo')).toBe(25);
   });
