@@ -1,4 +1,4 @@
-import { EventCallback, Events, IOptions } from './components/interfaces';
+import { EventCallback, Events, IOptions } from '../components/interfaces';
 
 class Emitter {
   private observers: Events;
