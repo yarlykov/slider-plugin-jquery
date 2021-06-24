@@ -1,15 +1,15 @@
-import { IOptions } from '../interfaces';
-import Emitter from '../../Emitter';
-import SliderFactory from '../factories';
+import { Components, ComponentsList, IOptions } from '../interfaces';
+import Emitter from '../../Emitter/Emitter';
+import { SliderFactory } from './Factories/factories';
 
 class View extends Emitter {
   root: HTMLElement;
 
   public type!: string;
 
-  public componentList!: any;
+  public componentList!: ComponentsList;
 
-  private components!: any[];
+  private components!: Components;
 
   constructor(root: HTMLElement) {
     super();
@@ -28,51 +28,81 @@ class View extends Emitter {
 
     this.displaySlider();
     this.createComponentList();
-
-    this.bind();
+    this.bindEvents();
   }
 
-  public update(data: Object) {
-    this.components.forEach((component) => component.update(data));
-  }
-
-  private displaySlider() {
-    this.components.forEach((element) => element.display());
-  }
-
-  bind() {
-    this.componentList.Knob.subscribe('changeValue', (data: number) => this.emit('slider:mousemove', data));
-
-    this.componentList.Scale.subscribe('scale:valueFrom', (data) => this.emit('slider:mousemove', data));
-
-    this.componentList.Labels.subscribe('labels:valueFrom', (data) => this.emit('slider:mousemove', data));
-
-    this.componentList.Labels.subscribe('labels:valueTo', (data) => this.emit('secondKnob:mousemove', data));
-
-    this.componentList.Scale.subscribe('scale:valueTo', (data) => this.emit('secondKnob:mousemove', data));
-
-    this.componentList.Scale.subscribe('scale:target', (event: MouseEvent) => {
-      this.componentList.Knob.onMouseDown(event);
+  public update(data: IOptions): void {
+    this.components.forEach((component) => {
+      if (component) component.update(data);
     });
-
-    this.componentList.Scale.subscribe(
-      'scale:targetMax',
-      (event: MouseEvent) => {
-        this.componentList.SecondKnob.onMouseDown(event);
-      },
-    );
-
-    if (this.type === 'range') {
-      this.componentList.SecondKnob.subscribe('changeValue', (data: number) => this.emit('secondKnob:mousemove', data));
-    }
   }
 
-  private createComponentList() {
+  private displaySlider(): void {
+    this.components.forEach((element) => {
+      if (element) element.display();
+    });
+  }
+
+  private bindEvents(): void {
+    this.bindScaleEvents();
+    this.bindKnobsEvents();
+    this.bindLabelsEvents();
+  }
+
+  private createComponentList(): void {
     this.componentList = {};
 
     this.components.forEach((element) => {
-      this.componentList[element.constructor.name] = element;
+      if (element) this.componentList[element.constructor.name] = element;
     });
+  }
+
+  private bindScaleEvents(): void {
+    if (this.componentList.Scale) {
+      this.componentList.Scale.subscribe('scale:valueFrom', (valueFrom) =>
+        this.emit('slider:mousemove', valueFrom),
+      );
+
+      this.componentList.Scale.subscribe('scale:valueTo', (valueTo) =>
+        this.emit('secondKnob:mousemove', valueTo),
+      );
+
+      this.componentList.Scale.subscribe('scale:target', (event) => {
+        if (this.componentList.Knob)
+          this.componentList.Knob.onMouseDown(event as MouseEvent);
+      });
+
+      this.componentList.Scale.subscribe('scale:targetMax', (event) => {
+        if (this.componentList.SecondKnob)
+          this.componentList.SecondKnob.onMouseDown(event as MouseEvent);
+      });
+    }
+  }
+
+  private bindKnobsEvents(): void {
+    if (this.componentList.Knob) {
+      this.componentList.Knob.subscribe('changeValue', (valueFrom) =>
+        this.emit('slider:mousemove', valueFrom),
+      );
+    }
+
+    if (this.type === 'range' && this.componentList.SecondKnob) {
+      this.componentList.SecondKnob.subscribe('changeValue', (valueFrom) =>
+        this.emit('secondKnob:mousemove', valueFrom),
+      );
+    }
+  }
+
+  private bindLabelsEvents(): void {
+    if (this.componentList.Labels) {
+      this.componentList.Labels.subscribe('labels:valueFrom', (valueFrom) =>
+        this.emit('slider:mousemove', valueFrom),
+      );
+
+      this.componentList.Labels.subscribe('labels:valueTo', (valueTo) =>
+        this.emit('secondKnob:mousemove', valueTo),
+      );
+    }
   }
 }
 
