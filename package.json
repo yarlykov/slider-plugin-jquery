@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --coverage",
     "start": "NODE_ENV=development webpack serve --mode development",
     "dev": "NODE_ENV=development webpack --mode development",
     "build": "webpack --mode production",

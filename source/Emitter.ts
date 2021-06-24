@@ -23,10 +23,11 @@ class Emitter {
     this.observers[event].push(fn);
   }
 
-  public unsubscribe(event: string, fn: EventCallback): void {
+  public unsubscribe(event: string, fn: EventCallback): Events {
     this.observers[event] = this.observers[event].filter(
       (observer: EventCallback) => observer !== fn,
     );
+    return this.observers;
   }
 }
 
