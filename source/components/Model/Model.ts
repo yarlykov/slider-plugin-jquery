@@ -41,7 +41,6 @@ class Model extends Emitter {
       this.emit('valueChanged', this.state);
     } else {
       this.emit('stateChanged', this.state);
-      // console.log('state is changed');
     }
   }
 
@@ -50,15 +49,16 @@ class Model extends Emitter {
     valueState: IOptions[K],
   ): void {
     let value: number;
-    const rangeValueFrom = keyState === 'valueFrom' && this.state.range;
-    const valueFrom = keyState === 'valueFrom';
-    const valueTo = keyState === 'valueTo';
+    const { range } = this.state;
+    const isRangeValueFrom = keyState === 'valueFrom' && range;
+    const isValueFrom = keyState === 'valueFrom';
+    const isValueTo = keyState === 'valueTo';
 
-    if (rangeValueFrom) {
+    if (isRangeValueFrom) {
       value = this.validation.checkMinRange(valueState as number);
-    } else if (valueFrom) {
+    } else if (isValueFrom) {
       value = this.validation.checkValue(valueState as number);
-    } else if (valueTo) {
+    } else if (isValueTo) {
       value = this.validation.checkMaxRange(valueState as number);
     } else {
       value = valueState as number;
