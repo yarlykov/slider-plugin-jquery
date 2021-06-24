@@ -1,3 +1,10 @@
+import Fill from "./View/subViews/Fill/Fill";
+import Knob from "./View/subViews/Knobs/Knob";
+import SecondKnob from "./View/subViews/Knobs/SecondKnob";
+import Labels from "./View/subViews/Labels/Labels";
+import Scale from "./View/subViews/Scale/Scale";
+import { SecondTooltip, Tooltip } from "./View/subViews/Tooltips/Tooltips";
+
 interface IOptions {
   min?: number;
   max?: number;
@@ -18,4 +25,24 @@ interface Events {
   [key: string]: EventCallback[];
 }
 
-export { IOptions, EventCallback, Events };
+type ComponentsList = {
+  Scale?: Scale,
+  Fill?: Fill,
+  Knob?: Knob,
+  SecondKnob?: SecondKnob,
+  Labels?: Labels,
+  Tooltip?: Tooltip,
+  SecondTooltip?: SecondTooltip,
+};
+
+type Components = [
+  Scale?,
+  Fill?,
+  Knob?,
+  SecondKnob?,
+  Labels?,
+  Tooltip?,
+  SecondTooltip?,
+];
+
+export { IOptions, EventCallback, Events, ComponentsList, Components };
