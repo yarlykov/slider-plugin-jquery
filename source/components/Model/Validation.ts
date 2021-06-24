@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { fromValueToPercent, getValueWithStep } from '../../utils/utils';
 import { IOptions } from '../interfaces';
 
@@ -12,7 +13,7 @@ class Validation {
 
   valueTo!: number;
 
-  checkState(state: IOptions): IOptions {
+  public checkState(state: IOptions): IOptions {
     this.min = state.min || 0;
     this.max = state.max || 0;
     this.step = state.step || 1;
@@ -20,7 +21,7 @@ class Validation {
     this.valueTo = state.valueTo || 0;
 
     this.checkMinMax(this.min, this.max);
-    this.checkStep(this.max, this.step);
+    this.step = this.checkStep(this.max, this.step);
 
     if (state.range) {
       this.checkMinRange(this.valueFrom);
@@ -40,7 +41,7 @@ class Validation {
     return result;
   }
 
-  checkValue(value: number): number {
+  public checkValue(value: number): number {
     const valueInPercent = fromValueToPercent(
       {
         min: this.min,
@@ -65,22 +66,24 @@ class Validation {
     return correctValue;
   }
 
-  checkMinRange(value: number): number {
+  public checkMinRange(value: number): number {
     if (value >= this.valueTo) value = this.valueTo;
     return this.checkValue(value);
   }
 
-  checkMaxRange(value: number): number {
+  public checkMaxRange(value: number): number {
     if (value <= this.valueFrom) value = this.valueFrom;
     return this.checkValue(value);
   }
 
-  checkStep(max: number, step: number): void {
-    if (step <= 0) this.step = 1;
-    if (step > max) this.step = max;
+  public checkStep(max: number, step: number): number {
+    let correctStep = step;
+    if (step <= 0) correctStep = 1;
+    if (step > max) correctStep = max;
+    return correctStep;
   }
 
-  checkMinMax(min: number, max: number): void {
+  public checkMinMax(min: number, max: number): void {
     let swap = 0;
     if (min >= max) {
       swap = min;
@@ -91,7 +94,7 @@ class Validation {
     this.max = max;
   }
 
-  checkRangeMinMax(valueFrom: number, valueTo: number): void {
+  public checkRangeMinMax(valueFrom: number, valueTo: number): void {
     let swap = 0;
 
     if (valueFrom >= valueTo) {

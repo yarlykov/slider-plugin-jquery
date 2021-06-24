@@ -21,56 +21,71 @@ describe('Validation:', () => {
   });
 
   test('checkState should return a correct state', () => {
-    const incorrectState = {
-      min: 100,
-      max: 0,
-      step: 25,
-      valueFrom: 20,
-      valueTo: 70,
-    };
-    const incorrectStateTwo = {
-      min: 100,
-      max: 0,
-      step: 0,
-      valueFrom: 20,
-      valueTo: 70,
-    };
-    expect(validation.checkState(incorrectState)).toEqual(state);
-    expect(validation.checkState(incorrectStateTwo)).toEqual({
-      min: 0,
-      max: 100,
-      step: 1,
-      valueFrom: 20,
-      valueTo: 70,
-    });
-    expect(
-      validation.checkState({
+    const invalidState = {
+      one: {
+        min: 100,
+        max: 0,
+        step: 25,
+        valueFrom: 20,
+        valueTo: 70,
+      },
+      two: {
+        min: 100,
+        max: 0,
+        step: 0,
+        valueFrom: 20,
+        valueTo: 70,
+      },
+      three: {
         min: 0,
         max: 120,
         step: 25,
         valueFrom: 115,
-      }),
-    ).toEqual({
-      min: 0,
-      max: 120,
-      step: 25,
-      valueFrom: 120,
-      valueTo: 0,
-    });
-    expect(
-      validation.checkState({
+      },
+      four: {
         min: 0,
         max: 120,
         step: 25,
         valueFrom: 125,
-      }),
-    ).toEqual({
-      min: 0,
-      max: 120,
-      step: 25,
-      valueFrom: 120,
-      valueTo: 0,
-    });
+      },
+    };
+
+    const correctState = {
+      one: {
+        min: 0,
+        max: 100,
+        step: 25,
+        valueFrom: 25,
+        valueTo: 70,
+      },
+      two: {
+        min: 0,
+        max: 100,
+        step: 1,
+        valueFrom: 20,
+        valueTo: 70,
+      },
+      three: {
+        min: 0,
+        max: 120,
+        step: 25,
+        valueFrom: 120,
+        valueTo: 0,
+      },
+      four: {
+        min: 0,
+        max: 120,
+        step: 25,
+        valueFrom: 120,
+        valueTo: 0,
+      },
+    };
+    expect(validation.checkState(invalidState.one)).toEqual(correctState.one);
+    expect(validation.checkState(invalidState.two)).toEqual(correctState.two);
+    expect(validation.checkState(invalidState.three)).toEqual(
+      correctState.three,
+    );
+    expect(validation.checkState(invalidState.four)).toEqual(correctState.four);
   });
 
   test('checkValue should return a correct value', () => {
@@ -112,33 +127,8 @@ describe('Validation:', () => {
   });
 
   test('checkStep should return a correct value', () => {
-    expect(
-      validation.checkState({
-        min: 0,
-        max: 100,
-        step: 120,
-        valueFrom: 1,
-      }),
-    ).toEqual({
-      min: 0,
-      max: 100,
-      step: 100,
-      valueFrom: 0,
-      valueTo: 0,
-    });
-    expect(
-      validation.checkState({
-        min: 0,
-        max: 100,
-        step: -10,
-        valueFrom: 1,
-      }),
-    ).toEqual({
-      min: 0,
-      max: 100,
-      step: 1,
-      valueFrom: 1,
-      valueTo: 0,
-    });
+    expect(validation.checkStep(100, 0)).toEqual(1);
+    expect(validation.checkStep(100, -100)).toEqual(1);
+    expect(validation.checkStep(100, 150)).toEqual(100);
   });
 });

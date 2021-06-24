@@ -3,6 +3,8 @@ import defaultState from '../../initialState';
 import { IOptions } from '../interfaces';
 import Validation from './Validation';
 
+type stateValue = number | string | boolean | undefined;
+
 class Model extends Emitter {
   private state: IOptions = defaultState;
 
@@ -13,7 +15,7 @@ class Model extends Emitter {
     this.validation = new Validation();
   }
 
-  public setState(state: IOptions) {
+  public setState(state: IOptions): void {
     const newState = { ...this.state, ...state };
     this.state = this.validation.checkState(newState);
 
@@ -24,14 +26,14 @@ class Model extends Emitter {
     return this.state;
   }
 
-  public getValue<K extends keyof IOptions>(keyState: K) {
+  public getValue<K extends keyof IOptions>(keyState: K): stateValue {
     return this.state[keyState];
   }
 
   public setValue<K extends keyof IOptions>(
     keyState: K,
     valueState: IOptions[K],
-  ) {
+  ): void {
     this.checkStateValue(keyState, valueState);
     this.state = this.validation.checkState(this.state);
 

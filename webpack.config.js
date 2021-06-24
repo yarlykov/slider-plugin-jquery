@@ -18,7 +18,7 @@ const devMode = process.env.NODE_ENV === 'development';
 const common = merge([
   {
     context: PATHS.source,
-    target: devMode ? "web" : "browserslist",
+    target: devMode ? 'web' : 'browserslist',
     entry: {
       plugin: ['./app.ts'],
       demo: ['./demo-page/index.ts'],
