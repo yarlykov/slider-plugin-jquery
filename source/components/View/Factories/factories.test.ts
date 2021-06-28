@@ -26,7 +26,10 @@ describe('Factories', () => {
 
   test('createComponents should be defined', () => {
     const rangeSlider = new RangeSlider();
+    const simpleSlider = new SimpleSlider();
     const root = document.createElement('div');
+
     expect(rangeSlider.createComponents({}, root)).toBeDefined();
+    expect(simpleSlider.createComponents({}, root)).toBeDefined();
   });
 });

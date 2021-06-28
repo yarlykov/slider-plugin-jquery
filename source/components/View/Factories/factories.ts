@@ -58,8 +58,9 @@ class SliderFactory {
     range: RangeSlider,
   };
 
-  create(type = 'simple'): SimpleSlider | RangeSlider {
-    const Slider = SliderFactory.list[type] || SliderFactory.list.simple;
+  create(type: string): SimpleSlider | RangeSlider {
+    const sliderType = type === 'range' ? 'range' : 'simple';
+    const Slider = SliderFactory.list[sliderType];
     const slider = new Slider();
     return slider;
   }
