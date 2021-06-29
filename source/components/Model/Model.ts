@@ -6,7 +6,7 @@ import Validation from './Validation';
 type stateValue = number | string | boolean | undefined;
 
 class Model extends Emitter {
-  private state: IOptions = defaultState;
+  public state: IOptions = defaultState;
 
   private validation: Validation;
 

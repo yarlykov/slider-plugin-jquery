@@ -51,7 +51,7 @@ class SecondKnob extends SliderComponent {
     const { orientation = 'horizontal', color = 'orange' } = this.state;
 
     return `
-      <div class="slider__knob slider__knob_range-first slider__knob_${orientation} slider__knob_${color}" 
+      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
       data-knob="second" role="slider" tabindex="0"></div>
     `;
   }

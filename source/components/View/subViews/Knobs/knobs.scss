@@ -32,24 +32,6 @@
       transform: translateY(50%);
     }
 
-    &_vertical.slider__knob_range-first {
-      left: -6px;
-      bottom: 25%;
-    }
-
-    &_vertical.slider__knob_range-second {
-      left: -6px;
-      bottom: 75%;
-    }
-
-    &_range-first {
-      left: 25%;
-    }
-
-    &_range-second {
-      left: 75%;
-    }
-
     &_orange {
       background: #e75735;
     }
