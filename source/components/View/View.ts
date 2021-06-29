@@ -31,9 +31,9 @@ class View extends Emitter {
     this.bindEvents();
   }
 
-  public update(data: IOptions): void {
+  public update(state: IOptions): void {
     this.components.forEach((component) => {
-      if (component) component.update(data);
+      if (component) component.update(state);
     });
   }
 
@@ -57,6 +57,7 @@ class View extends Emitter {
     });
   }
 
+  /* istanbul ignore next */
   private bindScaleEvents(): void {
     if (this.componentList.Scale) {
       this.componentList.Scale.subscribe('scale:valueFrom', (valueFrom) =>
@@ -78,7 +79,7 @@ class View extends Emitter {
       });
     }
   }
-
+  /* istanbul ignore next */
   private bindKnobsEvents(): void {
     if (this.componentList.Knob) {
       this.componentList.Knob.subscribe('changeValue', (valueFrom) =>
@@ -92,7 +93,7 @@ class View extends Emitter {
       );
     }
   }
-
+  /* istanbul ignore next */
   private bindLabelsEvents(): void {
     if (this.componentList.Labels) {
       this.componentList.Labels.subscribe('labels:valueFrom', (valueFrom) =>
