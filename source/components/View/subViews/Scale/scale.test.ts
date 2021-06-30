@@ -2,40 +2,42 @@
  * @jest-environment jsdom
  */
 
+import defaultState from '../../../../initialState';
+import View from '../../View';
 import Scale from './Scale';
 
 describe('Scale: display ', () => {
   let scale: Scale;
   let root: HTMLElement;
+  let view: View;
+  let event: MouseEvent;
 
   beforeEach(() => {
     root = document.createElement('div');
-    scale = new Scale({}, root);
-    scale.root;
+    view = new View(root);
+    view.init(defaultState);
+    event = document.createEvent('MouseEvent');
+    event.initEvent('mousedown', true, true);
   });
 
   test('should return Scale instance', () => {
     expect(new Scale({}, root)).toBeInstanceOf(Scale);
   });
 
-  // test('should return scale HTMLElement', () => {
-  //   expect(scale.display({}, root)).toBeDefined();
-  //   expect(scale.display({}, root)).toBeInstanceOf(HTMLElement);
-  // });
+  test('the target must be correctly determined ("scale" or "fill")', () => {
+    const scale = root.querySelector('[data-id="scale"]') as HTMLElement;
+    const fill = root.querySelector('[data-id="fill"]') as HTMLElement;
 
-  // test('should create child HTMLElement in scale with class "slider"', () => {
-  //   const sliderWrapperHTML = scale.display({}, root);
+    scale.dispatchEvent(event);
+    fill.dispatchEvent(event);
+  });
 
-  //   expect(sliderWrapperHTML.innerHTML).toBe(
-  //     '<div class="slider slider_horizontal" data-id="slider"><div class="slider__scale slider__scale_horizontal" data-id="scale"></div></div>',
-  //   );
-  // });
-
-  // test('should create vertical slider', () => {
-  //   const sliderWrapperHTML = scale.display({ orientation: 'vertical' }, root);
-
-  //   expect(sliderWrapperHTML.innerHTML).toBe(
-  //     '<div class="slider slider_vertical" data-id="slider"><div class="slider__scale slider__scale_vertical" data-id="scale"></div></div>',
-  //   );
-  // });
+  test('onMouseDown method should emit valueFrom if range slider scale ', () => {
+    const newState = Object.assign({}, defaultState, {
+      range: true,
+    });
+    scale = new Scale(newState, root);
+    scale.display();
+    scale.scaleNode.dispatchEvent(event);
+  });
 });

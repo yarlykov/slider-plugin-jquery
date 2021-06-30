@@ -8,39 +8,19 @@ import {
 import SliderComponent from '../SliderComponent';
 
 class Scale extends SliderComponent {
-  private element!: string;
+  scaleNode!: HTMLElement;
 
-  scale!: HTMLElement;
-
-  display(): void {
+  public display(): void {
     this.root.innerHTML = '';
     this.root.insertAdjacentHTML('afterbegin', this.getTemplate());
 
-    this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
+    this.scaleNode = this.root.querySelector('[data-id="scale"]') as HTMLElement;
 
     this.onMouseDown = this.onMouseDown.bind(this);
-    this.scale.addEventListener('mousedown', this.onMouseDown);
+    this.scaleNode.addEventListener('mousedown', this.onMouseDown);
   }
 
-  getTemplate(): string {
-    const { orientation = 'horizontal' } = this.state;
-    return `
-      <div class="slider slider_${orientation}">
-        <div class="slider__scale slider__scale_${orientation}" data-id="scale"></div>
-      </div>
-    `;
-  }
-
-  isTarget(event: MouseEvent): boolean {
-    if (event.target instanceof HTMLElement) {
-      const target = event.target.dataset.id === 'scale'
-        || event.target.dataset.id === 'fill';
-      return target;
-    }
-    return false;
-  }
-
-  onMouseDown(event: MouseEvent): void {
+  public onMouseDown(event: MouseEvent): void {
     if (this.isTarget(event)) {
       const {
         min = 0,
@@ -52,7 +32,7 @@ class Scale extends SliderComponent {
         range = false,
       } = this.state;
 
-      const scaleCoords = getCoords(this.scale);
+      const scaleCoords = getCoords(this.scaleNode);
       const pageCoords = getPageCoords(event);
       const position = getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
@@ -72,6 +52,24 @@ class Scale extends SliderComponent {
         this.emit('scale:target', event);
       }
     }
+  }
+
+  private isTarget(event: MouseEvent): boolean | unknown {
+    if (event.target instanceof HTMLElement) {
+      const target =
+        event.target.dataset.id === 'scale' ||
+        event.target.dataset.id === 'fill';
+      return target;
+    }
+  }
+
+  private getTemplate(): string {
+    const { orientation = 'horizontal' } = this.state;
+    return `
+      <div class="slider slider_${orientation}">
+        <div class="slider__scale slider__scale_${orientation}" data-id="scale"></div>
+      </div>
+    `;
   }
 }
 
