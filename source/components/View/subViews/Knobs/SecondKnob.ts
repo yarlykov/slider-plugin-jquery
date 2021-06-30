@@ -14,7 +14,7 @@ class SecondKnob extends SliderComponent {
 
   secondKnob!: HTMLElement;
 
-  display() {
+  display(): void {
     this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
     if (!this.scale) throw new Error('Scale element is not found');
 
@@ -26,14 +26,14 @@ class SecondKnob extends SliderComponent {
     this.addEventListeners();
   }
 
-  addEventListeners() {
+  addEventListeners(): void {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.secondKnob.addEventListener('mousedown', this.onMouseDown);
     this.secondKnob.addEventListener('keydown', this.onKeyDown);
   }
 
-  update(state: IOptions) {
+  update(state: IOptions): void {
     this.state = { ...state };
 
     if (this.secondKnob) {
@@ -47,7 +47,7 @@ class SecondKnob extends SliderComponent {
     }
   }
 
-  getTemplate() {
+  getTemplate(): string {
     const { orientation = 'horizontal', color = 'orange' } = this.state;
 
     return `
@@ -56,7 +56,8 @@ class SecondKnob extends SliderComponent {
     `;
   }
 
-  onMouseDown(mouseEvent: Event) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onMouseDown(_mouseEvent?: MouseEvent): void {
     const {
       min = 0,
       max = 100,
@@ -81,7 +82,7 @@ class SecondKnob extends SliderComponent {
     };
   }
 
-  onKeyDown(event: KeyboardEvent) {
+  onKeyDown(event: KeyboardEvent): void {
     const { valueTo = 0, step = 1 } = this.state;
     const { code } = event;
 

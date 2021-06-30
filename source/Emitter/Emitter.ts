@@ -1,6 +1,4 @@
-import { EventCallback, Events, IOptions } from '../components/interfaces';
-
-type data = number | string | IOptions | undefined;
+import { EventCallback, Events } from '../components/interfaces';
 
 class Emitter {
   private observers: Events;
@@ -9,7 +7,7 @@ class Emitter {
     this.observers = {};
   }
 
-  public emit(event: string, data: data): boolean {
+  public emit<T>(event: string, data: T): boolean {
     if (!Array.isArray(this.observers[event])) {
       return false;
     }

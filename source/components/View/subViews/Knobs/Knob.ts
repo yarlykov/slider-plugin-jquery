@@ -14,7 +14,7 @@ class Knob extends SliderComponent {
 
   knob!: HTMLElement;
 
-  display() {
+  display(): void {
     this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
     if (!this.scale) throw new Error('Scale element is not found');
 
@@ -24,14 +24,14 @@ class Knob extends SliderComponent {
     this.addEventListeners();
   }
 
-  addEventListeners() {
+  addEventListeners(): void {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.knob.addEventListener('mousedown', this.onMouseDown);
     this.knob.addEventListener('keydown', this.onKeyDown);
   }
 
-  update(state: IOptions) {
+  update(state: IOptions): void {
     this.state = { ...state };
 
     if (this.knob) {
@@ -45,7 +45,7 @@ class Knob extends SliderComponent {
     }
   }
 
-  getTemplate() {
+  getTemplate(): string {
     const { orientation = 'horizontal', color = 'orange' } = this.state;
 
     return `
@@ -54,7 +54,8 @@ class Knob extends SliderComponent {
     `;
   }
 
-  onMouseDown(mouseEvent: Event) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onMouseDown(_mouseEvent: MouseEvent): void {
     const {
       min = 0,
       max = 100,
@@ -78,7 +79,7 @@ class Knob extends SliderComponent {
     };
   }
 
-  onKeyDown(event: KeyboardEvent) {
+  onKeyDown(event: KeyboardEvent): void {
     const { valueFrom = 0, step = 1 } = this.state;
     const { code } = event;
 

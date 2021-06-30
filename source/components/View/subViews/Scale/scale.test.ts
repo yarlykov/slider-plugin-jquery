@@ -5,12 +5,13 @@
 import Scale from './Scale';
 
 describe('Scale: display ', () => {
-  let scale: any;
+  let scale: Scale;
   let root: HTMLElement;
 
   beforeEach(() => {
     root = document.createElement('div');
     scale = new Scale({}, root);
+    scale.root;
   });
 
   test('should return Scale instance', () => {

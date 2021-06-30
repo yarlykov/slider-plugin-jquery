@@ -12,9 +12,9 @@ class Scale extends SliderComponent {
 
   scale!: HTMLElement;
 
-  display() {
+  display(): void {
     this.root.innerHTML = '';
-    this.root.insertAdjacentHTML('afterbegin', this.getElement());
+    this.root.insertAdjacentHTML('afterbegin', this.getTemplate());
 
     this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
 
@@ -22,17 +22,7 @@ class Scale extends SliderComponent {
     this.scale.addEventListener('mousedown', this.onMouseDown);
   }
 
-  getElement() {
-    if (this.element) {
-      console.log('i am save');
-      return this.element;
-    }
-
-    this.element = this.getTemplate();
-    return this.element;
-  }
-
-  getTemplate() {
+  getTemplate(): string {
     const { orientation = 'horizontal' } = this.state;
     return `
       <div class="slider slider_${orientation}">
@@ -41,15 +31,16 @@ class Scale extends SliderComponent {
     `;
   }
 
-  isTarget(event: MouseEvent) {
+  isTarget(event: MouseEvent): boolean {
     if (event.target instanceof HTMLElement) {
       const target = event.target.dataset.id === 'scale'
         || event.target.dataset.id === 'fill';
       return target;
     }
+    return false;
   }
 
-  onMouseDown(event: MouseEvent) {
+  onMouseDown(event: MouseEvent): void {
     if (this.isTarget(event)) {
       const {
         min = 0,
