@@ -86,16 +86,17 @@ describe('Utils: getCoords', () => {
 
 describe('Utils: getPageCoords', () => {
   test('should be defined', () => {
-    const event: MouseEvent = {
-      pageX: 0,
-      pageY: 0,
-    };
+    const event: MouseEvent = new MouseEvent('mousedown', {
+      bubbles: true,
+      cancelable: true,
+      clientX: 0,
+      clientY: 0,
+    })
     expect(getPageCoords(event)).toBeDefined();
   });
 });
 
 describe('Utils: getPosition', () => {
-  const orientation = 'horizontal';
   const sliderCoords = {
     bottom: 355,
     height: 296,
@@ -108,10 +109,9 @@ describe('Utils: getPosition', () => {
   };
 
   test('should be defined', () => {
-    const orientation = '';
     const sliderCoords = {};
     const pageCoords = {};
-    expect(getPosition(orientation, sliderCoords, pageCoords)).toBeDefined();
+    expect(getPosition('horizontal', sliderCoords, pageCoords)).toBeDefined();
   });
 
   test('should return horizontal position', () => {
