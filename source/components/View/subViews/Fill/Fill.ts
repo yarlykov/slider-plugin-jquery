@@ -4,21 +4,18 @@ import SliderComponent from '../SliderComponent';
 import { fromValueToPercent } from '../../../../utils/utils';
 
 class Fill extends SliderComponent {
-  display() {
+  public display(): void {
     const scale = this.root.querySelector('[data-id="scale"]');
     if (!scale) throw new Error('Scale element is not found');
 
-    if (this.state.fill) return scale.insertAdjacentHTML('afterbegin', this.getTemplate());
+    if (this.state.fill)
+      return scale.insertAdjacentHTML('afterbegin', this.getTemplate());
   }
 
-  update(state: IOptions) {
+  public update(state: IOptions): void {
     const fill = this.root.querySelector('[data-id="fill"]') as HTMLElement;
-    let {
-      orientation = 'horizontal',
-      range,
-      valueTo = 100,
-      valueFrom = 0,
-    } = state;
+    const { orientation = 'horizontal', range = false } = state;
+    let { valueTo = 100, valueFrom = 0 } = state;
 
     const isHorizontal = orientation === 'horizontal';
     const wayOfFilling: string = isHorizontal ? 'width' : 'height';
@@ -35,7 +32,7 @@ class Fill extends SliderComponent {
     }
   }
 
-  getTemplate() {
+  private getTemplate(): string {
     const { color = 'orange', orientation = 'horizontal' } = this.state;
 
     return `
