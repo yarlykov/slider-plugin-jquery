@@ -3,9 +3,9 @@ import SliderComponent from '../SliderComponent';
 import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
 
 class Labels extends SliderComponent {
-  display() {
+  public display(): void {
     const scale = this.root.querySelector('[data-id="scale"]');
-    if (!scale) throw new Error('Ooops... scale is not found');
+    if (!scale) throw new Error('Scale element is not found');
 
     if (this.state.labels) {
       scale.insertAdjacentHTML('beforeend', this.getTemplate());
@@ -18,7 +18,7 @@ class Labels extends SliderComponent {
     }
   }
 
-  getTemplate() {
+  private getTemplate() {
     const { orientation = 'horizontal' } = this.state;
 
     return `
@@ -28,7 +28,7 @@ class Labels extends SliderComponent {
     `;
   }
 
-  getLabels(): string {
+  private getLabels(): string {
     const { min = 0, max = 0, step = 1 } = this.state;
 
     const itemLabels: string[] = [];
@@ -46,7 +46,7 @@ class Labels extends SliderComponent {
     return itemLabels.join('');
   }
 
-  createLabel(labelPosition = 0): string {
+   private createLabel(labelPosition = 0): string {
     const { orientation } = this.state;
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const labelPosWithPercent = fromValueToPercent(
@@ -65,7 +65,7 @@ class Labels extends SliderComponent {
     return label;
   }
 
-  onMouseDown(event: MouseEvent) {
+  private onMouseDown(event: MouseEvent) {
     if (event.target instanceof HTMLElement) {
       const {
         min,
