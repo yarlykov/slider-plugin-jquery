@@ -14,7 +14,7 @@ class Knob extends SliderComponent {
 
   knob!: HTMLElement;
 
-  display(): void {
+  public display(): void {
     this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
     if (!this.scale) throw new Error('Scale element is not found');
 
@@ -24,18 +24,12 @@ class Knob extends SliderComponent {
     this.addEventListeners();
   }
 
-  addEventListeners(): void {
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.knob.addEventListener('mousedown', this.onMouseDown);
-    this.knob.addEventListener('keydown', this.onKeyDown);
-  }
-
-  update(state: IOptions): void {
+  public update(state: IOptions): void {
     this.state = { ...state };
+    const { orientation } = this.state;
 
     if (this.knob) {
-      const directionOfMove = state.orientation === 'horizontal' ? 'left' : 'bottom';
+      const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
       const { valueFrom = 0 } = state;
 
       this.knob.style[directionOfMove] = `${fromValueToPercent(
@@ -45,17 +39,8 @@ class Knob extends SliderComponent {
     }
   }
 
-  getTemplate(): string {
-    const { orientation = 'horizontal', color = 'orange' } = this.state;
-
-    return `
-      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
-        data-id="knob" role="slider" tabindex="0"></div>
-    `;
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onMouseDown(_mouseEvent: MouseEvent): void {
+  public onMouseDown(_mouseEvent: MouseEvent): void {
     const {
       min = 0,
       max = 100,
@@ -79,7 +64,23 @@ class Knob extends SliderComponent {
     };
   }
 
-  onKeyDown(event: KeyboardEvent): void {
+  private addEventListeners(): void {
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.knob.addEventListener('mousedown', this.onMouseDown);
+    this.knob.addEventListener('keydown', this.onKeyDown);
+  }
+
+  private getTemplate(): string {
+    const { orientation = 'horizontal', color = 'orange' } = this.state;
+
+    return `
+      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
+        data-id="knob" role="slider" tabindex="0"></div>
+    `;
+  }
+
+  private onKeyDown(event: KeyboardEvent): void {
     const { valueFrom = 0, step = 1 } = this.state;
     const { code } = event;
 

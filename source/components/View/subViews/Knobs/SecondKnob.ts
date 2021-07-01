@@ -14,7 +14,7 @@ class SecondKnob extends SliderComponent {
 
   secondKnob!: HTMLElement;
 
-  display(): void {
+  public display(): void {
     this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
     if (!this.scale) throw new Error('Scale element is not found');
 
@@ -26,18 +26,12 @@ class SecondKnob extends SliderComponent {
     this.addEventListeners();
   }
 
-  addEventListeners(): void {
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.secondKnob.addEventListener('mousedown', this.onMouseDown);
-    this.secondKnob.addEventListener('keydown', this.onKeyDown);
-  }
-
-  update(state: IOptions): void {
+  public update(state: IOptions): void {
     this.state = { ...state };
+    const { orientation = 'horizontal' } = this.state;
 
     if (this.secondKnob) {
-      const directionOfMove = state.orientation === 'horizontal' ? 'left' : 'bottom';
+      const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
       const { valueTo = 0 } = state;
 
       this.secondKnob.style[directionOfMove] = `${fromValueToPercent(
@@ -47,17 +41,8 @@ class SecondKnob extends SliderComponent {
     }
   }
 
-  getTemplate(): string {
-    const { orientation = 'horizontal', color = 'orange' } = this.state;
-
-    return `
-      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
-      data-knob="second" role="slider" tabindex="0"></div>
-    `;
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onMouseDown(_mouseEvent?: MouseEvent): void {
+  public onMouseDown(_mouseEvent?: MouseEvent): void {
     const {
       min = 0,
       max = 100,
@@ -82,7 +67,23 @@ class SecondKnob extends SliderComponent {
     };
   }
 
-  onKeyDown(event: KeyboardEvent): void {
+  private addEventListeners(): void {
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.secondKnob.addEventListener('mousedown', this.onMouseDown);
+    this.secondKnob.addEventListener('keydown', this.onKeyDown);
+  }
+
+  private getTemplate(): string {
+    const { orientation = 'horizontal', color = 'orange' } = this.state;
+
+    return `
+      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
+      data-knob="second" role="slider" tabindex="0"></div>
+    `;
+  }
+
+  private onKeyDown(event: KeyboardEvent): void {
     const { valueTo = 0, step = 1 } = this.state;
     const { code } = event;
 
