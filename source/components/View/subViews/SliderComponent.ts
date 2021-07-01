@@ -2,9 +2,9 @@ import Emitter from '../../../Emitter/Emitter';
 import { IOptions } from '../../interfaces';
 
 abstract class SliderComponent extends Emitter {
-  state: IOptions;
+  public state: IOptions;
 
-  root: HTMLElement;
+  public root: HTMLElement;
 
   constructor(options: IOptions, root: HTMLElement) {
     super();
@@ -16,7 +16,7 @@ abstract class SliderComponent extends Emitter {
     this.state = options || {};
   }
 
-  update(state: IOptions): void {
+  public update(state: IOptions): void {
     this.state = { ...state };
   }
 }
