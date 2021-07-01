@@ -3,7 +3,7 @@ import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
 
 class Tooltip extends SliderComponent {
-  display() {
+  public display(): void {
     const { tooltips = false } = this.state;
 
     if (tooltips) {
@@ -14,17 +14,18 @@ class Tooltip extends SliderComponent {
     }
   }
 
-  update(state: IOptions) {
+  public update(state: IOptions): void {
     const tooltip = this.root.querySelector(
       '[data-id="tooltip-value"]',
     ) as HTMLElement;
 
-    if (tooltip) tooltip.innerText = `${state.valueFrom}`;
+    tooltip.innerText = `${state.valueFrom}`;
   }
 
-  getTemplate() {
-    const { orientation, color } = this.state;
-    const verticalTooltipClass = orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
+  private getTemplate(): string {
+    const { orientation = 'horizontal', color = 'orange' } = this.state;
+    const verticalTooltipClass =
+      orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
       <div class="slider__tooltip slider__tooltip_${orientation} slider__tooltip_${color}">
@@ -36,7 +37,7 @@ class Tooltip extends SliderComponent {
 }
 
 class SecondTooltip extends SliderComponent {
-  display() {
+  public display(): void {
     const { tooltips = false } = this.state;
 
     if (tooltips) {
@@ -47,16 +48,17 @@ class SecondTooltip extends SliderComponent {
     }
   }
 
-  update(state: IOptions) {
+  public update(state: IOptions): void {
     const tooltipSecond = this.root.querySelector(
       '[data-id="tooltip-value-second"]',
     ) as HTMLElement;
-    if (tooltipSecond) tooltipSecond.innerText = `${state.valueTo}`;
+    tooltipSecond.innerText = `${state.valueTo}`;
   }
 
-  getTemplate() {
-    const { orientation, color } = this.state;
-    const verticalTooltipClass = orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
+   private getTemplate(): string {
+    const { orientation = 'horizontal', color = 'orange' } = this.state;
+    const verticalTooltipClass =
+      orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
       <div class="slider__tooltip slider__tooltip_${orientation} slider__tooltip_${color}" data-tooltip="second">
