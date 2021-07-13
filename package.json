@@ -10,7 +10,8 @@
     "dev": "NODE_ENV=development webpack --mode development",
     "build": "webpack --mode production",
     "lint": "eslint source",
-    "lint:fix": "eslint source --fix"
+    "lint:fix": "eslint source --fix",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.3.1",
     "jest": "27.0.4",
     "mini-css-extract-plugin": "^1.6.0",
