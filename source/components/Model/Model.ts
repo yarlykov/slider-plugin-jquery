@@ -1,5 +1,5 @@
 import Emitter from '../../Emitter/Emitter';
-import defaultState from '../../initialState';
+import defaultState from '../../defaultState';
 import { IOptions } from '../interfaces';
 import Validation from './Validation';
 

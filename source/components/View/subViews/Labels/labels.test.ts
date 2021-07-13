@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import defaultState from '../../../../initialState';
+import defaultState from '../../../../defaultState';
 import Labels from './Labels';
 
 const root: HTMLElement = document.createElement('div');

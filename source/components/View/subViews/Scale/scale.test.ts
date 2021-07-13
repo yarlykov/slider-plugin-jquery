@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import defaultState from '../../../../initialState';
+import defaultState from '../../../../defaultState';
 import View from '../../View';
 import Scale from './Scale';
 
