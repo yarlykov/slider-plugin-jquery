@@ -16,7 +16,8 @@
 
     &_horizontal {
       top: -25px;
-      left: -7px;
+      left: 50%;
+      transform: translate(-50%);
     }
 
     &_vertical {
@@ -35,7 +36,7 @@
 
     &_arrow_vertical {
       top: 6px;
-      left: 28px;
+      right: -3.5px;
     }
 
     &_arrow_horizontal {
