@@ -7,19 +7,20 @@ const methods = {
   init(this: JQuery, options: IOptions = {}) {
     const index: string = this[0].id; /* для разработки - удалить */
 
-    return this.each(function () {
+    // eslint-disable-next-line func-names
+    return this.each(function (this: HTMLElement): void {
       $(this).data().sliderPlugin = new Presenter(this);
 
       if (options) {
         const app = $(this).data('sliderPlugin');
-
+        
         app.model.setState(options);
         window[index] = app; /* для разработки - удалить */
       }
     });
   },
 
-  getState(this: JQuery): Object {
+  getState(this: JQuery): IOptions {
     const sliderPlugin = $(this).data('sliderPlugin');
 
     const state = sliderPlugin.model.getState();
@@ -32,7 +33,8 @@ const methods = {
     sliderPlugin.model.setValue(`${name}`, value);
   },
 
-  onChange(this: JQuery, func: Function) {
+  onChange(this: JQuery, func: EventListener) {
+    // eslint-disable-next-line fsd/no-function-declaration-in-event-listener
     $(this).on('onChange', (args) => func(args));
   },
 };
@@ -47,15 +49,15 @@ declare global {
   }
 }
 
-$.fn.sliderPlugin = function (method) {
+// eslint-disable-next-line func-names
+$.fn.sliderPlugin = function (method, ...args) {
   if (methods[method as string]) {
-    return methods[method as string].apply(
-      this,
-      Array.prototype.slice.call(arguments, 1),
-    );
+    return methods[method as string].apply(this, args);
   }
-  if (typeof method === 'object' || !method) {
-    return methods.init.apply(this, arguments as optionsValue);
+  if (typeof method === 'object') {
+    const options = method || {};
+    
+    return methods.init.call(this, options);
   }
   $.error(`Метод с именем ${method} не существует`);
 };

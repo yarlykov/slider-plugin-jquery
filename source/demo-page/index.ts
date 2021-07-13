@@ -8,7 +8,8 @@ slider.sliderPlugin({
   max: 300,
   step: 25,
 });
-new DemoBlock(slider);
+const sliderSingleHorizontal = new DemoBlock(slider);
+sliderSingleHorizontal.init();
 
 const vertical = $('#sliderSingleVertical');
 vertical.sliderPlugin({
@@ -16,7 +17,8 @@ vertical.sliderPlugin({
   orientation: 'vertical',
   color: 'green',
 });
-new DemoBlock(vertical);
+const sliderSingleVertical = new DemoBlock(vertical);
+sliderSingleVertical.init();
 /* ++++++++++++++++ RANGE +++++++++++++++++ */
 
 const range = $('#sliderRangeHorizontal');
@@ -26,7 +28,8 @@ range.sliderPlugin({
   range: true,
   color: 'green',
 });
-new DemoBlock(range);
+const sliderRangeHorizontal = new DemoBlock(range);
+sliderRangeHorizontal.init();
 
 const rangeVertical = $('#sliderRangeVertical');
 rangeVertical.sliderPlugin({
@@ -36,4 +39,5 @@ rangeVertical.sliderPlugin({
   color: 'green',
 });
 
-new DemoBlock(rangeVertical);
+const sliderRangeVertical = new DemoBlock(rangeVertical);
+sliderRangeVertical.init();

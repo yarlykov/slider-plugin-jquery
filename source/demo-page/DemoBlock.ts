@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { IOptions } from '../components/interfaces';
 
 class DemoBlock {
@@ -29,11 +30,9 @@ class DemoBlock {
 
   constructor(root: JQuery<HTMLElement>) {
     this.root = root;
-
-    this.init();
   }
 
-  init() {
+  init(): void {
     this.panel = this.root
       .get(0)
       .parentElement?.querySelector('[data-id="control-panel"]') as HTMLElement;
@@ -105,6 +104,10 @@ class DemoBlock {
       this.tooltips.checked = event.detail.tooltips;
     });
 
+    this.addEventListeners();
+  }
+
+  addEventListeners() {
     this.valueFrom.addEventListener('change', () => {
       let value = 0;
       value = Number(this.valueFrom.value);
