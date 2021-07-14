@@ -1,10 +1,11 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
-const styles = require('./webpack/styles')
-const pug = require('./webpack/pug')
-const typeScript = require('./webpack/typeScript')
+const styles = require('./webpack/styles');
+const pug = require('./webpack/pug');
+const typeScript = require('./webpack/typeScript');
 const devServer = require('./webpack/devServer');
-const devtool = require('./webpack/devtool')
+const devtool = require('./webpack/devtool');
+const optimization = require('./webpack/optimization');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -22,9 +23,6 @@ const common = merge([
     entry: {
       plugin: ['./app.ts'],
       demo: ['./demo-page/index.ts'],
-    },
-    optimization: {
-      minimize: false,
     },
     output: {
       filename: '[name].js',
@@ -59,6 +57,7 @@ module.exports = function () {
   } else {
     return merge([
       common,
+      optimization(),
     ])
   }
 };

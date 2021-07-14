@@ -18,8 +18,8 @@ class Tooltip extends SliderComponent {
     const tooltip = this.root.querySelector(
       '[data-id="tooltip-value"]',
     ) as HTMLElement;
-
-    tooltip.innerText = `${state.valueFrom}`;
+    
+    if (tooltip) tooltip.innerText = `${state.valueFrom}`;
   }
 
   private getTemplate(): string {
@@ -52,7 +52,7 @@ class SecondTooltip extends SliderComponent {
     const tooltipSecond = this.root.querySelector(
       '[data-id="tooltip-value-second"]',
     ) as HTMLElement;
-    tooltipSecond.innerText = `${state.valueTo}`;
+    if (tooltipSecond) tooltipSecond.innerText = `${state.valueTo}`;
   }
 
    private getTemplate(): string {

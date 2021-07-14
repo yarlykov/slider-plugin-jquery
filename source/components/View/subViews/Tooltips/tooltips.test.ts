@@ -50,6 +50,15 @@ describe('Tooltip:', () => {
     expect(tooltipValue.innerText).toBe('10');
   });
 
+  test('should not update tooltip value', () => {
+    root.innerHTML = '';
+    tooltip.update({ valueTo: 10 });
+    const tooltipValue = root.querySelector(
+      '[data-id="tooltip-value"]',
+    ) as HTMLElement;
+    expect(tooltipValue).toBeNull();
+  });
+
   test('should render vertical arrow', () => {
     root.innerHTML = slider;
     tooltip = new Tooltip({ tooltips: true, orientation: 'vertical' }, root);
@@ -108,6 +117,15 @@ describe('SecondTooltip:', () => {
       '[data-id="tooltip-value-second"]',
     ) as HTMLElement;
     expect(tooltipValue.innerText).toBe('10');
+  });
+
+  test('should not update secondTooltip value', () => {
+    root.innerHTML = '';
+    secondTooltip.update({ valueTo: 10 });
+    const tooltipValue = root.querySelector(
+      '[data-id="tooltip-value-second"]',
+    ) as HTMLElement;
+    expect(tooltipValue).toBeNull();
   });
 
   test('should render vertical arrow', () => {
