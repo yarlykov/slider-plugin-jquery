@@ -39,11 +39,11 @@ class Presenter {
   }
 
   private bindViewEvents(): void {
-    this.view.subscribe('slider:pointermove', (valueFrom) => {
+    this.view.subscribe('valueFromChanged', (valueFrom) => {
       this.model.setValue('valueFrom', Number(valueFrom));
     });
 
-    this.view.subscribe('secondKnob:pointermove', (valueTo) => {
+    this.view.subscribe('valueToChanged', (valueTo) => {
       this.model.setValue('valueTo', Number(valueTo));
     });
   }

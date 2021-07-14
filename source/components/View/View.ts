@@ -61,11 +61,11 @@ class View extends Emitter {
   private bindScaleEvents(): void {
     if (this.componentList.Scale) {
       this.componentList.Scale.subscribe('scale:valueFrom', (valueFrom) =>
-        this.emit('slider:pointermove', valueFrom),
+        this.emit('valueFromChanged', valueFrom),
       );
 
       this.componentList.Scale.subscribe('scale:valueTo', (valueTo) =>
-        this.emit('secondKnob:pointermove', valueTo),
+        this.emit('valueToChanged', valueTo),
       );
 
       this.componentList.Scale.subscribe('scale:target', (event) => {
@@ -83,13 +83,13 @@ class View extends Emitter {
   private bindKnobsEvents(): void {
     if (this.componentList.Knob) {
       this.componentList.Knob.subscribe('changeValue', (valueFrom) =>
-        this.emit('slider:pointermove', valueFrom),
+        this.emit('valueFromChanged', valueFrom),
       );
     }
 
     if (this.type === 'range' && this.componentList.SecondKnob) {
       this.componentList.SecondKnob.subscribe('changeValue', (valueFrom) =>
-        this.emit('secondKnob:pointermove', valueFrom),
+        this.emit('valueToChanged', valueFrom),
       );
     }
   }
@@ -97,11 +97,11 @@ class View extends Emitter {
   private bindLabelsEvents(): void {
     if (this.componentList.Labels) {
       this.componentList.Labels.subscribe('labels:valueFrom', (valueFrom) =>
-        this.emit('slider:pointermove', valueFrom),
+        this.emit('valueFromChanged', valueFrom),
       );
 
       this.componentList.Labels.subscribe('labels:valueTo', (valueTo) =>
-        this.emit('secondKnob:pointermove', valueTo),
+        this.emit('valueToChanged', valueTo),
       );
     }
   }
