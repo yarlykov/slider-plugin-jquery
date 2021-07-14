@@ -86,12 +86,10 @@ describe('Utils: getCoords', () => {
 
 describe('Utils: getPageCoords', () => {
   test('should be defined', () => {
-    const event: MouseEvent = new MouseEvent('mousedown', {
+    const event = new Event('pointerdown', {
       bubbles: true,
       cancelable: true,
-      clientX: 0,
-      clientY: 0,
-    })
+    }) as PointerEvent;
     expect(getPageCoords(event)).toBeDefined();
   });
 });

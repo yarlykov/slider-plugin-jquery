@@ -10,14 +10,13 @@ describe('Scale: display ', () => {
   let scale: Scale;
   let root: HTMLElement;
   let view: View;
-  let event: MouseEvent;
+  let event: PointerEvent;
 
   beforeEach(() => {
     root = document.createElement('div');
     view = new View(root);
     view.init(defaultState);
-    event = document.createEvent('MouseEvent');
-    event.initEvent('mousedown', true, true);
+    event = new Event('pointerdown') as PointerEvent;
   });
 
   test('should return Scale instance', () => {
@@ -32,12 +31,14 @@ describe('Scale: display ', () => {
     fill.dispatchEvent(event);
   });
 
-  test('onMouseDown method should emit valueFrom if range slider scale ', () => {
+  test('onPointerDown method should emit valueFrom if range slider scale ', () => {
     const newState = Object.assign({}, defaultState, {
       range: true,
     });
     scale = new Scale(newState, root);
+    const spyEmit = jest.spyOn(scale, 'emit')
     scale.display();
     scale.scaleNode.dispatchEvent(event);
+    expect(spyEmit).toHaveBeenCalledWith('scale:valueFrom', 'NaN');
   });
 });

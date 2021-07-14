@@ -9,6 +9,8 @@
     cursor: grab;
     cursor: -moz-grab;
     cursor: -webkit-grab;
+    touch-action: none;
+    -ms-touch-action: none;
 
     &:active {
       cursor: grabbing;

@@ -60,7 +60,7 @@ function getCoords(elem: HTMLElement): coords {
   };
 }
 
-function getPageCoords(event: MouseEvent): coords {
+function getPageCoords(event: PointerEvent): coords {
   const { pageX } = event;
   const { pageY } = event;
 
@@ -78,12 +78,7 @@ function getPosition(
   const horizontal = orientation === 'horizontal';
   let position = 0;
   const { pageX = 0, pageY = 0 } = pageCoords;
-  const {
-    left = 0,
-    bottom = 0,
-    width = 0,
-    height = 0,
-  } = sliderCoords;
+  const { left = 0, bottom = 0, width = 0, height = 0 } = sliderCoords;
 
   if (horizontal) {
     position = ((pageX - left) / width) * 100;

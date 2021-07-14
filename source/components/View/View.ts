@@ -61,21 +61,21 @@ class View extends Emitter {
   private bindScaleEvents(): void {
     if (this.componentList.Scale) {
       this.componentList.Scale.subscribe('scale:valueFrom', (valueFrom) =>
-        this.emit('slider:mousemove', valueFrom),
+        this.emit('slider:pointermove', valueFrom),
       );
 
       this.componentList.Scale.subscribe('scale:valueTo', (valueTo) =>
-        this.emit('secondKnob:mousemove', valueTo),
+        this.emit('secondKnob:pointermove', valueTo),
       );
 
       this.componentList.Scale.subscribe('scale:target', (event) => {
         if (this.componentList.Knob)
-          this.componentList.Knob.onMouseDown(event as MouseEvent);
+          this.componentList.Knob.onPointerDown(event as PointerEvent);
       });
 
       this.componentList.Scale.subscribe('scale:targetMax', (event) => {
         if (this.componentList.SecondKnob)
-          this.componentList.SecondKnob.onMouseDown(event as MouseEvent);
+          this.componentList.SecondKnob.onPointerDown(event as PointerEvent);
       });
     }
   }
@@ -83,13 +83,13 @@ class View extends Emitter {
   private bindKnobsEvents(): void {
     if (this.componentList.Knob) {
       this.componentList.Knob.subscribe('changeValue', (valueFrom) =>
-        this.emit('slider:mousemove', valueFrom),
+        this.emit('slider:pointermove', valueFrom),
       );
     }
 
     if (this.type === 'range' && this.componentList.SecondKnob) {
       this.componentList.SecondKnob.subscribe('changeValue', (valueFrom) =>
-        this.emit('secondKnob:mousemove', valueFrom),
+        this.emit('secondKnob:pointermove', valueFrom),
       );
     }
   }
@@ -97,11 +97,11 @@ class View extends Emitter {
   private bindLabelsEvents(): void {
     if (this.componentList.Labels) {
       this.componentList.Labels.subscribe('labels:valueFrom', (valueFrom) =>
-        this.emit('slider:mousemove', valueFrom),
+        this.emit('slider:pointermove', valueFrom),
       );
 
       this.componentList.Labels.subscribe('labels:valueTo', (valueTo) =>
-        this.emit('secondKnob:mousemove', valueTo),
+        this.emit('secondKnob:pointermove', valueTo),
       );
     }
   }

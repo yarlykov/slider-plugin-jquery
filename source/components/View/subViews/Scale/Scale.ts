@@ -14,13 +14,15 @@ class Scale extends SliderComponent {
     this.root.innerHTML = '';
     this.root.insertAdjacentHTML('afterbegin', this.getTemplate());
 
-    this.scaleNode = this.root.querySelector('[data-id="scale"]') as HTMLElement;
+    this.scaleNode = this.root.querySelector(
+      '[data-id="scale"]',
+    ) as HTMLElement;
 
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.scaleNode.addEventListener('mousedown', this.onMouseDown);
+    this.onPointerDown = this.onPointerDown.bind(this);
+    this.scaleNode.addEventListener('pointerdown', this.onPointerDown);
   }
 
-  public onMouseDown(event: MouseEvent): void {
+  public onPointerDown(event: PointerEvent): void {
     if (this.isTarget(event)) {
       const {
         min = 0,
@@ -54,7 +56,7 @@ class Scale extends SliderComponent {
     }
   }
 
-  private isTarget(event: MouseEvent): boolean | unknown {
+  private isTarget(event: PointerEvent): boolean | unknown {
     if (event.target instanceof HTMLElement) {
       const target =
         event.target.dataset.id === 'scale' ||

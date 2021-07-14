@@ -13,8 +13,8 @@ class Labels extends SliderComponent {
         '[data-id="labels"]',
       ) as HTMLElement;
 
-      this.onMouseDown = this.onMouseDown.bind(this);
-      labels.addEventListener('mousedown', this.onMouseDown);
+      this.onPointerDown = this.onPointerDown.bind(this);
+      labels.addEventListener('pointerdown', this.onPointerDown);
     }
   }
 
@@ -46,7 +46,7 @@ class Labels extends SliderComponent {
     return itemLabels.join('');
   }
 
-   private createLabel(labelPosition = 0): string {
+  private createLabel(labelPosition = 0): string {
     const { orientation } = this.state;
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const labelPosWithPercent = fromValueToPercent(
@@ -65,7 +65,7 @@ class Labels extends SliderComponent {
     return label;
   }
 
-  private onMouseDown(event: MouseEvent) {
+  private onPointerDown(event: PointerEvent) {
     if (event.target instanceof HTMLElement) {
       const {
         min,

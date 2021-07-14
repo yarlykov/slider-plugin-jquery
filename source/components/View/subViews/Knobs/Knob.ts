@@ -40,7 +40,7 @@ class Knob extends SliderComponent {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public onMouseDown(_mouseEvent: MouseEvent): void {
+  public onPointerDown(_pointerEvent: PointerEvent): void {
     const {
       min = 0,
       max = 100,
@@ -48,26 +48,27 @@ class Knob extends SliderComponent {
       orientation = 'horizontal',
     } = this.state;
 
-    document.onmousemove = (mouseEvent) => {
-      mouseEvent.preventDefault();
+    document.onpointermove = (pointerEvent) => {
+      pointerEvent.preventDefault();
+      this.knob.ondragstart = () => false;
       const scaleCoords = getCoords(this.scale);
-      const pageCoords = getPageCoords(mouseEvent);
+      const pageCoords = getPageCoords(pointerEvent);
       const position = getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
 
       this.emit('changeValue', correctValue.toFixed());
     };
 
-    document.onmouseup = () => {
-      document.onmousemove = null;
-      document.onmouseup = null;
+    document.onpointerup = () => {
+      document.onpointermove = null;
+      document.onpointerup = null;
     };
   }
 
   private addEventListeners(): void {
-    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onPointerDown = this.onPointerDown.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.knob.addEventListener('mousedown', this.onMouseDown);
+    this.knob.addEventListener('pointerdown', this.onPointerDown);
     this.knob.addEventListener('keydown', this.onKeyDown);
   }
 
