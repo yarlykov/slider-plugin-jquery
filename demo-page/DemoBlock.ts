@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { IOptions } from '../components/interfaces';
+import { IOptions } from '../source/components/interfaces';
 
 class DemoBlock {
   root: JQuery<HTMLElement>;
@@ -177,6 +177,11 @@ class DemoBlock {
     this.range.addEventListener('change', () => {
       const value: boolean = this.range.checked;
       this.root.sliderPlugin('setValue', 'range', value);
+      if (value) {
+        this.root.sliderPlugin('setValue', 'color', 'green');
+      } else {
+        this.root.sliderPlugin('setValue', 'color', 'orange');
+      }
     });
 
     this.labels.addEventListener('change', () => {

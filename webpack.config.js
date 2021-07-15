@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const { merge } = require('webpack-merge');
 const styles = require('./webpack/styles');
@@ -9,24 +10,18 @@ const optimization = require('./webpack/optimization');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const PATHS = {
-  source: path.resolve(__dirname, './source'),
-  dist: path.resolve(__dirname, './dist'),
-};
-
 const devMode = process.env.NODE_ENV === 'development';
 
 const common = merge([
   {
-    context: PATHS.source,
     target: devMode ? 'web' : 'browserslist',
     entry: {
-      plugin: ['./app.ts'],
+      plugin: ['./source/app.ts'],
       demo: ['./demo-page/index.ts'],
     },
     output: {
       filename: '[name].js',
-      path: PATHS.dist,
+      path: path.resolve(__dirname, './dist'),
       clean: true,
     },
     resolve: {
@@ -35,7 +30,7 @@ const common = merge([
     plugins: [
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: 'demo-page/page/demo-page.pug',
+        template: './demo-page/page/demo-page.pug',
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',

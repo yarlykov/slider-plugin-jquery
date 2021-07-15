@@ -15,7 +15,6 @@ const vertical = $('#sliderSingleVertical');
 vertical.sliderPlugin({
   max: 110,
   orientation: 'vertical',
-  color: 'green',
 });
 const sliderSingleVertical = new DemoBlock(vertical);
 sliderSingleVertical.init();
@@ -35,6 +34,7 @@ const rangeVertical = $('#sliderRangeVertical');
 rangeVertical.sliderPlugin({
   range: true,
   valueTo: 62,
+  valueFrom: 78,
   orientation: 'vertical',
   color: 'green',
 });
