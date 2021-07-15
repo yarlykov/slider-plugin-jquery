@@ -1,11 +1,11 @@
-import Emitter from '../../Emitter/Emitter';
+import Observer from '../../Observer/Observer';
 import defaultState from '../../defaultState';
 import { IOptions } from '../interfaces';
 import Validation from './Validation';
 
 type stateValue = number | string | boolean | undefined;
 
-class Model extends Emitter {
+class Model extends Observer {
   public state: IOptions = defaultState;
 
   private validation: Validation;

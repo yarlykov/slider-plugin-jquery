@@ -1,7 +1,7 @@
-import Emitter from '../../../Emitter/Emitter';
+import Observer from '../../../Observer/Observer';
 import { IOptions } from '../../interfaces';
 
-abstract class SliderComponent extends Emitter {
+abstract class SliderComponent extends Observer {
   public state: IOptions;
 
   public root: HTMLElement;

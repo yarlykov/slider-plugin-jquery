@@ -1,14 +1,14 @@
-import Emitter from './Emitter';
+import Observer from './Observer';
 
-describe('Emitter:', () => {
-  let emitter: Emitter;
+describe('Observer:', () => {
+  let emitter: Observer;
 
   beforeEach(() => {
-    emitter = new Emitter();
+    emitter = new Observer();
   });
 
   test('should be defined', () => {
-    expect(emitter).toBeInstanceOf(Emitter);
+    expect(emitter).toBeInstanceOf(Observer);
   });
 
   test("should return false if the observer doesn't exist", () => {

@@ -1,15 +1,15 @@
 import { Components, ComponentsList, IOptions } from '../interfaces';
-import Emitter from '../../Emitter/Emitter';
+import Observer from '../../Observer/Observer';
 import { SliderFactory } from './Factories/factories';
 
-class View extends Emitter {
-  root: HTMLElement;
+class View extends Observer {
+  private root: HTMLElement;
 
-  public type!: string;
-
-  public componentList!: ComponentsList;
+  private type!: string;
 
   private components!: Components;
+  
+  private componentList!: ComponentsList;
 
   constructor(root: HTMLElement) {
     super();

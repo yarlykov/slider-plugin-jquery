@@ -1,7 +1,7 @@
 import { EventCallback, Events } from '../components/interfaces';
 
-class Emitter {
-  private observers: Events;
+class Observer {
+  public observers: Events;
 
   constructor() {
     this.observers = {};
@@ -31,4 +31,4 @@ class Emitter {
   }
 }
 
-export default Emitter;
+export default Observer;
