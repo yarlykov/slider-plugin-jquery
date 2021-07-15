@@ -5,17 +5,19 @@
 
     &_horizontal {
       width: 100%;
-      top: 14px;
+      top: 18px;
     }
 
     &_vertical {
       height: 100%;
-      left: 14px;
+      left: 18px;
     }
   }
 
   &__labels-item {
     position: absolute;
+    font-family: Lato, sans-serif;
+    font-size: 12px;
     transform: translateX(-50%);
 
     &:hover {

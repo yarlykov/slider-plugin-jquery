@@ -1,33 +1,18 @@
 .slider {
   &__fill {
     position: absolute;
-    border-radius: 4px;
+    border-radius: 3px;
     cursor: pointer;
     touch-action: none;
     -ms-touch-action: none;
 
     &_horizontal {
-      height: 6px;
-      width: 42%;
-      max-height: 6px;
-    }
-
-    &_horizontal_range {
-      height: 6px;
-      left: 25%;
-      width: 50%;
+      height: 8px;
     }
 
     &_vertical {
-      width: 6px;
-      height: 42%;
-      min-width: 6px;
+      width: 8px;
       bottom: 0;
-    }
-
-    &_vertical_range {
-      height: 50%;
-      bottom: 23%;
     }
 
     &_orange {

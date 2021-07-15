@@ -1,32 +1,33 @@
 .slider {
   &__tooltip {
     position: absolute;
-    min-width: 28px;
-    height: 18px;
+    min-width: 30px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 2px 0 2px;
 
+    font-family: Lato, sans-serif;
+    font-size: 14px;
     white-space: nowrap;
-    font-size: 12px;
     font-weight: 400;
     color: #fff;
-    border-radius: 4px;
+    border-radius: 3px;
 
     &_horizontal {
-      top: -25px;
+      top: -28px;
       left: 50%;
       transform: translate(-50%);
     }
 
     &_vertical {
-      right: 25px;
+      right: 28px;
     }
 
     &_arrow {
       position: absolute;
-      top: 14.5px;
+      top: 16px;
       width: 7px;
       height: 7px;
       transform: rotate(45deg);
@@ -35,8 +36,8 @@
     }
 
     &_arrow_vertical {
-      top: 6px;
-      right: -3.5px;
+      top: 6.5px;
+      right: -3px;
     }
 
     &_arrow_horizontal {
