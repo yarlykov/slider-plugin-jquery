@@ -18,6 +18,35 @@ class Labels extends SliderComponent {
     }
   }
 
+  private onPointerDown(event: PointerEvent) {
+    if (event.target instanceof HTMLElement) {
+      const {
+        min,
+        max = 0,
+        step = 1,
+        valueFrom = 0,
+        valueTo = 0,
+        range = false,
+      } = this.state;
+
+      const targetValue = Number(event.target.dataset.value);
+      let correctValue = getValueWithStep(min, max, step, targetValue);
+      if (targetValue === 100) correctValue = max;
+
+      if (range) {
+        const delta = (valueTo - valueFrom) / 2;
+        const leftHalfOfScale = valueFrom + delta;
+        if (correctValue >= leftHalfOfScale) {
+          this.emit('labels:valueTo', correctValue);
+        } else {
+          this.emit('labels:valueFrom', correctValue);
+        }
+      } else {
+        this.emit('labels:valueFrom', correctValue);
+      }
+    }
+  }
+
   private getTemplate() {
     const { orientation = 'horizontal' } = this.state;
 
@@ -63,35 +92,6 @@ class Labels extends SliderComponent {
     `;
 
     return label;
-  }
-
-  private onPointerDown(event: PointerEvent) {
-    if (event.target instanceof HTMLElement) {
-      const {
-        min,
-        max = 0,
-        step = 1,
-        valueFrom = 0,
-        valueTo = 0,
-        range = false,
-      } = this.state;
-
-      const targetValue = Number(event.target.dataset.value);
-      let correctValue = getValueWithStep(min, max, step, targetValue);
-      if (targetValue === 100) correctValue = max;
-
-      if (range) {
-        const delta = (valueTo - valueFrom) / 2;
-        const leftHalfOfScale = valueFrom + delta;
-        if (correctValue >= leftHalfOfScale) {
-          this.emit('labels:valueTo', correctValue);
-        } else {
-          this.emit('labels:valueFrom', correctValue);
-        }
-      } else {
-        this.emit('labels:valueFrom', correctValue);
-      }
-    }
   }
 }
 

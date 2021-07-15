@@ -10,9 +10,9 @@ import {
 } from '../../../../utils/utils';
 
 class Knob extends SliderComponent {
-  scale!: HTMLElement;
+  private scale!: HTMLElement;
 
-  knob!: HTMLElement;
+  private knob!: HTMLElement;
 
   public display(): void {
     this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
@@ -65,22 +65,6 @@ class Knob extends SliderComponent {
     };
   }
 
-  private addEventListeners(): void {
-    this.onPointerDown = this.onPointerDown.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.knob.addEventListener('pointerdown', this.onPointerDown);
-    this.knob.addEventListener('keydown', this.onKeyDown);
-  }
-
-  private getTemplate(): string {
-    const { orientation = 'horizontal', color = 'orange' } = this.state;
-
-    return `
-      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
-        data-id="knob" role="slider" tabindex="0"></div>
-    `;
-  }
-
   private onKeyDown(event: KeyboardEvent): void {
     const { valueFrom = 0, step = 1 } = this.state;
     const { code } = event;
@@ -95,6 +79,22 @@ class Knob extends SliderComponent {
       newValue = valueFrom - step;
       this.emit('changeValue', newValue);
     }
+  }
+
+  private addEventListeners(): void {
+    this.onPointerDown = this.onPointerDown.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.knob.addEventListener('pointerdown', this.onPointerDown);
+    this.knob.addEventListener('keydown', this.onKeyDown);
+  }
+
+  private getTemplate(): string {
+    const { orientation = 'horizontal', color = 'orange' } = this.state;
+
+    return `
+      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
+        data-id="knob" role="slider" tabindex="0"></div>
+    `;
   }
 }
 

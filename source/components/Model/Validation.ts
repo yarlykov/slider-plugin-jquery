@@ -3,15 +3,15 @@ import { fromValueToPercent, getValueWithStep } from '../../utils/utils';
 import { IOptions } from '../interfaces';
 
 class Validation {
-  min!: number;
+  private min!: number;
 
-  max!: number;
+  private max!: number;
 
-  step!: number;
+  private step!: number;
 
-  valueFrom!: number;
+  private valueFrom!: number;
 
-  valueTo!: number;
+  private valueTo!: number;
 
   public checkState(state: IOptions): IOptions {
     this.min = state.min || 0;

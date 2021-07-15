@@ -68,22 +68,6 @@ class SecondKnob extends SliderComponent {
     };
   }
 
-  private addEventListeners(): void {
-    this.onPointerDown = this.onPointerDown.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.secondKnob.addEventListener('pointerdown', this.onPointerDown);
-    this.secondKnob.addEventListener('keydown', this.onKeyDown);
-  }
-
-  private getTemplate(): string {
-    const { orientation = 'horizontal', color = 'orange' } = this.state;
-
-    return `
-      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
-      data-knob="second" role="slider" tabindex="0"></div>
-    `;
-  }
-
   private onKeyDown(event: KeyboardEvent): void {
     const { valueTo = 0, step = 1 } = this.state;
     const { code } = event;
@@ -98,6 +82,22 @@ class SecondKnob extends SliderComponent {
       newValue = valueTo - step;
       this.emit('changeValue', newValue);
     }
+  }
+
+  private addEventListeners(): void {
+    this.onPointerDown = this.onPointerDown.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.secondKnob.addEventListener('pointerdown', this.onPointerDown);
+    this.secondKnob.addEventListener('keydown', this.onKeyDown);
+  }
+
+  private getTemplate(): string {
+    const { orientation = 'horizontal', color = 'orange' } = this.state;
+
+    return `
+      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
+      data-knob="second" role="slider" tabindex="0"></div>
+    `;
   }
 }
 

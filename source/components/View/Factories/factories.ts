@@ -19,7 +19,7 @@ type Components = [
 ];
 
 class SimpleSlider {
-  createComponents(options: IOptions, root: HTMLElement): Components {
+  public createComponents(options: IOptions, root: HTMLElement): Components {
     const elements = [Scale, Fill, Knob, Labels, Tooltip];
     const components: Components = [];
 
@@ -32,7 +32,7 @@ class SimpleSlider {
 }
 
 class RangeSlider {
-  createComponents(options: IOptions, root: HTMLElement): Components {
+  public createComponents(options: IOptions, root: HTMLElement): Components {
     const elements = [
       Scale,
       Fill,
@@ -58,7 +58,7 @@ class SliderFactory {
     range: RangeSlider,
   };
 
-  create(type: string): SimpleSlider | RangeSlider {
+  public create(type: string): SimpleSlider | RangeSlider {
     const sliderType = type === 'range' ? 'range' : 'simple';
     const Slider = SliderFactory.list[sliderType];
     const slider = new Slider();
