@@ -1,34 +1,168 @@
 # MetaLamp 4 task - Slider for jQuery
-Четвертое задание - плагин для [jQuery](https://jquery.com), в котором выполнен функционал «бегунка» (также называемого слайдером) - специальный контрол, который позволяет перетягиванием задавать какое-то числовое значение. 
 
-[Демо страница](https://yarlykov.github.io/slider-plugin-jquery/ )
+Четвертое задание - плагин для [jQuery](https://jquery.com), в котором выполнен функционал «бегунка» (также называемого слайдером) - специальный контрол, который позволяет перетягиванием задавать какое-то числовое значение.
+
+[Демо страница](https://yarlykov.github.io/slider-plugin-jquery/)
+
 ## Содержание
-___
+
+---
+
 - [`Возможности`](#возможности)
-- [`Архитектура`](#архитектура)
 - [`Развертывание`](#развертывание)
+- [`Подключение и использование`](#подключение-и-использование)
 - [`API`](#api)
+- [`Архитектура`](#архитектура)
 - [`UML-диаграмма`](#uml-диаграмма-классов)
 
 ## Возможности
+---
+  - Любое количество слайдеров на странице без конфликтов
+  - Простое и удобное API для взаимодействия со слайдером
+  - Два типа слайдера (одиночный и диапазон)
+  - Поддержка отрицательных значений
+  - Широкие возможности кастомизации
+    - задание размера шага
+    - выбор вертикального либо горизонтального вида
+    - возможность задать диапазон значений
+    - возможность вкл/откл прогресс бар
+    - возможность вкл/откл подписи шкалы значений
+    - возможность вкл/откл подписи над ползунками
+  - Поддержка тач устройств
+
 ## Развертывание
+---
 
 ### Клонирование репозитория
+
 ```bash
   git clone https://github.com/yarlykov/slider-plugin-jquery.git
 ```
+
 ### Установка зависимостей
- `npm install`
 
-| Разработка    | Тестирование   | Покрытие тестами     | Production сборка  |
-| ------------- |:--------------:|:--------------------:|  -----------------:|
-| `npm run dev` | `npm test`     | `npm test:coverage`  | `npm run build`
+`npm install`
 
+| Разработка    | Тестирование |  Покрытие тестами   | Production сборка |
+| ------------- | :----------: | :-----------------: | ----------------: |
+| `npm run dev` |  `npm test`  | `npm test:coverage` |   `npm run build` |
+
+## Подключение и использование
+---
+
+1. Для работы плагина необходимо подключить `jQuery-3.x
+2. Для подключения плагина на страницу необходимо взять из папки `./dist` файлы: 
+    - `plugin.js`
+    - `plugin.css`.
+
+
+Пример подключения на страницу:
+```html
+<html>
+  <head>
+    ...
+    <!--jQuery-->
+    <script defer="defer" 
+      src="https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
+    <!--Plugin JavaScript file-->
+    <script defer="defer" src="plugin.js"></script>
+    <!--Plugin styles file-->
+    <link href="plugin.css" rel="stylesheet" />
+  </head>
+</html>
+```
+Инициализация с настройками по умолчанию:
+```html
+  <!--HTML-->
+  <body>
+    ...
+    <div id="root"></div>
+  </body>
+```
+```js
+  // JavaScript
+  $('#root').sliderPlugin();
+```
+
+С пользовательскими настройками:
+```js
+  $('#root').sliderPlugin({
+    min: 0,
+    max: 100,
+    step: 25,
+    valueFrom: 50,
+    valueTo: 75,
+    orientation: 'horizontal',
+    range: false,
+    fill: true,
+    labels: true,
+    tooltips: true,
+    color: 'orange',
+  })
+```
+
+### Опции
+| Опции         | Тип          |  По-умолчанию       | Описание                      |
+| ------------- | :----------: | :-----------------: | ---------------------------:  |
+| `min`         |  number      |  `0`                  |   минимальное значение шкалы  |
+| `max`         |  number      |  `100`                |   максимальное значение шкалы |
+| `step`        |  number      |  `25`                 |   шаг шкалы                   |
+| `valueFrom`   |  number      |  `50`                 |   значение одиночного ползунка / начальное знач. диапазона | 
+| `valueTo`     |  number      |  `75`                 |   конечное значение диапазона    |
+| -----         |  -----       |  -----              |   -----    |
+| `orientation` |  string      |  `'horizontal' `      |   ориентация слайдера (horizontal/vertical) |
+| `range`       |  boolean     |  `false`              |   тип слайдера (одиночный/диапазон) |
+| `fill`        |  boolean     |  `true`               |   заливка (от min до valueFrom либо от valueFrom до valueTo) |
+| `labels`      |  boolean     |  `true`               |   подписи шкалы значений |
+| `tooltips`    |  boolean     |  `true`               |   отображение текущего значения над ползунком |
+| `color`       |  string      |  `'orange'`         |   цвет слайдера (orange/green) |
 
 ## API
+---
+
+sliderPlugin( *method*: **'getState'** | **'setValue'** | **'onChange'**, **options**)
+
+Плагин принимает в качестве параметров объект с опциями либо методы для изменения и получения данных.
+
+`getState(): IOptions` - метод, который возвращает текущее состояние слайдера в виде объекта со всеми опциями.
+
+```js
+  const state = $('#root').sliderPlugin('getState') 
+  console.log(state) //{min: 0, max: 100, step: 25, valueFrom: 50, valueTo: 75, …}
+```
+---
+`setValue( name: string, value: number | string | boolean): void` - метод для изменения любого значения слайдера. Принимает параметры в виде числа, строки либо булевого значения.
+
+```js
+  $('#root').sliderPlugin('setValue', 'min', -100) 
+  $('#root').sliderPlugin('setValue', 'valueFrom', 20) 
+  $('#root').sliderPlugin('setValue', 'orientation', 'vertical') 
+  $('#root').sliderPlugin('setValue', 'range', true) 
+  $('#root').sliderPlugin('setValue', 'tooltips', false) 
+  $('#root').sliderPlugin('setValue', 'labels', false) 
+```
+---
+`onChange( func: EventCallback ): void` - метод который позволяет передать callback функцию на событие изменения слайдера. 
+
+```js
+  $('#root') .sliderPlugin('onChange', () => {
+    `any code`
+  }) 
+```
+
+Также позволяет через объект `detail` получить любое значение слайдера.
+
+```js
+  $('#root').sliderPlugin('onChange', (evt) => console.log(evt.detail)) 
+```
+
 ## Архитектура
-___
+
+---
+
 ### Инициализация
+
 1. Presenter создает модель
 2. Presenter создает представление
 3. Presenter подписывается на изменения представления
