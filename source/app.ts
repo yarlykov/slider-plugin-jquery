@@ -27,7 +27,7 @@ const methods = {
     return state;
   },
 
-  setValue(this: JQuery, name: string, value: optionsValue) {
+  setValue(this: JQuery, name: string, value: optionsValue): void {
     const sliderPlugin = $(this).data('sliderPlugin');
 
     sliderPlugin.model.setValue(`${name}`, value);
@@ -54,7 +54,7 @@ $.fn.sliderPlugin = function (method, ...args) {
   if (methods[method as string]) {
     return methods[method as string].apply(this, args);
   }
-  if (typeof method === 'object') {
+  if (typeof method === 'object' || !method) {
     const options = method || {};
     
     return methods.init.call(this, options);
