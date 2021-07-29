@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --watch --coverage",
-    "start": "NODE_ENV=development webpack serve --mode development",
-    "dev": "NODE_ENV=development webpack --mode development",
+    "start": "cross-env NODE_ENV=development webpack serve --mode development",
+    "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "webpack --mode production",
     "lint": "eslint source",
     "lint:fix": "eslint source --fix",
@@ -40,6 +40,7 @@
     "babel-jest": "27.0.2",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.2.6",
     "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.1",
