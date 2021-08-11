@@ -1,4 +1,4 @@
-mixin control-panel({ controlPanel={} })
+mixin control-panel( controlPanel={} )
   - const { controls=[], viewElements=[] } = controlPanel
 
   .control-panel(data-id="control-panel")
@@ -17,7 +17,7 @@ mixin control-panel({ controlPanel={} })
     .control-panel__block-view
       each viewElement in viewElements
         .control-panel__row
-          if viewElement.type === 'select' /*delete*/
+          if viewElement.type === 'select'
             label.control-panel__control
               select.control-panel__select(name='select' data-title='orientation')
                 option(value=`${viewElement.option[0]}`) #{viewElement.option[0]}
@@ -31,11 +31,4 @@ mixin control-panel({ controlPanel={} })
                 checked: viewElement.checked
               })
               span.control-panel__title #{viewElement.title}
-          else
-            label.control-panel__control
-              input.control-panel__input.control-panel__input_text&attributes({
-                type: viewElement.type,
-                "data-title": viewElement.title,
-                value: viewElement.value
-              })
-              span.control-panel__title #{viewElement.title}
+

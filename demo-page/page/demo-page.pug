@@ -1,202 +1,85 @@
 extends ../layout/layout.pug
-include ../components/demo-block/demo-block.pug
+include ../components/control-panel/control-panel.pug
+include ../components/slider/slider.pug
 
 block content
-  .demo-page__wrapper
-    +demo-block({
-      options: {
-        controlPanel: {
-          controls: [
-            { title: "min", type: "number", value: 0, disabled: false },
-            { title: "max", type: "number", value: 100, disabled: false },
-            { title: "step", type: "number", value: 25, disabled: false },
-            { title: "from", type: "number", value: 42, disabled: false },
-            { title: "to", type: "number", value: 0, disabled: true },
-          ],
-          viewElements: [
-            { title: "orientation", type: "select", option: ["horizontal", "vertical"] },
-            { title: "fill", type: "checkbox", checked: true },
-            { title: "range", type: "checkbox", checked: false},
-            { title: "labels", type: "checkbox", checked: true},
-            { title: "tooltips", type: "checkbox", checked: true},
-          ]
-        },
-        slider: {
-          anchor: "sliderSingleHorizontal"
-        }
-      }
-    })
+  .demo-page
+    section.demo-page__block
+      h2.demo-page__title.visually-hidden Slider demo
+      +control-panel({
+        controls: [
+          { title: "min", type: "number", value: 0, disabled: false },
+          { title: "max", type: "number", value: 100, disabled: false },
+          { title: "step", type: "number", value: 25, disabled: false },
+          { title: "from", type: "number", value: 42, disabled: false },
+          { title: "to", type: "number", value: 0, disabled: true },
+        ],
+        viewElements: [
+          { title: "orientation", type: "select", option: ["horizontal", "vertical"] },
+          { title: "fill", type: "checkbox", checked: true },
+          { title: "range", type: "checkbox", checked: false},
+          { title: "labels", type: "checkbox", checked: true},
+          { title: "tooltips", type: "checkbox", checked: true},
+        ]
+      })
+      +slider({ anchor: "sliderSingleHorizontal" })
 
-    +demo-block({
-      options: {
-        controlPanel: {
-          controls: [
-            { title: "min", type: "number", value: 0, disabled: false },
-            { title: "max", type: "number", value: 100, disabled: false },
-            { title: "step", type: "number", value: 25, disabled: false },
-            { title: "from", type: "number", value: 42, disabled: false },
-            { title: "to", type: "number", value: 0, disabled: true },
-          ],
-          viewElements: [
-            { title: "orientation", type: "select", option: ["vertical", "horizontal" ] },
-            { title: "fill", type: "checkbox", checked: true },
-            { title: "range", type: "checkbox", checked: false},
-            { title: "labels", type: "checkbox", checked: true},
-            { title: "tooltips", type: "checkbox", checked: true},
-          ]
-        },
-        slider: {
-          anchor: "sliderSingleVertical"
-        } 
-      }
-    })
+    section.demo-page__block
+      h2.demo-page__title.visually-hidden Slider demo
+      +control-panel({
+        controls: [
+          { title: "min", type: "number", value: 0, disabled: false },
+          { title: "max", type: "number", value: 100, disabled: false },
+          { title: "step", type: "number", value: 25, disabled: false },
+          { title: "from", type: "number", value: 42, disabled: false },
+          { title: "to", type: "number", value: 0, disabled: true },
+        ],
+        viewElements: [
+          { title: "orientation", type: "select", option: ["vertical", "horizontal" ] },
+          { title: "fill", type: "checkbox", checked: true },
+          { title: "range", type: "checkbox", checked: false},
+          { title: "labels", type: "checkbox", checked: true},
+          { title: "tooltips", type: "checkbox", checked: true},
+        ]
+      })
+      +slider({ anchor: "sliderSingleVertical" })
 
-    +demo-block({
-      options: {
-        controlPanel: {
-          controls: [
-            { title: "min", type: "number", value: 0, disabled: false },
-            { title: "max", type: "number", value: 100, disabled: false },
-            { title: "step", type: "number", value: 25, disabled: false },
-            { title: "from", type: "number", value: 42, disabled: false },
-            { title: "to", type: "number", value: 0, disabled: true },
-          ],
-          viewElements: [
-            { title: "orientation", type: "select", option: ["horizontal", "vertical"] },
-            { title: "fill", type: "checkbox", checked: true },
-            { title: "range", type: "checkbox", checked: true},
-            { title: "labels", type: "checkbox", checked: true},
-            { title: "tooltips", type: "checkbox", checked: true},
-          ]
-        },
-        slider: {
-          anchor: "sliderRangeHorizontal"
-        } 
-      }
-    })
+    section.demo-page__block
+      h2.demo-page__title.visually-hidden Slider demo
+      +control-panel({
+        controls: [
+          { title: "min", type: "number", value: 0, disabled: false },
+          { title: "max", type: "number", value: 100, disabled: false },
+          { title: "step", type: "number", value: 25, disabled: false },
+          { title: "from", type: "number", value: 42, disabled: false },
+          { title: "to", type: "number", value: 0, disabled: true },
+        ],
+        viewElements: [
+          { title: "orientation", type: "select", option: ["horizontal", "vertical"] },
+          { title: "fill", type: "checkbox", checked: true },
+          { title: "range", type: "checkbox", checked: true},
+          { title: "labels", type: "checkbox", checked: true},
+          { title: "tooltips", type: "checkbox", checked: true},
+        ]
+      })
+      +slider({ anchor: "sliderRangeHorizontal" })
 
-    +demo-block({
-      options: {
-        controlPanel: {
-          controls: [
-            { title: "min", type: "number", value: 0, disabled: false },
-            { title: "max", type: "number", value: 100, disabled: false },
-            { title: "step", type: "number", value: 25, disabled: false },
-            { title: "from", type: "number", value: 42, disabled: false },
-            { title: "to", type: "number", value: 0, disabled: true },
-          ],
-          viewElements: [
-            { title: "orientation", type: "select", option: ["vertical", "horizontal" ] },
-            { title: "fill", type: "checkbox", checked: true },
-            { title: "range", type: "checkbox", checked: true},
-            { title: "labels", type: "checkbox", checked: true},
-            { title: "tooltips", type: "checkbox", checked: true},
-          ]
-        },
-        slider: {
-          anchor: "sliderRangeVertical"
-        } 
-      }
-    })
-
-    //- +demo-block({
-    //-   options: {
-    //-     controlPanel: {
-    //-       controls: [
-    //-         { title: "min", type: "number", value: 0, disabled: false },
-    //-         { title: "max", type: "number", value: 100, disabled: false },
-    //-         { title: "from", type: "number", value: 53, disabled: false },
-    //-         { title: "step", type: "number", value: 25, disabled: false },
-    //-         { title: "range-min", type: "number", value: 0, disabled: true },
-    //-         { title: "to", type: "number", value: 0, disabled: true },
-    //-       ],
-    //-       viewElements: [
-    //-         { title: "type", type: "select", option: ["vertical", "horizontal"] },
-    //-         { title: "range", type: "checkbox", checked: false},
-    //-         { title: "labels", type: "checkbox", checked: true},
-    //-         { title: "tooltips", type: "checkbox", checked: true},
-    //-         { title: "units", type: "text", value: "¥" },
-    //-       ]
-    //-     },
-    //-     slider: {
-    //-       type: { vertical: true },
-    //-       range: false,
-    //-       labels: ["100", "75", "50", "25", "0"],
-    //-       tooltips: true,
-    //-       defaultValue: {
-    //-         single: "53",
-    //-         range: ["25", "75"]
-    //-       },
-    //-       units: "¥",
-    //-       color: "orange"
-    //-     } 
-    //-   }
-    //- })
-
-    //- +demo-block({
-    //-   options: {
-    //-     controlPanel: {
-    //-       controls: [
-    //-         { title: "min", type: "number", value: 0, disabled: false },
-    //-         { title: "max", type: "number", value: 100, disabled: false },
-    //-         { title: "from", type: "number", value: 0, disabled: true },
-    //-         { title: "step", type: "number", value: 25, disabled: false },
-    //-         { title: "range-min", type: "number", value: 25, disabled: false },
-    //-         { title: "to", type: "number", value: 75, disabled: false },
-    //-       ],
-    //-       viewElements: [
-    //-         { title: "type", type: "select", option: ["horizontal", "vertical"] },
-    //-         { title: "range", type: "checkbox", checked: true},
-    //-         { title: "labels", type: "checkbox", checked: true},
-    //-         { title: "tooltips", type: "checkbox", checked: true},
-    //-         { title: "units", type: "text", value: "¥" },
-    //-       ]
-    //-     },
-    //-     slider: {
-    //-       type: { horizontal: true },
-    //-       range: true,
-    //-       labels: ["0", "25", "50", "75", "100"],
-    //-       tooltips: true,
-    //-       defaultValue: {
-    //-         single: "0",
-    //-         range: ["25", "75"]
-    //-       },
-    //-       units: "¥",
-    //-       color: "green"
-    //-     } 
-    //-   }
-    //- })
-
-    //- +demo-block({
-    //-   options: {
-    //-     controlPanel: {
-    //-       controls: [
-    //-         { title: "min", type: "number", value: 0, disabled: false },
-    //-         { title: "max", type: "number", value: 100, disabled: false },
-    //-         { title: "from", type: "number", value: 0, disabled: true },
-    //-         { title: "step", type: "number", value: 25, disabled: false },
-    //-         { title: "range-min", type: "number", value: 25, disabled: false },
-    //-         { title: "to", type: "number", value: 75, disabled: false },
-    //-       ],
-    //-       viewElements: [
-    //-         { title: "type", type: "select", option: ["vertical", "horizontal"] },
-    //-         { title: "range", type: "checkbox", checked: true},
-    //-         { title: "labels", type: "checkbox", checked: true},
-    //-         { title: "tooltips", type: "checkbox", checked: true},
-    //-         { title: "units", type: "text", value: "¥" },
-    //-       ]
-    //-     },
-    //-     slider: {
-    //-       type: { vertical: true },
-    //-       range: true,
-    //-       labels: ["100", "75", "50", "25", "0"],
-    //-       tooltips: true,
-    //-       defaultValue: {
-    //-         single: "0",
-    //-         range: ["25", "75"]
-    //-       },
-    //-       units: "¥",
-    //-       color: "green"
-    //-     } 
-    //-   }
-    //- })
+    section.demo-page__block
+      h2.demo-page__title.visually-hidden Slider demo
+      +control-panel({
+        controls: [
+          { title: "min", type: "number", value: 0, disabled: false },
+          { title: "max", type: "number", value: 100, disabled: false },
+          { title: "step", type: "number", value: 25, disabled: false },
+          { title: "from", type: "number", value: 42, disabled: false },
+          { title: "to", type: "number", value: 0, disabled: true },
+        ],
+        viewElements: [
+          { title: "orientation", type: "select", option: ["vertical", "horizontal" ] },
+          { title: "fill", type: "checkbox", checked: true },
+          { title: "range", type: "checkbox", checked: true},
+          { title: "labels", type: "checkbox", checked: true},
+          { title: "tooltips", type: "checkbox", checked: true},
+        ]
+      })
+      +slider({ anchor: "sliderRangeVertical" })

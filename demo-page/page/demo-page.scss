@@ -1,20 +1,18 @@
 @import '../components/control-panel/control-panel.scss';
 
 .demo-page {
-  &__wrapper {
-    display: grid;
-    grid-gap: 16px;
-    grid-template: 1fr 1fr/1fr 1fr;
-    min-height: 688px;
-    max-width: 1980px;
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 16px;
+  display: grid;
+  grid-gap: 16px;
+  grid-template: 1fr 1fr/1fr 1fr;
+  min-height: 688px;
+  max-width: 1980px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 16px;
 
-    @media (max-width: 1279px) {
-      grid-template: 1fr/1fr;
-    } 
-  }
+  @media (max-width: 1279px) {
+    grid-template: 1fr/1fr;
+  } 
 
   &__block {
     box-sizing: border-box;
