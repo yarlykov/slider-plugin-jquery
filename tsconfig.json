@@ -5,7 +5,7 @@
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "suppressImplicitAnyIndexErrors": true, /*нужно для разработки, потом убрать (используется в app.ts => window[index])*/
+    "suppressImplicitAnyIndexErrors": true,
   },
   "exclude": ["node_modules"]
 }

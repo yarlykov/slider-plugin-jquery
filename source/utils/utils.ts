@@ -9,14 +9,6 @@ type coords = {
   height?: number;
 };
 
-function createElement(tag: string, className?: string[]): HTMLElement {
-  const element = document.createElement(tag);
-
-  if (className) element.classList.add(...className);
-
-  return element; // remove function??
-}
-
 function fromValueToPercent(state: IOptions, value: number): number {
   const { min = 0, max = 0, step = 1 } = state;
 
@@ -90,7 +82,6 @@ function getPosition(
 }
 
 export {
-  createElement,
   fromValueToPercent,
   getCoords,
   getPageCoords,
