@@ -25,6 +25,15 @@ interface Events {
   [key: string]: EventCallback[];
 }
 
+type coords = {
+  pageX?: number;
+  pageY?: number;
+  left?: number;
+  bottom?: number;
+  width?: number;
+  height?: number;
+};
+
 type ComponentsList = {
   Scale?: Scale,
   Fill?: Fill,
@@ -45,4 +54,4 @@ type Components = [
   SecondTooltip?,
 ];
 
-export { IOptions, EventCallback, Events, ComponentsList, Components };
+export { IOptions, EventCallback, Events, ComponentsList, Components, coords };

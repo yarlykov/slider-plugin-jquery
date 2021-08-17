@@ -3,9 +3,6 @@ import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
 import {
   fromValueToPercent,
-  getCoords,
-  getPageCoords,
-  getPosition,
   getValueWithStep,
 } from '../../../../utils/utils';
 
@@ -51,9 +48,9 @@ class Knob extends SliderComponent {
     document.onpointermove = (pointerEvent) => {
       pointerEvent.preventDefault();
       this.knob.ondragstart = () => false;
-      const scaleCoords = getCoords(this.scale);
-      const pageCoords = getPageCoords(pointerEvent);
-      const position = getPosition(orientation, scaleCoords, pageCoords);
+      const scaleCoords = this.getCoords(this.scale);
+      const pageCoords = this.getPageCoords(pointerEvent);
+      const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
 
       this.emit('changeValue', correctValue.toFixed());

@@ -1,19 +1,73 @@
-import Knob from './Knobs/Knob';
+/**
+ * @jest-environment jsdom
+ */
+
 import SliderComponent from './SliderComponent';
 
-describe('SliderComponent', () => {
-  test('should return error when trying to create an instance of a class', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    expect(() => new SliderComponent()).toThrow(
-      'Can`t instantiate SliderComponent, only concrete one',
-    );
+describe('SliderComponent:', () => {
+  let sliderComponent: SliderComponent;
+  let elem: HTMLDivElement;
+  const sliderCoords = {
+    bottom: 355,
+    height: 296,
+    left: 325,
+    width: 296,
+  };
+  const pageCoords = {
+    pageX: 399,
+    pageY: 281,
+  };
+
+  beforeEach(() => {
+    elem = document.createElement('div');
+    sliderComponent = new SliderComponent({}, elem);
   });
 
   test('should initialize an empty state', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const knob = new Knob();
-    expect(knob.state).toEqual({});
+    const sliderComponent = new SliderComponent();
+    expect(sliderComponent.state).toEqual({});
+  });
+
+  test('getCoords method should be defined', () => {
+    expect(sliderComponent.getCoords(elem)).toBeDefined();
+  });
+
+  test('getCoords method should be return element coords', () => {
+    expect(sliderComponent.getCoords(elem)).toEqual({
+      bottom: 0,
+      height: 0,
+      left: 0,
+      width: 0,
+    });
+  });
+
+  test('getPageCoords method should be defined', () => {
+    const event = new Event('pointerdown', {
+      bubbles: true,
+      cancelable: true,
+    }) as PointerEvent;
+    expect(sliderComponent.getPageCoords(event)).toBeDefined();
+  });
+
+  test('getPosition method should be defined', () => {
+    const sliderCoords = {};
+    const pageCoords = {};
+    expect(
+      sliderComponent.getPosition('horizontal', sliderCoords, pageCoords),
+    ).toBeDefined();
+  });
+
+  test('getPosition method should return horizontal position', () => {
+    expect(
+      sliderComponent.getPosition('horizontal', sliderCoords, pageCoords),
+    ).toEqual(25);
+  });
+
+  test('getPosition method should return vertical position', () => {
+    expect(
+      sliderComponent.getPosition('vertical', sliderCoords, pageCoords),
+    ).toEqual(25);
   });
 });

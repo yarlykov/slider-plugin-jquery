@@ -1,8 +1,5 @@
 import './scale.scss';
 import {
-  getCoords,
-  getPageCoords,
-  getPosition,
   getValueWithStep,
 } from '../../../../utils/utils';
 import SliderComponent from '../SliderComponent';
@@ -34,9 +31,9 @@ class Scale extends SliderComponent {
         range = false,
       } = this.state;
 
-      const scaleCoords = getCoords(this.scaleNode);
-      const pageCoords = getPageCoords(event);
-      const position = getPosition(orientation, scaleCoords, pageCoords);
+      const scaleCoords = this.getCoords(this.scaleNode);
+      const pageCoords = this.getPageCoords(event);
+      const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
 
       if (range) {

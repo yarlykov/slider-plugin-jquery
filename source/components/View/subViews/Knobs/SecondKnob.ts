@@ -3,9 +3,6 @@ import SliderComponent from '../SliderComponent';
 import { IOptions } from '../../../interfaces';
 import {
   fromValueToPercent,
-  getCoords,
-  getPageCoords,
-  getPosition,
   getValueWithStep,
 } from '../../../../utils/utils';
 
@@ -53,10 +50,10 @@ class SecondKnob extends SliderComponent {
     document.onpointermove = (pointerEvent) => {
       pointerEvent.preventDefault();
       this.secondKnob.ondragstart = () => false;
-      const scaleCoords = getCoords(this.scale);
+      const scaleCoords = this.getCoords(this.scale);
 
-      const pageCoords = getPageCoords(pointerEvent);
-      const position = getPosition(orientation, scaleCoords, pageCoords);
+      const pageCoords = this.getPageCoords(pointerEvent);
+      const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
 
       this.emit('changeValue', correctValue.toFixed());
