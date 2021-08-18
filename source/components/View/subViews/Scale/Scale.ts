@@ -5,7 +5,7 @@ import {
 import SliderComponent from '../SliderComponent';
 
 class Scale extends SliderComponent {
-  private scaleNode!: HTMLElement;
+  public scaleNode!: HTMLElement;
 
   public display(): void {
     this.root.innerHTML = '';

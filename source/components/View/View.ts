@@ -3,13 +3,13 @@ import Observer from '../../Observer/Observer';
 import { SliderFactory } from './Factories/factories';
 
 class View extends Observer {
+  public componentList!: ComponentsList;
+
   private root: HTMLElement;
 
   private type!: string;
 
   private components!: Components;
-  
-  private componentList!: ComponentsList;
 
   constructor(root: HTMLElement) {
     super();

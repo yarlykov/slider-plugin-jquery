@@ -38,7 +38,7 @@ class DemoBlock {
     this.bindEventListeners();
   }
 
-  private findDOMElements() {
+  private findDOMElements(): void {
     this.panel = this.root
       .get(0)
       .parentElement?.querySelector('[data-id="control-panel"]') as HTMLElement;
@@ -75,7 +75,7 @@ class DemoBlock {
     ) as HTMLInputElement;
   }
 
-  private pluginSetup() {
+  private pluginSetup(): void {
     this.state = this.root.sliderPlugin('getState');
     this.min.value = `${this.state.min}`;
     this.max.value = `${this.state.max}`;
@@ -94,7 +94,7 @@ class DemoBlock {
     this.tooltips.checked = this.state.tooltips as boolean;
   }
 
-  private bindEventListeners() {
+  private bindEventListeners(): void {
     this.root.sliderPlugin('onChange', this.handleOnChangeRoot.bind(this));
     this.valueFrom.addEventListener(
       'change',
@@ -128,7 +128,7 @@ class DemoBlock {
     );
   }
 
-  private handleOnChangeRoot(event: CustomEvent) {
+  private handleOnChangeRoot(event: CustomEvent): void {
     this.state = event.detail;
     if (this.state.range) {
       this.valueTo.disabled = false;
@@ -147,13 +147,13 @@ class DemoBlock {
     this.tooltips.checked = event.detail.tooltips;
   }
 
-  private handleValueFromChange() {
+  private handleValueFromChange(): void {
     let value = 0;
     value = Number(this.valueFrom.value);
     this.root.sliderPlugin('setValue', 'valueFrom', value);
   }
 
-  private handleValueFromKeydown(event: KeyboardEvent) {
+  private handleValueFromKeydown(event: KeyboardEvent): void {
     const { valueFrom = 0, step = 0 } = this.state;
     const { code } = event;
 
@@ -168,12 +168,12 @@ class DemoBlock {
     }
   }
 
-  private handleValueToChange() {
+  private handleValueToChange(): void {
     const value = Number(this.valueTo.value);
     this.root.sliderPlugin('setValue', 'valueTo', value);
   }
 
-  private handleValueToKeydown(event: KeyboardEvent) {
+  private handleValueToKeydown(event: KeyboardEvent): void {
     const { valueTo = 0, step = 0 } = this.state;
     const { code } = event;
 
@@ -188,32 +188,32 @@ class DemoBlock {
     }
   }
 
-  private handleStepChange() {
+  private handleStepChange(): void {
     const value = Number(this.step.value);
     this.root.sliderPlugin('setValue', 'step', value);
   }
 
-  private handleMinChange() {
+  private handleMinChange(): void {
     const value = Number(this.min.value);
     this.root.sliderPlugin('setValue', 'min', value);
   }
 
-  private handleMaxChange() {
+  private handleMaxChange(): void {
     const value = Number(this.max.value);
     this.root.sliderPlugin('setValue', 'max', value);
   }
 
-  private handleOrientationChange() {
+  private handleOrientationChange(): void {
     const { value } = this.orientation;
     this.root.sliderPlugin('setValue', 'orientation', value);
   }
 
-  private handleFillChange() {
+  private handleFillChange(): void {
     const value: boolean = this.fill.checked;
     this.root.sliderPlugin('setValue', 'fill', value);
   }
 
-  private handleRangeChange() {
+  private handleRangeChange(): void {
     const value: boolean = this.range.checked;
     this.root.sliderPlugin('setValue', 'range', value);
     if (value) {
@@ -223,12 +223,12 @@ class DemoBlock {
     }
   }
 
-  private handleLabelsChange() {
+  private handleLabelsChange(): void {
     const value: boolean = this.labels.checked;
     this.root.sliderPlugin('setValue', 'labels', value);
   }
 
-  private handleTooltipsChange() {
+  private handleTooltipsChange(): void {
     const value: boolean = this.tooltips.checked;
     this.root.sliderPlugin('setValue', 'tooltips', value);
   }

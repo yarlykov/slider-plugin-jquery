@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import Presenter from './components/Presenter/Presenter';
 import { IOptions } from './components/interfaces';
 
-type optionsValue = number & string & boolean;
+type optionsValue = number | string | boolean;
 
 const methods = {
   init(this: JQuery, options: IOptions = {}) {
@@ -27,7 +28,7 @@ const methods = {
     sliderPlugin.model.setValue(`${name}`, value);
   },
 
-  onChange(this: JQuery, func: EventListener) {
+  onChange(this: JQuery, func: Function) {
     // eslint-disable-next-line fsd/no-function-declaration-in-event-listener
     $(this).on('onChange', (args) => func(args));
   },
@@ -37,7 +38,7 @@ declare global {
   interface JQuery {
     sliderPlugin: (
       options?: keyof typeof methods | IOptions,
-      name?: string,
+      args?: string | Function,
       value?: optionsValue,
     ) => IOptions;
   }
