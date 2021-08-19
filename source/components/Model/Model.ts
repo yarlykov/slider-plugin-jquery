@@ -48,7 +48,6 @@ class Model extends Observer {
     keyState: K,
     valueState: IOptions[K],
   ): void {
-    let value: number;
     const { range } = this.state;
     const isValueTypeOfNumber = typeof valueState === 'number';
     const isRangeValueFrom =
@@ -57,14 +56,11 @@ class Model extends Observer {
     const isValueTo = keyState === 'valueTo' && isValueTypeOfNumber;
 
     if (isRangeValueFrom) {
-      value = this.validation.checkMinRange(valueState);
-      this.state.valueFrom = value;
+      this.state.valueFrom = this.validation.checkMinRange(valueState);
     } else if (isValueFrom) {
-      value = this.validation.checkValue(valueState);
-      this.state.valueFrom = value;
+      this.state.valueFrom = this.validation.checkValue(valueState);
     } else if (isValueTo) {
-      value = this.validation.checkMaxRange(valueState);
-      this.state.valueTo = value;
+      this.state.valueTo = this.validation.checkMaxRange(valueState);
     } else {
       this.state[keyState] = valueState;
     }

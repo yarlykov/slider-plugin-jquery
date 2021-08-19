@@ -64,14 +64,12 @@ class SecondKnob extends SliderComponent {
     const { valueTo = 0, step = 1 } = this.state;
     const { code } = event;
 
-    let newValue = 0;
-
     if (code === 'ArrowRight' || code === 'ArrowUp') {
-      newValue = valueTo + step;
+      const newValue = valueTo + step;
       this.emit('changeValue', newValue);
     }
     if (code === 'ArrowLeft' || code === 'ArrowDown') {
-      newValue = valueTo - step;
+      const newValue = valueTo - step;
       this.emit('changeValue', newValue);
     }
   }

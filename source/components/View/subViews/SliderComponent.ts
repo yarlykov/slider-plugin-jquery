@@ -49,17 +49,13 @@ class SliderComponent extends Observer {
     pageCoords: coords,
   ): number {
     const horizontal = orientation === 'horizontal';
-    let position = 0;
     const { pageX = 0, pageY = 0 } = pageCoords;
     const { left = 0, bottom = 0, width = 0, height = 0 } = sliderCoords;
 
     if (horizontal) {
-      position = ((pageX - left) / width) * 100;
-    } else {
-      position = ((bottom - pageY) / height) * 100;
+      return ((pageX - left) / width) * 100;
     }
-
-    return position;
+    return ((bottom - pageY) / height) * 100;
   }
 }
 

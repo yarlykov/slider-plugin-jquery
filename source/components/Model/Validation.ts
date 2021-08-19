@@ -51,7 +51,7 @@ class Validation {
       value,
     );
 
-    let correctValue = getValueWithStep(
+    const correctValue = getValueWithStep(
       this.min,
       this.max,
       this.step,
@@ -59,9 +59,9 @@ class Validation {
     );
 
     if (valueInPercent >= 100 && correctValue !== this.max) {
-      correctValue = this.max;
+      return this.max;
     }
-    if (correctValue > this.max) correctValue = this.max;
+    if (correctValue > this.max) return this.max;
 
     return correctValue;
   }
@@ -77,10 +77,9 @@ class Validation {
   }
 
   public checkStep(max: number, step: number): number {
-    let correctStep = step;
-    if (step <= 0) correctStep = 1;
-    if (step > max) correctStep = max;
-    return correctStep;
+    if (step <= 0) return 1;
+    if (step > max) return max;
+    return step;
   }
 
   public checkMinMax(min: number, max: number): void {

@@ -5,10 +5,10 @@ function fromValueToPercent(state: IOptions, value: number): number {
 
   const stepCount = (max - min) / step;
   const stepPercent = 100 / stepCount;
-  let percent = ((value - min) / step) * stepPercent;
+  const percent = ((value - min) / step) * stepPercent;
 
-  if (percent > 100) percent = 100;
-  if (percent < 0) percent = 0;
+  if (percent > 100) return 100;
+  if (percent < 0) return 0;
 
   return percent;
 }

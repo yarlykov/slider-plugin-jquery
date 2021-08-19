@@ -181,98 +181,100 @@ class DemoBlock {
   }
 
   private handleValueFromChange(): void {
-    let value = 0;
-    if (this.valueFrom) value = Number(this.valueFrom.value);
-    this.root.sliderPlugin('setValue', 'valueFrom', value);
+    if (this.valueFrom) {
+      this.root.sliderPlugin(
+        'setValue',
+        'valueFrom',
+        Number(this.valueFrom.value),
+      );
+    }
   }
 
   private handleValueFromKeydown(event: KeyboardEvent): void {
     const { valueFrom = 0, step = 0 } = this.state;
     const { code } = event;
 
-    let newValue = 0;
     if (code === 'ArrowUp' || code === 'ArrowRight') {
-      newValue = valueFrom + step;
+      const newValue = valueFrom + step;
       this.root.sliderPlugin('setValue', 'valueFrom', newValue);
     }
     if (code === 'ArrowDown' || code === 'ArrowLeft') {
-      newValue = valueFrom - step;
+      const newValue = valueFrom - step;
       this.root.sliderPlugin('setValue', 'valueFrom', newValue);
     }
   }
 
   private handleValueToChange(): void {
-    let value = 0;
-    if (this.valueTo) value = Number(this.valueTo.value);
-    this.root.sliderPlugin('setValue', 'valueTo', value);
+    if (this.valueTo) {
+      this.root.sliderPlugin('setValue', 'valueTo', Number(this.valueTo.value));
+    }
   }
 
   private handleValueToKeydown(event: KeyboardEvent): void {
     const { valueTo = 0, step = 0 } = this.state;
     const { code } = event;
 
-    let newValue = 0;
     if (code === 'ArrowUp' || code === 'ArrowRight') {
-      newValue = valueTo + step;
+      const newValue = valueTo + step;
       this.root.sliderPlugin('setValue', 'valueTo', newValue);
     }
     if (code === 'ArrowDown' || code === 'ArrowLeft') {
-      newValue = valueTo - step;
+      const newValue = valueTo - step;
       this.root.sliderPlugin('setValue', 'valueTo', newValue);
     }
   }
 
   private handleStepChange(): void {
-    let value = 0;
-    if (this.step) value = Number(this.step.value);
-    this.root.sliderPlugin('setValue', 'step', value);
+    if (this.step) {
+      this.root.sliderPlugin('setValue', 'step', Number(this.step.value));
+    }
   }
 
   private handleMinChange(): void {
-    let value = 0;
-    if (this.min) value = Number(this.min.value);
-    this.root.sliderPlugin('setValue', 'min', value);
+    if (this.min) {
+      this.root.sliderPlugin('setValue', 'min', Number(this.min.value));
+    }
   }
 
   private handleMaxChange(): void {
-    let value = 0;
-    if (this.max) value = Number(this.max.value);
-    this.root.sliderPlugin('setValue', 'max', value);
+    if (this.max) {
+      this.root.sliderPlugin('setValue', 'max', Number(this.max.value));
+    }
   }
 
   private handleOrientationChange(): void {
-    let value = '';
-    if (this.orientation) value = this.orientation.value;
-    this.root.sliderPlugin('setValue', 'orientation', value);
+    if (this.orientation) {
+      this.root.sliderPlugin('setValue', 'orientation', this.orientation.value);
+    }
   }
 
   private handleFillChange(): void {
-    let value = false;
-    if (this.fill) value = this.fill.checked;
-    this.root.sliderPlugin('setValue', 'fill', value);
+    if (this.fill) {
+      this.root.sliderPlugin('setValue', 'fill', this.fill.checked);
+    }
   }
 
   private handleRangeChange(): void {
-    let value = false;
-    if (this.range) value = this.range.checked;
-    this.root.sliderPlugin('setValue', 'range', value);
-    if (value) {
-      this.root.sliderPlugin('setValue', 'color', 'green');
-    } else {
-      this.root.sliderPlugin('setValue', 'color', 'orange');
+    if (this.range) {
+      this.root.sliderPlugin('setValue', 'range', this.range.checked);
+      if (this.range.checked) {
+        this.root.sliderPlugin('setValue', 'color', 'green');
+      } else {
+        this.root.sliderPlugin('setValue', 'color', 'orange');
+      }
     }
   }
 
   private handleLabelsChange(): void {
-    let value = false;
-    if (this.labels) value = this.labels.checked;
-    this.root.sliderPlugin('setValue', 'labels', value);
+    if (this.labels) {
+      this.root.sliderPlugin('setValue', 'labels', this.labels.checked);
+    }
   }
 
   private handleTooltipsChange(): void {
-    let value = false;
-    if (this.tooltips) value = this.tooltips.checked;
-    this.root.sliderPlugin('setValue', 'tooltips', value);
+    if (this.tooltips) {
+      this.root.sliderPlugin('setValue', 'tooltips', this.tooltips.checked);
+    }
   }
 }
 

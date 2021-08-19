@@ -15,20 +15,18 @@ class Fill extends SliderComponent {
   public update(state: IOptions): void {
     const fill: HTMLElement | null = this.root.querySelector('[data-id="fill"]');
     const { orientation = 'horizontal', range = false } = state;
-    let { valueTo = 100, valueFrom = 0 } = state;
-
+    const { valueTo = 100, valueFrom = 0 } = state;
     const isHorizontal = orientation === 'horizontal';
     const wayOfFilling: string = isHorizontal ? 'width' : 'height';
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
-    valueFrom = fromValueToPercent(state, valueFrom);
+    const newValueFrom = fromValueToPercent(state, valueFrom);
 
     if (fill && range) {
-      valueTo = fromValueToPercent(state, valueTo);
-
-      fill.style[wayOfFilling] = `${valueTo - valueFrom}%`;
-      fill.style[wayOfMove] = `${valueFrom}%`;
+      const newValueTo = fromValueToPercent(state, valueTo);
+      fill.style[wayOfFilling] = `${newValueTo - newValueFrom}%`;
+      fill.style[wayOfMove] = `${newValueFrom}%`;
     } else if (fill) {
-      fill.style[wayOfFilling] = `${valueFrom}%`;
+      fill.style[wayOfFilling] = `${newValueFrom}%`;
     }
   }
 
