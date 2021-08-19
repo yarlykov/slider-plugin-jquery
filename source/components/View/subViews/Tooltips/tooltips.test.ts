@@ -44,19 +44,19 @@ describe('Tooltip:', () => {
 
   test('should update tooltip value', () => {
     tooltip.update({ valueFrom: 10 });
-    const tooltipValue = root.querySelector(
+    const tooltipValue: HTMLElement | null = root.querySelector(
       '[data-id="tooltip-value"]',
-    ) as HTMLElement;
-    expect(tooltipValue.innerText).toBe('10');
+    );
+    if (tooltipValue) expect(tooltipValue.innerText).toBe('10');
   });
 
   test('should not update tooltip value', () => {
     root.innerHTML = '';
     tooltip.update({ valueTo: 10 });
-    const tooltipValue = root.querySelector(
+    const tooltipValue: HTMLElement | null = root.querySelector(
       '[data-id="tooltip-value"]',
-    ) as HTMLElement;
-    expect(tooltipValue).toBeNull();
+    );
+    if (tooltipValue) expect(tooltipValue).toBeNull();
   });
 
   test('should render vertical arrow', () => {
@@ -113,10 +113,10 @@ describe('SecondTooltip:', () => {
 
   test('should update secondTooltip value', () => {
     secondTooltip.update({ valueTo: 10 });
-    const tooltipValue = root.querySelector(
+    const tooltipValue: HTMLElement | null = root.querySelector(
       '[data-id="tooltip-value-second"]',
-    ) as HTMLElement;
-    expect(tooltipValue.innerText).toBe('10');
+    );
+    if (tooltipValue) expect(tooltipValue.innerText).toBe('10');
   });
 
   test('should not update secondTooltip value', () => {
@@ -124,7 +124,7 @@ describe('SecondTooltip:', () => {
     secondTooltip.update({ valueTo: 10 });
     const tooltipValue = root.querySelector(
       '[data-id="tooltip-value-second"]',
-    ) as HTMLElement;
+    );
     expect(tooltipValue).toBeNull();
   });
 

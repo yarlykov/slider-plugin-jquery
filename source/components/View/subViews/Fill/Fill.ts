@@ -13,7 +13,7 @@ class Fill extends SliderComponent {
   }
 
   public update(state: IOptions): void {
-    const fill = this.root.querySelector('[data-id="fill"]') as HTMLElement;
+    const fill: HTMLElement | null = this.root.querySelector('[data-id="fill"]');
     const { orientation = 'horizontal', range = false } = state;
     let { valueTo = 100, valueFrom = 0 } = state;
 

@@ -9,12 +9,12 @@ class Labels extends SliderComponent {
 
     if (this.state.labels) {
       scale.insertAdjacentHTML('beforeend', this.getTemplate());
-      const labels = this.root.querySelector(
+      const labels: HTMLElement | null = this.root.querySelector(
         '[data-id="labels"]',
-      ) as HTMLElement;
+      );
 
       this.onPointerDown = this.onPointerDown.bind(this);
-      labels.addEventListener('pointerdown', this.onPointerDown);
+      if (labels) labels.addEventListener('pointerdown', this.onPointerDown);
     }
   }
 

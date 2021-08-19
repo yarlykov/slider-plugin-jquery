@@ -50,20 +50,24 @@ class Model extends Observer {
   ): void {
     let value: number;
     const { range } = this.state;
-    const isRangeValueFrom = keyState === 'valueFrom' && range;
-    const isValueFrom = keyState === 'valueFrom';
-    const isValueTo = keyState === 'valueTo';
+    const isValueTypeOfNumber = typeof valueState === 'number';
+    const isRangeValueFrom =
+      keyState === 'valueFrom' && range && isValueTypeOfNumber;
+    const isValueFrom = keyState === 'valueFrom' && isValueTypeOfNumber;
+    const isValueTo = keyState === 'valueTo' && isValueTypeOfNumber;
 
     if (isRangeValueFrom) {
-      value = this.validation.checkMinRange(valueState as number);
+      value = this.validation.checkMinRange(valueState);
+      this.state.valueFrom = value;
     } else if (isValueFrom) {
-      value = this.validation.checkValue(valueState as number);
+      value = this.validation.checkValue(valueState);
+      this.state.valueFrom = value;
     } else if (isValueTo) {
-      value = this.validation.checkMaxRange(valueState as number);
+      value = this.validation.checkMaxRange(valueState);
+      this.state.valueTo = value;
     } else {
-      value = valueState as number;
+      this.state[keyState] = valueState;
     }
-    this.state[keyState] = value as IOptions[K];
   }
 
   private isValue<K extends keyof IOptions>(keyState: K): boolean {

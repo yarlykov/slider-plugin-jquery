@@ -24,11 +24,11 @@ describe('Scale: display ', () => {
   });
 
   test('the target must be correctly determined ("scale" or "fill")', () => {
-    const scale = root.querySelector('[data-id="scale"]') as HTMLElement;
-    const fill = root.querySelector('[data-id="fill"]') as HTMLElement;
+    const scale = root.querySelector('[data-id="scale"]');
+    const fill = root.querySelector('[data-id="fill"]');
 
-    scale.dispatchEvent(event);
-    fill.dispatchEvent(event);
+    if (scale) scale.dispatchEvent(event);
+    if (fill) fill.dispatchEvent(event);
   });
 
   test('onPointerDown method should emit valueFrom if range slider scale ', () => {
@@ -38,7 +38,7 @@ describe('Scale: display ', () => {
     scale = new Scale(newState, root);
     const spyEmit = jest.spyOn(scale, 'emit')
     scale.display();
-    scale.scaleNode.dispatchEvent(event);
+    if (scale.scaleNode) scale.scaleNode.dispatchEvent(event);
     expect(spyEmit).toHaveBeenCalledWith('scale:valueFrom', 'NaN');
   });
 });

@@ -1,155 +1,188 @@
 /* eslint-disable */
 import { IOptions } from '../source/components/interfaces';
 
+type InputElement = HTMLInputElement | null | undefined;
+
 class DemoBlock {
   root: JQuery<HTMLElement>;
 
   state: IOptions = {};
 
-  panel!: HTMLElement;
+  panel!: InputElement;
 
-  min!: HTMLInputElement;
+  min!: InputElement;
 
-  max!: HTMLInputElement;
+  max!: InputElement;
 
-  valueFrom!: HTMLInputElement;
+  valueFrom!: InputElement;
 
-  step!: HTMLInputElement;
+  step!: InputElement;
 
-  valueTo!: HTMLInputElement;
+  valueTo!: InputElement;
 
-  orientation!: HTMLSelectElement;
+  orientation!: InputElement;
 
-  fill!: HTMLInputElement;
+  fill!: InputElement;
 
-  range!: HTMLInputElement;
+  range!: InputElement;
 
-  labels!: HTMLInputElement;
+  labels!: InputElement;
 
-  tooltips!: HTMLInputElement;
+  tooltips!: InputElement;
 
   constructor(root: JQuery<HTMLElement>) {
     this.root = root;
   }
 
   public init(): void {
-    this.findDOMElements();
+    this.findInputElements();
     this.pluginSetup();
     this.bindEventListeners();
   }
 
-  private findDOMElements(): void {
+  private findInputElements(): void {
     this.panel = this.root
       .get(0)
-      .parentElement?.querySelector('[data-id="control-panel"]') as HTMLElement;
+      .parentElement?.querySelector('[data-id="control-panel"]');
 
-    this.min = this.panel.querySelector(
-      '[data-title="min"]',
-    ) as HTMLInputElement;
-    this.max = this.panel.querySelector(
-      '[data-title="max"]',
-    ) as HTMLInputElement;
-    this.valueFrom = this.panel.querySelector(
-      '[data-title="from"]',
-    ) as HTMLInputElement;
-    this.step = this.panel.querySelector(
-      '[data-title="step"]',
-    ) as HTMLInputElement;
-    this.valueTo = this.panel.querySelector(
-      '[data-title="to"]',
-    ) as HTMLInputElement;
-    this.orientation = this.panel.querySelector(
-      '[data-title="orientation"]',
-    ) as HTMLSelectElement;
-    this.fill = this.panel.querySelector(
-      '[data-title="fill"]',
-    ) as HTMLInputElement;
-    this.range = this.panel.querySelector(
-      '[data-title="range"]',
-    ) as HTMLInputElement;
-    this.labels = this.panel.querySelector(
-      '[data-title="labels"]',
-    ) as HTMLInputElement;
-    this.tooltips = this.panel.querySelector(
-      '[data-title="tooltips"]',
-    ) as HTMLInputElement;
+    if (this.panel) {
+      this.min = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="min"]')
+      );
+      this.max = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="max"]')
+      );
+      this.valueFrom = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="from"]')
+      );
+      this.step = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="step"]')
+      );
+      this.valueTo = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="to"]')
+      );
+      this.orientation = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="orientation"]')
+      );
+      this.fill = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="fill"]')
+      );
+      this.range = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="range"]')
+      );
+      this.labels = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="labels"]')
+      );
+      this.tooltips = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="tooltips"]')
+      );
+    }
   }
 
   private pluginSetup(): void {
     this.state = this.root.sliderPlugin('getState');
-    this.min.value = `${this.state.min}`;
-    this.max.value = `${this.state.max}`;
-    this.valueFrom.value = `${this.state.valueFrom}`;
-    this.step.value = `${this.state.step}`;
+    if (this.min) this.min.value = `${this.state.min}`;
+    if (this.max) this.max.value = `${this.state.max}`;
+    if (this.valueFrom) this.valueFrom.value = `${this.state.valueFrom}`;
+    if (this.step) this.step.value = `${this.state.step}`;
 
-    if (this.state.range) {
+    if (this.state.range && this.valueTo) {
       this.valueTo.disabled = false;
       this.valueTo.value = `${this.state.valueTo}`;
     }
 
-    this.orientation.value = `${this.state.orientation}`;
-    this.fill.checked = this.state.fill as boolean;
-    this.range.checked = this.state.range as boolean;
-    this.labels.checked = this.state.labels as boolean;
-    this.tooltips.checked = this.state.tooltips as boolean;
+    if (this.orientation) this.orientation.value = `${this.state.orientation}`;
+    if (this.fill && this.state.fill) this.fill.checked = this.state.fill;
+    if (this.range && this.state.range) this.range.checked = this.state.range;
+    if (this.labels && this.state.labels)
+      this.labels.checked = this.state.labels;
+    if (this.tooltips && this.state.tooltips)
+      this.tooltips.checked = this.state.tooltips;
   }
 
   private bindEventListeners(): void {
     this.root.sliderPlugin('onChange', this.handleOnChangeRoot.bind(this));
-    this.valueFrom.addEventListener(
-      'change',
-      this.handleValueFromChange.bind(this),
-    );
-    this.valueFrom.addEventListener(
-      'keydown',
-      this.handleValueFromKeydown.bind(this),
-    );
-    this.valueTo.addEventListener(
-      'change',
-      this.handleValueToChange.bind(this),
-    );
-    this.valueTo.addEventListener(
-      'keydown',
-      this.handleValueToKeydown.bind(this),
-    );
-    this.step.addEventListener('change', this.handleStepChange.bind(this));
-    this.min.addEventListener('change', this.handleMinChange.bind(this));
-    this.max.addEventListener('change', this.handleMaxChange.bind(this));
-    this.orientation.addEventListener(
-      'change',
-      this.handleOrientationChange.bind(this),
-    );
-    this.fill.addEventListener('change', this.handleFillChange.bind(this));
-    this.range.addEventListener('change', this.handleRangeChange.bind(this));
-    this.labels.addEventListener('change', this.handleLabelsChange.bind(this));
-    this.tooltips.addEventListener(
-      'change',
-      this.handleTooltipsChange.bind(this),
-    );
+    if (this.valueFrom) {
+      this.valueFrom.addEventListener(
+        'change',
+        this.handleValueFromChange.bind(this),
+      );
+      this.valueFrom.addEventListener(
+        'keydown',
+        this.handleValueFromKeydown.bind(this),
+      );
+    }
+    if (this.valueTo) {
+      this.valueTo.addEventListener(
+        'change',
+        this.handleValueToChange.bind(this),
+      );
+      this.valueTo.addEventListener(
+        'keydown',
+        this.handleValueToKeydown.bind(this),
+      );
+    }
+    if (this.step)
+      this.step.addEventListener('change', this.handleStepChange.bind(this));
+    if (this.min)
+      this.min.addEventListener('change', this.handleMinChange.bind(this));
+    if (this.max)
+      this.max.addEventListener('change', this.handleMaxChange.bind(this));
+    if (this.orientation)
+      this.orientation.addEventListener(
+        'change',
+        this.handleOrientationChange.bind(this),
+      );
+    if (this.fill)
+      this.fill.addEventListener('change', this.handleFillChange.bind(this));
+    if (this.range)
+      this.range.addEventListener('change', this.handleRangeChange.bind(this));
+    if (this.labels)
+      this.labels.addEventListener(
+        'change',
+        this.handleLabelsChange.bind(this),
+      );
+    if (this.tooltips)
+      this.tooltips.addEventListener(
+        'change',
+        this.handleTooltipsChange.bind(this),
+      );
   }
 
   private handleOnChangeRoot(event: CustomEvent): void {
     this.state = event.detail;
-    if (this.state.range) {
+    const {
+      valueTo,
+      valueFrom,
+      step,
+      min,
+      max,
+      orientation,
+      fill,
+      range,
+      labels,
+      tooltips,
+    } = event.detail;
+    if (this.state.range && this.valueTo) {
       this.valueTo.disabled = false;
-      this.valueTo.value = event.detail.valueTo;
-    } else {
+      this.valueTo.value = valueTo;
+    } else if (this.valueTo) {
       this.valueTo.disabled = true;
     }
-    this.valueFrom.value = event.detail.valueFrom;
-    this.step.value = event.detail.step;
-    this.min.value = event.detail.min;
-    this.max.value = event.detail.max;
-    this.orientation.value = event.detail.orientation;
-    this.fill.checked = event.detail.fill;
-    this.range.checked = event.detail.range;
-    this.labels.checked = event.detail.labels;
-    this.tooltips.checked = event.detail.tooltips;
+    if (this.valueFrom) this.valueFrom.value = valueFrom;
+    if (this.step) this.step.value = step;
+    if (this.min) this.min.value = min;
+    if (this.max) this.max.value = max;
+    if (this.orientation) this.orientation.value = orientation;
+    if (this.fill) this.fill.checked = fill;
+    if (this.range) this.range.checked = range;
+    if (this.labels) this.labels.checked = labels;
+    if (this.tooltips) this.tooltips.checked = tooltips;
   }
 
   private handleValueFromChange(): void {
     let value = 0;
-    value = Number(this.valueFrom.value);
+    if (this.valueFrom) value = Number(this.valueFrom.value);
     this.root.sliderPlugin('setValue', 'valueFrom', value);
   }
 
@@ -169,7 +202,8 @@ class DemoBlock {
   }
 
   private handleValueToChange(): void {
-    const value = Number(this.valueTo.value);
+    let value = 0;
+    if (this.valueTo) value = Number(this.valueTo.value);
     this.root.sliderPlugin('setValue', 'valueTo', value);
   }
 
@@ -189,32 +223,38 @@ class DemoBlock {
   }
 
   private handleStepChange(): void {
-    const value = Number(this.step.value);
+    let value = 0;
+    if (this.step) value = Number(this.step.value);
     this.root.sliderPlugin('setValue', 'step', value);
   }
 
   private handleMinChange(): void {
-    const value = Number(this.min.value);
+    let value = 0;
+    if (this.min) value = Number(this.min.value);
     this.root.sliderPlugin('setValue', 'min', value);
   }
 
   private handleMaxChange(): void {
-    const value = Number(this.max.value);
+    let value = 0;
+    if (this.max) value = Number(this.max.value);
     this.root.sliderPlugin('setValue', 'max', value);
   }
 
   private handleOrientationChange(): void {
-    const { value } = this.orientation;
+    let value = '';
+    if (this.orientation) value = this.orientation.value;
     this.root.sliderPlugin('setValue', 'orientation', value);
   }
 
   private handleFillChange(): void {
-    const value: boolean = this.fill.checked;
+    let value = false;
+    if (this.fill) value = this.fill.checked;
     this.root.sliderPlugin('setValue', 'fill', value);
   }
 
   private handleRangeChange(): void {
-    const value: boolean = this.range.checked;
+    let value = false;
+    if (this.range) value = this.range.checked;
     this.root.sliderPlugin('setValue', 'range', value);
     if (value) {
       this.root.sliderPlugin('setValue', 'color', 'green');
@@ -224,12 +264,14 @@ class DemoBlock {
   }
 
   private handleLabelsChange(): void {
-    const value: boolean = this.labels.checked;
+    let value = false;
+    if (this.labels) value = this.labels.checked;
     this.root.sliderPlugin('setValue', 'labels', value);
   }
 
   private handleTooltipsChange(): void {
-    const value: boolean = this.tooltips.checked;
+    let value = false;
+    if (this.tooltips) value = this.tooltips.checked;
     this.root.sliderPlugin('setValue', 'tooltips', value);
   }
 }

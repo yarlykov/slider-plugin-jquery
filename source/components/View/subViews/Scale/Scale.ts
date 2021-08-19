@@ -1,22 +1,19 @@
 import './scale.scss';
-import {
-  getValueWithStep,
-} from '../../../../utils/utils';
+import { getValueWithStep } from '../../../../utils/utils';
 import SliderComponent from '../SliderComponent';
 
 class Scale extends SliderComponent {
-  public scaleNode!: HTMLElement;
+  public scaleNode!: HTMLElement | null;
 
   public display(): void {
     this.root.innerHTML = '';
     this.root.insertAdjacentHTML('afterbegin', this.getTemplate());
 
-    this.scaleNode = this.root.querySelector(
-      '[data-id="scale"]',
-    ) as HTMLElement;
+    this.scaleNode = this.root.querySelector('[data-id="scale"]');
 
     this.onPointerDown = this.onPointerDown.bind(this);
-    this.scaleNode.addEventListener('pointerdown', this.onPointerDown);
+    if (this.scaleNode)
+      this.scaleNode.addEventListener('pointerdown', this.onPointerDown);
   }
 
   public onPointerDown(event: PointerEvent): void {
@@ -31,7 +28,7 @@ class Scale extends SliderComponent {
         range = false,
       } = this.state;
 
-      const scaleCoords = this.getCoords(this.scaleNode);
+      const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : {};
       const pageCoords = this.getPageCoords(event);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);

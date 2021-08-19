@@ -1,22 +1,19 @@
 import './knobs.scss';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
-import {
-  fromValueToPercent,
-  getValueWithStep,
-} from '../../../../utils/utils';
+import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
 
 class Knob extends SliderComponent {
-  private scale!: HTMLElement;
+  private scale!: HTMLElement | null;
 
-  private knob!: HTMLElement;
+  private knob!: HTMLElement | null;
 
   public display(): void {
-    this.scale = this.root.querySelector('[data-id="scale"]') as HTMLElement;
+    this.scale = this.root.querySelector('[data-id="scale"]');
     if (!this.scale) throw new Error('Scale element is not found');
 
     this.scale.insertAdjacentHTML('beforeend', this.getTemplate());
-    this.knob = this.root.querySelector('[data-id="knob"]') as HTMLElement;
+    this.knob = this.root.querySelector('[data-id="knob"]');
 
     this.addEventListeners();
   }
@@ -47,8 +44,8 @@ class Knob extends SliderComponent {
 
     document.onpointermove = (pointerEvent) => {
       pointerEvent.preventDefault();
-      this.knob.ondragstart = () => false;
-      const scaleCoords = this.getCoords(this.scale);
+      if (this.knob) this.knob.ondragstart = () => false;
+      const scaleCoords = this.scale ? this.getCoords(this.scale) : {};
       const pageCoords = this.getPageCoords(pointerEvent);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
@@ -81,8 +78,10 @@ class Knob extends SliderComponent {
   private addEventListeners(): void {
     this.onPointerDown = this.onPointerDown.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    this.knob.addEventListener('pointerdown', this.onPointerDown);
-    this.knob.addEventListener('keydown', this.onKeyDown);
+    if (this.knob) {
+      this.knob.addEventListener('pointerdown', this.onPointerDown);
+      this.knob.addEventListener('keydown', this.onKeyDown);
+    }
   }
 
   private getTemplate(): string {
