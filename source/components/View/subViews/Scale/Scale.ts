@@ -1,6 +1,6 @@
 import './scale.scss';
-import { getValueWithStep } from '../../../../utils/utils';
 import SliderComponent from '../SliderComponent';
+import { getValueWithStep } from '../../../../utils/utils';
 
 class Scale extends SliderComponent {
   public scaleNode!: HTMLElement | null;

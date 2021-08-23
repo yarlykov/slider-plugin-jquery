@@ -1,5 +1,4 @@
-import { IOptions } from '../../interfaces';
-import { coords } from '../../interfaces';
+import { IOptions, Coords } from '../../interfaces';
 import Observer from '../../../Observer/Observer';
 
 class SliderComponent extends Observer {
@@ -17,7 +16,7 @@ class SliderComponent extends Observer {
     this.state = { ...state };
   }
 
-  public getCoords(elem: HTMLElement): coords {
+  public getCoords(elem: HTMLElement): Coords {
     const boxLeft = elem.getBoundingClientRect().left;
     const boxTop = elem.getBoundingClientRect().top;
     const boxRight = elem.getBoundingClientRect().right;
@@ -33,7 +32,7 @@ class SliderComponent extends Observer {
     };
   }
 
-  public getPageCoords(event: PointerEvent): coords {
+  public getPageCoords(event: PointerEvent): Coords {
     const { pageX } = event;
     const { pageY } = event;
 
@@ -45,8 +44,8 @@ class SliderComponent extends Observer {
 
   public getPosition(
     orientation: string,
-    sliderCoords: coords,
-    pageCoords: coords,
+    sliderCoords: Coords,
+    pageCoords: Coords,
   ): number {
     const horizontal = orientation === 'horizontal';
     const { pageX = 0, pageY = 0 } = pageCoords;

@@ -1,6 +1,6 @@
+import { SliderFactory } from './Factories/factories';
 import { Components, ComponentsList, IOptions } from '../interfaces';
 import Observer from '../../Observer/Observer';
-import { SliderFactory } from './Factories/factories';
 
 class View extends Observer {
   public componentList!: ComponentsList;

@@ -1,6 +1,6 @@
 import './knobs.scss';
-import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
+import { IOptions } from '../../../interfaces';
 import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
 
 class Knob extends SliderComponent {

@@ -2,9 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { IOptions } from '../../../interfaces';
 import Knob from './Knob';
 import SecondKnob from './SecondKnob';
+import { IOptions } from '../../../interfaces';
 
 const initialState: IOptions = {
   min: 0,

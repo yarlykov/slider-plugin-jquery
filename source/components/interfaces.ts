@@ -1,9 +1,9 @@
-import Fill from "./View/subViews/Fill/Fill";
-import Knob from "./View/subViews/Knobs/Knob";
-import SecondKnob from "./View/subViews/Knobs/SecondKnob";
-import Labels from "./View/subViews/Labels/Labels";
-import Scale from "./View/subViews/Scale/Scale";
-import { SecondTooltip, Tooltip } from "./View/subViews/Tooltips/Tooltips";
+import Fill from './View/subViews/Fill/Fill';
+import Knob from './View/subViews/Knobs/Knob';
+import SecondKnob from './View/subViews/Knobs/SecondKnob';
+import Labels from './View/subViews/Labels/Labels';
+import Scale from './View/subViews/Scale/Scale';
+import { SecondTooltip, Tooltip } from './View/subViews/Tooltips/Tooltips';
 
 interface IOptions {
   min?: number;
@@ -19,13 +19,15 @@ interface IOptions {
   color?: string;
 }
 
-type EventCallback = (data?: IOptions | number | string) => void;
-
 interface Events {
   [key: string]: EventCallback[];
 }
 
-type coords = {
+type EventCallback = (data?: IOptions | number | string) => void;
+
+type OptionValue = number | string | boolean | undefined;
+
+type Coords = {
   pageX?: number;
   pageY?: number;
   left?: number;
@@ -35,13 +37,13 @@ type coords = {
 };
 
 type ComponentsList = {
-  Scale?: Scale,
-  Fill?: Fill,
-  Knob?: Knob,
-  SecondKnob?: SecondKnob,
-  Labels?: Labels,
-  Tooltip?: Tooltip,
-  SecondTooltip?: SecondTooltip,
+  Scale?: Scale;
+  Fill?: Fill;
+  Knob?: Knob;
+  SecondKnob?: SecondKnob;
+  Labels?: Labels;
+  Tooltip?: Tooltip;
+  SecondTooltip?: SecondTooltip;
 };
 
 type Components = [
@@ -54,4 +56,12 @@ type Components = [
   SecondTooltip?,
 ];
 
-export { IOptions, EventCallback, Events, ComponentsList, Components, coords };
+export {
+  IOptions,
+  EventCallback,
+  Events,
+  ComponentsList,
+  Components,
+  Coords,
+  OptionValue,
+};

@@ -2,9 +2,9 @@
  * @jest-environment jsdom
  */
 
-import defaultState from '../../../../defaultState';
-import View from '../../View';
 import Scale from './Scale';
+import View from '../../View';
+import defaultState from '../../../../defaultState';
 
 describe('Scale: display ', () => {
   let scale: Scale;

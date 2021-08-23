@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { IOptions, OptionValue } from './components/interfaces';
 import Presenter from './components/Presenter/Presenter';
-import { IOptions } from './components/interfaces';
-
-type optionsValue = number | string | boolean;
 
 const methods = {
   init(this: JQuery, options: IOptions = {}) {
@@ -23,7 +21,7 @@ const methods = {
     return state;
   },
 
-  setValue(this: JQuery, name: string, value: optionsValue): void {
+  setValue(this: JQuery, name: string, value: OptionValue): void {
     const sliderPlugin = $(this).data('sliderPlugin');
     sliderPlugin.model.setValue(`${name}`, value);
   },
@@ -39,7 +37,7 @@ declare global {
     sliderPlugin: (
       options?: keyof typeof methods | IOptions,
       args?: string | Function,
-      value?: optionsValue,
+      value?: OptionValue,
     ) => IOptions;
   }
 }
