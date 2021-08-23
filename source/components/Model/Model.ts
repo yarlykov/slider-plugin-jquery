@@ -1,9 +1,9 @@
-import Observer from '../../Observer/Observer';
-import defaultState from '../../defaultState';
-import { IOptions } from '../interfaces';
 import Validation from './Validation';
+import { IOptions, OptionValue } from '../interfaces';
+import defaultState from '../../defaultState';
+import Observer from '../../Observer/Observer';
 
-type stateValue = number | string | boolean | undefined;
+type Option = keyof IOptions;
 
 class Model extends Observer {
   public state: IOptions = defaultState;
@@ -26,48 +26,45 @@ class Model extends Observer {
     return this.state;
   }
 
-  public getValue<K extends keyof IOptions>(keyState: K): stateValue {
-    return this.state[keyState];
+  public getValue(option: Option): OptionValue {
+    return this.state[option];
   }
 
-  public setValue<K extends keyof IOptions>(
-    keyState: K,
-    valueState: IOptions[K],
-  ): void {
-    this.checkStateValue(keyState, valueState);
+  public setValue(option: Option, optionValue: OptionValue): void {
+    this.checkStateValue(option, optionValue);
     this.state = this.validation.checkState(this.state);
 
-    if (this.isValue(keyState)) {
+    if (this.isValue(option)) {
       this.emit('valueChanged', this.state);
     } else {
       this.emit('stateChanged', this.state);
     }
   }
 
-  private checkStateValue<K extends keyof IOptions>(
-    keyState: K,
-    valueState: IOptions[K],
+  private checkStateValue<Option extends keyof IOptions>(
+    option: Option,
+    optionValue: IOptions[Option],
   ): void {
     const { range } = this.state;
-    const isValueTypeOfNumber = typeof valueState === 'number';
+    const isValueTypeOfNumber = typeof optionValue === 'number';
     const isRangeValueFrom =
-      keyState === 'valueFrom' && range && isValueTypeOfNumber;
-    const isValueFrom = keyState === 'valueFrom' && isValueTypeOfNumber;
-    const isValueTo = keyState === 'valueTo' && isValueTypeOfNumber;
+      option === 'valueFrom' && range && isValueTypeOfNumber;
+    const isValueFrom = option === 'valueFrom' && isValueTypeOfNumber;
+    const isValueTo = option === 'valueTo' && isValueTypeOfNumber;
 
     if (isRangeValueFrom) {
-      this.state.valueFrom = this.validation.checkMinRange(valueState);
+      this.state.valueFrom = this.validation.checkMinRange(optionValue);
     } else if (isValueFrom) {
-      this.state.valueFrom = this.validation.checkValue(valueState);
+      this.state.valueFrom = this.validation.checkValue(optionValue);
     } else if (isValueTo) {
-      this.state.valueTo = this.validation.checkMaxRange(valueState);
+      this.state.valueTo = this.validation.checkMaxRange(optionValue);
     } else {
-      this.state[keyState] = valueState;
+      this.state[option] = optionValue;
     }
   }
 
-  private isValue<K extends keyof IOptions>(keyState: K): boolean {
-    return keyState === 'valueFrom' || keyState === 'valueTo';
+  private isValue(option: Option): boolean {
+    return option === 'valueFrom' || option === 'valueTo';
   }
 }
 
