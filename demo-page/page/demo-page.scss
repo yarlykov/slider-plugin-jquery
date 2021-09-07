@@ -1,24 +1,24 @@
-@import '../components/control-panel/control-panel.scss';
+@import "../components/control-panel/control-panel.scss";
 
 .demo-page {
   display: grid;
   grid-gap: 16px;
   grid-template: 1fr 1fr/1fr 1fr;
-  min-height: 688px;
-  max-width: 1980px;
   box-sizing: border-box;
+  max-width: 1980px;
+  min-height: 688px;
   margin: 0 auto;
   padding: 16px;
 
   @media (max-width: 1279px) {
     grid-template: 1fr/1fr;
-  } 
+  }
 
   &__block {
-    box-sizing: border-box;
     display: flex;
+    box-sizing: border-box;
     padding: 16px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
   }
 }
 
@@ -30,5 +30,5 @@
   padding: 0;
   overflow: hidden;
   border: 0;
-  clip: rect(0 0 0 0)
+  clip: rect(0 0 0 0);
 }

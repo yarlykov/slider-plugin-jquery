@@ -3,16 +3,16 @@
     position: absolute;
     border-radius: 3px;
     cursor: pointer;
-    touch-action: none;
     -ms-touch-action: none;
+    touch-action: none;
 
     &_horizontal {
       height: 8px;
     }
 
     &_vertical {
-      width: 8px;
       bottom: 0;
+      width: 8px;
     }
 
     &_orange {

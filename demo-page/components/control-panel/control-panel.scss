@@ -1,23 +1,24 @@
-/* Chrome, Safari, Edge, Opera */
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
 /* Firefox */
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
 .control-panel {
-  padding: 8px;
-  margin-right: 16px;
   min-width: 240px;
   max-width: 240px;
   min-height: 288px;
-  border-radius: 3px;
-  background: rgba(229, 229, 229, 0.4);
+  margin-right: 16px;
+  padding: 8px;
   font-family: Lato, Helvetica, sans-serif;
+  background: rgba(229, 229, 229, 0.4);
+  border-radius: 3px;
 
   &__block-control {
     padding-bottom: 8px;
@@ -33,37 +34,35 @@ input[type='number'] {
   &__title {
     display: inline-flex;
     justify-content: center;
-    width: 100%;
     box-sizing: border-box;
+    width: 100%;
     font-size: 18px;
     line-height: 22px;
     cursor: pointer;
   }
 
   &__input {
-    width: 108px;
     box-sizing: border-box;
-    border-radius: 3px;
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    font-size: 16px;
-    padding-right: 4px;
+    width: 108px;
     padding-top: 2px;
+    padding-right: 4px;
+    font-size: 16px;
     text-align: end;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
   }
 
   &__select {
-    min-width: 108px;
     box-sizing: border-box;
-    border-radius: 3px;
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    min-width: 108px;
     font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
   }
 
   &__checkbox {
     min-width: 108px;
-    width: 108px;
     min-height: 20px;
-    height: 20px;
     margin: 0;
   }
 }

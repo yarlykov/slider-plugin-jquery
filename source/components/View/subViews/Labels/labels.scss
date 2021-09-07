@@ -4,20 +4,19 @@
     color: #c4c4c4;
 
     &_horizontal {
-      width: 100%;
       top: 18px;
+      width: 100%;
     }
 
     &_vertical {
-      height: 100%;
       left: 18px;
+      height: 100%;
     }
   }
 
   &__labels-item {
     position: absolute;
-    font-family: Lato, sans-serif;
-    font-size: 12px;
+    font: 12px Lato, sans-serif;
     transform: translateX(-50%);
 
     &:hover {
