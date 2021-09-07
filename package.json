@@ -12,7 +12,8 @@
     "build": "webpack --mode production",
     "lint": "eslint source",
     "lint:fix": "eslint source --fix",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "stylelint": "stylelint 'source/**/*{.css,.scss}'"
   },
   "repository": {
     "type": "git",
@@ -55,9 +56,17 @@
     "jest": "27.0.4",
     "mini-css-extract-plugin": "^1.6.0",
     "node-sass": "^6.0.0",
+    "prettier": "^2.3.2",
     "pug": "^3.0.2",
     "pug-loader": "^2.4.0",
     "sass-loader": "^12.1.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-prettier": "^1.2.0",
+    "stylelint-scss": "^3.20.1",
     "terser-webpack-plugin": "^5.1.4",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.2",
