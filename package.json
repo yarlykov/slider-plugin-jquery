@@ -13,7 +13,7 @@
     "lint": "eslint source",
     "lint:fix": "eslint source --fix",
     "deploy": "npm run build && gh-pages -d dist",
-    "stylelint": "stylelint 'source/**/*{.css,.scss}'"
+    "stylelint": "stylelint \"source/**/*.scss\""
   },
   "repository": {
     "type": "git",

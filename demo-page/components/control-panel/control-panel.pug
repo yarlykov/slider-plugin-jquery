@@ -2,33 +2,34 @@ mixin control-panel( controlPanel={} )
   - const { controls=[], viewElements=[] } = controlPanel
 
   .control-panel(data-id="control-panel")
-    .control-panel__block-control
-      each control in controls
-        .control-panel__row
-          label.control-panel__control
-            input.control-panel__input&attributes({
-              type: control.type,
-              value: control.value,
-              "data-title": control.title,
-              disabled: control.disabled,
-            })
-            span.control-panel__title #{control.title}
-
-    .control-panel__block-view
-      each viewElement in viewElements
-        .control-panel__row
-          if viewElement.type === 'select'
+    .control-panel__container
+      .control-panel__block-control
+        each control in controls
+          .control-panel__row
             label.control-panel__control
-              select.control-panel__select(name='select' data-title='orientation')
-                option(value=`${viewElement.option[0]}`) #{viewElement.option[0]}
-                option(value=`${viewElement.option[1]}`) #{viewElement.option[1]}
-              span.control-panel__title #{viewElement.title}
-          else if viewElement.type === 'checkbox'
-            label.control-panel__control
-              input.control-panel__checkbox&attributes({
-                type: viewElement.type,
-                "data-title": viewElement.title,
-                checked: viewElement.checked
+              input.control-panel__input&attributes({
+                type: control.type,
+                value: control.value,
+                "data-title": control.title,
+                disabled: control.disabled,
               })
-              span.control-panel__title #{viewElement.title}
+              span.control-panel__title #{control.title}
+
+      .control-panel__block-view
+        each viewElement in viewElements
+          .control-panel__row
+            if viewElement.type === 'select'
+              label.control-panel__control
+                select.control-panel__select(name='select' data-title='orientation')
+                  option(value=`${viewElement.option[0]}`) #{viewElement.option[0]}
+                  option(value=`${viewElement.option[1]}`) #{viewElement.option[1]}
+                span.control-panel__title #{viewElement.title}
+            else if viewElement.type === 'checkbox'
+              label.control-panel__control
+                input.control-panel__checkbox&attributes({
+                  type: viewElement.type,
+                  "data-title": viewElement.title,
+                  checked: viewElement.checked
+                })
+                span.control-panel__title #{viewElement.title}
 

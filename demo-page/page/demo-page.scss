@@ -1,22 +1,21 @@
 @import "../components/control-panel/control-panel.scss";
 
 .demo-page {
-  display: grid;
-  grid-gap: 16px;
-  grid-template: 1fr 1fr/1fr 1fr;
-  box-sizing: border-box;
-  max-width: 1980px;
-  min-height: 688px;
-  margin: 0 auto;
-  padding: 16px;
+  &__container {
+    display: grid;
+    grid-gap: 16px;
+    grid-template: 1fr 1fr/1fr 1fr;
+    max-width: 1980px;
+    margin: 0 auto;
+    padding: 16px;
 
-  @media (max-width: 1279px) {
-    grid-template: 1fr/1fr;
+    @media (max-width: 1279px) {
+      grid-template: 1fr/1fr;
+    }
   }
 
   &__block {
     display: flex;
-    box-sizing: border-box;
     padding: 16px;
     border: 1px solid #e5e5e5;
   }
