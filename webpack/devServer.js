@@ -1,9 +1,9 @@
 module.exports = function () {
   return {
     devServer: {
+      static: './dist',
       port: 8082,
-      index: 'index.html',
-      open: true,
+      open: 'index.html',
     },
   };
 };
