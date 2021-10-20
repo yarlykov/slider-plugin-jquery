@@ -79,7 +79,7 @@ class Validation {
   public checkStep(max: number, step: number): number {
     if (step <= 0) return 1;
     if (step > max) return max;
-    return Math.trunc(step);
+    return Math.round(step);
   }
 
   public checkMinMax(min: number, max: number): void {
@@ -89,8 +89,8 @@ class Validation {
       min = max;
       max = swap;
     }
-    this.min = Math.trunc(min);
-    this.max = Math.trunc(max);
+    this.min = Math.round(min);
+    this.max = Math.round(max);
   }
 
   public checkRangeMinMax(valueFrom: number, valueTo: number): void {
