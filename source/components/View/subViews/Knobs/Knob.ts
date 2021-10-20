@@ -44,7 +44,10 @@ class Knob extends SliderComponent {
 
     document.onpointermove = (pointerEvent) => {
       pointerEvent.preventDefault();
-      if (this.knob) this.knob.ondragstart = () => false;
+      if (this.knob) {
+        this.knob.ondragstart = () => false;
+        this.knob.style.zIndex = '1';
+      }
       const scaleCoords = this.scale ? this.getCoords(this.scale) : {};
       const pageCoords = this.getPageCoords(pointerEvent);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);

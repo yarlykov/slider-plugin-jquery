@@ -8,11 +8,14 @@ class SecondKnob extends SliderComponent {
 
   secondKnob!: HTMLElement | null;
 
+  knob!: HTMLElement | null;
+
   public display(): void {
     this.scale = this.root.querySelector('[data-id="scale"]');
     if (!this.scale) throw new Error('Scale element is not found');
 
     this.scale.insertAdjacentHTML('beforeend', this.getTemplate());
+    this.knob = this.root.querySelector('[data-id="knob"]');
     this.secondKnob = this.root.querySelector('[data-knob="second"]');
 
     this.addEventListeners();
@@ -45,6 +48,7 @@ class SecondKnob extends SliderComponent {
     document.onpointermove = (pointerEvent) => {
       pointerEvent.preventDefault();
       if (this.secondKnob) this.secondKnob.ondragstart = () => false;
+      if (this.knob) this.knob.style.zIndex = '0';
       const scaleCoords = this.scale ? this.getCoords(this.scale) : {};
 
       const pageCoords = this.getPageCoords(pointerEvent);
