@@ -55,7 +55,7 @@ describe('Knob:', () => {
     root.innerHTML = '';
     knob.update({});
     expect(knobNode.style.left).toBe('');
-    expect(knobNode.style.bottom).toBe('');
+    expect(knobNode.style.bottom).toBe('0%');
   });
 
   test('event "keydown" ArrowRight should emit changeValue 1', () => {
@@ -117,7 +117,7 @@ describe('SecondKnob:', () => {
   test('if not knob should not update left or bottom value', () => {
     root.innerHTML = '';
     secondKnob.update({});
-    expect(knobNode.style.left).toBe('');
+    expect(knobNode.style.left).toBe('0%');
     expect(knobNode.style.bottom).toBe('');
   });
 

@@ -15,11 +15,11 @@ class Validation {
 
   public checkState(state: IOptions): IOptions {
     this.min = state.min || 0;
-    this.max = state.max || 0;
+    this.max = state.max || this.min + 1;
     this.step = state.step || 1;
     this.valueFrom = state.valueFrom || 0;
     this.valueTo = state.valueTo || 0;
-
+    
     this.checkMinMax(this.min, this.max);
     this.step = this.checkStep(this.max, this.step);
 
@@ -78,12 +78,16 @@ class Validation {
 
   public checkStep(max: number, step: number): number {
     if (step <= 0) return 1;
+    if (max === 0) return 1;
     if (step > max) return max;
     return Math.round(step);
   }
 
   public checkMinMax(min: number, max: number): void {
     let swap = 0;
+    if (min === max) {
+      max += 1;
+    }
     if (min >= max) {
       swap = min;
       min = max;

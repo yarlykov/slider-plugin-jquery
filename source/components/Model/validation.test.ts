@@ -30,8 +30,8 @@ describe('Validation:', () => {
         valueTo: 70,
       },
       two: {
-        min: 100,
-        max: 0,
+        min: 200,
+        max: 100,
         step: 0,
         valueFrom: 20,
         valueTo: 70,
@@ -48,21 +48,27 @@ describe('Validation:', () => {
         step: 25,
         valueFrom: 125,
       },
+      five: {
+        min: 1,
+        max: 1,
+        step: 0,
+        valueFrom: 1,
+      },
     };
 
     const correctState = {
       one: {
-        min: 0,
-        max: 100,
+        min: 100,
+        max: 101,
         step: 25,
-        valueFrom: 25,
+        valueFrom: 100,
         valueTo: 70,
       },
       two: {
-        min: 0,
-        max: 100,
+        min: 100,
+        max: 200,
         step: 1,
-        valueFrom: 20,
+        valueFrom: 100,
         valueTo: 70,
       },
       three: {
@@ -79,6 +85,13 @@ describe('Validation:', () => {
         valueFrom: 120,
         valueTo: 0,
       },
+      five: {
+        min: 1,
+        max: 2,
+        step: 1,
+        valueFrom: 1,
+        valueTo: 0,
+      },
     };
     expect(validation.checkState(invalidState.one)).toEqual(correctState.one);
     expect(validation.checkState(invalidState.two)).toEqual(correctState.two);
@@ -86,6 +99,7 @@ describe('Validation:', () => {
       correctState.three,
     );
     expect(validation.checkState(invalidState.four)).toEqual(correctState.four);
+    expect(validation.checkState(invalidState.five)).toEqual(correctState.five);
   });
 
   test('checkValue should return a correct value', () => {
@@ -128,6 +142,7 @@ describe('Validation:', () => {
 
   test('checkStep should return a correct value', () => {
     expect(validation.checkStep(100, 0)).toEqual(1);
+    expect(validation.checkStep(0, 100)).toEqual(1);
     expect(validation.checkStep(100, -100)).toEqual(1);
     expect(validation.checkStep(100, 150)).toEqual(100);
   });
