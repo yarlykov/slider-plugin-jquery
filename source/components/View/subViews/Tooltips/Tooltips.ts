@@ -28,7 +28,7 @@ class Tooltip extends SliderComponent {
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
-      <div class="slider__tooltip slider__tooltip_${orientation} slider__tooltip_${color}">
+      <div class="slider__tooltip slider__tooltip_${orientation} slider__tooltip_${color}" data-tooltip="first">
         <span class="tooltip__value" data-id="tooltip-value"></span>
         <div class="slider__tooltip_arrow ${verticalTooltipClass}"></div>
       </div>
@@ -49,13 +49,60 @@ class SecondTooltip extends SliderComponent {
   }
 
   public update(state: IOptions): void {
-    const tooltipSecond: HTMLElement | null = this.root.querySelector(
+    const tooltipValueSecond: HTMLElement | null = this.root.querySelector(
       '[data-id="tooltip-value-second"]',
     );
-    if (tooltipSecond) tooltipSecond.innerText = `${state.valueTo}`;
+    const tooltipFirst: HTMLElement | null = this.root.querySelector(
+      '[data-tooltip="first"]',
+    );
+    const tooltipSecond: HTMLElement | null = this.root.querySelector(
+      '[data-tooltip="second"]',
+    );
+    const { orientation = 'horizontal' } = this.state;
+
+    const coords = this.getTooltipsCoords();
+    const {firstRight, firstTop, secondLeft, secondBottom } = coords;
+  
+    const hasTooltips = tooltipFirst 
+      && tooltipSecond 
+      && tooltipValueSecond;
+    const hasTwoHorizontalNearby = orientation === 'horizontal' 
+      && firstRight >= secondLeft
+    const hasTwoVerticalNearby = orientation === 'vertical' 
+      && secondBottom >= firstTop
+    const hasTooltipsNearby = hasTwoHorizontalNearby  || hasTwoVerticalNearby;
+
+    if (hasTooltips) {
+      if (hasTooltipsNearby) {
+        tooltipFirst.style.visibility = 'hidden'
+        tooltipValueSecond.innerText = `${state.valueFrom} \u2013 ${state.valueTo}`
+        tooltipSecond?.classList.add('slider__tooltip_double')
+      } else {
+        tooltipFirst.style.visibility = 'visible'
+        tooltipValueSecond.innerText = `${state.valueTo}`
+      }
+    } else if (tooltipValueSecond) {
+      tooltipValueSecond.innerText = `${state.valueTo}`
+    }
   }
 
-   private getTemplate(): string {
+  private getTooltipsCoords() {
+    const tooltipFirst: HTMLElement | null = this.root.querySelector(
+      '[data-tooltip="first"]',
+    );
+    const tooltipSecond: HTMLElement | null = this.root.querySelector(
+      '[data-tooltip="second"]',
+    );
+
+    return {
+      firstRight: tooltipFirst?.getBoundingClientRect().right || 0,
+      firstTop: tooltipFirst?.getBoundingClientRect().top || 0,
+      secondLeft: tooltipSecond?.getBoundingClientRect().left || 0,
+      secondBottom: tooltipSecond?.getBoundingClientRect().bottom || 0,
+    }
+  }
+
+  private getTemplate(): string {
     const { orientation = 'horizontal', color = 'orange' } = this.state;
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
