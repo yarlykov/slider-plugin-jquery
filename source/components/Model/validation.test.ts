@@ -60,7 +60,7 @@ describe('Validation:', () => {
       one: {
         min: 100,
         max: 101,
-        step: 25,
+        step: 1,
         valueFrom: 100,
         valueTo: 70,
       },
@@ -141,9 +141,9 @@ describe('Validation:', () => {
   });
 
   test('checkStep should return a correct value', () => {
-    expect(validation.checkStep(100, 0)).toEqual(1);
-    expect(validation.checkStep(0, 100)).toEqual(1);
-    expect(validation.checkStep(100, -100)).toEqual(1);
-    expect(validation.checkStep(100, 150)).toEqual(100);
+    expect(validation.checkStep(101, 100, 0)).toEqual(1);
+    expect(validation.checkStep(100, 0, 100)).toEqual(1);
+    expect(validation.checkStep(100, 101, 50)).toEqual(1);
+    expect(validation.checkStep(0, 100, 150)).toEqual(100);
   });
 });

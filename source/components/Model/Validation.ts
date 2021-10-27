@@ -21,7 +21,7 @@ class Validation {
     this.valueTo = state.valueTo || 0;
     
     this.checkMinMax(this.min, this.max);
-    this.step = this.checkStep(this.max, this.step);
+    this.step = this.checkStep(this.min, this.max, this.step);
 
     if (state.range) {
       this.checkMinRange(this.valueFrom);
@@ -76,25 +76,32 @@ class Validation {
     return this.checkValue(value);
   }
 
-  public checkStep(max: number, step: number): number {
-    if (step <= 0) return 1;
+  public checkStep(min: number, max: number, step: number): number {
+    const difference = max - min;
+    const correctStep = Math.round(step);
+    
+    if (correctStep <= 0) return 1;
     if (max === 0) return 1;
-    if (step > max) return max;
-    return Math.round(step);
+    if (correctStep > difference) return difference;
+    return correctStep;
   }
 
   public checkMinMax(min: number, max: number): void {
     let swap = 0;
-    if (min === max) {
-      max += 1;
+    let correctMin = Math.round(min);
+    let correctMax = Math.round(max);
+
+    if (correctMin === correctMax) {
+      correctMax += 1;
     }
-    if (min >= max) {
-      swap = min;
-      min = max;
-      max = swap;
+    if (correctMin >= correctMax) {
+      swap = correctMin;
+      correctMin = correctMax;
+      correctMax = swap;
     }
-    this.min = Math.round(min);
-    this.max = Math.round(max);
+    
+    this.min = correctMin;
+    this.max = correctMax;
   }
 
   public checkRangeMinMax(valueFrom: number, valueTo: number): void {
