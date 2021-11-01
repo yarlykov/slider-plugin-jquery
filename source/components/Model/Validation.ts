@@ -58,7 +58,8 @@ class Validation {
       valueInPercent,
     );
 
-    if (valueInPercent >= 100 && correctValue !== this.max) {
+    const isMoreOneHundredNotEqualMax = valueInPercent >= 100 && correctValue !== this.max;
+    if (isMoreOneHundredNotEqualMax) {
       return this.max;
     }
     if (correctValue > this.max) return this.max;
