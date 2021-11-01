@@ -1,7 +1,8 @@
-import Validation from './Validation';
-import { IOptions, OptionValue } from '../interfaces';
-import defaultState from '../../defaultState';
 import Observer from '../../Observer/Observer';
+import { ModelEvents } from '../../Observer/events';
+import defaultState from '../../defaultState';
+import { IOptions, OptionValue } from '../interfaces';
+import Validation from './Validation';
 
 type Option = keyof IOptions;
 
@@ -19,7 +20,7 @@ class Model extends Observer {
     const newState = { ...this.state, ...state };
     this.state = this.validation.checkState(newState);
 
-    this.emit('stateChanged', this.state);
+    this.emit(ModelEvents.STATE_CHANGED, this.state);
   }
 
   public getState(): IOptions {
@@ -35,9 +36,9 @@ class Model extends Observer {
     this.state = this.validation.checkState(this.state);
 
     if (this.isValue(option)) {
-      this.emit('valueChanged', this.state);
+      this.emit(ModelEvents.VALUE_CHANGED, this.state);
     } else {
-      this.emit('stateChanged', this.state);
+      this.emit(ModelEvents.STATE_CHANGED, this.state);
     }
   }
 

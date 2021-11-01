@@ -1,6 +1,7 @@
-import { SliderFactory } from './Factories/factories';
-import { Components, ComponentsList, IOptions } from '../interfaces';
+import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from '../../Observer/events';
 import Observer from '../../Observer/Observer';
+import { Components, ComponentsList, IOptions } from '../interfaces';
+import { SliderFactory } from './Factories/factories';
 
 class View extends Observer {
   public componentList!: ComponentsList;
@@ -60,20 +61,20 @@ class View extends Observer {
   /* istanbul ignore next */
   private bindScaleEvents(): void {
     if (this.componentList.Scale) {
-      this.componentList.Scale.subscribe('scale:valueFrom', (valueFrom) =>
-        this.emit('valueFromChanged', valueFrom),
+      this.componentList.Scale.subscribe(ScaleEvents.VALUE_FROM_CHANGED, (valueFrom) =>
+        this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
       );
 
-      this.componentList.Scale.subscribe('scale:valueTo', (valueTo) =>
-        this.emit('valueToChanged', valueTo),
+      this.componentList.Scale.subscribe(ScaleEvents.VALUE_TO_CHANGED, (valueTo) =>
+        this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
       );
 
-      this.componentList.Scale.subscribe('scale:target', (event) => {
+      this.componentList.Scale.subscribe(ScaleEvents.TARGET_TRIGGERED, (event) => {
         if (this.componentList.Knob)
           this.componentList.Knob.onPointerDown(event as PointerEvent);
       });
 
-      this.componentList.Scale.subscribe('scale:targetMax', (event) => {
+      this.componentList.Scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, (event) => {
         if (this.componentList.SecondKnob)
           this.componentList.SecondKnob.onPointerDown(event as PointerEvent);
       });
@@ -82,26 +83,26 @@ class View extends Observer {
   /* istanbul ignore next */
   private bindKnobsEvents(): void {
     if (this.componentList.Knob) {
-      this.componentList.Knob.subscribe('changeValue', (valueFrom) =>
-        this.emit('valueFromChanged', valueFrom),
+      this.componentList.Knob.subscribe(KnobEvents.VALUE_CHANGED, (valueFrom) =>
+        this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
       );
     }
 
     if (this.type === 'range' && this.componentList.SecondKnob) {
-      this.componentList.SecondKnob.subscribe('changeValue', (valueFrom) =>
-        this.emit('valueToChanged', valueFrom),
+      this.componentList.SecondKnob.subscribe(KnobEvents.VALUE_CHANGED, (valueTo) =>
+        this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
       );
     }
   }
   /* istanbul ignore next */
   private bindLabelsEvents(): void {
     if (this.componentList.Labels) {
-      this.componentList.Labels.subscribe('labels:valueFrom', (valueFrom) =>
-        this.emit('valueFromChanged', valueFrom),
+      this.componentList.Labels.subscribe(LabelsEvents.VALUE_FROM_CHANGED, (valueFrom) =>
+        this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
       );
 
-      this.componentList.Labels.subscribe('labels:valueTo', (valueTo) =>
-        this.emit('valueToChanged', valueTo),
+      this.componentList.Labels.subscribe(LabelsEvents.VALUE_TO_CHANGED, (valueTo) =>
+        this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
       );
     }
   }

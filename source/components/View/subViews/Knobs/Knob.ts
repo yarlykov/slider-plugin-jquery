@@ -1,7 +1,8 @@
-import './knobs.scss';
-import SliderComponent from '../SliderComponent';
-import { IOptions } from '../../../interfaces';
+import { KnobEvents } from '../../../../Observer/events';
 import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
+import { IOptions } from '../../../interfaces';
+import SliderComponent from '../SliderComponent';
+import './knobs.scss';
 
 class Knob extends SliderComponent {
   private scale!: HTMLElement | null;
@@ -53,7 +54,7 @@ class Knob extends SliderComponent {
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
 
-      this.emit('changeValue', correctValue.toFixed());
+      this.emit(KnobEvents.VALUE_CHANGED, correctValue.toFixed());
     };
 
     document.onpointerup = () => {
@@ -68,11 +69,11 @@ class Knob extends SliderComponent {
 
     if (code === 'ArrowRight' || code === 'ArrowUp') {
       const newValue = valueFrom + step;
-      this.emit('changeValue', newValue);
+      this.emit(KnobEvents.VALUE_CHANGED, newValue);
     }
     if (code === 'ArrowLeft' || code === 'ArrowDown') {
       const newValue = valueFrom - step;
-      this.emit('changeValue', newValue);
+      this.emit(KnobEvents.VALUE_CHANGED, newValue);
     }
   }
 

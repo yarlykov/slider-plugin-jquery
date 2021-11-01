@@ -1,6 +1,7 @@
-import './scale.scss';
-import SliderComponent from '../SliderComponent';
+import { ScaleEvents } from '../../../../Observer/events';
 import { getValueWithStep } from '../../../../utils/utils';
+import SliderComponent from '../SliderComponent';
+import './scale.scss';
 
 class Scale extends SliderComponent {
   public scaleNode!: HTMLElement | null;
@@ -37,15 +38,15 @@ class Scale extends SliderComponent {
         const delta = (valueTo - valueFrom) / 2;
         const leftHalfOfScale = valueFrom + delta;
         if (correctValue >= leftHalfOfScale) {
-          this.emit('scale:valueTo', correctValue.toFixed());
-          this.emit('scale:targetMax', event);
+          this.emit(ScaleEvents.VALUE_TO_CHANGED, correctValue.toFixed());
+          this.emit(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, event);
         } else {
-          this.emit('scale:valueFrom', correctValue.toFixed());
-          this.emit('scale:target', event);
+          this.emit(ScaleEvents.VALUE_FROM_CHANGED, correctValue.toFixed());
+          this.emit(ScaleEvents.TARGET_TRIGGERED, event);
         }
       } else {
-        this.emit('scale:valueFrom', correctValue.toFixed());
-        this.emit('scale:target', event);
+        this.emit(ScaleEvents.VALUE_FROM_CHANGED, correctValue.toFixed());
+        this.emit(ScaleEvents.TARGET_TRIGGERED, event);
       }
     }
   }

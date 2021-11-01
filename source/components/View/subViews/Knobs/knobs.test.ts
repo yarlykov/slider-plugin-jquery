@@ -2,9 +2,10 @@
  * @jest-environment jsdom
  */
 
+import { KnobEvents } from '../../../../Observer/events';
+import { IOptions } from '../../../interfaces';
 import Knob from './Knob';
 import SecondKnob from './SecondKnob';
-import { IOptions } from '../../../interfaces';
 
 const initialState: IOptions = {
   min: 0,
@@ -65,7 +66,7 @@ describe('Knob:', () => {
     });
 
     knobNode.dispatchEvent(arrowRight);
-    expect(spy).toBeCalledWith('changeValue', 1);
+    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, 1);
   });
 
   test('event "keydown" ArrowLeft should emit changeValue -1', () => {
@@ -74,7 +75,7 @@ describe('Knob:', () => {
       code: 'ArrowLeft',
     });
     knobNode.dispatchEvent(arrowLeft);
-    expect(spy).toBeCalledWith('changeValue', -1);
+    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, -1);
   });
 });
 
@@ -128,7 +129,7 @@ describe('SecondKnob:', () => {
     });
 
     knobNode.dispatchEvent(arrowRight);
-    expect(spy).toBeCalledWith('changeValue', 1);
+    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, 1);
   });
 
   test('event "keydown" ArrowLeft should emit changeValue -1', () => {
@@ -137,6 +138,6 @@ describe('SecondKnob:', () => {
       code: 'ArrowLeft',
     });
     knobNode.dispatchEvent(arrowLeft);
-    expect(spy).toBeCalledWith('changeValue', -1);
+    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, -1);
   });
 });

@@ -1,6 +1,7 @@
-import './labels.scss';
-import SliderComponent from '../SliderComponent';
+import { LabelsEvents } from '../../../../Observer/events';
 import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
+import SliderComponent from '../SliderComponent';
+import './labels.scss';
 
 class Labels extends SliderComponent {
   public display(): void {
@@ -37,12 +38,12 @@ class Labels extends SliderComponent {
         const delta = (valueTo - valueFrom) / 2;
         const leftHalfOfScale = valueFrom + delta;
         if (correctValue >= leftHalfOfScale) {
-          this.emit('labels:valueTo', correctValue);
+          this.emit(LabelsEvents.VALUE_TO_CHANGED, correctValue);
         } else {
-          this.emit('labels:valueFrom', correctValue);
+          this.emit(LabelsEvents.VALUE_FROM_CHANGED, correctValue);
         }
       } else {
-        this.emit('labels:valueFrom', correctValue);
+        this.emit(LabelsEvents.VALUE_FROM_CHANGED, correctValue);
       }
     }
   }

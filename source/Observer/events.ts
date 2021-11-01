@@ -1,0 +1,33 @@
+enum ModelEvents {
+  VALUE_CHANGED = 'VALUE_CHANGED',
+  STATE_CHANGED = 'STATE_CHANGED',
+}
+
+enum ViewEvents {
+  VALUE_FROM_CHANGED = 'VALUE_FROM_CHANGED',
+  VALUE_TO_CHANGED = 'STATE_TO_CHANGED',
+}
+
+enum KnobEvents {
+  VALUE_CHANGED = 'VALUE_CHANGED',
+}
+
+enum ScaleEvents {
+  VALUE_TO_CHANGED = 'VALUE_TO_CHANGED',
+  VALUE_FROM_CHANGED = 'VALUE_FROM_CHANGED',
+  TARGET_TRIGGERED = 'TARGET_TRIGGERED',
+  TARGET_MAX_VALUE_TRIGGERED = 'TARGET_MAX_VALUE_TRIGGERED',
+}
+
+enum LabelsEvents {
+  VALUE_TO_CHANGED = 'VALUE_TO_CHANGED',
+  VALUE_FROM_CHANGED = 'VALUE_FROM_CHANGED',
+}
+
+export {
+  ModelEvents,
+  ViewEvents,
+  KnobEvents,
+  ScaleEvents,
+  LabelsEvents,
+};

@@ -1,3 +1,4 @@
+import { ModelEvents, ViewEvents } from '../../Observer/events';
 import Model from '../Model/Model';
 import View from '../View/View';
 
@@ -24,7 +25,7 @@ class Presenter {
   }
 
   private bindModelEvents(): void {
-    this.model.subscribe('stateChanged', (state) => {
+    this.model.subscribe(ModelEvents.STATE_CHANGED, (state) => {
       if (state instanceof Object) {
         this.view.init(state);
         this.view.update(state);
@@ -32,18 +33,18 @@ class Presenter {
       this.customEvent();
     });
 
-    this.model.subscribe('valueChanged', (state) => {
+    this.model.subscribe(ModelEvents.VALUE_CHANGED, (state) => {
       if (state instanceof Object) this.view.update(state);
       this.customEvent();
     });
   }
 
   private bindViewEvents(): void {
-    this.view.subscribe('valueFromChanged', (valueFrom) => {
+    this.view.subscribe(ViewEvents.VALUE_FROM_CHANGED, (valueFrom) => {
       this.model.setValue('valueFrom', Number(valueFrom));
     });
 
-    this.view.subscribe('valueToChanged', (valueTo) => {
+    this.view.subscribe(ViewEvents.VALUE_TO_CHANGED, (valueTo) => {
       this.model.setValue('valueTo', Number(valueTo));
     });
   }

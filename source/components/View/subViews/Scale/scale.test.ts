@@ -2,9 +2,10 @@
  * @jest-environment jsdom
  */
 
-import Scale from './Scale';
-import View from '../../View';
 import defaultState from '../../../../defaultState';
+import { ScaleEvents } from '../../../../Observer/events';
+import View from '../../View';
+import Scale from './Scale';
 
 describe('Scale: display ', () => {
   let scale: Scale;
@@ -39,6 +40,6 @@ describe('Scale: display ', () => {
     const spyEmit = jest.spyOn(scale, 'emit')
     scale.display();
     if (scale.scaleNode) scale.scaleNode.dispatchEvent(event);
-    expect(spyEmit).toHaveBeenCalledWith('scale:valueFrom', 'NaN');
+    expect(spyEmit).toHaveBeenCalledWith(ScaleEvents.VALUE_FROM_CHANGED, 'NaN');
   });
 });
