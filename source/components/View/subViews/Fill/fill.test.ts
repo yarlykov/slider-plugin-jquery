@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import Fill from './Fill';
 import { IOptions } from '../../../interfaces';
+import Fill from './Fill';
 
 const initialState: IOptions = {
   min: 0,

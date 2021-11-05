@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { IOptions, OptionValue } from './components/interfaces';
 import Presenter from './components/Presenter/Presenter';
+import { IOptions, OptionValue } from './components/interfaces';
 
 const methods = {
   init(this: JQuery, options: IOptions = {}) {

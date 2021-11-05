@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import { fromValueToPercent, getValueWithStep } from './utils';
 import { IOptions } from '../components/interfaces';
+import { fromValueToPercent, getValueWithStep } from './utils';
 
 describe('Utils: fromValueToPercent', () => {
   const state: IOptions = {

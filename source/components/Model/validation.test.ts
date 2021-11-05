@@ -1,5 +1,5 @@
-import Validation from './Validation';
 import { IOptions } from '../interfaces';
+import Validation from './Validation';
 
 describe('Validation:', () => {
   let validation: Validation;

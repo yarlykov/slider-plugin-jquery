@@ -1,5 +1,5 @@
-import { IOptions, Coords } from '../../interfaces';
 import Observer from '../../../Observer/Observer';
+import { IOptions, Coords } from '../../interfaces';
 
 class SliderComponent extends Observer {
   public state: IOptions;

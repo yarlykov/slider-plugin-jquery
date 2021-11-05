@@ -1,5 +1,5 @@
-import Model from './Model';
 import { IOptions } from '../interfaces';
+import Model from './Model';
 
 describe('Model:', () => {
   let model: Model;

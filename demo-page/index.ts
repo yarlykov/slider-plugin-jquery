@@ -1,5 +1,5 @@
-import './page/demo-page.scss';
 import DemoBlock from './DemoBlock';
+import './page/demo-page.scss';
 
 /* ================ SINGLE ================= */
 

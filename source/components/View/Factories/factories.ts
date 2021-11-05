@@ -1,12 +1,12 @@
 /* eslint max-classes-per-file: "off" */
 
+import { IOptions, Components } from '../../interfaces';
 import Scale from '../subViews/Scale/Scale';
 import Fill from '../subViews/Fill/Fill';
 import Knob from '../subViews/Knobs/Knob';
 import SecondKnob from '../subViews/Knobs/SecondKnob';
 import { Tooltip, SecondTooltip } from '../subViews/Tooltips/Tooltips';
 import Labels from '../subViews/Labels/Labels';
-import { IOptions, Components } from '../../interfaces';
 
 class SimpleSlider {
   public createComponents(options: IOptions, root: HTMLElement): Components {

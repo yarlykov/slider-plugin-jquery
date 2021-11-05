@@ -1,5 +1,5 @@
-import { KnobEvents } from '../../../../Observer/events';
 import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
+import { KnobEvents } from '../../../../Observer/events';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
 import './knobs.scss';

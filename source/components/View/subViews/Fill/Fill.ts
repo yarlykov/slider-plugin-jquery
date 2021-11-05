@@ -1,7 +1,7 @@
-import './fill.scss';
-import SliderComponent from '../SliderComponent';
-import { IOptions } from '../../../interfaces';
 import { fromValueToPercent } from '../../../../utils/utils';
+import { IOptions } from '../../../interfaces';
+import SliderComponent from '../SliderComponent';
+import './fill.scss';
 
 class Fill extends SliderComponent {
   public display(): void {
