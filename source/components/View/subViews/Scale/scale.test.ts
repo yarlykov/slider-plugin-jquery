@@ -32,7 +32,7 @@ describe('Scale: display ', () => {
     if (fill) fill.dispatchEvent(event);
   });
 
-  test('onPointerDown method should emit valueFrom if range slider scale ', () => {
+  test('handleScalePointerDown method should emit valueFrom if range slider scale ', () => {
     const newState = Object.assign({}, defaultState, {
       range: true,
     });

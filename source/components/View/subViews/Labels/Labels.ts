@@ -14,12 +14,11 @@ class Labels extends SliderComponent {
         '[data-id="labels"]',
       );
 
-      this.onPointerDown = this.onPointerDown.bind(this);
-      if (labels) labels.addEventListener('pointerdown', this.onPointerDown);
+      if (labels) labels.addEventListener('pointerdown', this.handleLabelsPointerDown.bind(this));
     }
   }
 
-  private onPointerDown(event: PointerEvent) {
+  private handleLabelsPointerDown(event: PointerEvent) {
     if (event.target instanceof HTMLElement) {
       const {
         min,

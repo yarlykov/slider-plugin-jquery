@@ -71,12 +71,12 @@ class View extends Observer {
 
       this.componentList.Scale.subscribe(ScaleEvents.TARGET_TRIGGERED, (event) => {
         if (this.componentList.Knob)
-          this.componentList.Knob.onPointerDown(event as PointerEvent);
+          this.componentList.Knob.handleKnobPointerDown(event as PointerEvent);
       });
 
       this.componentList.Scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, (event) => {
         if (this.componentList.SecondKnob)
-          this.componentList.SecondKnob.onPointerDown(event as PointerEvent);
+          this.componentList.SecondKnob.handleSecondKnobPointerDown(event as PointerEvent);
       });
     }
   }

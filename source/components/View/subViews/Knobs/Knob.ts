@@ -35,7 +35,7 @@ class Knob extends SliderComponent {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public onPointerDown(_pointerEvent: PointerEvent): void {
+  public handleKnobPointerDown(_pointerEvent: PointerEvent): void {
     const {
       min = 0,
       max = 100,
@@ -63,7 +63,7 @@ class Knob extends SliderComponent {
     };
   }
 
-  private onKeyDown(event: KeyboardEvent): void {
+  private handleKnobKeyDown(event: KeyboardEvent): void {
     const { valueFrom = 0, step = 1 } = this.state;
     const { code } = event;
 
@@ -78,11 +78,9 @@ class Knob extends SliderComponent {
   }
 
   private addEventListeners(): void {
-    this.onPointerDown = this.onPointerDown.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
     if (this.knob) {
-      this.knob.addEventListener('pointerdown', this.onPointerDown);
-      this.knob.addEventListener('keydown', this.onKeyDown);
+      this.knob.addEventListener('pointerdown', this.handleKnobPointerDown.bind(this));
+      this.knob.addEventListener('keydown', this.handleKnobKeyDown.bind(this));
     }
   }
 

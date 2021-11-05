@@ -12,12 +12,11 @@ class Scale extends SliderComponent {
 
     this.scaleNode = this.root.querySelector('[data-id="scale"]');
 
-    this.onPointerDown = this.onPointerDown.bind(this);
     if (this.scaleNode)
-      this.scaleNode.addEventListener('pointerdown', this.onPointerDown);
+      this.scaleNode.addEventListener('pointerdown', this.handleScalePointerDown.bind(this));
   }
 
-  public onPointerDown(event: PointerEvent): void {
+  public handleScalePointerDown(event: PointerEvent): void {
     if (this.isTarget(event)) {
       const {
         min = 0,
