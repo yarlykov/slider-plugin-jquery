@@ -7,6 +7,7 @@ const typeScript = require('./webpack/typeScript');
 const devServer = require('./webpack/devServer');
 const devtool = require('./webpack/devtool');
 const optimization = require('./webpack/optimization');
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -34,6 +35,9 @@ const common = merge([
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
+      }),
+      new CopyPlugin({
+        patterns: [{ from: path.resolve(__dirname, './demo-page/favicon/'), to: 'favicon/' }],
       }),
     ],
   },
