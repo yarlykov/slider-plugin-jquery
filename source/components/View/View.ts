@@ -51,25 +51,25 @@ class View extends Observer {
 
   /* istanbul ignore next */
   private bindScaleEvents(): void {
-    if (this.components.scale) {
-      this.components.scale.subscribe(ScaleEvents.VALUE_FROM_CHANGED, (valueFrom) =>
-        this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
-      );
+    if (!this.components.scale) return;
 
-      this.components.scale.subscribe(ScaleEvents.VALUE_TO_CHANGED, (valueTo) =>
-        this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
-      );
+    this.components.scale.subscribe(ScaleEvents.VALUE_FROM_CHANGED, (valueFrom) =>
+      this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
+    );
 
-      this.components.scale.subscribe(ScaleEvents.TARGET_TRIGGERED, (event) => {
-        if (this.components.knob)
-          this.components.knob.handleKnobPointerDown(event as PointerEvent);
-      });
+    this.components.scale.subscribe(ScaleEvents.VALUE_TO_CHANGED, (valueTo) =>
+      this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
+    );
 
-      this.components.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, (event) => {
-        if (this.components.secondKnob)
-          this.components.secondKnob.handleSecondKnobPointerDown(event as PointerEvent);
-      });
-    }
+    this.components.scale.subscribe(ScaleEvents.TARGET_TRIGGERED, (event) => {
+      if (this.components.knob)
+        this.components.knob.handleKnobPointerDown(event as PointerEvent);
+    });
+
+    this.components.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, (event) => {
+      if (this.components.secondKnob)
+        this.components.secondKnob.handleSecondKnobPointerDown(event as PointerEvent);
+    });
   }
   /* istanbul ignore next */
   private bindKnobsEvents(): void {
@@ -87,15 +87,15 @@ class View extends Observer {
   }
   /* istanbul ignore next */
   private bindLabelsEvents(): void {
-    if (this.components.labels) {
-      this.components.labels.subscribe(LabelsEvents.VALUE_FROM_CHANGED, (valueFrom) =>
-        this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
-      );
+    if (!this.components.labels) return;
+    
+    this.components.labels.subscribe(LabelsEvents.VALUE_FROM_CHANGED, (valueFrom) =>
+      this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
+    );
 
-      this.components.labels.subscribe(LabelsEvents.VALUE_TO_CHANGED, (valueTo) =>
-        this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
-      );
-    }
+    this.components.labels.subscribe(LabelsEvents.VALUE_TO_CHANGED, (valueTo) =>
+      this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
+    );
   }
 }
 
