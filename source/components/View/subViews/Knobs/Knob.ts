@@ -10,11 +10,11 @@ class Knob extends SliderComponent {
   private knob!: HTMLElement | null;
 
   public display(): void {
-    this.scale = this.root.querySelector('[data-id="scale"]');
+    this.scale = this.root.querySelector('.js-slider__scale');
     if (!this.scale) throw new Error('Scale element is not found');
 
     this.scale.insertAdjacentHTML('beforeend', this.getTemplate());
-    this.knob = this.root.querySelector('[data-id="knob"]');
+    this.knob = this.root.querySelector('.js-slider__knob');
 
     this.addEventListeners();
   }
@@ -88,8 +88,15 @@ class Knob extends SliderComponent {
     const { orientation = 'horizontal', color = 'orange' } = this.state;
 
     return `
-      <div class="slider__knob slider__knob_${orientation} slider__knob_${color}" 
-        data-id="knob" role="slider" tabindex="0"></div>
+      <div
+        class="slider__knob
+        js-slider__knob
+        slider__knob_${orientation}
+        slider__knob_${color}" 
+        data-id="knob"
+        role="slider"
+        tabindex="0"
+      ></div>
     `;
   }
 }

@@ -5,7 +5,7 @@ import './fill.scss';
 
 class Fill extends SliderComponent {
   public display(): void {
-    const scale = this.root.querySelector('[data-id="scale"]');
+    const scale = this.root.querySelector('.js-slider__scale');
     if (!scale) throw new Error('Scale element is not found');
 
     if (this.state.fill)
@@ -13,7 +13,7 @@ class Fill extends SliderComponent {
   }
 
   public update(state: IOptions): void {
-    const fill: HTMLElement | null = this.root.querySelector('[data-id="fill"]');
+    const fill: HTMLElement | null = this.root.querySelector('.js-slider__fill');
     const { orientation = 'horizontal', range = false } = state;
     const { valueTo = 100, valueFrom = 0 } = state;
     const isHorizontal = orientation === 'horizontal';
@@ -34,7 +34,13 @@ class Fill extends SliderComponent {
     const { color = 'orange', orientation = 'horizontal' } = this.state;
 
     return `
-      <div class="slider__fill slider__fill_${orientation} slider__fill_${color} "data-id="fill"></div>
+      <div
+        class="slider__fill
+        js-slider__fill
+        slider__fill_${orientation}
+        slider__fill_${color}
+        "data-id="fill"
+      ></div>
     `;
   }
 }

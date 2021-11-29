@@ -7,7 +7,7 @@ class Tooltip extends SliderComponent {
     const { tooltips = false } = this.state;
 
     if (tooltips) {
-      const knob = this.root.querySelector('[data-id="knob"]');
+      const knob = this.root.querySelector('.js-slider__knob');
 
       if (!knob) throw new Error('Knob element is not found');
       knob.insertAdjacentHTML('afterbegin', this.getTemplate());
@@ -16,7 +16,7 @@ class Tooltip extends SliderComponent {
 
   public update(state: IOptions): void {
     const tooltip: HTMLElement | null = this.root.querySelector(
-      '[data-id="tooltip-value"]',
+      '.js-tooltip__value-first',
     );
     
     if (tooltip) tooltip.innerText = `${state.valueFrom}`;
@@ -28,8 +28,13 @@ class Tooltip extends SliderComponent {
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
-      <div class="slider__tooltip slider__tooltip_${orientation} slider__tooltip_${color}" data-tooltip="first">
-        <span class="tooltip__value" data-id="tooltip-value"></span>
+      <div class="slider__tooltip
+        js-slider__tooltip-first
+        slider__tooltip_${orientation}
+        slider__tooltip_${color}"
+        data-tooltip="first"
+      >
+        <span class="tooltip__value js-tooltip__value-first" data-id="tooltip-value"></span>
         <div class="slider__tooltip_arrow ${verticalTooltipClass}"></div>
       </div>
     `;
@@ -41,7 +46,7 @@ class SecondTooltip extends SliderComponent {
     const { tooltips = false } = this.state;
 
     if (tooltips) {
-      const secondKnob = this.root.querySelector('[data-knob="second"]');
+      const secondKnob = this.root.querySelector('.js-slider__second-knob');
       if (!secondKnob) throw new Error('Second knob element is not found');
 
       secondKnob.insertAdjacentHTML('afterbegin', this.getTemplate());
@@ -50,13 +55,13 @@ class SecondTooltip extends SliderComponent {
 
   public update(state: IOptions): void {
     const tooltipValueSecond: HTMLElement | null = this.root.querySelector(
-      '[data-id="tooltip-value-second"]',
+      '.js-tooltip__value-second',
     );
     const tooltipFirst: HTMLElement | null = this.root.querySelector(
-      '[data-tooltip="first"]',
+      '.js-slider__tooltip-first',
     );
     const tooltipSecond: HTMLElement | null = this.root.querySelector(
-      '[data-tooltip="second"]',
+      '.js-slider__tooltip-second',
     );
     const { orientation = 'horizontal' } = this.state;
 
@@ -88,10 +93,10 @@ class SecondTooltip extends SliderComponent {
 
   private getTooltipsCoords() {
     const tooltipFirst: HTMLElement | null = this.root.querySelector(
-      '[data-tooltip="first"]',
+      '.js-slider__tooltip-first',
     );
     const tooltipSecond: HTMLElement | null = this.root.querySelector(
-      '[data-tooltip="second"]',
+      '.js-slider__tooltip-second',
     );
 
     return {
@@ -108,8 +113,16 @@ class SecondTooltip extends SliderComponent {
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
-      <div class="slider__tooltip slider__tooltip_${orientation} slider__tooltip_${color}" data-tooltip="second">
-        <span class="tooltip__value" data-id="tooltip-value-second"></span>
+      <div class="slider__tooltip
+        js-slider__tooltip-second
+        slider__tooltip_${orientation}
+        slider__tooltip_${color}"
+        data-tooltip="second"
+      >
+        <span class="tooltip__value
+          js-tooltip__value-second"
+          data-id="tooltip-value-second"
+        ></span>
         <div class="slider__tooltip_arrow ${verticalTooltipClass}"></div>
       </div>
     `;

@@ -9,13 +9,13 @@ const root = document.createElement('div');
 describe('Tooltip:', () => {
   let tooltip: Tooltip;
   const slider = `<div class="slider slider_horizontal">
-      <div class="slider__scale slider__scale_horizontal" data-id="scale">
+      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale">
         <div
-          class="slider__fill slider__fill_horizontal slider__fill_orange "
+          class="slider__fill js-slider__fill slider__fill_horizontal slider__fill_orange"
           data-id="fill"
         ></div>
         <div
-          class="slider__knob slider__knob_horizontal slider__knob_orange"
+          class="slider__knob js-slider__knob slider__knob_horizontal slider__knob_orange"
           data-id="knob"
         ></div>
       </div>
@@ -45,7 +45,7 @@ describe('Tooltip:', () => {
   test('should update tooltip value', () => {
     tooltip.update({ valueFrom: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
-      '[data-id="tooltip-value"]',
+      '.js-tooltip__value-first',
     );
     if (tooltipValue) expect(tooltipValue.innerText).toBe('10');
   });
@@ -54,7 +54,7 @@ describe('Tooltip:', () => {
     root.innerHTML = '';
     tooltip.update({ valueTo: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
-      '[data-id="tooltip-value"]',
+      '.js-tooltip__value-first',
     );
     if (tooltipValue) expect(tooltipValue).toBeNull();
   });
@@ -73,17 +73,22 @@ describe('Tooltip:', () => {
 describe('SecondTooltip:', () => {
   let secondTooltip: SecondTooltip;
   const rangeSlider = `<div class="slider slider_horizontal">
-      <div class="slider__scale slider__scale_horizontal" data-id="scale">
+      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale">
         <div
-          class="slider__fill slider__fill_horizontal slider__fill_orange "
+          class="slider__fill js-slider__fill slider__fill_horizontal slider__fill_orange "
           data-id="fill"
         ></div>
         <div
-          class="slider__knob slider__knob_horizontal slider__knob_orange"
+          class="slider__knob js-slider__knob slider__knob_horizontal slider__knob_orange"
           data-id="knob"
         ></div>
         <div 
-          class="slider__knob slider__knob_horizontal slider__knob_orange" data-knob="second"></div
+          class="slider__knob
+          js-slider__second-knob
+          slider__knob_horizontal
+          slider__knob_orange"
+          data-knob="second"
+        ></div
         ></div>
       </div>
     </div>`;
@@ -114,7 +119,7 @@ describe('SecondTooltip:', () => {
   test('should update secondTooltip value', () => {
     secondTooltip.update({ valueTo: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
-      '[data-id="tooltip-value-second"]',
+      '.js-tooltip__value-second',
     );
     if (tooltipValue) expect(tooltipValue.innerText).toBe('10');
   });
@@ -123,7 +128,7 @@ describe('SecondTooltip:', () => {
     root.innerHTML = '';
     secondTooltip.update({ valueTo: 10 });
     const tooltipValue = root.querySelector(
-      '[data-id="tooltip-value-second"]',
+      '.js-tooltip__value-second',
     );
     expect(tooltipValue).toBeNull();
   });

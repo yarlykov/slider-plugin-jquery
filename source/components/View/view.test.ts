@@ -41,13 +41,13 @@ describe('View:', () => {
 
   test('should render the range slider', () => {
     view.init({ range: true });
-    const rangeSliders = root.querySelectorAll('[data-knob="second"]');
+    const rangeSliders = root.querySelectorAll('.js-slider__second-knob');
     expect(rangeSliders.length).toBe(1);
   });
 
   test('should render the single slider', () => {
     view.init({ range: false });
-    const rangeSliders = root.querySelectorAll('[data-knob="second"]');
+    const rangeSliders = root.querySelectorAll('.js-slider__second-knob');
     expect(rangeSliders.length).toBe(0);
   });
 

@@ -11,7 +11,7 @@ describe('Labels:', () => {
   let labels: Labels;
   const slider = `
     <div class="slider slider_horizontal">
-      <div class="slider__scale slider__scale_horizontal" data-id="scale"></div>
+      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale"></div>
     </div>`;
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('Labels:', () => {
   });
 
   test('should render default template', () => {
-    expect(root.querySelectorAll('[data-id="labels"]').length).toBe(1);
+    expect(root.querySelectorAll('.js-slider__labels').length).toBe(1);
     expect(root.querySelectorAll('.slider__labels_horizontal').length).toBe(1);
   });
 

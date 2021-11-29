@@ -21,13 +21,17 @@ let fillNode: HTMLElement;
 describe('Fill:', () => {
   beforeEach(() => {
     scale = `<div class="slider slider_horizontal">
-        <div class="slider__scale slider__scale_horizontal" data-id="scale"></div>
+        <div class="slider__scale
+          js-slider__scale
+          slider__scale_horizontal"
+          data-id="scale"
+        ></div>
       </div>`;
     root.innerHTML = scale;
 
     fill = new Fill(initialState, root);
     fill.display();
-    fillNode = root.querySelector('[data-id="fill"]') as HTMLElement;
+    fillNode = root.querySelector('.js-slider__fill') as HTMLElement;
   });
 
   test('should return Fill instance', () => {

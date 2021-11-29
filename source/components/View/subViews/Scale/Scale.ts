@@ -10,7 +10,7 @@ class Scale extends SliderComponent {
     this.root.innerHTML = '';
     this.root.insertAdjacentHTML('afterbegin', this.getTemplate());
 
-    this.scaleNode = this.root.querySelector('[data-id="scale"]');
+    this.scaleNode = this.root.querySelector('.js-slider__scale');
 
     if (this.scaleNode)
       this.scaleNode.addEventListener('pointerdown', this.handleScalePointerDown.bind(this));
@@ -63,7 +63,12 @@ class Scale extends SliderComponent {
     const { orientation = 'horizontal' } = this.state;
     return `
       <div class="slider slider_${orientation}">
-        <div class="slider__scale slider__scale_${orientation}" data-id="scale"></div>
+        <div
+          class="slider__scale
+          js-slider__scale
+          slider__scale_${orientation}"
+          data-id="scale"
+        ></div>
       </div>
     `;
   }

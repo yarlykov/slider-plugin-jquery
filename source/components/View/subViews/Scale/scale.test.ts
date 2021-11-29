@@ -25,8 +25,8 @@ describe('Scale: display ', () => {
   });
 
   test('the target must be correctly determined ("scale" or "fill")', () => {
-    const scale = root.querySelector('[data-id="scale"]');
-    const fill = root.querySelector('[data-id="fill"]');
+    const scale = root.querySelector('.js-slider__scale');
+    const fill = root.querySelector('.js-slider__fill');
 
     if (scale) scale.dispatchEvent(event);
     if (fill) fill.dispatchEvent(event);

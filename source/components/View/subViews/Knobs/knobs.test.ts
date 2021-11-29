@@ -20,14 +20,14 @@ describe('Knob:', () => {
   let knob: Knob;
   const slider = `
     <div class="slider slider_horizontal">
-      <div class="slider__scale slider__scale_horizontal" data-id="scale"></div>
+      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale"></div>
     </div>`;
 
   beforeEach(() => {
     root.innerHTML = slider;
     knob = new Knob({}, root);
     knob.display();
-    knobNode = root.querySelector('[data-id="knob"]') as HTMLElement;
+    knobNode = root.querySelector('.js-slider__knob') as HTMLElement;
   });
 
   test('should return Knob instance', () => {
@@ -40,7 +40,7 @@ describe('Knob:', () => {
   });
 
   test('should render default template', () => {
-    expect(root.querySelectorAll('[data-id="knob"]').length).toBe(1);
+    expect(root.querySelectorAll('.js-slider__knob').length).toBe(1);
     expect(root.querySelectorAll('.slider__knob_horizontal').length).toBe(1);
     expect(root.querySelectorAll('.slider__knob_orange').length).toBe(1);
   });
@@ -83,14 +83,14 @@ describe('SecondKnob:', () => {
   let secondKnob: SecondKnob;
   const slider = `
     <div class="slider slider_horizontal">
-      <div class="slider__scale slider__scale_horizontal" data-id="scale"></div>
+      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale"></div>
     </div>`;
 
   beforeEach(() => {
     root.innerHTML = slider;
     secondKnob = new SecondKnob({}, root);
     secondKnob.display();
-    knobNode = root.querySelector('[data-knob="second"]') as HTMLElement;
+    knobNode = root.querySelector('.js-slider__second-knob') as HTMLElement;
   });
 
   test('should return SecondKnob instance', () => {
@@ -103,7 +103,7 @@ describe('SecondKnob:', () => {
   });
 
   test('should render default template', () => {
-    expect(root.querySelectorAll('[data-knob="second"]').length).toBe(1);
+    expect(root.querySelectorAll('.js-slider__second-knob').length).toBe(1);
     expect(root.querySelectorAll('.slider__knob_horizontal').length).toBe(1);
     expect(root.querySelectorAll('.slider__knob_orange').length).toBe(1);
   });

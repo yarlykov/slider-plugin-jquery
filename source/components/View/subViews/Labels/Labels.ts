@@ -5,13 +5,13 @@ import './labels.scss';
 
 class Labels extends SliderComponent {
   public display(): void {
-    const scale = this.root.querySelector('[data-id="scale"]');
+    const scale = this.root.querySelector('.js-slider__scale');
     if (!scale) throw new Error('Scale element is not found');
 
     if (this.state.labels) {
       scale.insertAdjacentHTML('beforeend', this.getTemplate());
       const labels: HTMLElement | null = this.root.querySelector(
-        '[data-id="labels"]',
+        '.js-slider__labels',
       );
 
       if (labels) labels.addEventListener('pointerdown', this.handleLabelsPointerDown.bind(this));
@@ -51,7 +51,11 @@ class Labels extends SliderComponent {
     const { orientation = 'horizontal' } = this.state;
 
     return `
-      <div class="slider__labels slider__labels_${orientation}" data-id="labels">
+      <div class="slider__labels
+        js-slider__labels
+        slider__labels_${orientation}"
+        data-id="labels"
+      >
         ${this.getLabels()}
       </div>
     `;
@@ -85,8 +89,8 @@ class Labels extends SliderComponent {
 
     const label = `
       <div class="slider__labels-item" 
-      style="${directionOfMove}: ${labelPosWithPercent}%;"
-      data-value=${labelPosWithPercent}>
+        style="${directionOfMove}: ${labelPosWithPercent}%;"
+        data-value=${labelPosWithPercent}>
         ${labelPosition}
       </div>
     `;
