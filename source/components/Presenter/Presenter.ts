@@ -12,13 +12,7 @@ class Presenter {
   constructor(root: HTMLElement) {
     this.root = root;
     this.model = new Model();
-    this.view = new View(root);
-    this.init();
-  }
-
-  private init(): void {
-    this.view.init(this.model.state);
-    this.view.update(this.model.state);
+    this.view = new View(root, this.model.state);
 
     this.bindModelEvents();
     this.bindViewEvents();
@@ -28,7 +22,6 @@ class Presenter {
     this.model.subscribe(ModelEvents.STATE_CHANGED, (state) => {
       if (state instanceof Object) {
         this.view.init(state);
-        this.view.update(state);
       }
       this.customEvent();
     });

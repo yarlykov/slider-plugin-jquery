@@ -12,9 +12,10 @@ class View extends Observer {
 
   private components!: Components;
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, options: IOptions) {
     super();
     this.root = root;
+    this.init(options)
   }
 
   public init(options: IOptions): void {
@@ -30,6 +31,7 @@ class View extends Observer {
     this.displaySlider();
     this.createComponentList();
     this.bindEvents();
+    this.update(options);
   }
 
   public update(state: IOptions): void {

@@ -11,8 +11,7 @@ describe('View:', () => {
   beforeEach(() => {
     root = document.createElement('div');
     root.id = 'sliderPlugin';
-    view = new View(root);
-    view.init({
+    view = new View(root, {
       min: 0,
       max: 100,
       step: 25,

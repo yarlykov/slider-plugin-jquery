@@ -15,8 +15,7 @@ describe('Scale: display ', () => {
 
   beforeEach(() => {
     root = document.createElement('div');
-    view = new View(root);
-    view.init(defaultState);
+    view = new View(root, defaultState);
     event = new Event('pointerdown') as PointerEvent;
   });
 
