@@ -3,7 +3,7 @@
  */
 
 import { IOptions } from '../components/interfaces';
-import { fromValueToPercent, getValueWithStep } from './utils';
+import { changeFirstLetterToLower, fromValueToPercent, getValueWithStep } from './utils';
 
 describe('Utils: fromValueToPercent', () => {
   const state: IOptions = {
@@ -36,5 +36,15 @@ describe('Utils: getValueWithStep', () => {
 
   test('should be return correct value with step', () => {
     expect(getValueWithStep(0, 100, 1, 25)).toBe(25);
+  });
+});
+
+describe('Utils: changeFirstLetterToLower', () => {
+  test('should be defined', () => {
+    expect(changeFirstLetterToLower('test')).toBeDefined();
+  });
+
+  test('should be return string with lower first letter', () => {
+    expect(changeFirstLetterToLower('SecondKnob')).toBe('secondKnob');
   });
 });

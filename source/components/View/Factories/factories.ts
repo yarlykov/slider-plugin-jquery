@@ -1,5 +1,6 @@
 /* eslint max-classes-per-file: "off" */
 
+import { changeFirstLetterToLower } from '../../../utils/utils';
 import { IOptions, Components } from '../../interfaces';
 import Scale from '../subViews/Scale/Scale';
 import Fill from '../subViews/Fill/Fill';
@@ -11,11 +12,14 @@ import Labels from '../subViews/Labels/Labels';
 class SimpleSlider {
   public createComponents(options: IOptions, root: HTMLElement): Components {
     const elements = [Scale, Fill, Knob, Labels, Tooltip];
-    const components: Components = [];
+    const components: Components = {};
 
     elements.forEach((Element) => {
       const element = new Element(options, root);
-      components.push(element);
+      if (element) {
+        const elementName = changeFirstLetterToLower(element.constructor.name);
+        components[elementName] = element;
+      }
     });
     return components;
   }
@@ -32,11 +36,14 @@ class RangeSlider {
       SecondTooltip,
       Labels,
     ];
-    const components: Components = [];
+    const components: Components = {};
 
     elements.forEach((Element) => {
       const element = new Element(options, root);
-      components.push(element);
+      if (element) {
+        const elementName = changeFirstLetterToLower(element.constructor.name);
+        components[elementName] = element;
+      }
     });
     return components;
   }

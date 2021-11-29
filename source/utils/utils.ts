@@ -27,4 +27,6 @@ function getValueWithStep(
   return valueWithStep;
 }
 
-export { fromValueToPercent, getValueWithStep };
+const changeFirstLetterToLower = (str: string): string => str[0].toLowerCase() + str.slice(1);
+
+export { fromValueToPercent, getValueWithStep, changeFirstLetterToLower };

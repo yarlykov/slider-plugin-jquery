@@ -36,31 +36,20 @@ type Coords = {
   height?: number;
 };
 
-type ComponentsList = {
-  Scale?: Scale;
-  Fill?: Fill;
-  Knob?: Knob;
-  SecondKnob?: SecondKnob;
-  Labels?: Labels;
-  Tooltip?: Tooltip;
-  SecondTooltip?: SecondTooltip;
+type Components = {
+  scale?: Scale;
+  fill?: Fill;
+  knob?: Knob;
+  secondKnob?: SecondKnob;
+  labels?: Labels;
+  tooltip?: Tooltip;
+  secondTooltip?: SecondTooltip;
 };
-
-type Components = [
-  Scale?,
-  Fill?,
-  Knob?,
-  SecondKnob?,
-  Labels?,
-  Tooltip?,
-  SecondTooltip?,
-];
 
 export {
   IOptions,
   EventCallback,
   Events,
-  ComponentsList,
   Components,
   Coords,
   OptionValue,
