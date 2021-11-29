@@ -5,23 +5,18 @@
 import { SliderFactory, SimpleSlider, RangeSlider } from './factories';
 
 describe('Factories', () => {
-  let factory: SliderFactory;
-
-  beforeEach(() => {
-    factory = new SliderFactory();
-  });
-
   test('SliderFactory should be defined', () => {
+    const factory = new SliderFactory();
     expect(factory).toBeInstanceOf(SliderFactory);
   });
 
   test('SimpleSlider must be created', () => {
-    expect(factory.create('simple')).toBeInstanceOf(SimpleSlider);
-    expect(factory.create('')).toBeInstanceOf(SimpleSlider);
+    expect(SliderFactory.create('simple')).toBeInstanceOf(SimpleSlider);
+    expect(SliderFactory.create('')).toBeInstanceOf(SimpleSlider);
   });
 
   test('RangeSlider must be created', () => {
-    expect(factory.create('range')).toBeInstanceOf(RangeSlider);
+    expect(SliderFactory.create('range')).toBeInstanceOf(RangeSlider);
   });
 
   test('createComponents should be defined', () => {

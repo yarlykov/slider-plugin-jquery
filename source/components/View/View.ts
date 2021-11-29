@@ -20,8 +20,7 @@ class View extends Observer {
     if (!options) throw new Error('options were not passed');
 
     this.type = options.range ? 'range' : 'simple';
-    const sliderFactory = new SliderFactory();
-    const slider = sliderFactory.create(this.type);
+    const slider = SliderFactory.create(this.type);
 
     this.components = slider.createComponents(options, this.root);
 

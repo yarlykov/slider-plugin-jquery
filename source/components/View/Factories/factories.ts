@@ -55,7 +55,7 @@ class SliderFactory {
     range: RangeSlider,
   };
 
-  public create(type: string): SimpleSlider | RangeSlider {
+  public static create(type: string): SimpleSlider | RangeSlider {
     const sliderType = type === 'range' ? 'range' : 'simple';
     const Slider = SliderFactory.list[sliderType];
     const slider = new Slider();
