@@ -1,3 +1,4 @@
+/* eslint-disable no-new */
 import DemoBlock from './DemoBlock';
 import './page/demo-page.scss';
 
@@ -10,8 +11,7 @@ slider.sliderPlugin({
   max: 100,
   step: 50,
 });
-const sliderSingleHorizontal = new DemoBlock(slider);
-sliderSingleHorizontal.init();
+new DemoBlock(slider);
 
 /* ----------------------------------------- */
 
@@ -22,8 +22,7 @@ vertical.sliderPlugin({
   step: 3,
   orientation: 'vertical',
 });
-const sliderSingleVertical = new DemoBlock(vertical);
-sliderSingleVertical.init();
+new DemoBlock(vertical);
 
 /* ================ RANGE ================= */
 
@@ -35,8 +34,7 @@ range.sliderPlugin({
   range: true,
   color: 'green',
 });
-const sliderRangeHorizontal = new DemoBlock(range);
-sliderRangeHorizontal.init();
+new DemoBlock(range);
 
 /* ----------------------------------------- */
 
@@ -51,15 +49,13 @@ rangeVertical.sliderPlugin({
   orientation: 'vertical',
   color: 'green',
 });
-const sliderRangeVertical = new DemoBlock(rangeVertical);
-sliderRangeVertical.init();
+new DemoBlock(rangeVertical);
 
 /* ================ ANOTHER ================= */
 
 const defaultSlider = $('#defaultSlider');
 defaultSlider.sliderPlugin();
-const defaultSliderHorizontal = new DemoBlock(defaultSlider);
-defaultSliderHorizontal.init();
+new DemoBlock(defaultSlider);
 
 /* ----------------------------------------- */
 
@@ -72,5 +68,4 @@ simpleSlider.sliderPlugin({
   tooltips: false,
   color: 'green',
 });
-const simpleSliderHorizontal = new DemoBlock(simpleSlider);
-simpleSliderHorizontal.init();
+new DemoBlock(simpleSlider);

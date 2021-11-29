@@ -32,9 +32,7 @@ class DemoBlock {
 
   constructor(root: JQuery<HTMLElement>) {
     this.root = root;
-  }
 
-  public init(): void {
     this.findInputElements();
     this.pluginSetup();
     this.bindEventListeners();
