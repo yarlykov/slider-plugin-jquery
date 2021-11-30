@@ -6,17 +6,17 @@ import Scale from './View/subViews/Scale/Scale';
 import { SecondTooltip, Tooltip } from './View/subViews/Tooltips/Tooltips';
 
 interface IOptions {
-  min?: number;
-  max?: number;
-  step?: number;
-  valueFrom?: number;
-  valueTo?: number;
-  orientation?: 'horizontal' | 'vertical';
-  range?: boolean;
-  fill?: boolean;
-  labels?: boolean;
-  tooltips?: boolean;
-  color?: string;
+  min: number;
+  max: number;
+  step: number;
+  valueFrom: number;
+  valueTo: number;
+  orientation: 'horizontal' | 'vertical';
+  range: boolean;
+  fill: boolean;
+  labels: boolean;
+  tooltips: boolean;
+  color: string;
 }
 
 interface Events {
