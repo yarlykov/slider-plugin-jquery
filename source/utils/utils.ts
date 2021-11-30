@@ -1,6 +1,6 @@
 import { IOptions } from '../components/interfaces';
 
-function fromValueToPercent(state: IOptions, value: number): number {
+const fromValueToPercent = (state: Partial<IOptions>, value: number): number => {
   const { min = 0, max = 1, step = 1 } = state;
 
   const stepCount = (max - min) / step;
@@ -13,12 +13,12 @@ function fromValueToPercent(state: IOptions, value: number): number {
   return percent;
 }
 
-function getValueWithStep(
+const getValueWithStep = (
   min = 0,
   max = 0,
   step = 1,
   valueInPercent = 0,
-): number {
+): number => {
   const stepCount = (max - min) / step;
   const stepPercent = 100 / stepCount;
   const stepPosition = Math.round(valueInPercent / stepPercent) * step;

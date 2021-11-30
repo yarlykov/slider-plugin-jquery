@@ -3,7 +3,7 @@ import Presenter from './components/Presenter/Presenter';
 import { IOptions, OptionValue } from './components/interfaces';
 
 const methods = {
-  init(this: JQuery, options: IOptions = {}) {
+  init(this: JQuery, options: Partial<IOptions>) {
     // eslint-disable-next-line func-names
     return this.each(function (this: HTMLElement): void {
       $(this).data().sliderPlugin = new Presenter(this);
@@ -35,7 +35,7 @@ const methods = {
 declare global {
   interface JQuery {
     sliderPlugin: (
-      options?: keyof typeof methods | IOptions,
+      options?: keyof typeof methods | Partial<IOptions>,
       args?: string | Function,
       value?: OptionValue,
     ) => IOptions;

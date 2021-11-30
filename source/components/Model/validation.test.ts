@@ -3,7 +3,7 @@ import Validation from './Validation';
 
 describe('Validation:', () => {
   let validation: Validation;
-  const state: IOptions = {
+  const state: Partial<IOptions> = {
     min: 0,
     max: 100,
     step: 25,

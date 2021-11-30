@@ -25,7 +25,7 @@ interface Events {
 
 type EventCallback = (data?: IOptions | number | string) => void;
 
-type OptionValue = number | string | boolean | undefined;
+type OptionValue = number | string | boolean;
 
 type Coords = {
   pageX?: number;

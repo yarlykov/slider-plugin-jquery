@@ -2,17 +2,17 @@ import Observer from '../../../Observer/Observer';
 import { IOptions, Coords } from '../../interfaces';
 
 class SliderComponent extends Observer {
-  public state: IOptions;
+  public state: Partial<IOptions>;
 
   public root: HTMLElement;
 
-  constructor(options: IOptions = {}, root: HTMLElement) {
+  constructor(options: Partial<IOptions>, root: HTMLElement) {
     super();
     this.root = root;
     this.state = options;
   }
 
-  public update(state: IOptions): void {
+  public update(state: Partial<IOptions>): void {
     this.state = { ...state };
   }
 

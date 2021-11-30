@@ -8,7 +8,7 @@ import Scale from '../Scale/Scale';
 import Knob from './Knob';
 import SecondKnob from './SecondKnob';
 
-const initialState: IOptions = {
+const initialState: Partial<IOptions> = {
   min: 0,
   max: 100,
   step: 25,
@@ -60,26 +60,26 @@ describe('Knob:', () => {
     root.innerHTML = '';
     knob.update({});
     expect(knobNode.style.left).toBe('');
-    expect(knobNode.style.bottom).toBe('0%');
+    expect(knobNode.style.bottom).toBe('100%');
   });
 
-  test('event "keydown" ArrowRight should emit changeValue 1', () => {
+  test('event "keydown" ArrowRight should emit changeValue 75', () => {
     const spy = jest.spyOn(knob, 'emit');
     const arrowRight = new KeyboardEvent('keydown', {
       code: 'ArrowRight',
     });
 
     knobNode.dispatchEvent(arrowRight);
-    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, 1);
+    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, 75);
   });
 
-  test('event "keydown" ArrowLeft should emit changeValue -1', () => {
+  test('event "keydown" ArrowLeft should emit changeValue 25', () => {
     const spy = jest.spyOn(knob, 'emit');
     const arrowLeft = new KeyboardEvent('keydown', {
       code: 'ArrowLeft',
     });
     knobNode.dispatchEvent(arrowLeft);
-    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, -1);
+    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, 25);
   });
 });
 
@@ -119,26 +119,26 @@ describe('SecondKnob:', () => {
   test('if not knob should not update left or bottom value', () => {
     root.innerHTML = '';
     secondKnob.update({});
-    expect(knobNode.style.left).toBe('0%');
+    expect(knobNode.style.left).toBe('100%');
     expect(knobNode.style.bottom).toBe('');
   });
 
-  test('event "keydown" ArrowRight should emit changeValue 1', () => {
+  test('event "keydown" ArrowRight should emit changeValue 100', () => {
     const spy = jest.spyOn(secondKnob, 'emit');
     const arrowRight = new KeyboardEvent('keydown', {
       code: 'ArrowRight',
     });
 
     knobNode.dispatchEvent(arrowRight);
-    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, 1);
+    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, 100);
   });
 
-  test('event "keydown" ArrowLeft should emit changeValue -1', () => {
+  test('event "keydown" ArrowLeft should emit changeValue 50', () => {
     const spy = jest.spyOn(secondKnob, 'emit');
     const arrowLeft = new KeyboardEvent('keydown', {
       code: 'ArrowLeft',
     });
     knobNode.dispatchEvent(arrowLeft);
-    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, -1);
+    expect(spy).toBeCalledWith(KnobEvents.VALUE_CHANGED, 50);
   });
 });

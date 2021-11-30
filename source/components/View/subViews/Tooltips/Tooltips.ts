@@ -4,7 +4,7 @@ import './tooltips.scss';
 
 class Tooltip extends SliderComponent {
   public init(): void {
-    const { tooltips = false } = this.state;
+    const { tooltips } = this.state;
 
     if (tooltips) {
       const knob = this.root.querySelector('.js-slider__knob');
@@ -12,7 +12,7 @@ class Tooltip extends SliderComponent {
     }
   }
 
-  public update(state: IOptions): void {
+  public update(state: Partial<IOptions>): void {
     const tooltip: HTMLElement | null = this.root.querySelector(
       '.js-tooltip__value-first',
     );
@@ -40,7 +40,7 @@ class Tooltip extends SliderComponent {
 
 class SecondTooltip extends SliderComponent {
   public init(): void {
-    const { tooltips = false } = this.state;
+    const { tooltips } = this.state;
 
     if (tooltips) {
       const secondKnob = this.root.querySelector('.js-slider__second-knob');
@@ -48,7 +48,7 @@ class SecondTooltip extends SliderComponent {
     }
   }
 
-  public update(state: IOptions): void {
+  public update(state: Partial<IOptions>): void {
     const tooltipValueSecond: HTMLElement | null = this.root.querySelector(
       '.js-tooltip__value-second',
     );
@@ -58,10 +58,10 @@ class SecondTooltip extends SliderComponent {
     const tooltipSecond: HTMLElement | null = this.root.querySelector(
       '.js-slider__tooltip-second',
     );
-    const { orientation = 'horizontal' } = this.state;
+    const { orientation } = this.state;
 
     const coords = this.getTooltipsCoords();
-    const {firstRight, firstTop, secondLeft, secondBottom } = coords;
+    const { firstRight, firstTop, secondLeft, secondBottom } = coords;
   
     const hasTooltips = tooltipFirst 
       && tooltipSecond 

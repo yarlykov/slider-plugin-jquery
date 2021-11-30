@@ -10,7 +10,7 @@ import { Tooltip, SecondTooltip } from '../subViews/Tooltips/Tooltips';
 import Labels from '../subViews/Labels/Labels';
 
 class SimpleSlider {
-  public createComponents(options: IOptions, root: HTMLElement): Components {
+  public createComponents(options: Partial<IOptions>, root: HTMLElement): Components {
     const elements = [Scale, Fill, Knob, Labels, Tooltip];
     const components: Components = {};
 
@@ -26,7 +26,7 @@ class SimpleSlider {
 }
 
 class RangeSlider {
-  public createComponents(options: IOptions, root: HTMLElement): Components {
+  public createComponents(options: Partial<IOptions>, root: HTMLElement): Components {
     const elements = [
       Scale,
       Fill,

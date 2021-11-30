@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import defaultState from '../../../defaultState';
 import SliderComponent from './SliderComponent';
 
 describe('SliderComponent:', () => {
@@ -20,14 +21,7 @@ describe('SliderComponent:', () => {
 
   beforeEach(() => {
     elem = document.createElement('div');
-    sliderComponent = new SliderComponent({}, elem);
-  });
-
-  test('should initialize an empty state', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const sliderComponent = new SliderComponent();
-    expect(sliderComponent.state).toEqual({});
+    sliderComponent = new SliderComponent(defaultState, elem);
   });
 
   test('getCoords method should be defined', () => {

@@ -1,3 +1,4 @@
+import defaultState from '../../../../defaultState';
 import { ScaleEvents } from '../../../../Observer/events';
 import { getValueWithStep } from '../../../../utils/utils';
 import Fill from '../Fill/Fill';
@@ -22,13 +23,13 @@ class Scale extends SliderComponent {
   public handleScalePointerDown(event: PointerEvent): void {
     if (this.isTarget(event)) {
       const {
-        min = 0,
-        max = 100,
-        valueFrom = 0,
-        valueTo = 0,
-        step = 1,
-        orientation = 'horizontal',
-        range = false,
+        min = defaultState.min,
+        max = defaultState.max,
+        valueFrom = defaultState.valueFrom,
+        valueTo = defaultState.valueTo,
+        step = defaultState.step,
+        orientation = defaultState.orientation,
+        range = defaultState.range,
       } = this.state;
 
       const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : {};
@@ -102,7 +103,7 @@ class Scale extends SliderComponent {
   }
 
   private getTemplate(): string {
-    const { orientation = 'horizontal' } = this.state;
+    const { orientation } = this.state;
     return `
       <div class="slider slider_${orientation}">
         <div

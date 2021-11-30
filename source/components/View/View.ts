@@ -16,7 +16,7 @@ class View extends Observer {
     this.init(options)
   }
 
-  public init(options: IOptions): void {
+  public init(options: Partial<IOptions>): void {
     if (!options) throw new Error('options were not passed');
 
     this.type = options.range ? 'range' : 'simple';
@@ -29,7 +29,7 @@ class View extends Observer {
     this.update(options);
   }
 
-  public update(state: IOptions): void {
+  public update(state: Partial<IOptions>): void {
     const componentInstances = Object.values(this.components)
     componentInstances.forEach((component) => {
       if (component) component.update(state);

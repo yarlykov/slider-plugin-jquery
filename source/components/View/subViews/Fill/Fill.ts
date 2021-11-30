@@ -1,3 +1,4 @@
+import defaultState from '../../../../defaultState';
 import { fromValueToPercent } from '../../../../utils/utils';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
@@ -10,9 +11,13 @@ class Fill extends SliderComponent {
     this.fill = this.root.querySelector('.js-slider__fill');
   }
 
-  public update(state: IOptions): void {
-    const { orientation = 'horizontal', range = false } = state;
-    const { valueTo = 100, valueFrom = 0 } = state;
+  public update(state: Partial<IOptions>): void {
+    const {
+      orientation = defaultState.orientation,
+      range = defaultState.range,
+      valueTo = defaultState.valueTo,
+      valueFrom = defaultState.valueFrom
+    } = state;
     const isHorizontal = orientation === 'horizontal';
     const wayOfFilling: string = isHorizontal ? 'width' : 'height';
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';

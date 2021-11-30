@@ -1,3 +1,4 @@
+import defaultState from '../../../../defaultState';
 import { LabelsEvents } from '../../../../Observer/events';
 import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
 import SliderComponent from '../SliderComponent';
@@ -20,12 +21,12 @@ class Labels extends SliderComponent {
   private handleLabelsPointerDown(event: PointerEvent) {
     if (event.target instanceof HTMLElement) {
       const {
-        min,
-        max = 0,
-        step = 1,
-        valueFrom = 0,
-        valueTo = 0,
-        range = false,
+        min = defaultState.min,
+        max = defaultState.max,
+        step = defaultState.step,
+        valueFrom = defaultState.valueFrom,
+        valueTo = defaultState.valueTo,
+        range = defaultState.range,
       } = this.state;
 
       const targetValue = Number(event.target.dataset.value);

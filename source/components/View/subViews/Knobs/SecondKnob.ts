@@ -1,3 +1,4 @@
+import defaultState from '../../../../defaultState';
 import { KnobEvents } from '../../../../Observer/events';
 import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
 import { IOptions } from '../../../interfaces';
@@ -28,13 +29,13 @@ class SecondKnob extends SliderComponent {
     this.addEventListeners();
   }
 
-  public update(state: IOptions): void {
+  public update(state: Partial<IOptions>): void {
     this.state = { ...state };
-    const { orientation = 'horizontal' } = this.state;
+    const { orientation = defaultState.orientation } = this.state;
 
     if (this.secondKnob) {
       const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
-      const { valueTo = 0 } = state;
+      const { valueTo = defaultState.valueTo } = state;
 
       this.secondKnob.style[directionOfMove] = `${fromValueToPercent(
         state,
@@ -45,10 +46,10 @@ class SecondKnob extends SliderComponent {
 
   public handleSecondKnobPointerDown(): void {
     const {
-      min = 0,
-      max = 100,
-      step = 1,
-      orientation = 'horizontal',
+      min,
+      max,
+      step,
+      orientation = defaultState.orientation,
     } = this.state;
 
     document.onpointermove = (pointerEvent) => {
@@ -71,7 +72,7 @@ class SecondKnob extends SliderComponent {
   }
 
   private handleSecondKnobKeyDown(event: KeyboardEvent): void {
-    const { valueTo = 0, step = 1 } = this.state;
+    const { valueTo = defaultState.valueTo, step = defaultState.step } = this.state;
     const { code } = event;
 
     if (code === 'ArrowRight' || code === 'ArrowUp') {

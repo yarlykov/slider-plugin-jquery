@@ -1,12 +1,13 @@
 /* eslint-disable */
 import { IOptions } from '../source/components/interfaces';
+import defaultState from '../source/defaultState';
 
 type InputElement = HTMLInputElement | null | undefined;
 
 class DemoBlock {
   root: JQuery<HTMLElement>;
 
-  state: IOptions = {};
+  state: IOptions = defaultState;
 
   panel!: InputElement;
 

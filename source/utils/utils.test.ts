@@ -6,7 +6,7 @@ import { IOptions } from '../components/interfaces';
 import { changeFirstLetterToLower, fromValueToPercent, getValueWithStep } from './utils';
 
 describe('Utils: fromValueToPercent', () => {
-  const state: IOptions = {
+  const state: Partial<IOptions> = {
     min: 0,
     max: 100,
     step: 25,

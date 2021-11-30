@@ -18,7 +18,7 @@ class Model extends Observer {
 
   public setState(state: IOptions): void {
     const newState = { ...this.state, ...state };
-    this.state = this.validation.checkState(newState);
+    this.state = { ...newState, ...this.validation.checkState(newState)};
 
     this.emit(ModelEvents.STATE_CHANGED, this.state);
   }
@@ -33,7 +33,7 @@ class Model extends Observer {
 
   public setValue(option: Option, optionValue: OptionValue): void {
     this.checkStateValue(option, optionValue);
-    this.state = this.validation.checkState(this.state);
+    this.state = { ...this.state, ...this.validation.checkState(this.state)};
 
     if (this.isValue(option)) {
       this.emit(ModelEvents.VALUE_CHANGED, this.state);
