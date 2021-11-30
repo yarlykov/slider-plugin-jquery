@@ -4,16 +4,13 @@ import SliderComponent from '../SliderComponent';
 import './fill.scss';
 
 class Fill extends SliderComponent {
-  public display(): void {
-    const scale = this.root.querySelector('.js-slider__scale');
-    if (!scale) throw new Error('Scale element is not found');
+  private fill!: HTMLElement | null;
 
-    if (this.state.fill)
-      return scale.insertAdjacentHTML('afterbegin', this.getTemplate());
+  public init(): void {
+    this.fill = this.root.querySelector('.js-slider__fill');
   }
 
   public update(state: IOptions): void {
-    const fill: HTMLElement | null = this.root.querySelector('.js-slider__fill');
     const { orientation = 'horizontal', range = false } = state;
     const { valueTo = 100, valueFrom = 0 } = state;
     const isHorizontal = orientation === 'horizontal';
@@ -21,18 +18,16 @@ class Fill extends SliderComponent {
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
     const newValueFrom = fromValueToPercent(state, valueFrom);
 
-    if (fill && range) {
+    if (this.fill && range) {
       const newValueTo = fromValueToPercent(state, valueTo);
-      fill.style[wayOfFilling] = `${newValueTo - newValueFrom}%`;
-      fill.style[wayOfMove] = `${newValueFrom}%`;
-    } else if (fill) {
-      fill.style[wayOfFilling] = `${newValueFrom}%`;
+      this.fill.style[wayOfFilling] = `${newValueTo - newValueFrom}%`;
+      this.fill.style[wayOfMove] = `${newValueFrom}%`;
+    } else if (this.fill) {
+      this.fill.style[wayOfFilling] = `${newValueFrom}%`;
     }
   }
 
-  private getTemplate(): string {
-    const { color = 'orange', orientation = 'horizontal' } = this.state;
-
+  public static getTemplate(color = 'orange', orientation = 'horizontal'): string {
     return `
       <div
         class="slider__fill

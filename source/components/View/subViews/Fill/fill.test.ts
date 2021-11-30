@@ -3,6 +3,7 @@
  */
 
 import { IOptions } from '../../../interfaces';
+import Scale from '../Scale/Scale';
 import Fill from './Fill';
 
 const initialState: IOptions = {
@@ -15,22 +16,25 @@ const initialState: IOptions = {
 };
 const root = document.createElement('div');
 let fill: Fill;
-let scale: string;
+let scale: Scale;
+let sliderNode: string;
 let fillNode: HTMLElement;
 
 describe('Fill:', () => {
   beforeEach(() => {
-    scale = `<div class="slider slider_horizontal">
+    sliderNode = `<div class="slider slider_horizontal">
         <div class="slider__scale
           js-slider__scale
           slider__scale_horizontal"
           data-id="scale"
         ></div>
       </div>`;
-    root.innerHTML = scale;
+    root.innerHTML = sliderNode;
 
+    scale = new Scale(initialState, root);
+    scale.init();
     fill = new Fill(initialState, root);
-    fill.display();
+    fill.init();
     fillNode = root.querySelector('.js-slider__fill') as HTMLElement;
   });
 
@@ -38,17 +42,10 @@ describe('Fill:', () => {
     expect(fill).toBeInstanceOf(Fill);
   });
 
-  test('should return error if the Scale is not found', () => {
-    root.innerHTML = '';
-    expect(() => fill.display()).toThrow('Scale element is not found');
-  });
-
   test('should render default template', () => {
-    root.innerHTML = scale;
-
-    fill = new Fill({ fill: true }, root);
-    fill.display();
-    fill.update({});
+    root.innerHTML = sliderNode;
+    scale = new Scale(initialState, root);
+    scale.init();
 
     expect(root.querySelectorAll('.slider__fill_horizontal').length).toBe(1);
     expect(root.querySelectorAll('.slider__fill_orange').length).toBe(1);
@@ -74,6 +71,7 @@ describe('Fill:', () => {
 
   test('if not fill should not update width or height value', () => {
     root.innerHTML = '';
+    fill.init();
     fill.update({});
     expect(fillNode.style.width).toBe('');
     expect(fillNode.style.height).toBe('');

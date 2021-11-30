@@ -3,18 +3,21 @@ import { KnobEvents } from '../../../../Observer/events';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
 import './knobs.scss';
+import { Tooltip } from '../Tooltips/Tooltips';
 
 class Knob extends SliderComponent {
   private scale!: HTMLElement | null;
 
   private knob!: HTMLElement | null;
 
-  public display(): void {
+  public init(): void {
     this.scale = this.root.querySelector('.js-slider__scale');
     if (!this.scale) throw new Error('Scale element is not found');
-
-    this.scale.insertAdjacentHTML('beforeend', this.getTemplate());
     this.knob = this.root.querySelector('.js-slider__knob');
+
+    const { tooltips } = this.state;
+
+    if (tooltips) this.addTooltips();
 
     this.addEventListeners();
   }
@@ -84,9 +87,15 @@ class Knob extends SliderComponent {
     }
   }
 
-  private getTemplate(): string {
-    const { orientation = 'horizontal', color = 'orange' } = this.state;
+  private addTooltips() {
+    const { color, orientation } = this.state;
 
+    if (this.knob) {
+      this.knob.insertAdjacentHTML('afterbegin', Tooltip.getTemplate(orientation, color));
+    }
+  }
+
+  public static getTemplate(color = 'orange', orientation = 'horizontal'): string {
     return `
       <div
         class="slider__knob

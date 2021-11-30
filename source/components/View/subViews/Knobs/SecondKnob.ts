@@ -2,6 +2,7 @@ import { KnobEvents } from '../../../../Observer/events';
 import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
 import { IOptions } from '../../../interfaces';
 import SliderComponent from '../SliderComponent';
+import { SecondTooltip } from '../Tooltips/Tooltips';
 import './knobs.scss';
 
 class SecondKnob extends SliderComponent {
@@ -11,13 +12,18 @@ class SecondKnob extends SliderComponent {
 
   knob!: HTMLElement | null;
 
-  public display(): void {
+  public init(): void {
     this.scale = this.root.querySelector('.js-slider__scale');
     if (!this.scale) throw new Error('Scale element is not found');
 
-    this.scale.insertAdjacentHTML('beforeend', this.getTemplate());
     this.knob = this.root.querySelector('.js-slider__knob');
     this.secondKnob = this.root.querySelector('.js-slider__second-knob');
+
+    const { color, orientation, tooltips } = this.state;
+
+    if (this.secondKnob && tooltips) {
+      this.secondKnob.insertAdjacentHTML('afterbegin', SecondTooltip.getTemplate(orientation, color));
+    }
 
     this.addEventListeners();
   }
@@ -86,9 +92,7 @@ class SecondKnob extends SliderComponent {
     }
   }
 
-  private getTemplate(): string {
-    const { orientation = 'horizontal', color = 'orange' } = this.state;
-
+  public static getTemplate(orientation = 'horizontal', color = 'orange'): string {
     return `
       <div
         class="slider__knob

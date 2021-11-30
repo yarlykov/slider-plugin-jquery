@@ -4,12 +4,11 @@ import SliderComponent from '../SliderComponent';
 import './labels.scss';
 
 class Labels extends SliderComponent {
-  public display(): void {
+  public init(): void {
     const scale = this.root.querySelector('.js-slider__scale');
     if (!scale) throw new Error('Scale element is not found');
 
     if (this.state.labels) {
-      scale.insertAdjacentHTML('beforeend', this.getTemplate());
       const labels: HTMLElement | null = this.root.querySelector(
         '.js-slider__labels',
       );
@@ -47,23 +46,24 @@ class Labels extends SliderComponent {
     }
   }
 
-  private getTemplate() {
-    const { orientation = 'horizontal' } = this.state;
-
+  public static getTemplate(
+    orientation = 'horizontal',
+    min = 0,
+    max = 0,
+    step = 1
+  ): string {
     return `
       <div class="slider__labels
         js-slider__labels
         slider__labels_${orientation}"
         data-id="labels"
       >
-        ${this.getLabels()}
+        ${this.getLabels(orientation, min, max, step)}
       </div>
     `;
   }
 
-  private getLabels(): string {
-    const { min = 0, max = 0, step = 1 } = this.state;
-
+  private static getLabels(orientation = 'horizontal', min = 0, max = 0, step = 1): string {
     const itemLabels: string[] = [];
     let labelValues: number[] = [20, 40, 60, 80];
 
@@ -73,17 +73,22 @@ class Labels extends SliderComponent {
       .sort((a, b) => a - b);
 
     labelValues.forEach((value) => {
-      itemLabels.push(this.createLabel(value));
+      itemLabels.push(this.createLabel(orientation, value, min, max, step));
     });
 
     return itemLabels.join('');
   }
 
-  private createLabel(labelPosition = 0): string {
-    const { orientation } = this.state;
+  private static createLabel(
+    orientation = 'horizontal',
+    labelPosition = 0,
+    min = 0,
+    max = 0,
+    step = 1
+  ): string {
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const labelPosWithPercent = fromValueToPercent(
-      this.state,
+      { min, max, step },
       labelPosition,
     ).toFixed(2);
 

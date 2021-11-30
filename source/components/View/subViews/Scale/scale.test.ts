@@ -7,7 +7,7 @@ import { ScaleEvents } from '../../../../Observer/events';
 import View from '../../View';
 import Scale from './Scale';
 
-describe('Scale: display ', () => {
+describe('Scale: init ', () => {
   let scale: Scale;
   let root: HTMLElement;
   let view: View;
@@ -37,7 +37,7 @@ describe('Scale: display ', () => {
     });
     scale = new Scale(newState, root);
     const spyEmit = jest.spyOn(scale, 'emit')
-    scale.display();
+    scale.init();
     if (scale.scaleNode) scale.scaleNode.dispatchEvent(event);
     expect(spyEmit).toHaveBeenCalledWith(ScaleEvents.VALUE_FROM_CHANGED, 'NaN');
   });

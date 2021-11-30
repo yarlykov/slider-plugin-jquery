@@ -4,6 +4,7 @@
 
 import { KnobEvents } from '../../../../Observer/events';
 import { IOptions } from '../../../interfaces';
+import Scale from '../Scale/Scale';
 import Knob from './Knob';
 import SecondKnob from './SecondKnob';
 
@@ -15,6 +16,7 @@ const initialState: IOptions = {
 };
 const root = document.createElement('div');
 let knobNode: HTMLElement;
+let scale: Scale;
 
 describe('Knob:', () => {
   let knob: Knob;
@@ -25,8 +27,10 @@ describe('Knob:', () => {
 
   beforeEach(() => {
     root.innerHTML = slider;
+    scale = new Scale(initialState, root);
+    scale.init();
     knob = new Knob({}, root);
-    knob.display();
+    knob.init();
     knobNode = root.querySelector('.js-slider__knob') as HTMLElement;
   });
 
@@ -36,7 +40,7 @@ describe('Knob:', () => {
 
   test('should return error if Scale is not found', () => {
     root.innerHTML = '';
-    expect(() => knob.display()).toThrow('Scale element is not found');
+    expect(() => knob.init()).toThrow('Scale element is not found');
   });
 
   test('should render default template', () => {
@@ -88,8 +92,11 @@ describe('SecondKnob:', () => {
 
   beforeEach(() => {
     root.innerHTML = slider;
+    const state = { ...initialState, range: true }
+    scale = new Scale(state, root);
+    scale.init();
     secondKnob = new SecondKnob({}, root);
-    secondKnob.display();
+    secondKnob.init();
     knobNode = root.querySelector('.js-slider__second-knob') as HTMLElement;
   });
 
@@ -99,13 +106,7 @@ describe('SecondKnob:', () => {
 
   test('should return error if Scale is not found', () => {
     root.innerHTML = '';
-    expect(() => secondKnob.display()).toThrow('Scale element is not found');
-  });
-
-  test('should render default template', () => {
-    expect(root.querySelectorAll('.js-slider__second-knob').length).toBe(1);
-    expect(root.querySelectorAll('.slider__knob_horizontal').length).toBe(1);
-    expect(root.querySelectorAll('.slider__knob_orange').length).toBe(1);
+    expect(() => secondKnob.init()).toThrow('Scale element is not found');
   });
 
   test('should update valueFrom', () => {

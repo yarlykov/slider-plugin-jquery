@@ -3,14 +3,12 @@ import SliderComponent from '../SliderComponent';
 import './tooltips.scss';
 
 class Tooltip extends SliderComponent {
-  public display(): void {
+  public init(): void {
     const { tooltips = false } = this.state;
 
     if (tooltips) {
       const knob = this.root.querySelector('.js-slider__knob');
-
       if (!knob) throw new Error('Knob element is not found');
-      knob.insertAdjacentHTML('afterbegin', this.getTemplate());
     }
   }
 
@@ -22,8 +20,7 @@ class Tooltip extends SliderComponent {
     if (tooltip) tooltip.innerText = `${state.valueFrom}`;
   }
 
-  private getTemplate(): string {
-    const { orientation = 'horizontal', color = 'orange' } = this.state;
+  public static getTemplate(orientation = 'horizontal', color = 'orange'): string {
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
@@ -42,14 +39,12 @@ class Tooltip extends SliderComponent {
 }
 
 class SecondTooltip extends SliderComponent {
-  public display(): void {
+  public init(): void {
     const { tooltips = false } = this.state;
 
     if (tooltips) {
       const secondKnob = this.root.querySelector('.js-slider__second-knob');
       if (!secondKnob) throw new Error('Second knob element is not found');
-
-      secondKnob.insertAdjacentHTML('afterbegin', this.getTemplate());
     }
   }
 
@@ -107,8 +102,7 @@ class SecondTooltip extends SliderComponent {
     }
   }
 
-  private getTemplate(): string {
-    const { orientation = 'horizontal', color = 'orange' } = this.state;
+  public static getTemplate(orientation = 'horizontal', color = 'orange'): string {
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 

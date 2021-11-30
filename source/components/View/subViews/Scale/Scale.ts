@@ -1,19 +1,22 @@
 import { ScaleEvents } from '../../../../Observer/events';
 import { getValueWithStep } from '../../../../utils/utils';
+import Fill from '../Fill/Fill';
+import Knob from '../Knobs/Knob';
+import SecondKnob from '../Knobs/SecondKnob';
+import Labels from '../Labels/Labels';
 import SliderComponent from '../SliderComponent';
 import './scale.scss';
 
 class Scale extends SliderComponent {
   public scaleNode!: HTMLElement | null;
 
-  public display(): void {
+  public init(): void {
     this.root.innerHTML = '';
     this.root.insertAdjacentHTML('afterbegin', this.getTemplate());
 
     this.scaleNode = this.root.querySelector('.js-slider__scale');
 
-    if (this.scaleNode)
-      this.scaleNode.addEventListener('pointerdown', this.handleScalePointerDown.bind(this));
+    this.addScaleElements();
   }
 
   public handleScalePointerDown(event: PointerEvent): void {
@@ -46,6 +49,45 @@ class Scale extends SliderComponent {
       } else {
         this.emit(ScaleEvents.VALUE_FROM_CHANGED, correctValue.toFixed());
         this.emit(ScaleEvents.TARGET_TRIGGERED, event);
+      }
+    }
+  }
+
+  private addScaleElements() {
+    const { color, orientation, fill, range, labels, min, max, step } = this.state;
+
+    if (this.scaleNode) {
+      this.scaleNode.addEventListener(
+        'pointerdown',
+        this.handleScalePointerDown.bind(this)
+      );
+      
+      this.scaleNode.insertAdjacentHTML(
+        'beforeend',
+        Knob.getTemplate(color, orientation)
+      );
+
+      if (fill) {
+        this.scaleNode.insertAdjacentHTML(
+          'afterbegin',
+          Fill.getTemplate(color, orientation)
+        );
+      }
+
+      if (range) {
+        this.scaleNode.insertAdjacentHTML(
+          'beforeend',
+          SecondKnob.getTemplate(color, orientation)
+        );
+      }
+
+      if (labels) {
+        this.scaleNode.insertAdjacentHTML('beforeend', Labels.getTemplate(
+          orientation,
+          min,
+          max,
+          step,
+        ));
       }
     }
   }

@@ -39,7 +39,7 @@ class View extends Observer {
   private displaySlider(): void {
     const componentInstances = Object.values(this.components)
     componentInstances.forEach((element) => {
-      if (element) element.display();
+      if (element) element.init();
     });
   }
 

@@ -2,12 +2,16 @@
  * @jest-environment jsdom
  */
 
+import defaultState from '../../../../defaultState';
+import Knob from '../Knobs/Knob';
+import SecondKnob from '../Knobs/SecondKnob';
 import { Tooltip, SecondTooltip } from './Tooltips';
 
 const root = document.createElement('div');
 
 describe('Tooltip:', () => {
   let tooltip: Tooltip;
+  let knob: Knob;
   const slider = `<div class="slider slider_horizontal">
       <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale">
         <div
@@ -23,9 +27,10 @@ describe('Tooltip:', () => {
 
   beforeEach(() => {
     root.innerHTML = slider;
-
+    knob = new Knob(defaultState, root);
+    knob.init();
     tooltip = new Tooltip({ tooltips: true }, root);
-    tooltip.display();
+    tooltip.init();
   });
 
   test('should return Tooltip instance', () => {
@@ -34,7 +39,7 @@ describe('Tooltip:', () => {
 
   test('should return error if the knob is not found', () => {
     root.innerHTML = '';
-    expect(() => tooltip.display()).toThrow('Knob element is not found');
+    expect(() => tooltip.init()).toThrow('Knob element is not found');
   });
 
   test('should render default template', () => {
@@ -61,8 +66,8 @@ describe('Tooltip:', () => {
 
   test('should render vertical arrow', () => {
     root.innerHTML = slider;
-    tooltip = new Tooltip({ tooltips: true, orientation: 'vertical' }, root);
-    tooltip.display();
+    knob = new Knob({ ...defaultState, orientation: 'vertical' }, root);
+    knob.init();
 
     expect(
       root.querySelectorAll('.slider__tooltip_arrow_vertical').length,
@@ -72,6 +77,7 @@ describe('Tooltip:', () => {
 
 describe('SecondTooltip:', () => {
   let secondTooltip: SecondTooltip;
+  let secondKnob: SecondKnob;
   const rangeSlider = `<div class="slider slider_horizontal">
       <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale">
         <div
@@ -95,9 +101,10 @@ describe('SecondTooltip:', () => {
 
   beforeEach(() => {
     root.innerHTML = rangeSlider;
-
+    secondKnob = new SecondKnob({ ...defaultState, range: true }, root);
+    secondKnob.init();
     secondTooltip = new SecondTooltip({ tooltips: true, range: true }, root);
-    secondTooltip.display();
+    secondTooltip.init();
   });
 
   test('should return SecondTooltip instance', () => {
@@ -106,7 +113,7 @@ describe('SecondTooltip:', () => {
 
   test('should return error if the Second knob is not found', () => {
     root.innerHTML = '';
-    expect(() => secondTooltip.display()).toThrow(
+    expect(() => secondTooltip.init()).toThrow(
       'Second knob element is not found',
     );
   });
@@ -135,11 +142,12 @@ describe('SecondTooltip:', () => {
 
   test('should render vertical arrow', () => {
     root.innerHTML = rangeSlider;
-    secondTooltip = new SecondTooltip(
-      { tooltips: true, orientation: 'vertical' },
-      root,
+    
+    secondKnob = new SecondKnob(
+      { ...defaultState, orientation: 'vertical', range: true },
+      root
     );
-    secondTooltip.display();
+    secondKnob.init();
 
     expect(
       root.querySelectorAll('.slider__tooltip_arrow_vertical').length,

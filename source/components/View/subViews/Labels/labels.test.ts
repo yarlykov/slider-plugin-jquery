@@ -3,12 +3,15 @@
  */
 
 import defaultState from '../../../../defaultState';
+import Scale from '../Scale/Scale';
 import Labels from './Labels';
 
 const root: HTMLElement = document.createElement('div');
 
 describe('Labels:', () => {
   let labels: Labels;
+  let scale: Scale;
+
   const slider = `
     <div class="slider slider_horizontal">
       <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale"></div>
@@ -16,8 +19,10 @@ describe('Labels:', () => {
 
   beforeEach(() => {
     root.innerHTML = slider;
+    scale = new Scale(defaultState, root);
+    scale.init();
     labels = new Labels({ labels: true }, root);
-    labels.display();
+    labels.init();
   });
 
   test('should return Labels instance', () => {
@@ -26,7 +31,7 @@ describe('Labels:', () => {
 
   test('should return error if Scale is not found', () => {
     root.innerHTML = '';
-    expect(() => labels.display()).toThrow('Scale element is not found');
+    expect(() => labels.init()).toThrow('Scale element is not found');
   });
 
   test('should render default template', () => {
@@ -36,8 +41,9 @@ describe('Labels:', () => {
 
   test('should be 6 label items', () => {
     root.innerHTML = slider;
-    labels = new Labels(defaultState, root);
-    labels.display();
+    const state = { ...defaultState, labels: true }
+    scale = new Scale(state, root);
+    scale.init();
     const labelsNode = root.querySelectorAll('.slider__labels-item');
     expect(labelsNode.length).toBe(6);
   });
