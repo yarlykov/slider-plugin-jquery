@@ -43,8 +43,7 @@ class SecondKnob extends SliderComponent {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public handleSecondKnobPointerDown(_pointerEvent?: PointerEvent): void {
+  public handleSecondKnobPointerDown(): void {
     const {
       min = 0,
       max = 100,

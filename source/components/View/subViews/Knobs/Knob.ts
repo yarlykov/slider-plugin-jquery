@@ -37,8 +37,7 @@ class Knob extends SliderComponent {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public handleKnobPointerDown(_pointerEvent: PointerEvent): void {
+  public handleKnobPointerDown(): void {
     const {
       min = 0,
       max = 100,

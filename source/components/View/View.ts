@@ -61,14 +61,14 @@ class View extends Observer {
       this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
     );
 
-    this.components.scale.subscribe(ScaleEvents.TARGET_TRIGGERED, (event) => {
+    this.components.scale.subscribe(ScaleEvents.TARGET_TRIGGERED, () => {
       if (this.components.knob)
-        this.components.knob.handleKnobPointerDown(event as PointerEvent);
+        this.components.knob.handleKnobPointerDown();
     });
 
-    this.components.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, (event) => {
+    this.components.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, () => {
       if (this.components.secondKnob)
-        this.components.secondKnob.handleSecondKnobPointerDown(event as PointerEvent);
+        this.components.secondKnob.handleSecondKnobPointerDown();
     });
   }
   /* istanbul ignore next */
