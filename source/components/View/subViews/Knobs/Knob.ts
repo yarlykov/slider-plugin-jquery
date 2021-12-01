@@ -45,8 +45,8 @@ class Knob extends SliderComponent {
       step,
       orientation = defaultState.orientation,
     } = this.state;
-
-    document.onpointermove = (pointerEvent) => {
+    
+    const handleKnobPointerMove = (pointerEvent: PointerEvent):void => {
       pointerEvent.preventDefault();
       if (this.knob) {
         this.knob.ondragstart = () => false;
@@ -56,14 +56,17 @@ class Knob extends SliderComponent {
       const pageCoords = this.getPageCoords(pointerEvent);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
-
+      
       this.emit(KnobEvents.VALUE_CHANGED, correctValue.toFixed());
-    };
+    }
 
-    document.onpointerup = () => {
-      document.onpointermove = null;
-      document.onpointerup = null;
-    };
+    const handleKnobPointerUp = ():void => {
+      document.removeEventListener('pointerup', handleKnobPointerUp)
+      document.removeEventListener('pointermove', handleKnobPointerMove);
+    }
+    
+    document.addEventListener('pointermove', handleKnobPointerMove)
+    document.addEventListener('pointerup', handleKnobPointerUp);
   }
 
   private handleKnobKeyDown(event: KeyboardEvent): void {

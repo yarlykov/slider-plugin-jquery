@@ -52,7 +52,7 @@ class SecondKnob extends SliderComponent {
       orientation = defaultState.orientation,
     } = this.state;
 
-    document.onpointermove = (pointerEvent) => {
+    const handleSecondKnobPointerMove = (pointerEvent: PointerEvent):void => {
       pointerEvent.preventDefault();
       if (this.secondKnob) this.secondKnob.ondragstart = () => false;
       if (this.knob) this.knob.style.zIndex = '0';
@@ -65,10 +65,13 @@ class SecondKnob extends SliderComponent {
       this.emit(KnobEvents.VALUE_CHANGED, correctValue.toFixed());
     };
 
-    document.onmouseup = () => {
-      document.onpointermove = null;
-      document.onmouseup = null;
-    };
+    const handleSecondKnobPointerUp = ():void => {
+      document.removeEventListener('pointerup', handleSecondKnobPointerUp)
+      document.removeEventListener('pointermove', handleSecondKnobPointerMove);
+    }
+    
+    document.addEventListener('pointermove', handleSecondKnobPointerMove)
+    document.addEventListener('pointerup', handleSecondKnobPointerUp);
   }
 
   private handleSecondKnobKeyDown(event: KeyboardEvent): void {
