@@ -151,7 +151,7 @@ class Knob extends Knobs {
     super.update(state, KnobEvents.VALUE_FROM_CHANGED)
   }
 
-  private handleKnobPointerDown(): void {
+  public handleKnobPointerDown(): void {
     super.handleKnobsPointerDown(KnobEvents.VALUE_FROM_CHANGED)
   }
 
@@ -182,7 +182,7 @@ class SecondKnob extends Knobs {
     super.update(state, KnobEvents.VALUE_TO_CHANGED)
   }
 
-  private handleSecondKnobPointerDown(): void {
+  public handleSecondKnobPointerDown(): void {
     super.handleKnobsPointerDown(KnobEvents.VALUE_TO_CHANGED)
   }
 
