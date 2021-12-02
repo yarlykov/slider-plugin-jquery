@@ -74,13 +74,13 @@ class View extends Observer {
   /* istanbul ignore next */
   private bindKnobsEvents(): void {
     if (this.components.knob) {
-      this.components.knob.subscribe(KnobEvents.VALUE_CHANGED, (valueFrom) =>
+      this.components.knob.subscribe(KnobEvents.VALUE_FROM_CHANGED, (valueFrom) =>
         this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
       );
     }
 
     if (this.type === 'range' && this.components.secondKnob) {
-      this.components.secondKnob.subscribe(KnobEvents.VALUE_CHANGED, (valueTo) =>
+      this.components.secondKnob.subscribe(KnobEvents.VALUE_TO_CHANGED, (valueTo) =>
         this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
       );
     }

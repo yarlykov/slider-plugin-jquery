@@ -3,8 +3,7 @@
  */
 
 import defaultState from '../../../../defaultState';
-import Knob from '../Knobs/Knob';
-import SecondKnob from '../Knobs/SecondKnob';
+import { Knob, SecondKnob } from '../Knobs/Knobs';
 import { Tooltip, SecondTooltip } from './Tooltips';
 
 const root = document.createElement('div');
@@ -40,11 +39,6 @@ describe('Tooltip:', () => {
   test('should return error if the knob is not found', () => {
     root.innerHTML = '';
     expect(() => tooltip.init()).toThrow('Knob element is not found');
-  });
-
-  test('should render default template', () => {
-    expect(root.querySelectorAll('.slider__tooltip_horizontal').length).toBe(1);
-    expect(root.querySelectorAll('.slider__tooltip_orange').length).toBe(1);
   });
 
   test('should update tooltip value', () => {
@@ -118,11 +112,6 @@ describe('SecondTooltip:', () => {
     );
   });
 
-  test('should render default template', () => {
-    expect(root.querySelectorAll('.slider__tooltip_horizontal').length).toBe(1);
-    expect(root.querySelectorAll('.slider__tooltip_orange').length).toBe(1);
-  });
-
   test('should update secondTooltip value', () => {
     secondTooltip.update({ valueTo: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
@@ -138,19 +127,5 @@ describe('SecondTooltip:', () => {
       '.js-tooltip__value-second',
     );
     expect(tooltipValue).toBeNull();
-  });
-
-  test('should render vertical arrow', () => {
-    root.innerHTML = rangeSlider;
-    
-    secondKnob = new SecondKnob(
-      { ...defaultState, orientation: 'vertical', range: true },
-      root
-    );
-    secondKnob.init();
-
-    expect(
-      root.querySelectorAll('.slider__tooltip_arrow_vertical').length,
-    ).toBe(1);
   });
 });

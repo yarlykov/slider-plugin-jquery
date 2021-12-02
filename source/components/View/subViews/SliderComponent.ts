@@ -12,7 +12,7 @@ class SliderComponent extends Observer {
     this.state = options;
   }
 
-  public update(state: Partial<IOptions>): void {
+  public update(state: Partial<IOptions>, target?:string): void {
     this.state = { ...state };
   }
 

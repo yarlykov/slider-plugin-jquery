@@ -9,7 +9,10 @@ enum ViewEvents {
 }
 
 enum KnobEvents {
-  VALUE_CHANGED = 'VALUE_CHANGED',
+  VALUE_TO = 'VALUE_TO',
+  VALUE_FROM = 'VALUE_FROM',
+  VALUE_TO_CHANGED = 'VALUE_TO_CHANGED',
+  VALUE_FROM_CHANGED = 'VALUE_FROM_CHANGED',
 }
 
 enum ScaleEvents {

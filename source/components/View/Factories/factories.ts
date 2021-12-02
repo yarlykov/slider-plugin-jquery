@@ -4,10 +4,9 @@ import { changeFirstLetterToLower } from '../../../utils/utils';
 import { IOptions, Components } from '../../interfaces';
 import Scale from '../subViews/Scale/Scale';
 import Fill from '../subViews/Fill/Fill';
-import Knob from '../subViews/Knobs/Knob';
-import SecondKnob from '../subViews/Knobs/SecondKnob';
 import { Tooltip, SecondTooltip } from '../subViews/Tooltips/Tooltips';
 import Labels from '../subViews/Labels/Labels';
+import { Knob, SecondKnob } from '../subViews/Knobs/Knobs';
 
 class SimpleSlider {
   public createComponents(options: Partial<IOptions>, root: HTMLElement): Components {

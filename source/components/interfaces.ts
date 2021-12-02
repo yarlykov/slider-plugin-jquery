@@ -1,8 +1,7 @@
 import Fill from './View/subViews/Fill/Fill';
-import Knob from './View/subViews/Knobs/Knob';
-import SecondKnob from './View/subViews/Knobs/SecondKnob';
 import Labels from './View/subViews/Labels/Labels';
 import Scale from './View/subViews/Scale/Scale';
+import { Knob, SecondKnob } from './View/subViews/Knobs/Knobs';
 import { SecondTooltip, Tooltip } from './View/subViews/Tooltips/Tooltips';
 
 interface IOptions {
