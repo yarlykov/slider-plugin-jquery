@@ -22,7 +22,7 @@ interface Events {
   [key: string]: EventCallback[];
 }
 
-type EventCallback = (data?: IOptions | number | string) => void;
+type EventCallback = (data?: unknown) => void;
 
 type OptionValue = number | string | boolean;
 

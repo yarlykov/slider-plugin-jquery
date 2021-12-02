@@ -7,7 +7,7 @@ class Observer {
     this.observers = {};
   }
 
-  public emit<T>(event: string, data: T): boolean {
+  public emit(event: string, data: unknown): boolean {
     if (!Array.isArray(this.observers[event])) {
       return false;
     }

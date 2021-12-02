@@ -6,7 +6,7 @@ import { IOptions } from '../../../interfaces';
 import Scale from '../Scale/Scale';
 import Fill from './Fill';
 
-const initialState: IOptions = {
+const initialState: Partial<IOptions> = {
   min: 0,
   max: 100,
   step: 25,
