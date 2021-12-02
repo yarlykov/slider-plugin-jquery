@@ -1,9 +1,9 @@
-import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
-import { KnobEvents } from '../../../../Observer/events';
-import defaultState from '../../../../defaultState';
-import { IOptions } from '../../../interfaces';
-import SliderComponent from '../SliderComponent';
-import { SecondTooltip, Tooltip } from '../Tooltips/Tooltips';
+import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
+import { KnobEvents } from 'Source/Observer/events';
+import defaultState from 'Source/defaultState';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
+import { SecondTooltip, Tooltip } from 'Components/View/subViews/Tooltips/Tooltips';
+import { IOptions } from 'Components/interfaces';
 import './knobs.scss';
 
 class Knobs extends SliderComponent {

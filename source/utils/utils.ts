@@ -1,4 +1,4 @@
-import { IOptions } from '../components/interfaces';
+import { IOptions } from 'Components/interfaces';
 
 const fromValueToPercent = (state: Partial<IOptions>, value: number): number => {
   const { min = 0, max = 1, step = 1 } = state;

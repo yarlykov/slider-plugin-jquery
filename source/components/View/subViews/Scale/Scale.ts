@@ -1,10 +1,10 @@
-import defaultState from '../../../../defaultState';
-import { ScaleEvents } from '../../../../Observer/events';
-import { getValueWithStep } from '../../../../utils/utils';
-import Fill from '../Fill/Fill';
-import { Knob, SecondKnob } from '../Knobs/Knobs';
-import Labels from '../Labels/Labels';
-import SliderComponent from '../SliderComponent';
+import defaultState from 'Source/defaultState';
+import { ScaleEvents } from 'Source/Observer/events';
+import { getValueWithStep } from 'Source/utils/utils';
+import Fill from 'Components/View/subViews/Fill/Fill';
+import { Knob, SecondKnob } from 'Components/View/subViews/Knobs/Knobs';
+import Labels from 'Components/View/subViews/Labels/Labels';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './scale.scss';
 
 class Scale extends SliderComponent {

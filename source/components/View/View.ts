@@ -1,6 +1,6 @@
-import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from '../../Observer/events';
-import Observer from '../../Observer/Observer';
-import { Components, IOptions } from '../interfaces';
+import Observer from 'Source/Observer/Observer';
+import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observer/events';
+import { Components, IOptions } from 'Components/interfaces';
 import { SliderFactory } from './Factories/factories';
 
 class View extends Observer {

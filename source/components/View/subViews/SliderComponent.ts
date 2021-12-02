@@ -1,5 +1,5 @@
-import Observer from '../../../Observer/Observer';
-import { IOptions, Coords } from '../../interfaces';
+import Observer from 'Source/Observer/Observer';
+import { IOptions, Coords } from 'Components/interfaces';
 
 class SliderComponent extends Observer {
   public state: Partial<IOptions>;

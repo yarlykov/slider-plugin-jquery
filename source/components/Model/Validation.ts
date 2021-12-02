@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { fromValueToPercent, getValueWithStep } from '../../utils/utils';
-import { IOptions } from '../interfaces';
+import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
+import { IOptions } from 'Components/interfaces';
 
 class Validation {
   private min!: number;

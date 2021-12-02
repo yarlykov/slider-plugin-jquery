@@ -1,7 +1,7 @@
-import defaultState from '../../../../defaultState';
-import { LabelsEvents } from '../../../../Observer/events';
-import { fromValueToPercent, getValueWithStep } from '../../../../utils/utils';
-import SliderComponent from '../SliderComponent';
+import { LabelsEvents } from 'Source/Observer/events';
+import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
+import defaultState from 'Source/defaultState';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './labels.scss';
 
 class Labels extends SliderComponent {

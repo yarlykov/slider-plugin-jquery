@@ -27,6 +27,11 @@ const common = merge([
     },
     resolve: {
       extensions: ['.ts', '.js', '.json'],
+      alias: {
+        'Root': path.resolve(__dirname, './'),
+        'Components': path.resolve(__dirname, './source/components'),
+        'Source': path.resolve(__dirname, './source'),
+      },
     },
     plugins: [
       new HtmlWebpackPlugin({

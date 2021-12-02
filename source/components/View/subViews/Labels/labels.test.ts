@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import defaultState from '../../../../defaultState';
-import Scale from '../Scale/Scale';
+import defaultState from 'Source/defaultState';
+import Scale from 'Components/View/subViews/Scale/Scale';
 import Labels from './Labels';
 
 const root: HTMLElement = document.createElement('div');

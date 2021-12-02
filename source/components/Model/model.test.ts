@@ -1,4 +1,4 @@
-import { IOptions } from '../interfaces';
+import { IOptions } from 'Components/interfaces';
 import Model from './Model';
 
 describe('Model:', () => {

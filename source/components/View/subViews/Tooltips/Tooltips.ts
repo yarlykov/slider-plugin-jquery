@@ -1,5 +1,5 @@
-import { IOptions } from '../../../interfaces';
-import SliderComponent from '../SliderComponent';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
+import { IOptions } from 'Components/interfaces';
 import './tooltips.scss';
 
 class Tooltip extends SliderComponent {

@@ -9,7 +9,19 @@
     "outDir": "./dist/",
     "noImplicitAny": true,
     "allowJs": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "Root/*": [
+        "*"
+      ],
+      "Source/*": [
+        "source/*"
+      ],
+      "Components/*": [
+        "source/components/*"
+      ],
+    }
   },
   "exclude": ["node_modules"]
 }

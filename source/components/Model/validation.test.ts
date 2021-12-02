@@ -1,4 +1,4 @@
-import { IOptions } from '../interfaces';
+import { IOptions } from 'Components/interfaces';
 import Validation from './Validation';
 
 describe('Validation:', () => {

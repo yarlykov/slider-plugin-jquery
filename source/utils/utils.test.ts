@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { IOptions } from '../components/interfaces';
+import { IOptions } from 'Components/interfaces';
 import { changeFirstLetterToLower, fromValueToPercent, getValueWithStep } from './utils';
 
 describe('Utils: fromValueToPercent', () => {

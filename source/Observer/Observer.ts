@@ -1,4 +1,4 @@
-import { EventCallback, Events } from '../components/interfaces';
+import { EventCallback, Events } from 'Components/interfaces';
 
 class Observer {
   public observers: Events;

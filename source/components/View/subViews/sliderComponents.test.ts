@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import defaultState from '../../../defaultState';
+import defaultState from 'Source/defaultState';
 import SliderComponent from './SliderComponent';
 
 describe('SliderComponent:', () => {

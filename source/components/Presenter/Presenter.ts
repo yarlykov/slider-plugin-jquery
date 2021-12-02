@@ -1,6 +1,6 @@
-import { ModelEvents, ViewEvents } from '../../Observer/events';
-import Model from '../Model/Model';
-import View from '../View/View';
+import { ModelEvents, ViewEvents } from 'Source/Observer/events';
+import Model from 'Components/Model/Model';
+import View from 'Components/View/View';
 
 class Presenter {
   private model: Model;

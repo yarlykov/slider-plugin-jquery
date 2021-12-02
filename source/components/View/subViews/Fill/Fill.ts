@@ -1,7 +1,7 @@
-import defaultState from '../../../../defaultState';
-import { fromValueToPercent } from '../../../../utils/utils';
-import { IOptions } from '../../../interfaces';
-import SliderComponent from '../SliderComponent';
+import { fromValueToPercent } from 'Source/utils/utils';
+import defaultState from 'Source/defaultState';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
+import { IOptions } from 'Components/interfaces';
 import './fill.scss';
 
 class Fill extends SliderComponent {

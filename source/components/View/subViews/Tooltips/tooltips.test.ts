@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import defaultState from '../../../../defaultState';
-import { Knob, SecondKnob } from '../Knobs/Knobs';
+import defaultState from 'Source/defaultState';
+import { Knob, SecondKnob } from 'Components/View/subViews/Knobs/Knobs';
 import { Tooltip, SecondTooltip } from './Tooltips';
 
 const root = document.createElement('div');

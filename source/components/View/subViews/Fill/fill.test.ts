@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import { IOptions } from '../../../interfaces';
-import Scale from '../Scale/Scale';
+import Scale from 'Components/View/subViews/Scale/Scale';
+import { IOptions } from 'Components/interfaces';
 import Fill from './Fill';
 
 const initialState: Partial<IOptions> = {

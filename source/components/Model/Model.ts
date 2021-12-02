@@ -1,7 +1,7 @@
-import Observer from '../../Observer/Observer';
-import { ModelEvents } from '../../Observer/events';
-import defaultState from '../../defaultState';
-import { IOptions, OptionValue } from '../interfaces';
+import defaultState from 'Root/source/defaultState';
+import Observer from 'Source/Observer/Observer';
+import { ModelEvents } from 'Source/Observer/events';
+import { IOptions, OptionValue } from 'Components/interfaces';
 import Validation from './Validation';
 
 type Option = keyof IOptions;
