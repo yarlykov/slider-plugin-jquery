@@ -1,6 +1,6 @@
 import Observer from 'Source/Observer/Observer';
 import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observer/events';
-import { Components, IOptions } from 'Components/interfaces';
+import { IOptions, RangeSliderType, SimpleSliderType } from 'Components/interfaces';
 import { SliderFactory } from './Factories/factories';
 
 class View extends Observer {
@@ -8,7 +8,7 @@ class View extends Observer {
 
   private type!: string;
 
-  public components!: Components;
+  public components!: SimpleSliderType & RangeSliderType;
 
   constructor(root: HTMLElement, options: IOptions) {
     super();

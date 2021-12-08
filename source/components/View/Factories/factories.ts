@@ -1,6 +1,6 @@
 /* eslint max-classes-per-file: "off" */
 import { changeFirstLetterToLower } from 'Source/utils/utils';
-import { IOptions, Components } from 'Components/interfaces';
+import { IOptions, RangeSliderType, SimpleSliderType } from 'Components/interfaces';
 import Scale from 'Components/View/subViews/Scale/Scale';
 import Fill from 'Components/View/subViews/Fill/Fill';
 import Labels from 'Components/View/subViews/Labels/Labels';
@@ -8,9 +8,9 @@ import { Tooltip, SecondTooltip } from 'Components/View/subViews/Tooltips/Toolti
 import { Knob, SecondKnob } from 'Components/View/subViews/Knobs/Knobs';
 
 class SimpleSlider {
-  public createComponents(options: Partial<IOptions>, root: HTMLElement): Components {
+  public createComponents(options: Partial<IOptions>, root: HTMLElement): SimpleSliderType {
     const elements = [Scale, Fill, Knob, Labels, Tooltip];
-    const components: Components = {};
+    const components = {};
 
     elements.forEach((Element) => {
       const element = new Element(options, root);
@@ -19,12 +19,12 @@ class SimpleSlider {
         components[elementName] = element;
       }
     });
-    return components;
+    return <SimpleSliderType>components;
   }
 }
 
 class RangeSlider {
-  public createComponents(options: Partial<IOptions>, root: HTMLElement): Components {
+  public createComponents(options: Partial<IOptions>, root: HTMLElement): RangeSliderType {
     const elements = [
       Scale,
       Fill,
@@ -34,7 +34,7 @@ class RangeSlider {
       SecondTooltip,
       Labels,
     ];
-    const components: Components = {};
+    const components = {};
 
     elements.forEach((Element) => {
       const element = new Element(options, root);
@@ -43,7 +43,7 @@ class RangeSlider {
         components[elementName] = element;
       }
     });
-    return components;
+    return <RangeSliderType>components;
   }
 }
 

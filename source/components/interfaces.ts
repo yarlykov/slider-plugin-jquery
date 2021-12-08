@@ -38,13 +38,16 @@ type ScaleCoords = {
   height: number;
 }
 
-type Components = {
-  scale?: Scale;
-  fill?: Fill;
-  knob?: Knob;
+type SimpleSliderType = {
+  scale: Scale;
+  fill: Fill;
+  knob: Knob;
+  labels: Labels;
+  tooltip: Tooltip;
+}
+
+type RangeSliderType = SimpleSliderType & {
   secondKnob?: SecondKnob;
-  labels?: Labels;
-  tooltip?: Tooltip;
   secondTooltip?: SecondTooltip;
 };
 
@@ -52,7 +55,8 @@ export {
   IOptions,
   EventCallback,
   Events,
-  Components,
+  SimpleSliderType,
+  RangeSliderType,
   PageCoords,
   ScaleCoords,
   OptionValue,
