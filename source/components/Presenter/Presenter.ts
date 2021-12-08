@@ -20,9 +20,7 @@ class Presenter {
 
   private bindModelEvents(): void {
     this.model.subscribe(ModelEvents.STATE_CHANGED, (state) => {
-      if (state instanceof Object) {
-        this.view.init(state);
-      }
+      this.view.init(state);
       this.customEvent();
     });
 

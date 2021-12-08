@@ -1,33 +1,17 @@
-import { EventCallback, Events } from 'Components/interfaces';
+type ObserverEvent = { type: string; data: unknown }
+type Narrow<T, K> = T extends { type: K } ? T : never;
+type EventCallback<T extends ObserverEvent, K> = (data: Narrow<T, K>['data']) => void;
 
-class Observer {
-  public observers: Events;
+class Observer<T extends ObserverEvent> {
+  public observers: { [key in T['type']]?: EventCallback<T, key>[] } = {};
 
-  constructor() {
-    this.observers = {};
+  public emit<K extends T['type']>(event: K, data: Narrow<T, K>['data']): void {
+    this.observers[event]?.forEach((observer) => observer(data));
   }
 
-  public emit(event: string, data: unknown): boolean {
-    if (!Array.isArray(this.observers[event])) {
-      return false;
-    }
-
-    this.observers[event].forEach((observer: EventCallback) => {
-      observer(data);
-    });
-    return true;
-  }
-
-  public subscribe(event: string, fn: EventCallback): void {
-    this.observers[event] = this.observers[event] || [];
-    this.observers[event].push(fn);
-  }
-
-  public unsubscribe(event: string, fn: EventCallback): Events {
-    this.observers[event] = this.observers[event].filter(
-      (observer: EventCallback) => observer !== fn,
-    );
-    return this.observers;
+  public subscribe<K extends T['type']>(event: K, callback: EventCallback<T, K>): void {
+      const observers: EventCallback<T, K>[] = this.observers[event] || [];
+      this.observers[event] = [...observers, callback];
   }
 }
 

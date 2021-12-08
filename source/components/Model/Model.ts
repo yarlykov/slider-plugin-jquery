@@ -5,8 +5,11 @@ import { IOptions, OptionValue } from 'Components/interfaces';
 import Validation from './Validation';
 
 type Option = keyof IOptions;
+type ModelEvent = 
+  | { type: ModelEvents.VALUE_CHANGED, data: Partial<IOptions> } 
+  | { type: ModelEvents.STATE_CHANGED, data: IOptions }
 
-class Model extends Observer {
+class Model extends Observer<ModelEvent> {
   public state: IOptions = defaultState;
 
   private validation: Validation;

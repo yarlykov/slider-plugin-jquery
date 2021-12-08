@@ -7,6 +7,8 @@ import { SecondTooltip, Tooltip } from 'Components/View/subViews/Tooltips/Toolti
 import { IOptions } from 'Components/interfaces';
 import './knobs.scss';
 
+type KnobEventTarget = KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED;
+
 class Knobs extends SliderComponent {
   public scale!: HTMLElement | null;
 
@@ -27,7 +29,7 @@ class Knobs extends SliderComponent {
   public update(state: Partial<IOptions>, target: string): void {
     this.state = { ...state };
 
-    const targetValue = target === KnobEvents.VALUE_FROM_CHANGED 
+    const targetValue = target === KnobEvents.KNOB_VALUE_FROM_CHANGED 
       ? 'valueFrom'
       : 'valueTo'
     const { orientation = defaultState.orientation} = this.state;
@@ -43,7 +45,7 @@ class Knobs extends SliderComponent {
     }
   }
 
-  public handleKnobsPointerDown(target: string): void {
+  public handleKnobsPointerDown(target: KnobEventTarget): void {
     const {
       min,
       max,
@@ -51,7 +53,7 @@ class Knobs extends SliderComponent {
       orientation = defaultState.orientation,
     } = this.state;
 
-    const zIndex = target === KnobEvents.VALUE_FROM_CHANGED ? '1' : '0'
+    const zIndex = target === KnobEvents.KNOB_VALUE_FROM_CHANGED ? '1' : '0'
     
     const handleKnobsPointerMove = (pointerEvent: PointerEvent):void => {
       pointerEvent.preventDefault();
@@ -81,8 +83,8 @@ class Knobs extends SliderComponent {
     document.addEventListener('pointerup', handleKnobsPointerUp);
   }
 
-  public handleKnobsKeyDown(event: KeyboardEvent, target: string): void {
-    const targetValue = target === KnobEvents.VALUE_FROM_CHANGED 
+  public handleKnobsKeyDown(event: KeyboardEvent, target: KnobEventTarget): void {
+    const targetValue = target === KnobEvents.KNOB_VALUE_FROM_CHANGED 
       ? 'valueFrom'
       : 'valueTo'
     const value = this.state[targetValue];
@@ -150,15 +152,15 @@ class Knob extends Knobs {
   }
 
   public update(state: Partial<IOptions>): void {
-    super.update(state, KnobEvents.VALUE_FROM_CHANGED)
+    super.update(state, KnobEvents.KNOB_VALUE_FROM_CHANGED)
   }
 
   public handleKnobPointerDown(): void {
-    super.handleKnobsPointerDown(KnobEvents.VALUE_FROM_CHANGED)
+    super.handleKnobsPointerDown(KnobEvents.KNOB_VALUE_FROM_CHANGED)
   }
 
   private handleKnobKeyDown(event: KeyboardEvent): void {
-    super.handleKnobsKeyDown(event, KnobEvents.VALUE_FROM_CHANGED);
+    super.handleKnobsKeyDown(event, KnobEvents.KNOB_VALUE_FROM_CHANGED);
   }
 
   private addEventListeners(): void {
@@ -181,15 +183,15 @@ class SecondKnob extends Knobs {
   }
 
   public update(state: Partial<IOptions>): void {
-    super.update(state, KnobEvents.VALUE_TO_CHANGED)
+    super.update(state, KnobEvents.KNOB_VALUE_TO_CHANGED)
   }
 
   public handleSecondKnobPointerDown(): void {
-    super.handleKnobsPointerDown(KnobEvents.VALUE_TO_CHANGED)
+    super.handleKnobsPointerDown(KnobEvents.KNOB_VALUE_TO_CHANGED)
   }
 
   private handleSecondKnobKeyDown(event: KeyboardEvent): void {
-    super.handleKnobsKeyDown(event, KnobEvents.VALUE_TO_CHANGED);
+    super.handleKnobsKeyDown(event, KnobEvents.KNOB_VALUE_TO_CHANGED);
   }
 
   private addEventListeners(): void {

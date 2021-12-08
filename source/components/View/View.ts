@@ -3,7 +3,11 @@ import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observ
 import { IOptions, RangeSliderType, SimpleSliderType } from 'Components/interfaces';
 import { SliderFactory } from './Factories/factories';
 
-class View extends Observer {
+type ViewEvent = 
+  | { type: ViewEvents.VALUE_FROM_CHANGED, data: number | string }
+  | { type: ViewEvents.VALUE_TO_CHANGED, data: number | string }
+
+class View extends Observer<ViewEvent> {
   private root: HTMLElement;
 
   private type!: string;
@@ -16,7 +20,7 @@ class View extends Observer {
     this.init(options)
   }
 
-  public init(options: Partial<IOptions>): void {
+  public init(options: IOptions): void {
     this.type = options.range ? 'range' : 'simple';
     const slider = SliderFactory.create(this.type);
 
@@ -51,11 +55,11 @@ class View extends Observer {
   private bindScaleEvents(): void {
     if (!this.components.scale) return;
 
-    this.components.scale.subscribe(ScaleEvents.VALUE_FROM_CHANGED, (valueFrom) =>
+    this.components.scale.subscribe(ScaleEvents.SCALE_VALUE_FROM_CHANGED, (valueFrom) =>
       this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
     );
 
-    this.components.scale.subscribe(ScaleEvents.VALUE_TO_CHANGED, (valueTo) =>
+    this.components.scale.subscribe(ScaleEvents.SCALE_VALUE_TO_CHANGED, (valueTo) =>
       this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
     );
 
@@ -72,13 +76,13 @@ class View extends Observer {
   /* istanbul ignore next */
   private bindKnobsEvents(): void {
     if (this.components.knob) {
-      this.components.knob.subscribe(KnobEvents.VALUE_FROM_CHANGED, (valueFrom) =>
+      this.components.knob.subscribe(KnobEvents.KNOB_VALUE_FROM_CHANGED, (valueFrom) =>
         this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
       );
     }
 
     if (this.type === 'range' && this.components.secondKnob) {
-      this.components.secondKnob.subscribe(KnobEvents.VALUE_TO_CHANGED, (valueTo) =>
+      this.components.secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) =>
         this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
       );
     }
@@ -87,11 +91,11 @@ class View extends Observer {
   private bindLabelsEvents(): void {
     if (!this.components.labels) return;
     
-    this.components.labels.subscribe(LabelsEvents.VALUE_FROM_CHANGED, (valueFrom) =>
+    this.components.labels.subscribe(LabelsEvents.LABELS_VALUE_FROM_CHANGED, (valueFrom) =>
       this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
     );
 
-    this.components.labels.subscribe(LabelsEvents.VALUE_TO_CHANGED, (valueTo) =>
+    this.components.labels.subscribe(LabelsEvents.LABELS_VALUE_TO_CHANGED, (valueTo) =>
       this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
     );
   }

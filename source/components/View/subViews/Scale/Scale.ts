@@ -41,14 +41,14 @@ class Scale extends SliderComponent {
         const delta = (valueTo - valueFrom) / 2;
         const leftHalfOfScale = valueFrom + delta;
         if (correctValue >= leftHalfOfScale) {
-          this.emit(ScaleEvents.VALUE_TO_CHANGED, correctValue.toFixed());
+          this.emit(ScaleEvents.SCALE_VALUE_TO_CHANGED, correctValue.toFixed());
           this.emit(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, event);
         } else {
-          this.emit(ScaleEvents.VALUE_FROM_CHANGED, correctValue.toFixed());
+          this.emit(ScaleEvents.SCALE_VALUE_FROM_CHANGED, correctValue.toFixed());
           this.emit(ScaleEvents.TARGET_TRIGGERED, event);
         }
       } else {
-        this.emit(ScaleEvents.VALUE_FROM_CHANGED, correctValue.toFixed());
+        this.emit(ScaleEvents.SCALE_VALUE_FROM_CHANGED, correctValue.toFixed());
         this.emit(ScaleEvents.TARGET_TRIGGERED, event);
       }
     }

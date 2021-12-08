@@ -34,12 +34,12 @@ class Labels extends SliderComponent {
         const delta = (valueTo - valueFrom) / 2;
         const leftHalfOfScale = valueFrom + delta;
         if (correctValue >= leftHalfOfScale) {
-          this.emit(LabelsEvents.VALUE_TO_CHANGED, correctValue);
+          this.emit(LabelsEvents.LABELS_VALUE_TO_CHANGED, correctValue);
         } else {
-          this.emit(LabelsEvents.VALUE_FROM_CHANGED, correctValue);
+          this.emit(LabelsEvents.LABELS_VALUE_FROM_CHANGED, correctValue);
         }
       } else {
-        this.emit(LabelsEvents.VALUE_FROM_CHANGED, correctValue);
+        this.emit(LabelsEvents.LABELS_VALUE_FROM_CHANGED, correctValue);
       }
     }
   }

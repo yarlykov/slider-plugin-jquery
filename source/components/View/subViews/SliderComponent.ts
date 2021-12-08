@@ -1,7 +1,38 @@
 import Observer from 'Source/Observer/Observer';
 import { IOptions, ScaleCoords, PageCoords } from 'Components/interfaces';
+import { KnobEvents, LabelsEvents, ScaleEvents } from 'Root/source/Observer/events';
 
-class SliderComponent extends Observer {
+type SliderComponentEvent = 
+  | {
+      type: KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED,
+      data: number | string
+    }
+  | { 
+      type: LabelsEvents.LABELS_VALUE_FROM_CHANGED,
+      data: number
+    }
+  | { 
+      type: LabelsEvents.LABELS_VALUE_TO_CHANGED,
+      data: number
+    }
+  | {
+      type: ScaleEvents.SCALE_VALUE_FROM_CHANGED,
+      data: number | string
+    }
+  | {
+      type: ScaleEvents.SCALE_VALUE_TO_CHANGED,
+      data: number | string
+    }
+  | {
+      type: ScaleEvents.TARGET_TRIGGERED,
+      data: PointerEvent
+    }
+  | {
+      type: ScaleEvents.TARGET_MAX_VALUE_TRIGGERED,
+      data: PointerEvent
+    }
+
+class SliderComponent extends Observer<SliderComponentEvent> {
   public state: Partial<IOptions>;
 
   public root: HTMLElement;
