@@ -34,10 +34,6 @@ describe('View:', () => {
     expect(view).toBeInstanceOf(View);
   });
 
-  test('init should return an error if no options are passed', () => {
-    expect(view.init).toThrowError('options were not passed');
-  });
-
   test('should render the range slider', () => {
     view.init({ range: true });
     const rangeSliders = root.querySelectorAll('.js-slider__second-knob');

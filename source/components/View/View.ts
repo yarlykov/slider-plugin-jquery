@@ -17,8 +17,6 @@ class View extends Observer {
   }
 
   public init(options: Partial<IOptions>): void {
-    if (!options) throw new Error('options were not passed');
-
     this.type = options.range ? 'range' : 'simple';
     const slider = SliderFactory.create(this.type);
 
