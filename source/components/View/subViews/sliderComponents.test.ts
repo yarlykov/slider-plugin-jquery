@@ -3,12 +3,13 @@
  */
 
 import defaultState from 'Source/defaultState';
+import { defaultPageCoords, defaultScaleCoords } from './Scale/defaultCoords';
 import SliderComponent from './SliderComponent';
 
 describe('SliderComponent:', () => {
   let sliderComponent: SliderComponent;
   let elem: HTMLDivElement;
-  const sliderCoords = {
+  const scaleCoords = {
     bottom: 355,
     height: 296,
     left: 325,
@@ -46,22 +47,22 @@ describe('SliderComponent:', () => {
   });
 
   test('getPosition method should be defined', () => {
-    const sliderCoords = {};
-    const pageCoords = {};
+    const scaleCoords = defaultScaleCoords;
+    const pageCoords = defaultPageCoords;
     expect(
-      sliderComponent.getPosition('horizontal', sliderCoords, pageCoords),
+      sliderComponent.getPosition('horizontal', scaleCoords, pageCoords),
     ).toBeDefined();
   });
 
   test('getPosition method should return horizontal position', () => {
     expect(
-      sliderComponent.getPosition('horizontal', sliderCoords, pageCoords),
+      sliderComponent.getPosition('horizontal', scaleCoords, pageCoords),
     ).toEqual(25);
   });
 
   test('getPosition method should return vertical position', () => {
     expect(
-      sliderComponent.getPosition('vertical', sliderCoords, pageCoords),
+      sliderComponent.getPosition('vertical', scaleCoords, pageCoords),
     ).toEqual(25);
   });
 });

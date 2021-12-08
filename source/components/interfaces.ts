@@ -26,14 +26,17 @@ type EventCallback = (data?: unknown) => void;
 
 type OptionValue = number | string | boolean;
 
-type Coords = {
-  pageX?: number;
-  pageY?: number;
-  left?: number;
-  bottom?: number;
-  width?: number;
-  height?: number;
-};
+type PageCoords = {
+  pageX: number;
+  pageY: number;
+}
+
+type ScaleCoords = {
+  left: number;
+  bottom: number;
+  width: number;
+  height: number;
+}
 
 type Components = {
   scale?: Scale;
@@ -50,6 +53,7 @@ export {
   EventCallback,
   Events,
   Components,
-  Coords,
+  PageCoords,
+  ScaleCoords,
   OptionValue,
 };

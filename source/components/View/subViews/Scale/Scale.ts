@@ -5,6 +5,7 @@ import Fill from 'Components/View/subViews/Fill/Fill';
 import { Knob, SecondKnob } from 'Components/View/subViews/Knobs/Knobs';
 import Labels from 'Components/View/subViews/Labels/Labels';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
+import { defaultScaleCoords } from './defaultCoords';
 import './scale.scss';
 
 class Scale extends SliderComponent {
@@ -31,7 +32,7 @@ class Scale extends SliderComponent {
         range,
       } = { ...defaultState, ...this.state };
 
-      const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : {};
+      const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : defaultScaleCoords;
       const pageCoords = this.getPageCoords(event);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);

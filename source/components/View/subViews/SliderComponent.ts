@@ -1,5 +1,5 @@
 import Observer from 'Source/Observer/Observer';
-import { IOptions, Coords } from 'Components/interfaces';
+import { IOptions, ScaleCoords, PageCoords } from 'Components/interfaces';
 
 class SliderComponent extends Observer {
   public state: Partial<IOptions>;
@@ -16,7 +16,7 @@ class SliderComponent extends Observer {
     this.state = { ...state };
   }
 
-  public getCoords(elem: HTMLElement): Coords {
+  public getCoords(elem: HTMLElement): ScaleCoords {
     const boxLeft = elem.getBoundingClientRect().left;
     const boxTop = elem.getBoundingClientRect().top;
     const boxRight = elem.getBoundingClientRect().right;
@@ -32,7 +32,7 @@ class SliderComponent extends Observer {
     };
   }
 
-  public getPageCoords(event: PointerEvent): Coords {
+  public getPageCoords(event: PointerEvent): PageCoords {
     const { pageX } = event;
     const { pageY } = event;
 
@@ -44,12 +44,12 @@ class SliderComponent extends Observer {
 
   public getPosition(
     orientation: string,
-    sliderCoords: Coords,
-    pageCoords: Coords,
+    scaleCoords: ScaleCoords,
+    pageCoords: PageCoords,
   ): number {
     const horizontal = orientation === 'horizontal';
-    const { pageX = 0, pageY = 0 } = pageCoords;
-    const { left = 0, bottom = 0, width = 0, height = 0 } = sliderCoords;
+    const { pageX, pageY } = pageCoords;
+    const { left, bottom, width, height } = scaleCoords;
 
     if (horizontal) {
       return ((pageX - left) / width) * 100;
