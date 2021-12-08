@@ -13,11 +13,11 @@ class Fill extends SliderComponent {
 
   public update(state: Partial<IOptions>): void {
     const {
-      orientation = defaultState.orientation,
-      range = defaultState.range,
-      valueTo = defaultState.valueTo,
-      valueFrom = defaultState.valueFrom
-    } = state;
+      orientation,
+      range,
+      valueTo,
+      valueFrom
+    } = { ...defaultState, ...state };
     const isHorizontal = orientation === 'horizontal';
     const wayOfFilling: string = isHorizontal ? 'width' : 'height';
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';

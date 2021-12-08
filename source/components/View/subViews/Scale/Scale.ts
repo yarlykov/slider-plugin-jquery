@@ -22,14 +22,14 @@ class Scale extends SliderComponent {
   public handleScalePointerDown(event: PointerEvent): void {
     if (this.isTarget(event)) {
       const {
-        min = defaultState.min,
-        max = defaultState.max,
-        valueFrom = defaultState.valueFrom,
-        valueTo = defaultState.valueTo,
-        step = defaultState.step,
-        orientation = defaultState.orientation,
-        range = defaultState.range,
-      } = this.state;
+        min,
+        max,
+        valueFrom,
+        valueTo,
+        step,
+        orientation,
+        range,
+      } = { ...defaultState, ...this.state };
 
       const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : {};
       const pageCoords = this.getPageCoords(event);

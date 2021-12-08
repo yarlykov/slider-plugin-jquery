@@ -18,13 +18,13 @@ class Labels extends SliderComponent {
   private handleLabelsPointerDown(event: PointerEvent) {
     if (event.target instanceof HTMLElement) {
       const {
-        min = defaultState.min,
-        max = defaultState.max,
-        step = defaultState.step,
-        valueFrom = defaultState.valueFrom,
-        valueTo = defaultState.valueTo,
-        range = defaultState.range,
-      } = this.state;
+        min,
+        max,
+        step,
+        valueFrom,
+        valueTo,
+        range,
+      } = { ...defaultState, ...this.state };
 
       const targetValue = Number(event.target.dataset.value);
       let correctValue = getValueWithStep(min, max, step, targetValue);
