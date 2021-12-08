@@ -21,7 +21,7 @@ describe('Labels:', () => {
     root.innerHTML = slider;
     scale = new Scale(defaultState, root);
     scale.init();
-    labels = new Labels({ labels: true }, root);
+    labels = new Labels({ ...defaultState, labels: true }, root);
     labels.init();
   });
 

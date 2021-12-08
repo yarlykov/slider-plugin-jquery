@@ -25,7 +25,7 @@ class Presenter {
     });
 
     this.model.subscribe(ModelEvents.VALUE_CHANGED, (state) => {
-      if (state instanceof Object) this.view.update(state);
+      this.view.update(state);
       this.customEvent();
     });
   }

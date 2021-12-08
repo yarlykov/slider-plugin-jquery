@@ -31,7 +31,7 @@ class View extends Observer<ViewEvent> {
     this.update(options);
   }
 
-  public update(state: Partial<IOptions>): void {
+  public update(state: IOptions): void {
     const componentInstances = Object.values(this.components)
     componentInstances.forEach((component) => {
       if (component) component.update(state);

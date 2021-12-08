@@ -4,9 +4,11 @@
 
 import { IOptions } from 'Components/interfaces';
 import Scale from 'Components/View/subViews/Scale/Scale';
+import defaultState from 'Root/source/defaultState';
 import { Knob, SecondKnob } from './Knobs';
 
-const initialState: Partial<IOptions> = {
+const initialState: IOptions = {
+  ...defaultState,
   min: 0,
   max: 100,
   step: 25,
@@ -27,7 +29,7 @@ describe('Knob:', () => {
     root.innerHTML = slider;
     scale = new Scale(initialState, root);
     scale.init();
-    knob = new Knob({}, root);
+    knob = new Knob(defaultState, root);
     knob.init();
     knobNode = root.querySelector('.js-slider__knob') as HTMLElement;
   });
@@ -60,7 +62,7 @@ describe('SecondKnob:', () => {
     const state = { ...initialState, range: true }
     scale = new Scale(state, root);
     scale.init();
-    secondKnob = new SecondKnob({}, root);
+    secondKnob = new SecondKnob(defaultState, root);
     secondKnob.init();
     knobNode = root.querySelector('.js-slider__second-knob') as HTMLElement;
   });

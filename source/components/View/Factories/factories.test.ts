@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import defaultState from 'Root/source/defaultState';
 import { SliderFactory, SimpleSlider, RangeSlider } from './factories';
 
 describe('Factories', () => {
@@ -24,7 +25,7 @@ describe('Factories', () => {
     const simpleSlider = new SimpleSlider();
     const root = document.createElement('div');
 
-    expect(rangeSlider.createComponents({}, root)).toBeDefined();
-    expect(simpleSlider.createComponents({}, root)).toBeDefined();
+    expect(rangeSlider.createComponents(defaultState, root)).toBeDefined();
+    expect(simpleSlider.createComponents(defaultState, root)).toBeDefined();
   });
 });

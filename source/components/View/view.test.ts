@@ -54,7 +54,7 @@ describe('View:', () => {
   });
 
   test('should update slider', () => {
-    view.update({ valueFrom: 20});
+    view.update({ ...defaultState, valueFrom: 20});
     const sliderValueFrom = view.components.knob?.state.valueFrom;
     
     expect(sliderValueFrom).toBe(20);

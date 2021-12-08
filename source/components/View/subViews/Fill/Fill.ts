@@ -1,5 +1,4 @@
 import { fromValueToPercent } from 'Source/utils/utils';
-import defaultState from 'Source/defaultState';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { IOptions } from 'Components/interfaces';
 import './fill.scss';
@@ -11,13 +10,13 @@ class Fill extends SliderComponent {
     this.fill = this.root.querySelector('.js-slider__fill');
   }
 
-  public update(state: Partial<IOptions>): void {
+  public update(state: IOptions): void {
     const {
       orientation,
       range,
       valueTo,
       valueFrom
-    } = { ...defaultState, ...state };
+    } = state ;
     const isHorizontal = orientation === 'horizontal';
     const wayOfFilling: string = isHorizontal ? 'width' : 'height';
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';

@@ -6,7 +6,7 @@ import Validation from './Validation';
 
 type Option = keyof IOptions;
 type ModelEvent = 
-  | { type: ModelEvents.VALUE_CHANGED, data: Partial<IOptions> } 
+  | { type: ModelEvents.VALUE_CHANGED, data: IOptions } 
   | { type: ModelEvents.STATE_CHANGED, data: IOptions }
 
 class Model extends Observer<ModelEvent> {

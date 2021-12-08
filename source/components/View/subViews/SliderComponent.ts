@@ -33,17 +33,17 @@ type SliderComponentEvent =
     }
 
 class SliderComponent extends Observer<SliderComponentEvent> {
-  public state: Partial<IOptions>;
+  public state: IOptions;
 
   public root: HTMLElement;
 
-  constructor(options: Partial<IOptions>, root: HTMLElement) {
+  constructor(options: IOptions, root: HTMLElement) {
     super();
     this.root = root;
     this.state = options;
   }
 
-  public update(state: Partial<IOptions>, target?:string): void {
+  public update(state: IOptions, target?: string): void {
     this.state = { ...state };
   }
 

@@ -3,10 +3,12 @@
  */
 
 import Scale from 'Components/View/subViews/Scale/Scale';
+import defaultState from 'Root/source/defaultState';
 import { IOptions } from 'Components/interfaces';
 import Fill from './Fill';
 
-const initialState: Partial<IOptions> = {
+const initialState: IOptions = {
+  ...defaultState,
   min: 0,
   max: 100,
   step: 25,
@@ -72,7 +74,7 @@ describe('Fill:', () => {
   test('if not fill should not update width or height value', () => {
     root.innerHTML = '';
     fill.init();
-    fill.update({});
+    fill.update(defaultState);
     expect(fillNode.style.width).toBe('');
     expect(fillNode.style.height).toBe('');
   });

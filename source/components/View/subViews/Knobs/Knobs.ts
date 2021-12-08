@@ -1,7 +1,6 @@
 import { defaultScaleCoords } from 'Components/View/subViews/Scale/defaultCoords';
 import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
 import { KnobEvents } from 'Source/Observer/events';
-import defaultState from 'Source/defaultState';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { SecondTooltip, Tooltip } from 'Components/View/subViews/Tooltips/Tooltips';
 import { IOptions } from 'Components/interfaces';
@@ -26,13 +25,13 @@ class Knobs extends SliderComponent {
     if (tooltips) this.addTooltips();
   }
 
-  public update(state: Partial<IOptions>, target: string): void {
+  public update(state: IOptions, target: string): void {
     this.state = { ...state };
 
     const targetValue = target === KnobEvents.KNOB_VALUE_FROM_CHANGED 
       ? 'valueFrom'
       : 'valueTo'
-    const { orientation = defaultState.orientation} = this.state;
+    const { orientation} = this.state;
 
     if (this[targetValue]) {
       const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
@@ -50,7 +49,7 @@ class Knobs extends SliderComponent {
       min,
       max,
       step,
-      orientation = defaultState.orientation,
+      orientation,
     } = this.state;
 
     const zIndex = target === KnobEvents.KNOB_VALUE_FROM_CHANGED ? '1' : '0'
@@ -88,7 +87,7 @@ class Knobs extends SliderComponent {
       ? 'valueFrom'
       : 'valueTo'
     const value = this.state[targetValue];
-    const { step = defaultState.step } = this.state;
+    const { step } = this.state;
     const { code } = event;
 
     if (code === 'ArrowRight' || code === 'ArrowUp') {
@@ -151,7 +150,7 @@ class Knob extends Knobs {
     this.addEventListeners();
   }
 
-  public update(state: Partial<IOptions>): void {
+  public update(state: IOptions): void {
     super.update(state, KnobEvents.KNOB_VALUE_FROM_CHANGED)
   }
 
@@ -182,7 +181,7 @@ class SecondKnob extends Knobs {
     this.addEventListeners();
   }
 
-  public update(state: Partial<IOptions>): void {
+  public update(state: IOptions): void {
     super.update(state, KnobEvents.KNOB_VALUE_TO_CHANGED)
   }
 

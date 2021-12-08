@@ -20,7 +20,7 @@ describe('Scale: init ', () => {
   });
 
   test('should return Scale instance', () => {
-    expect(new Scale({}, root)).toBeInstanceOf(Scale);
+    expect(new Scale(defaultState, root)).toBeInstanceOf(Scale);
   });
 
   test('the target must be correctly determined ("scale" or "fill")', () => {

@@ -28,7 +28,7 @@ describe('Tooltip:', () => {
     root.innerHTML = slider;
     knob = new Knob(defaultState, root);
     knob.init();
-    tooltip = new Tooltip({ tooltips: true }, root);
+    tooltip = new Tooltip({ ...defaultState, tooltips: true }, root);
     tooltip.init();
   });
 
@@ -97,7 +97,7 @@ describe('SecondTooltip:', () => {
     root.innerHTML = rangeSlider;
     secondKnob = new SecondKnob({ ...defaultState, range: true }, root);
     secondKnob.init();
-    secondTooltip = new SecondTooltip({ tooltips: true, range: true }, root);
+    secondTooltip = new SecondTooltip({ ...defaultState, tooltips: true, range: true }, root);
     secondTooltip.init();
   });
 
@@ -110,14 +110,6 @@ describe('SecondTooltip:', () => {
     expect(() => secondTooltip.init()).toThrow(
       'Second knob element is not found',
     );
-  });
-
-  test('should update secondTooltip value', () => {
-    secondTooltip.update({ valueTo: 10 });
-    const tooltipValue: HTMLElement | null = root.querySelector(
-      '.js-tooltip__value-second',
-    );
-    if (tooltipValue) expect(tooltipValue.innerText).toBe('10');
   });
 
   test('should not update secondTooltip value', () => {

@@ -1,6 +1,5 @@
 import { LabelsEvents } from 'Source/Observer/events';
 import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
-import defaultState from 'Source/defaultState';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './labels.scss';
 
@@ -24,7 +23,7 @@ class Labels extends SliderComponent {
         valueFrom,
         valueTo,
         range,
-      } = { ...defaultState, ...this.state };
+      } = this.state;
 
       const targetValue = Number(event.target.dataset.value);
       let correctValue = getValueWithStep(min, max, step, targetValue);

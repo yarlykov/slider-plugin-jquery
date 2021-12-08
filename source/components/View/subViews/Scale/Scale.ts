@@ -1,4 +1,3 @@
-import defaultState from 'Source/defaultState';
 import { ScaleEvents } from 'Source/Observer/events';
 import { getValueWithStep } from 'Source/utils/utils';
 import Fill from 'Components/View/subViews/Fill/Fill';
@@ -30,7 +29,7 @@ class Scale extends SliderComponent {
         step,
         orientation,
         range,
-      } = { ...defaultState, ...this.state };
+      } = this.state;
 
       const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : defaultScaleCoords;
       const pageCoords = this.getPageCoords(event);
