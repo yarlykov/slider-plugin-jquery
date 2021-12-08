@@ -6,9 +6,6 @@ import './labels.scss';
 
 class Labels extends SliderComponent {
   public init(): void {
-    const scale = this.root.querySelector('.js-slider__scale');
-    if (!scale) throw new Error('Scale element is not found');
-
     if (this.state.labels) {
       const labels: HTMLElement | null = this.root.querySelector(
         '.js-slider__labels',

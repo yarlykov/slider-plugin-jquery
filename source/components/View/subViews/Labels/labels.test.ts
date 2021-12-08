@@ -29,11 +29,6 @@ describe('Labels:', () => {
     expect(labels).toBeInstanceOf(Labels);
   });
 
-  test('should return error if Scale is not found', () => {
-    root.innerHTML = '';
-    expect(() => labels.init()).toThrow('Scale element is not found');
-  });
-
   test('should render default template', () => {
     expect(root.querySelectorAll('.js-slider__labels').length).toBe(1);
     expect(root.querySelectorAll('.slider__labels_horizontal').length).toBe(1);
