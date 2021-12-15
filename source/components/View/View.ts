@@ -10,7 +10,7 @@ type ViewEvent =
 class View extends Observer<ViewEvent> {
   private root: HTMLElement;
 
-  private type!: string;
+  private type!: 'range' | 'simple';
 
   public components!: SimpleSliderType & RangeSliderType;
 
