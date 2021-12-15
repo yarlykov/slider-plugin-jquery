@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import defaultState from 'Root/source/defaultState';
 import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
 import { IOptions } from 'Components/interfaces';
 
@@ -81,14 +82,14 @@ class Validation {
     const difference = max - min;
     const correctStep = Math.round(step);
     
-    if (correctStep <= 0) return 1;
-    if (max === 0) return 1;
+    if (correctStep <= 0) return defaultState.step;
+    if (max === 0) return defaultState.step;
     if (correctStep > difference) return difference;
     return correctStep;
   }
 
   public checkMinMax(min: number, max: number): void {
-    let swap = 0;
+    let swap;
     let correctMin = Math.round(min);
     let correctMax = Math.round(max);
 

@@ -3,7 +3,7 @@ import { IOptions } from './components/interfaces';
 const defaultState: IOptions = {
   min: 0,
   max: 100,
-  step: 25,
+  step: 1,
   valueFrom: 50,
   valueTo: 75,
   orientation: 'horizontal',
