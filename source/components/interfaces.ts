@@ -47,8 +47,8 @@ type SimpleSliderType = {
 }
 
 type RangeSliderType = SimpleSliderType & {
-  secondKnob?: SecondKnob;
-  secondTooltip?: SecondTooltip;
+  secondKnob: SecondKnob;
+  secondTooltip: SecondTooltip;
 };
 
 type MainStateSettings = {

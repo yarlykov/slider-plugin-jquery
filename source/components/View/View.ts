@@ -12,7 +12,7 @@ class View extends Observer<ViewEvent> {
 
   private type!: 'range' | 'simple';
 
-  public components!: SimpleSliderType & RangeSliderType;
+  public components!: SimpleSliderType | RangeSliderType;
 
   constructor(root: HTMLElement, options: IOptions) {
     super();
@@ -69,8 +69,9 @@ class View extends Observer<ViewEvent> {
     });
 
     this.components.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, () => {
-      if (this.components.secondKnob)
+      if ('secondKnob' in this.components) {
         this.components.secondKnob.handleSecondKnobPointerDown();
+      }
     });
   }
   /* istanbul ignore next */
@@ -81,10 +82,12 @@ class View extends Observer<ViewEvent> {
       );
     }
 
-    if (this.type === 'range' && this.components.secondKnob) {
-      this.components.secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) =>
-        this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
-      );
+    if (this.type === 'range') {
+      if ('secondKnob' in this.components) {
+        this.components.secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) =>
+          this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
+        );
+      }
     }
   }
   /* istanbul ignore next */
