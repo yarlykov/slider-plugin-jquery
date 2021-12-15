@@ -33,11 +33,19 @@ class Knobs extends SliderComponent {
       : 'valueTo'
     const { orientation} = this.state;
 
-    if (this[targetValue]) {
-      const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
-      const value  = state[targetValue];
-
-      this[targetValue]!.style[directionOfMove] = `${fromValueToPercent(
+    const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
+    const value  = state[targetValue];
+    const isValueFromTarget = targetValue === 'valueFrom';
+    const isValueToTarget = targetValue === 'valueTo';
+    
+    if (this.valueFrom && isValueFromTarget) {
+      this.valueFrom.style[directionOfMove] = `${fromValueToPercent(
+        state,
+        Number(value),
+      )}%`;
+    }
+    if (this.valueTo && isValueToTarget) {
+      this.valueTo.style[directionOfMove] = `${fromValueToPercent(
         state,
         Number(value),
       )}%`;

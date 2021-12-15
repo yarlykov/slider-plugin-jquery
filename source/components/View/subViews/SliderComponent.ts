@@ -43,7 +43,8 @@ class SliderComponent extends Observer<SliderComponentEvent> {
     this.state = options;
   }
 
-  public update(state: IOptions, target?: string): void {
+  public update(state: IOptions, target?: string): void
+  public update(state: IOptions): void {
     this.state = { ...state };
   }
 
