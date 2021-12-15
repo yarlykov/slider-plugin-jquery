@@ -44,10 +44,10 @@ class Labels extends SliderComponent {
   }
 
   public static getTemplate(
-    orientation = 'horizontal',
-    min = 0,
-    max = 0,
-    step = 1
+    orientation: string,
+    min: number,
+    max: number,
+    step: number
   ): string {
     return `
       <div class="slider__labels
@@ -60,7 +60,12 @@ class Labels extends SliderComponent {
     `;
   }
 
-  private static getLabels(orientation = 'horizontal', min = 0, max = 0, step = 1): string {
+  private static getLabels(
+    orientation: string,
+    min: number,
+    max: number,
+    step: number
+  ): string {
     const itemLabels: string[] = [];
     let labelValues: number[] = [20, 40, 60, 80];
 
@@ -77,11 +82,11 @@ class Labels extends SliderComponent {
   }
 
   private static createLabel(
-    orientation = 'horizontal',
-    labelPosition = 0,
-    min = 0,
-    max = 0,
-    step = 1
+    orientation: string,
+    labelPosition: number,
+    min: number,
+    max: number,
+    step: number
   ): string {
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const labelPosWithPercent = fromValueToPercent(
