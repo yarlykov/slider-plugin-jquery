@@ -13,7 +13,7 @@ class Validation {
 
   private valueTo!: number;
 
-  public checkState(state: Partial<IOptions>): Partial<IOptions> {
+  public checkState(state: IOptions): Partial<IOptions> {
     this.min = state.min || 0;
     this.max = state.max || this.min + 1;
     this.step = state.step || 1;

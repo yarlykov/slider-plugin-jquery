@@ -51,6 +51,12 @@ type RangeSliderType = SimpleSliderType & {
   secondTooltip?: SecondTooltip;
 };
 
+type MainStateSettings = {
+  min: number,
+  max: number,
+  step: number,
+}
+
 export {
   IOptions,
   EventCallback,
@@ -60,4 +66,5 @@ export {
   PageCoords,
   ScaleCoords,
   OptionValue,
+  MainStateSettings
 };

@@ -2,18 +2,18 @@
  * @jest-environment jsdom
  */
 
-import { IOptions } from 'Components/interfaces';
+import defaultState from 'Source/defaultState';
 import { changeFirstLetterToLower, fromValueToPercent, getValueWithStep } from './utils';
 
 describe('Utils: fromValueToPercent', () => {
-  const state: Partial<IOptions> = {
+  const state = {
     min: 0,
     max: 100,
     step: 25,
   };
 
   test('should be defined', () => {
-    expect(fromValueToPercent({}, 25)).toBeDefined();
+    expect(fromValueToPercent(defaultState, 25)).toBeDefined();
   });
 
   test('should be return correct value in percent', () => {

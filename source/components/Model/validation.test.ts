@@ -1,19 +1,19 @@
-import { IOptions } from 'Components/interfaces';
+import defaultState from 'Root/source/defaultState';
 import Validation from './Validation';
 
 describe('Validation:', () => {
   let validation: Validation;
-  const state: Partial<IOptions> = {
-    min: 0,
-    max: 100,
-    step: 25,
-    valueFrom: 25,
-    valueTo: 70,
-  };
 
   beforeEach(() => {
     validation = new Validation();
-    validation.checkState(state);
+    validation.checkState({
+      ...defaultState,
+      min: 0,
+      max: 100,
+      step: 25,
+      valueFrom: 25,
+      valueTo: 70,
+    });
   });
 
   test('should return a class instance', () => {
@@ -23,6 +23,7 @@ describe('Validation:', () => {
   test('checkState should return a correct state', () => {
     const invalidState = {
       one: {
+        ...defaultState,
         min: 100,
         max: 0,
         step: 25,
@@ -30,6 +31,7 @@ describe('Validation:', () => {
         valueTo: 70,
       },
       two: {
+        ...defaultState,
         min: 200,
         max: 100,
         step: 0,
@@ -37,18 +39,21 @@ describe('Validation:', () => {
         valueTo: 70,
       },
       three: {
+        ...defaultState,
         min: 0,
         max: 120,
         step: 25,
         valueFrom: 115,
       },
       four: {
+        ...defaultState,
         min: 0,
         max: 120,
         step: 25,
         valueFrom: 125,
       },
       five: {
+        ...defaultState,
         min: 1,
         max: 1,
         step: 0,
@@ -58,6 +63,7 @@ describe('Validation:', () => {
 
     const correctState = {
       one: {
+        ...defaultState,
         min: 100,
         max: 101,
         step: 1,
@@ -65,6 +71,7 @@ describe('Validation:', () => {
         valueTo: 70,
       },
       two: {
+        ...defaultState,
         min: 100,
         max: 200,
         step: 1,
@@ -72,25 +79,25 @@ describe('Validation:', () => {
         valueTo: 70,
       },
       three: {
+        ...defaultState,
         min: 0,
         max: 120,
         step: 25,
         valueFrom: 120,
-        valueTo: 0,
       },
       four: {
+        ...defaultState,
         min: 0,
         max: 120,
         step: 25,
         valueFrom: 120,
-        valueTo: 0,
       },
       five: {
+        ...defaultState,
         min: 1,
         max: 2,
         step: 1,
         valueFrom: 1,
-        valueTo: 0,
       },
     };
     expect(validation.checkState(invalidState.one)).toEqual(correctState.one);
@@ -121,16 +128,19 @@ describe('Validation:', () => {
   });
 
   test('checkRangeMinMax should return a correct value', () => {
+    const state = { 
+      ...defaultState,         
+      min: 0,
+      max: 100,
+      step: 0,
+      valueFrom: 42,
+      valueTo: 150,
+      range: true
+    }
     expect(
-      validation.checkState({
-        min: 0,
-        max: 100,
-        step: 0,
-        valueFrom: 42,
-        valueTo: 150,
-        range: true,
-      }),
+      validation.checkState(state),
     ).toEqual({
+      ...defaultState,
       min: 0,
       max: 100,
       step: 1,

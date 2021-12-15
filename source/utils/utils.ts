@@ -1,7 +1,7 @@
-import { IOptions } from 'Components/interfaces';
+import { IOptions, MainStateSettings } from 'Components/interfaces';
 
-const fromValueToPercent = (state: Partial<IOptions>, value: number): number => {
-  const { min = 0, max = 1, step = 1 } = state;
+const fromValueToPercent = (state: IOptions | MainStateSettings, value: number): number => {
+  const { min, max, step } = state;
 
   const stepCount = (max - min) / step;
   const stepPercent = 100 / stepCount;
