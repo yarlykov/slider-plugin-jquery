@@ -18,7 +18,7 @@ describe('Tooltip:', () => {
           data-id="fill"
         ></div>
         <div
-          class="slider__knob js-slider__knob slider__knob_horizontal slider__knob_orange"
+          class="slider__knob slider__knob_horizontal slider__knob_orange"
           data-id="knob"
         ></div>
       </div>
@@ -44,7 +44,7 @@ describe('Tooltip:', () => {
   test('should update tooltip value', () => {
     tooltip.update({ valueFrom: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
-      '.js-tooltip__value-first',
+      '[data-id="tooltip-value-first"]',
     );
     if (tooltipValue) expect(tooltipValue.innerText).toBe('10');
   });
@@ -53,7 +53,7 @@ describe('Tooltip:', () => {
     root.innerHTML = '';
     tooltip.update({ valueTo: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
-      '.js-tooltip__value-first',
+      '[data-id="tooltip-value-first"]',
     );
     if (tooltipValue) expect(tooltipValue).toBeNull();
   });
@@ -84,10 +84,9 @@ describe('SecondTooltip:', () => {
         ></div>
         <div 
           class="slider__knob
-          js-slider__second-knob
           slider__knob_horizontal
           slider__knob_orange"
-          data-knob="second"
+          data-id="second-knob"
         ></div
         ></div>
       </div>
@@ -116,7 +115,7 @@ describe('SecondTooltip:', () => {
     root.innerHTML = '';
     secondTooltip.update({ valueTo: 10 });
     const tooltipValue = root.querySelector(
-      '.js-tooltip__value-second',
+      '[data-id="tooltip-value-second"]',
     );
     expect(tooltipValue).toBeNull();
   });

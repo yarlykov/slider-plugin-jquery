@@ -16,8 +16,8 @@ class Knobs extends SliderComponent {
 
   public init(): void {
     this.scale = this.root.querySelector('.js-slider__scale');
-    this.valueFrom = this.root.querySelector('.js-slider__knob');
-    this.valueTo = this.root.querySelector('.js-slider__second-knob');
+    this.valueFrom = this.root.querySelector('[data-id="knob"]');
+    this.valueTo = this.root.querySelector('[data-id="second-knob"]');
 
     const { hasTooltips } = this.state;
     if (hasTooltips) this.addTooltips();
@@ -108,8 +108,8 @@ class Knobs extends SliderComponent {
 
   public addTooltips(): void {
     const { color, orientation } = this.state;
-    const hasFirstTooltip = this.valueFrom?.querySelector('.js-slider__tooltip-first')
-    const hasSecondTooltip = this.valueTo?.querySelector('.js-slider__tooltip-second')
+    const hasFirstTooltip = this.valueFrom?.querySelector('[data-id="tooltip-first"]')
+    const hasSecondTooltip = this.valueTo?.querySelector('[data-id="tooltip-second"]')
 
     if (this.valueFrom && !hasFirstTooltip) {
       this.valueFrom.insertAdjacentHTML(
@@ -139,9 +139,9 @@ class Knobs extends SliderComponent {
     return `
       <div
         class="slider__knob
-        js-slider__${knobElementClass}
         slider__knob_${orientation}
         slider__knob_${color}" 
+        data-id=${knobElementClass}
         role="slider"
         tabindex="0"
       ></div>

@@ -31,7 +31,7 @@ describe('Knob:', () => {
     scale.init();
     knob = new Knob(defaultState, root);
     knob.init();
-    knobNode = root.querySelector('.js-slider__knob') as HTMLElement;
+    knobNode = root.querySelector('[data-id="knob"]') as HTMLElement;
   });
 
   test('should return Knob instance', () => {
@@ -39,7 +39,7 @@ describe('Knob:', () => {
   });
 
   test('should render default template', () => {
-    expect(root.querySelectorAll('.js-slider__knob').length).toBe(1);
+    expect(root.querySelectorAll('[data-id="knob"]').length).toBe(1);
     expect(root.querySelectorAll('.slider__knob_horizontal').length).toBe(1);
     expect(root.querySelectorAll('.slider__knob_orange').length).toBe(1);
   });
@@ -59,7 +59,7 @@ describe('SecondKnob:', () => {
     scale.init();
     secondKnob = new SecondKnob(defaultState, root);
     secondKnob.init();
-    knobNode = root.querySelector('.js-slider__second-knob') as HTMLElement;
+    knobNode = root.querySelector('[data-id="second-knob"]') as HTMLElement;
   });
 
   test('should return SecondKnob instance', () => {

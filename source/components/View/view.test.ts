@@ -37,13 +37,13 @@ describe('View:', () => {
 
   test('should render the range slider', () => {
     view.init({ ...defaultState, isRange: true });
-    const rangeSliders = root.querySelectorAll('.js-slider__second-knob');
+    const rangeSliders = root.querySelectorAll('[data-id="second-knob"]');
     expect(rangeSliders.length).toBe(1);
   });
 
   test('should render the single slider', () => {
     view.init({ ...defaultState, isRange: false });
-    const rangeSliders = root.querySelectorAll('.js-slider__second-knob');
+    const rangeSliders = root.querySelectorAll('[data-id="second-knob"]');
     expect(rangeSliders.length).toBe(0);
   });
 
