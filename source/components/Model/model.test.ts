@@ -1,3 +1,4 @@
+import defaultState from 'Root/source/defaultState';
 import { IOptions } from 'Components/interfaces';
 import Model from './Model';
 
@@ -18,7 +19,7 @@ describe('Model:', () => {
   };
 
   beforeEach(() => {
-    model = new Model();
+    model = new Model(defaultState);
     model.setState(initialState);
   });
 

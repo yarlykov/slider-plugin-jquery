@@ -14,9 +14,10 @@ class Model extends Observer<ModelEvent> {
 
   private validation: Validation;
 
-  constructor() {
+  constructor(options: IOptions) {
     super();
     this.validation = new Validation();
+    this.setState(options);
   }
 
   public setState(state: IOptions): void {

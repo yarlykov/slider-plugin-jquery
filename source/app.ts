@@ -1,16 +1,16 @@
+/* eslint-disable fsd/no-function-declaration-in-event-listener */
+/* eslint-disable func-names */
 /* eslint-disable @typescript-eslint/ban-types */
 import Presenter from 'Components/Presenter/Presenter';
 import { IOptions, OptionValue } from 'Components/interfaces';
+import defaultState from './defaultState';
 
 const methods = {
   init(this: JQuery, options: unknown) {
-    // eslint-disable-next-line func-names
     return this.each(function (this: HTMLElement): void {
-      $(this).data().sliderPlugin = new Presenter(this);
-
-      if (options) {
-        const app = $(this).data('sliderPlugin');
-        app.model.setState(options);
+      if (typeof options === 'object') {
+        const sliderOptions = { ...defaultState, ...options }
+        $(this).data().sliderPlugin = new Presenter(this, sliderOptions);
       }
     });
   },
@@ -27,7 +27,6 @@ const methods = {
   },
 
   onChange(this: JQuery, func: Function) {
-    // eslint-disable-next-line fsd/no-function-declaration-in-event-listener
     $(this).on('onChange', (args) => func(args));
   },
 };
@@ -42,7 +41,6 @@ declare global {
   }
 }
 
-// eslint-disable-next-line func-names
 $.fn.sliderPlugin = function (method, ...args) {
   if (methods[method as string]) {
     return methods[method as string].apply(this, args);

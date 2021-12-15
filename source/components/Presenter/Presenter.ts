@@ -1,6 +1,7 @@
 import { ModelEvents, ViewEvents } from 'Source/Observer/events';
 import Model from 'Components/Model/Model';
 import View from 'Components/View/View';
+import { IOptions } from '../interfaces';
 
 class Presenter {
   private model: Model;
@@ -9,9 +10,9 @@ class Presenter {
 
   root: HTMLElement;
 
-  constructor(root: HTMLElement) {
+  constructor(root: HTMLElement, options: IOptions) {
     this.root = root;
-    this.model = new Model();
+    this.model = new Model(options);
     this.view = new View(root, this.model.state);
 
     this.bindModelEvents();
