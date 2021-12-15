@@ -2,9 +2,9 @@
  * @jest-environment jsdom
  */
 
-import View from 'Source/Components/View/View';
 import defaultState from 'Source/defaultState';
 import { ScaleEvents } from 'Source/Observer/events';
+import View from 'Components/View/View';
 import Scale from './Scale';
 
 describe('Scale: init ', () => {
