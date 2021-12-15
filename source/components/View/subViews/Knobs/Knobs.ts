@@ -16,7 +16,6 @@ class Knobs extends SliderComponent {
 
   public init(): void {
     this.scale = this.root.querySelector('.js-slider__scale');
-    if (!this.scale) throw new Error('Scale element is not found');
     this.valueFrom = this.root.querySelector('.js-slider__knob');
     this.valueTo = this.root.querySelector('.js-slider__second-knob');
 

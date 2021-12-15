@@ -38,11 +38,6 @@ describe('Knob:', () => {
     expect(knob).toBeInstanceOf(Knob);
   });
 
-  test('should return error if Scale is not found', () => {
-    root.innerHTML = '';
-    expect(() => knob.init()).toThrow('Scale element is not found');
-  });
-
   test('should render default template', () => {
     expect(root.querySelectorAll('.js-slider__knob').length).toBe(1);
     expect(root.querySelectorAll('.slider__knob_horizontal').length).toBe(1);
@@ -69,11 +64,6 @@ describe('SecondKnob:', () => {
 
   test('should return SecondKnob instance', () => {
     expect(secondKnob).toBeInstanceOf(SecondKnob);
-  });
-
-  test('should return error if Scale is not found', () => {
-    root.innerHTML = '';
-    expect(() => secondKnob.init()).toThrow('Scale element is not found');
   });
 
   test('should update valueFrom', () => {
