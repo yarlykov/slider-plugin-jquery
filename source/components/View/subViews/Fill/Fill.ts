@@ -1,6 +1,6 @@
 import { fromValueToPercent } from 'Source/utils/utils';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
-import { IOptions } from 'Components/interfaces';
+import { Color, IOptions, Orientation } from 'Components/interfaces';
 import './fill.scss';
 
 class Fill extends SliderComponent {
@@ -31,7 +31,7 @@ class Fill extends SliderComponent {
     }
   }
 
-  public static getTemplate(color = 'orange', orientation = 'horizontal'): string {
+  public static getTemplate(color: Color, orientation: Orientation): string {
     return `
       <div
         class="slider__fill

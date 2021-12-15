@@ -3,7 +3,7 @@ import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
 import { KnobEvents } from 'Source/Observer/events';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { SecondTooltip, Tooltip } from 'Components/View/subViews/Tooltips/Tooltips';
-import { IOptions } from 'Components/interfaces';
+import { Color, IOptions, Orientation } from 'Components/interfaces';
 import './knobs.scss';
 
 type KnobEventTarget = KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED;
@@ -128,8 +128,8 @@ class Knobs extends SliderComponent {
   }
 
   public static getTemplate(
-    orientation = 'horizontal',
-    color = 'orange',
+    color: Color,
+    orientation: Orientation,
     target: string
   ): string {
     let knobElementClass = 'knob'
@@ -177,7 +177,7 @@ class Knob extends Knobs {
     }
   }
 
-  public static getTemplate(color = 'orange', orientation = 'horizontal'): string {
+  public static getTemplate(color: Color, orientation: Orientation): string {
     return super.getTemplate(color, orientation, KnobEvents.VALUE_FROM)
   }
 }
@@ -208,7 +208,7 @@ class SecondKnob extends Knobs {
     }
   }
 
-  public static getTemplate(orientation = 'horizontal', color = 'orange'): string {
+  public static getTemplate(color: Color, orientation: Orientation): string {
     return super.getTemplate(color, orientation, KnobEvents.VALUE_TO)
   }
 }

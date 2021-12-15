@@ -1,3 +1,4 @@
+import { Orientation } from 'Root/source/components/interfaces';
 import { LabelsEvents } from 'Source/Observer/events';
 import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
@@ -44,7 +45,7 @@ class Labels extends SliderComponent {
   }
 
   public static getTemplate(
-    orientation: string,
+    orientation: Orientation,
     min: number,
     max: number,
     step: number
@@ -61,7 +62,7 @@ class Labels extends SliderComponent {
   }
 
   private static getLabels(
-    orientation: string,
+    orientation: Orientation,
     min: number,
     max: number,
     step: number
@@ -82,7 +83,7 @@ class Labels extends SliderComponent {
   }
 
   private static createLabel(
-    orientation: string,
+    orientation: Orientation,
     labelPosition: number,
     min: number,
     max: number,

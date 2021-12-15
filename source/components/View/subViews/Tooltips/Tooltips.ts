@@ -1,5 +1,5 @@
 import SliderComponent from 'Components/View/subViews/SliderComponent';
-import { IOptions } from 'Components/interfaces';
+import { Color, IOptions, Orientation } from 'Components/interfaces';
 import './tooltips.scss';
 
 class Tooltip extends SliderComponent {
@@ -20,7 +20,7 @@ class Tooltip extends SliderComponent {
     if (tooltip) tooltip.innerText = `${state.valueFrom}`;
   }
 
-  public static getTemplate(orientation = 'horizontal', color = 'orange'): string {
+  public static getTemplate(orientation: Orientation, color: Color): string {
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
@@ -102,7 +102,7 @@ class SecondTooltip extends SliderComponent {
     }
   }
 
-  public static getTemplate(orientation = 'horizontal', color = 'orange'): string {
+  public static getTemplate(orientation: Orientation, color: Color): string {
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 

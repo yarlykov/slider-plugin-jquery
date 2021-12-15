@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { IOptions } from '../source/components/interfaces';
+import { IOptions, OptionValue } from '../source/components/interfaces';
 import defaultState from '../source/defaultState';
 
 type InputElement = HTMLInputElement | null | undefined;
@@ -243,7 +243,9 @@ class DemoBlock {
 
   private handleOrientationChange(): void {
     if (this.orientation) {
-      this.root.sliderPlugin('setValue', 'orientation', this.orientation.value);
+      if (this.orientation.value === 'horizontal' || this.orientation.value === 'vertical') {
+        this.root.sliderPlugin('setValue', 'orientation', this.orientation.value);
+      }
     }
   }
 

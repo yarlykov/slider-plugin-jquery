@@ -4,18 +4,21 @@ import Scale from './View/subViews/Scale/Scale';
 import { Knob, SecondKnob } from './View/subViews/Knobs/Knobs';
 import { SecondTooltip, Tooltip } from './View/subViews/Tooltips/Tooltips';
 
+type Color = 'orange' | 'green';
+type Orientation = 'horizontal' | 'vertical';
+
 interface IOptions {
   min: number;
   max: number;
   step: number;
   valueFrom: number;
   valueTo: number;
-  orientation: 'horizontal' | 'vertical';
+  orientation: Orientation;
   isRange: boolean;
   hasFill: boolean;
   hasLabels: boolean;
   hasTooltips: boolean;
-  color: string;
+  color: Color;
 }
 
 interface Events {
@@ -24,7 +27,7 @@ interface Events {
 
 type EventCallback = (data?: unknown) => void;
 
-type OptionValue = number | string | boolean;
+type OptionValue = number | Color | Orientation | boolean ;
 
 type PageCoords = {
   pageX: number;
@@ -66,5 +69,7 @@ export {
   PageCoords,
   ScaleCoords,
   OptionValue,
-  MainStateSettings
+  MainStateSettings,
+  Color,
+  Orientation,
 };

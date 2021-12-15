@@ -1,5 +1,5 @@
 import Observer from 'Source/Observer/Observer';
-import { IOptions, ScaleCoords, PageCoords } from 'Components/interfaces';
+import { IOptions, ScaleCoords, PageCoords, Orientation } from 'Components/interfaces';
 import { KnobEvents, LabelsEvents, ScaleEvents } from 'Root/source/Observer/events';
 
 type SliderComponentEvent = 
@@ -75,7 +75,7 @@ class SliderComponent extends Observer<SliderComponentEvent> {
   }
 
   public getPosition(
-    orientation: string,
+    orientation: Orientation,
     scaleCoords: ScaleCoords,
     pageCoords: PageCoords,
   ): number {
