@@ -10,10 +10,10 @@ describe('Model:', () => {
     valueFrom: 0,
     valueTo: 0,
     orientation: 'horizontal',
-    range: false,
-    fill: false,
-    labels: false,
-    tooltips: false,
+    isRange: false,
+    hasFill: false,
+    hasLabels: false,
+    hasTooltips: false,
     color: 'orange',
   };
 
@@ -37,7 +37,7 @@ describe('Model:', () => {
   test('getValue should return value', () => {
     expect(model.getValue('min')).toBe(0);
     expect(model.getValue('orientation')).toBe('horizontal');
-    expect(model.getValue('range')).toBe(false);
+    expect(model.getValue('isRange')).toBe(false);
   });
 
   test('should write value type "number" using setValue and return from getValue', () => {
@@ -51,12 +51,12 @@ describe('Model:', () => {
   });
 
   test('should write value type "boolean" using setValue and return from getValue', () => {
-    model.setValue('range', true);
-    expect(model.getValue('range')).toBe(true);
+    model.setValue('isRange', true);
+    expect(model.getValue('isRange')).toBe(true);
   });
 
   test('should return correct "valueFrom" and "valueTo"', () => {
-    model.setValue('range', true);
+    model.setValue('isRange', true);
     model.setValue('max', 100);
     model.setValue('step', 25);
     model.setValue('valueTo', 20);

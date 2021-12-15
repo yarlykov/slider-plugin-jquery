@@ -4,9 +4,9 @@ import './tooltips.scss';
 
 class Tooltip extends SliderComponent {
   public init(): void {
-    const { tooltips } = this.state;
+    const { hasTooltips } = this.state;
 
-    if (tooltips) {
+    if (hasTooltips) {
       const knob = this.root.querySelector('.js-slider__knob');
       if (!knob) throw new Error('Knob element is not found');
     }
@@ -40,9 +40,9 @@ class Tooltip extends SliderComponent {
 
 class SecondTooltip extends SliderComponent {
   public init(): void {
-    const { tooltips } = this.state;
+    const { hasTooltips } = this.state;
 
-    if (tooltips) {
+    if (hasTooltips) {
       const secondKnob = this.root.querySelector('.js-slider__second-knob');
       if (!secondKnob) throw new Error('Second knob element is not found');
     }

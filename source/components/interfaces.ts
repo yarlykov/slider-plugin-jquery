@@ -11,10 +11,10 @@ interface IOptions {
   valueFrom: number;
   valueTo: number;
   orientation: 'horizontal' | 'vertical';
-  range: boolean;
-  fill: boolean;
-  labels: boolean;
-  tooltips: boolean;
+  isRange: boolean;
+  hasFill: boolean;
+  hasLabels: boolean;
+  hasTooltips: boolean;
   color: string;
 }
 

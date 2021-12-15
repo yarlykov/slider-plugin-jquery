@@ -13,7 +13,7 @@ class Fill extends SliderComponent {
   public update(state: IOptions): void {
     const {
       orientation,
-      range,
+      isRange,
       valueTo,
       valueFrom
     } = state ;
@@ -22,7 +22,7 @@ class Fill extends SliderComponent {
     const wayOfMove: string = isHorizontal ? 'left' : 'bottom';
     const newValueFrom = fromValueToPercent(state, valueFrom);
 
-    if (this.fill && range) {
+    if (this.fill && isRange) {
       const newValueTo = fromValueToPercent(state, valueTo);
       this.fill.style[wayOfFilling] = `${newValueTo - newValueFrom}%`;
       this.fill.style[wayOfMove] = `${newValueFrom}%`;

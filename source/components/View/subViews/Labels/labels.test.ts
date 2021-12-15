@@ -21,7 +21,7 @@ describe('Labels:', () => {
     root.innerHTML = slider;
     scale = new Scale(defaultState, root);
     scale.init();
-    labels = new Labels({ ...defaultState, labels: true }, root);
+    labels = new Labels({ ...defaultState, hasLabels: true }, root);
     labels.init();
   });
 
@@ -36,7 +36,7 @@ describe('Labels:', () => {
 
   test('should be 6 label items', () => {
     root.innerHTML = slider;
-    const state = { ...defaultState, labels: true }
+    const state = { ...defaultState, hasLabels: true }
     scale = new Scale(state, root);
     scale.init();
     const labelsNode = root.querySelectorAll('.slider__labels-item');

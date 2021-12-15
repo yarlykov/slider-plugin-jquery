@@ -49,10 +49,10 @@ class Model extends Observer<ModelEvent> {
     option: Option,
     optionValue: IOptions[Option],
   ): void {
-    const { range } = this.state;
+    const { isRange } = this.state;
     const isValueTypeOfNumber = typeof optionValue === 'number';
     const isRangeValueFrom =
-      option === 'valueFrom' && range && isValueTypeOfNumber;
+      option === 'valueFrom' && isRange && isValueTypeOfNumber;
     const isValueFrom = option === 'valueFrom' && isValueTypeOfNumber;
     const isValueTo = option === 'valueTo' && isValueTypeOfNumber;
 

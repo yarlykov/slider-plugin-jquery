@@ -33,7 +33,7 @@ describe('Scale: init ', () => {
 
   test('handleScalePointerDown method should emit valueFrom if range slider scale ', () => {
     const newState = Object.assign({}, defaultState, {
-      range: true,
+      isRange: true,
     });
     scale = new Scale(newState, root);
     const spyEmit = jest.spyOn(scale, 'emit')

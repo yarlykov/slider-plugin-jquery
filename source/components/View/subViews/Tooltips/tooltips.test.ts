@@ -28,7 +28,7 @@ describe('Tooltip:', () => {
     root.innerHTML = slider;
     knob = new Knob(defaultState, root);
     knob.init();
-    tooltip = new Tooltip({ ...defaultState, tooltips: true }, root);
+    tooltip = new Tooltip({ ...defaultState, hasTooltips: true }, root);
     tooltip.init();
   });
 
@@ -95,9 +95,9 @@ describe('SecondTooltip:', () => {
 
   beforeEach(() => {
     root.innerHTML = rangeSlider;
-    secondKnob = new SecondKnob({ ...defaultState, range: true }, root);
+    secondKnob = new SecondKnob({ ...defaultState, isRange: true }, root);
     secondKnob.init();
-    secondTooltip = new SecondTooltip({ ...defaultState, tooltips: true, range: true }, root);
+    secondTooltip = new SecondTooltip({ ...defaultState, hasTooltips: true, isRange: true }, root);
     secondTooltip.init();
   });
 

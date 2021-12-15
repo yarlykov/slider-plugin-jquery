@@ -19,10 +19,10 @@ describe('View:', () => {
       valueFrom: 42,
       valueTo: 42,
       orientation: 'horizontal',
-      range: false,
-      fill: true,
-      labels: true,
-      tooltips: true,
+      isRange: false,
+      hasFill: true,
+      hasLabels: true,
+      hasTooltips: true,
       color: 'orange',
     });
   });
@@ -36,13 +36,13 @@ describe('View:', () => {
   });
 
   test('should render the range slider', () => {
-    view.init({ ...defaultState, range: true });
+    view.init({ ...defaultState, isRange: true });
     const rangeSliders = root.querySelectorAll('.js-slider__second-knob');
     expect(rangeSliders.length).toBe(1);
   });
 
   test('should render the single slider', () => {
-    view.init({ ...defaultState, range: false });
+    view.init({ ...defaultState, isRange: false });
     const rangeSliders = root.querySelectorAll('.js-slider__second-knob');
     expect(rangeSliders.length).toBe(0);
   });

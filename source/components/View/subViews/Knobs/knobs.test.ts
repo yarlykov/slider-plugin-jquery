@@ -59,7 +59,7 @@ describe('SecondKnob:', () => {
 
   beforeEach(() => {
     root.innerHTML = slider;
-    const state = { ...initialState, range: true }
+    const state = { ...initialState, isRange: true }
     scale = new Scale(state, root);
     scale.init();
     secondKnob = new SecondKnob(defaultState, root);

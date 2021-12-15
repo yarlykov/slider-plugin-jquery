@@ -28,7 +28,7 @@ class Scale extends SliderComponent {
         valueTo,
         step,
         orientation,
-        range,
+        isRange,
       } = this.state;
 
       const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : defaultScaleCoords;
@@ -36,7 +36,7 @@ class Scale extends SliderComponent {
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
 
-      if (range) {
+      if (isRange) {
         const delta = (valueTo - valueFrom) / 2;
         const leftHalfOfScale = valueFrom + delta;
         if (correctValue >= leftHalfOfScale) {
@@ -54,7 +54,7 @@ class Scale extends SliderComponent {
   }
 
   private addScaleElements() {
-    const { color, orientation, fill, range, labels, min, max, step } = this.state;
+    const { color, orientation, hasFill, isRange, hasLabels, min, max, step } = this.state;
 
     if (this.scaleNode) {
       this.scaleNode.addEventListener(
@@ -67,21 +67,21 @@ class Scale extends SliderComponent {
         Knob.getTemplate(color, orientation)
       );
 
-      if (fill) {
+      if (hasFill) {
         this.scaleNode.insertAdjacentHTML(
           'afterbegin',
           Fill.getTemplate(color, orientation)
         );
       }
 
-      if (range) {
+      if (isRange) {
         this.scaleNode.insertAdjacentHTML(
           'beforeend',
           SecondKnob.getTemplate(color, orientation)
         );
       }
 
-      if (labels) {
+      if (hasLabels) {
         this.scaleNode.insertAdjacentHTML('beforeend', Labels.getTemplate(
           orientation,
           min,

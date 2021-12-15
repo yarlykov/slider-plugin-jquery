@@ -31,7 +31,7 @@ range.sliderPlugin({
   valueFrom: 23,
   valueTo: 77,
   orientation: 'horizontal',
-  range: true,
+  isRange: true,
   color: 'green',
 });
 new DemoBlock(range);
@@ -42,7 +42,7 @@ const rangeVertical = $('#sliderRangeVertical');
 rangeVertical.sliderPlugin({
   min: -200000,
   max: 200000,
-  range: true,
+  isRange: true,
   valueTo: 120000,
   valueFrom: -120000,
   step: 1,
@@ -64,8 +64,8 @@ simpleSlider.sliderPlugin({
   step: 1,
   valueFrom: 70,
   orientation: 'vertical',
-  labels: false,
-  tooltips: false,
+  hasLabels: false,
+  hasTooltips: false,
   color: 'green',
 });
 new DemoBlock(simpleSlider);

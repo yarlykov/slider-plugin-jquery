@@ -14,7 +14,7 @@ const initialState: IOptions = {
   step: 25,
   valueFrom: 42,
   valueTo: 84,
-  fill: true,
+  hasFill: true,
 };
 const root = document.createElement('div');
 let fill: Fill;
@@ -55,7 +55,7 @@ describe('Fill:', () => {
 
   test('should update fill in range slider', () => {
     const newState = Object.assign({}, initialState, {
-      range: true,
+      isRange: true,
       valueTo: 90,
     });
     fill.update(newState);
@@ -65,7 +65,7 @@ describe('Fill:', () => {
   test('should update fill in vertical slider', () => {
     const newState = Object.assign({}, initialState, {
       orientation: 'vertical',
-      range: false,
+      isRange: false,
     });
     fill.update(newState);
     expect(fillNode.style.height).toBe('42%');

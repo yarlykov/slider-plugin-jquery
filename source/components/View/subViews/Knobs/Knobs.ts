@@ -21,8 +21,8 @@ class Knobs extends SliderComponent {
     this.valueFrom = this.root.querySelector('.js-slider__knob');
     this.valueTo = this.root.querySelector('.js-slider__second-knob');
 
-    const { tooltips } = this.state;
-    if (tooltips) this.addTooltips();
+    const { hasTooltips } = this.state;
+    if (hasTooltips) this.addTooltips();
   }
 
   public update(state: IOptions, target: string): void {

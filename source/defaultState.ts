@@ -7,10 +7,10 @@ const defaultState: IOptions = {
   valueFrom: 50,
   valueTo: 75,
   orientation: 'horizontal',
-  range: false,
-  fill: true,
-  labels: true,
-  tooltips: true,
+  isRange: false,
+  hasFill: true,
+  hasLabels: true,
+  hasTooltips: true,
   color: 'orange',
 };
 

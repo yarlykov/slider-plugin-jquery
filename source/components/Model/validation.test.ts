@@ -135,7 +135,7 @@ describe('Validation:', () => {
       step: 0,
       valueFrom: 42,
       valueTo: 150,
-      range: true
+      isRange: true
     }
     expect(
       validation.checkState(state),
@@ -146,7 +146,7 @@ describe('Validation:', () => {
       step: 1,
       valueFrom: 42,
       valueTo: 100,
-      range: true,
+      isRange: true,
     });
   });
 

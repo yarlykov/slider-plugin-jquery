@@ -5,7 +5,7 @@ import './labels.scss';
 
 class Labels extends SliderComponent {
   public init(): void {
-    if (this.state.labels) {
+    if (this.state.hasLabels) {
       const labels: HTMLElement | null = this.root.querySelector(
         '.js-slider__labels',
       );
@@ -22,14 +22,14 @@ class Labels extends SliderComponent {
         step,
         valueFrom,
         valueTo,
-        range,
+        isRange,
       } = this.state;
 
       const targetValue = Number(event.target.dataset.value);
       let correctValue = getValueWithStep(min, max, step, targetValue);
       if (targetValue === 100) correctValue = max;
 
-      if (range) {
+      if (isRange) {
         const delta = (valueTo - valueFrom) / 2;
         const leftHalfOfScale = valueFrom + delta;
         if (correctValue >= leftHalfOfScale) {

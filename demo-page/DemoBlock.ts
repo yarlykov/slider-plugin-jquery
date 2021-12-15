@@ -25,7 +25,7 @@ class DemoBlock {
 
   fill!: InputElement;
 
-  range!: InputElement;
+  isRange!: InputElement;
 
   labels!: InputElement;
 
@@ -66,8 +66,8 @@ class DemoBlock {
       this.fill = <HTMLInputElement>(
         this.panel.querySelector('[data-title="fill"]')
       );
-      this.range = <HTMLInputElement>(
-        this.panel.querySelector('[data-title="range"]')
+      this.isRange = <HTMLInputElement>(
+        this.panel.querySelector('[data-title="isRange"]')
       );
       this.labels = <HTMLInputElement>(
         this.panel.querySelector('[data-title="labels"]')
@@ -85,18 +85,18 @@ class DemoBlock {
     if (this.valueFrom) this.valueFrom.value = `${this.state.valueFrom}`;
     if (this.step) this.step.value = `${this.state.step}`;
 
-    if (this.state.range && this.valueTo) {
+    if (this.state.isRange && this.valueTo) {
       this.valueTo.disabled = false;
       this.valueTo.value = `${this.state.valueTo}`;
     }
 
     if (this.orientation) this.orientation.value = `${this.state.orientation}`;
-    if (this.fill && this.state.fill) this.fill.checked = this.state.fill;
-    if (this.range && this.state.range) this.range.checked = this.state.range;
-    if (this.labels && this.state.labels)
-      this.labels.checked = this.state.labels;
-    if (this.tooltips && this.state.tooltips)
-      this.tooltips.checked = this.state.tooltips;
+    if (this.fill && this.state.hasFill) this.fill.checked = this.state.hasFill;
+    if (this.isRange && this.state.isRange) this.isRange.checked = this.state.isRange;
+    if (this.labels && this.state.hasLabels)
+      this.labels.checked = this.state.hasLabels;
+    if (this.tooltips && this.state.hasTooltips)
+      this.tooltips.checked = this.state.hasTooltips;
   }
 
   private bindEventListeners(): void {
@@ -134,8 +134,8 @@ class DemoBlock {
       );
     if (this.fill)
       this.fill.addEventListener('change', this.handleFillChange.bind(this));
-    if (this.range)
-      this.range.addEventListener('change', this.handleRangeChange.bind(this));
+    if (this.isRange)
+      this.isRange.addEventListener('change', this.handleRangeChange.bind(this));
     if (this.labels)
       this.labels.addEventListener(
         'change',
@@ -157,12 +157,12 @@ class DemoBlock {
       min,
       max,
       orientation,
-      fill,
-      range,
-      labels,
-      tooltips,
+      hasFill,
+      isRange,
+      hasLabels,
+      hasTooltips,
     } = event.detail;
-    if (this.state.range && this.valueTo) {
+    if (this.state.isRange && this.valueTo) {
       this.valueTo.disabled = false;
       this.valueTo.value = valueTo;
     } else if (this.valueTo) {
@@ -173,10 +173,10 @@ class DemoBlock {
     if (this.min) this.min.value = min;
     if (this.max) this.max.value = max;
     if (this.orientation) this.orientation.value = orientation;
-    if (this.fill) this.fill.checked = fill;
-    if (this.range) this.range.checked = range;
-    if (this.labels) this.labels.checked = labels;
-    if (this.tooltips) this.tooltips.checked = tooltips;
+    if (this.fill) this.fill.checked = hasFill;
+    if (this.isRange) this.isRange.checked = isRange;
+    if (this.labels) this.labels.checked = hasLabels;
+    if (this.tooltips) this.tooltips.checked = hasTooltips;
   }
 
   private handleValueFromChange(): void {
@@ -249,14 +249,14 @@ class DemoBlock {
 
   private handleFillChange(): void {
     if (this.fill) {
-      this.root.sliderPlugin('setValue', 'fill', this.fill.checked);
+      this.root.sliderPlugin('setValue', 'hasFill', this.fill.checked);
     }
   }
 
   private handleRangeChange(): void {
-    if (this.range) {
-      this.root.sliderPlugin('setValue', 'range', this.range.checked);
-      if (this.range.checked) {
+    if (this.isRange) {
+      this.root.sliderPlugin('setValue', 'isRange', this.isRange.checked);
+      if (this.isRange.checked) {
         this.root.sliderPlugin('setValue', 'color', 'green');
       } else {
         this.root.sliderPlugin('setValue', 'color', 'orange');
@@ -266,13 +266,13 @@ class DemoBlock {
 
   private handleLabelsChange(): void {
     if (this.labels) {
-      this.root.sliderPlugin('setValue', 'labels', this.labels.checked);
+      this.root.sliderPlugin('setValue', 'hasLabels', this.labels.checked);
     }
   }
 
   private handleTooltipsChange(): void {
     if (this.tooltips) {
-      this.root.sliderPlugin('setValue', 'tooltips', this.tooltips.checked);
+      this.root.sliderPlugin('setValue', 'hasTooltips', this.tooltips.checked);
     }
   }
 }

@@ -24,7 +24,7 @@ class Validation {
     this.checkMinMax(this.min, this.max);
     this.step = this.checkStep(this.min, this.max, this.step);
 
-    if (state.range) {
+    if (state.isRange) {
       this.checkMinRange(this.valueFrom);
       this.checkMaxRange(this.valueTo);
       this.checkRangeMinMax(this.valueFrom, this.valueTo);

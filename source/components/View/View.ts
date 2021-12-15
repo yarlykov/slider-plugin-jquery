@@ -21,7 +21,7 @@ class View extends Observer<ViewEvent> {
   }
 
   public init(options: IOptions): void {
-    this.type = options.range ? 'range' : 'simple';
+    this.type = options.isRange ? 'range' : 'simple';
     const slider = SliderFactory.create(this.type);
 
     this.components = slider.createComponents(options, this.root);
