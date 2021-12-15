@@ -3,7 +3,6 @@
  */
 
 import defaultState from 'Source/defaultState';
-import { defaultPageCoords, defaultScaleCoords } from './Scale/defaultCoords';
 import SliderComponent from './SliderComponent';
 
 describe('SliderComponent:', () => {
@@ -47,8 +46,8 @@ describe('SliderComponent:', () => {
   });
 
   test('getPosition method should be defined', () => {
-    const scaleCoords = defaultScaleCoords;
-    const pageCoords = defaultPageCoords;
+    const scaleCoords = { left: 1, bottom: 1, width: 1, height: 1 };
+    const pageCoords = { pageX: 1, pageY: 1 };
     expect(
       sliderComponent.getPosition('horizontal', scaleCoords, pageCoords),
     ).toBeDefined();

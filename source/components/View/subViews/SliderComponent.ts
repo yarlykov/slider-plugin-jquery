@@ -76,10 +76,12 @@ class SliderComponent extends Observer<SliderComponentEvent> {
 
   public getPosition(
     orientation: Orientation,
-    scaleCoords: ScaleCoords,
+    scaleCoords: ScaleCoords | null,
     pageCoords: PageCoords,
   ): number {
     const horizontal = orientation === 'horizontal';
+    const mockValue = 50;
+    if (scaleCoords === null) return mockValue;
     const { pageX, pageY } = pageCoords;
     const { left, bottom, width, height } = scaleCoords;
 

@@ -1,4 +1,3 @@
-import { defaultScaleCoords } from 'Components/View/subViews/Scale/defaultCoords';
 import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
 import { KnobEvents } from 'Source/Observer/events';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
@@ -73,7 +72,7 @@ class Knobs extends SliderComponent {
         this.valueFrom.style.zIndex = zIndex;
       }
       
-      const scaleCoords = this.scale ? this.getCoords(this.scale) : defaultScaleCoords;
+      const scaleCoords = this.scale ? this.getCoords(this.scale) : null;
       const pageCoords = this.getPageCoords(pointerEvent);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
