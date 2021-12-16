@@ -1,26 +1,11 @@
 import defaultState from 'Root/source/defaultState';
-import { IOptions } from 'Components/interfaces';
 import Model from './Model';
 
 describe('Model:', () => {
   let model: Model;
-  const initialState: IOptions = {
-    min: 0,
-    max: 1,
-    step: 1,
-    valueFrom: 0,
-    valueTo: 0,
-    orientation: 'horizontal',
-    isRange: false,
-    hasFill: false,
-    hasLabels: false,
-    hasTooltips: false,
-    color: 'orange',
-  };
 
   beforeEach(() => {
     model = new Model(defaultState);
-    model.setState(initialState);
   });
 
   test('should return a class instance', () => {
@@ -32,7 +17,7 @@ describe('Model:', () => {
   });
 
   test('should write state using setState and return from getState', () => {
-    expect(model.getState()).toEqual(initialState);
+    expect(model.getState()).toEqual(defaultState);
   });
 
   test('getValue should return value', () => {

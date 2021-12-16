@@ -91,6 +91,7 @@ describe('Validation:', () => {
         max: 120,
         step: 25,
         valueFrom: 120,
+        valueTo: 0,
       },
       five: {
         ...defaultState,
