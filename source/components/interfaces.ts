@@ -21,12 +21,6 @@ interface IOptions {
   color: Color;
 }
 
-interface Events {
-  [key: string]: EventCallback[];
-}
-
-type EventCallback = (data?: unknown) => void;
-
 type OptionValue = number | Color | Orientation | boolean ;
 
 type PageCoords = {
@@ -62,8 +56,6 @@ type MainStateSettings = {
 
 export {
   IOptions,
-  EventCallback,
-  Events,
   SimpleSliderType,
   RangeSliderType,
   PageCoords,

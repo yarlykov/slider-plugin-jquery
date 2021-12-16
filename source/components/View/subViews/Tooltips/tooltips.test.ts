@@ -42,7 +42,7 @@ describe('Tooltip:', () => {
   });
 
   test('should update tooltip value', () => {
-    tooltip.update({ valueFrom: 10 });
+    tooltip.update({ ...defaultState, valueFrom: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
       '[data-id="tooltip-value-first"]',
     );
@@ -51,7 +51,7 @@ describe('Tooltip:', () => {
 
   test('should not update tooltip value', () => {
     root.innerHTML = '';
-    tooltip.update({ valueTo: 10 });
+    tooltip.update({ ...defaultState, valueTo: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
       '[data-id="tooltip-value-first"]',
     );
@@ -113,7 +113,7 @@ describe('SecondTooltip:', () => {
 
   test('should not update secondTooltip value', () => {
     root.innerHTML = '';
-    secondTooltip.update({ valueTo: 10 });
+    secondTooltip.update({ ...defaultState, valueTo: 10 });
     const tooltipValue = root.querySelector(
       '[data-id="tooltip-value-second"]',
     );

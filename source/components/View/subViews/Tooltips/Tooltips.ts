@@ -12,7 +12,7 @@ class Tooltip extends SliderComponent {
     }
   }
 
-  public update(state: Partial<IOptions>): void {
+  public update(state: IOptions): void {
     const tooltip: HTMLElement | null = this.root.querySelector(
       '[data-id="tooltip-value-first"]',
     );
@@ -47,7 +47,7 @@ class SecondTooltip extends SliderComponent {
     }
   }
 
-  public update(state: Partial<IOptions>): void {
+  public update(state: IOptions): void {
     const tooltipValueSecond: HTMLElement | null = this.root.querySelector(
       '[data-id="tooltip-value-second"]',
     );
