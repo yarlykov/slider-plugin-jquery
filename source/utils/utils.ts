@@ -23,7 +23,9 @@ const getValueWithStep = (
   const stepPercent = 100 / stepCount;
   const stepPosition = Math.round(valueInPercent / stepPercent) * step;
   const valueWithStep = stepPosition + min;
-
+  
+  if (valueInPercent >= 100) return valueInPercent + valueWithStep;  
+  
   return valueWithStep;
 }
 
