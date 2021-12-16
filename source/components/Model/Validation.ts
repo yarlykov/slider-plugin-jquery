@@ -15,12 +15,12 @@ class Validation {
   private valueTo!: number;
 
   public checkState(state: IOptions): IOptions {
-    const { min, step, valueFrom, valueTo } = defaultState;
+    const { min, max, step } = defaultState;
     this.min = state.min || min;
     this.max = state.max || this.min + 1;
     this.step = state.step || step;
-    this.valueFrom = state.valueFrom || valueFrom;
-    this.valueTo = state.valueTo || valueTo;
+    this.valueFrom = state.valueFrom || min;
+    this.valueTo = state.valueTo || max;
     
     this.checkMinMax(this.min, this.max);
     this.step = this.checkStep(this.min, this.max, this.step);

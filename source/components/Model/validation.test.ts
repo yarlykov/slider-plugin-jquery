@@ -58,6 +58,7 @@ describe('Validation:', () => {
         max: 1,
         step: 0,
         valueFrom: 1,
+        valueTo: 0,
       },
     };
 
@@ -91,7 +92,7 @@ describe('Validation:', () => {
         max: 120,
         step: 25,
         valueFrom: 120,
-        valueTo: 0,
+        valueTo: 75,
       },
       five: {
         ...defaultState,
@@ -99,6 +100,7 @@ describe('Validation:', () => {
         max: 2,
         step: 1,
         valueFrom: 1,
+        valueTo: 100,
       },
     };
     expect(validation.checkState(invalidState.one)).toEqual(correctState.one);
