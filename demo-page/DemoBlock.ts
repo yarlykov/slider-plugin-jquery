@@ -80,23 +80,35 @@ class DemoBlock {
 
   private pluginSetup(): void {
     this.state = this.root.sliderPlugin('getState');
-    if (this.min) this.min.value = `${this.state.min}`;
-    if (this.max) this.max.value = `${this.state.max}`;
-    if (this.valueFrom) this.valueFrom.value = `${this.state.valueFrom}`;
-    if (this.step) this.step.value = `${this.state.step}`;
+    const {
+      min,
+      max,
+      step,
+      valueFrom,
+      valueTo,
+      hasFill,
+      hasLabels,
+      hasTooltips,
+      isRange,
+      orientation
+    } = this.state;
+    
+    if (this.min) this.min.value = `${min}`;
+    if (this.max) this.max.value = `${max}`;
+    if (this.valueFrom) this.valueFrom.value = `${valueFrom}`;
+    if (this.step) this.step.value = `${step}`;
 
-    if (this.state.isRange && this.valueTo) {
+    if (isRange && this.valueTo) {
       this.valueTo.disabled = false;
-      this.valueTo.value = `${this.state.valueTo}`;
+      this.valueTo.value = `${valueTo}`;
     }
 
-    if (this.orientation) this.orientation.value = `${this.state.orientation}`;
-    if (this.fill && this.state.hasFill) this.fill.checked = this.state.hasFill;
-    if (this.isRange && this.state.isRange) this.isRange.checked = this.state.isRange;
-    if (this.labels && this.state.hasLabels)
-      this.labels.checked = this.state.hasLabels;
-    if (this.tooltips && this.state.hasTooltips)
-      this.tooltips.checked = this.state.hasTooltips;
+    if (this.orientation) this.orientation.value = `${orientation}`;
+    
+    if (this.fill) this.fill.checked = hasFill;
+    if (this.isRange) this.isRange.checked = isRange;
+    if (this.labels) this.labels.checked = hasLabels;
+    if (this.tooltips) this.tooltips.checked = hasTooltips;
   }
 
   private bindEventListeners(): void {
