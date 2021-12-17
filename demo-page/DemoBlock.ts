@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { IOptions, OptionValue } from '../source/components/interfaces';
+import { IOptions } from '../source/components/interfaces';
 import defaultState from '../source/defaultState';
 
 type InputElement = HTMLInputElement | null | undefined;
