@@ -65,10 +65,10 @@ describe('Validation:', () => {
     const correctState = {
       one: {
         ...defaultState,
-        min: 100,
-        max: 101,
-        step: 1,
-        valueFrom: 100,
+        min: 0,
+        max: 100,
+        step: 25,
+        valueFrom: 25,
         valueTo: 70,
       },
       two: {
@@ -100,7 +100,7 @@ describe('Validation:', () => {
         max: 2,
         step: 1,
         valueFrom: 1,
-        valueTo: 100,
+        valueTo: 0,
       },
     };
     expect(validation.checkState(invalidState.one)).toEqual(correctState.one);
