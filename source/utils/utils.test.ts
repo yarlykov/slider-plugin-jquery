@@ -31,7 +31,7 @@ describe('Utils: fromValueToPercent', () => {
 
 describe('Utils: getValueWithStep', () => {
   test('should be defined', () => {
-    expect(getValueWithStep()).toBeDefined();
+    expect(getValueWithStep(0, 0, 0, 0)).toBeDefined();
   });
 
   test('should be return correct value with step', () => {

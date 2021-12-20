@@ -202,7 +202,7 @@ class DemoBlock {
   }
 
   private handleValueFromKeydown(event: KeyboardEvent): void {
-    const { valueFrom = 0, step = 0 } = this.state;
+    const { valueFrom, step } = this.state;
     const { code } = event;
 
     if (code === 'ArrowUp' || code === 'ArrowRight') {
@@ -222,7 +222,7 @@ class DemoBlock {
   }
 
   private handleValueToKeydown(event: KeyboardEvent): void {
-    const { valueTo = 0, step = 0 } = this.state;
+    const { valueTo, step } = this.state;
     const { code } = event;
 
     if (code === 'ArrowUp' || code === 'ArrowRight') {

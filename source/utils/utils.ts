@@ -14,10 +14,10 @@ const fromValueToPercent = (state: IOptions | MainStateSettings, value: number):
 }
 
 const getValueWithStep = (
-  min = 0,
-  max = 0,
-  step = 1,
-  valueInPercent = 0,
+  min: number,
+  max: number,
+  step: number,
+  valueInPercent: number,
 ): number => {
   const stepCount = (max - min) / step;
   const stepPercent = 100 / stepCount;

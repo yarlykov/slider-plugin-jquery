@@ -108,7 +108,7 @@ class Validation {
   }
 
   public checkRangeMinMax(valueFrom: number, valueTo: number): void {
-    let swap = 0;
+    let swap;
 
     if (valueFrom >= valueTo) {
       swap = valueFrom;

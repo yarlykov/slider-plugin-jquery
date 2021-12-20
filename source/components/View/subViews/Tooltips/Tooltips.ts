@@ -1,5 +1,5 @@
 import SliderComponent from 'Components/View/subViews/SliderComponent';
-import { Color, IOptions, Orientation } from 'Components/interfaces';
+import { Color, IOptions, Orientation, TooltipCoords } from 'Components/interfaces';
 import './tooltips.scss';
 
 class Tooltip extends SliderComponent {
@@ -60,6 +60,8 @@ class SecondTooltip extends SliderComponent {
     const { orientation } = this.state;
 
     const coords = this.getTooltipsCoords();
+    if (!coords) return;
+    
     const { firstRight, firstTop, secondLeft, secondBottom } = coords;
   
     const hasTooltips = tooltipFirst 
@@ -85,7 +87,7 @@ class SecondTooltip extends SliderComponent {
     }
   }
 
-  private getTooltipsCoords() {
+  private getTooltipsCoords(): TooltipCoords | null {
     const tooltipFirst: HTMLElement | null = this.root.querySelector(
       '[data-id="tooltip-first"]',
     );
@@ -93,12 +95,15 @@ class SecondTooltip extends SliderComponent {
       '[data-id="tooltip-second"]',
     );
 
-    return {
-      firstRight: tooltipFirst?.getBoundingClientRect().right || 0,
-      firstTop: tooltipFirst?.getBoundingClientRect().top || 0,
-      secondLeft: tooltipSecond?.getBoundingClientRect().left || 0,
-      secondBottom: tooltipSecond?.getBoundingClientRect().bottom || 0,
+    if (tooltipFirst && tooltipSecond) {
+      return {
+        firstRight: tooltipFirst?.getBoundingClientRect().right,
+        firstTop: tooltipFirst?.getBoundingClientRect().top,
+        secondLeft: tooltipSecond?.getBoundingClientRect().left,
+        secondBottom: tooltipSecond?.getBoundingClientRect().bottom,
+      }
     }
+    return null;
   }
 
   public static getTemplate(orientation: Orientation, color: Color): string {

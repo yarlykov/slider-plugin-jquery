@@ -35,6 +35,13 @@ type ScaleCoords = {
   height: number;
 }
 
+type TooltipCoords = {
+  firstRight: number,
+  firstTop: number,
+  secondLeft: number,
+  secondBottom: number,
+}
+
 type SimpleSliderType = {
   scale: Scale;
   fill: Fill;
@@ -64,4 +71,5 @@ export {
   MainStateSettings,
   Color,
   Orientation,
+  TooltipCoords,
 };
