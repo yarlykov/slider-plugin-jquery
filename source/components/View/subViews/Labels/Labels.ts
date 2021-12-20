@@ -1,6 +1,6 @@
 import { Orientation } from 'Root/source/components/interfaces';
 import { LabelsEvents } from 'Source/Observer/events';
-import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
+import { checkOrientation, fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './labels.scss';
 
@@ -50,10 +50,12 @@ class Labels extends SliderComponent {
     max: number,
     step: number
   ): string {
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+
     return `
       <div class="slider__labels
         js-slider__labels
-        slider__labels_${orientation}"
+        slider__labels_${orientationMod}"
         data-id="labels"
       >
         ${this.getLabels(orientation, min, max, step)}

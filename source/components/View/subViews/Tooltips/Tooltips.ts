@@ -1,6 +1,7 @@
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { Color, IOptions, Orientation, TooltipCoords } from 'Components/interfaces';
 import './tooltips.scss';
+import { checkColor, checkOrientation } from 'Root/source/utils/utils';
 
 class Tooltip extends SliderComponent {
   public init(): void {
@@ -21,13 +22,15 @@ class Tooltip extends SliderComponent {
   }
 
   public static getTemplate(orientation: Orientation, color: Color): string {
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+    const colorMod = checkColor(color) ? color : 'orange';
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
       <div class="slider__tooltip
-        slider__tooltip_${orientation}
-        slider__tooltip_${color}"
+        slider__tooltip_${orientationMod}
+        slider__tooltip_${colorMod}"
         data-id="tooltip-first"
       >
         <span class="tooltip__value" data-id="tooltip-value-first"></span>
@@ -107,13 +110,15 @@ class SecondTooltip extends SliderComponent {
   }
 
   public static getTemplate(orientation: Orientation, color: Color): string {
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+    const colorMod = checkColor(color) ? color : 'orange';
     const verticalTooltipClass =
       orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
 
     return `
       <div class="slider__tooltip
-        slider__tooltip_${orientation}
-        slider__tooltip_${color}"
+        slider__tooltip_${orientationMod}
+        slider__tooltip_${colorMod}"
         data-id="tooltip-second"
       >
         <span class="tooltip__value"

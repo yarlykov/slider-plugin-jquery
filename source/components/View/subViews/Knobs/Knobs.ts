@@ -1,4 +1,9 @@
-import { fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
+import {
+  checkColor,
+  checkOrientation,
+  fromValueToPercent,
+  getValueWithStep
+} from 'Source/utils/utils';
 import { KnobEvents } from 'Source/Observer/events';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { SecondTooltip, Tooltip } from 'Components/View/subViews/Tooltips/Tooltips';
@@ -131,6 +136,8 @@ class Knobs extends SliderComponent {
     target: string
   ): string {
     let knobElementClass = 'knob'
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+    const colorMod = checkColor(color) ? color : 'orange';
 
     if (target === KnobEvents.VALUE_TO) {
       knobElementClass = 'second-knob'
@@ -139,8 +146,8 @@ class Knobs extends SliderComponent {
     return `
       <div
         class="slider__knob
-        slider__knob_${orientation}
-        slider__knob_${color}" 
+        slider__knob_${orientationMod}
+        slider__knob_${colorMod}" 
         data-id=${knobElementClass}
         role="slider"
         tabindex="0"

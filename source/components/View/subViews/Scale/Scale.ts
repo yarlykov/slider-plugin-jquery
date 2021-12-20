@@ -1,5 +1,5 @@
 import { ScaleEvents } from 'Source/Observer/events';
-import { getValueWithStep } from 'Source/utils/utils';
+import { checkOrientation, getValueWithStep } from 'Source/utils/utils';
 import Fill from 'Components/View/subViews/Fill/Fill';
 import { Knob, SecondKnob } from 'Components/View/subViews/Knobs/Knobs';
 import Labels from 'Components/View/subViews/Labels/Labels';
@@ -102,12 +102,14 @@ class Scale extends SliderComponent {
 
   private getTemplate(): string {
     const { orientation } = this.state;
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+
     return `
-      <div class="slider slider_${orientation}">
+      <div class="slider slider_${orientationMod}">
         <div
           class="slider__scale
           js-slider__scale
-          slider__scale_${orientation}"
+          slider__scale_${orientationMod}"
           data-id="scale"
         ></div>
       </div>

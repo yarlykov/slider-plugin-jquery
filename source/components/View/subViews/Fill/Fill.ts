@@ -1,4 +1,4 @@
-import { fromValueToPercent } from 'Source/utils/utils';
+import { checkColor, checkOrientation, fromValueToPercent } from 'Source/utils/utils';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
 import './fill.scss';
@@ -32,12 +32,15 @@ class Fill extends SliderComponent {
   }
 
   public static getTemplate(color: Color, orientation: Orientation): string {
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+    const colorMod = checkColor(color) ? color : 'orange';
+
     return `
       <div
         class="slider__fill
         js-slider__fill
-        slider__fill_${orientation}
-        slider__fill_${color}
+        slider__fill_${orientationMod}
+        slider__fill_${colorMod}
         "data-id="fill"
       ></div>
     `;
