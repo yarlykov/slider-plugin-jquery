@@ -5,8 +5,8 @@ import {
   getValueWithStep
 } from 'Source/utils/utils';
 import { KnobEvents } from 'Source/Observer/events';
+import Tooltip from 'Components/View/subViews/Tooltip/Tooltip';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
-import { SecondTooltip, Tooltip } from 'Components/View/subViews/Tooltips/Tooltips';
 import { TargetType } from 'Components/View/Slider/Slider';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
 import './knob.scss';
@@ -147,13 +147,13 @@ class Knob extends SliderComponent {
     if (this.valueFrom && !hasFirstTooltip) {
       this.valueFrom.insertAdjacentHTML(
         'afterbegin',
-        Tooltip.getTemplate(orientation, color)
+        Tooltip.getTemplate(orientation, color, TargetType.simple)
       );
     }
     if (this.valueTo && !hasSecondTooltip) {
       this.valueTo.insertAdjacentHTML(
         'afterbegin',
-        SecondTooltip.getTemplate(orientation, color)
+        Tooltip.getTemplate(orientation, color, TargetType.range)
       );
     }
   }

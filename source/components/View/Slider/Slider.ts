@@ -4,8 +4,8 @@ import { IOptions, RangeSliderType, SimpleSliderType } from 'Components/interfac
 import Scale from 'Components/View/subViews/Scale/Scale';
 import Fill from 'Components/View/subViews/Fill/Fill';
 import Labels from 'Components/View/subViews/Labels/Labels';
-import { Tooltip, SecondTooltip } from 'Components/View/subViews/Tooltips/Tooltips';
-import Knob from 'Root/source/components/View/subViews/Knob/Knob';
+import Tooltip from 'Components/View/subViews/Tooltip/Tooltip';
+import Knob from 'Components/View/subViews/Knob/Knob';
 
 type SliderType = SimpleSliderType | RangeSliderType;
 
@@ -26,7 +26,7 @@ class Slider {
     });
     if (type === TargetType.range) {
       components['secondKnob'] = new Knob(options, root, TargetType.range);
-      components['secondTooltip'] = new SecondTooltip(options, root, TargetType.range);
+      components['secondTooltip'] = new Tooltip(options, root, TargetType.range);
     }
 
     return <SliderType>components;

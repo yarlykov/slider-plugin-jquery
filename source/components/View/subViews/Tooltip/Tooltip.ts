@@ -1,66 +1,33 @@
 import SliderComponent from 'Components/View/subViews/SliderComponent';
+import { TargetType } from 'Components/View/Slider/Slider';
 import { Color, IOptions, Orientation, TooltipCoords } from 'Components/interfaces';
-import './tooltips.scss';
 import { checkColor, checkOrientation } from 'Root/source/utils/utils';
+import './tooltip.scss';
 
 class Tooltip extends SliderComponent {
+  private tooltipValueFirst!: HTMLElement | null;
+  private tooltipValueSecond!: HTMLElement | null;
+
   public init(): void {
-    const { hasTooltips } = this.state;
-
-    if (hasTooltips) {
-      const knob = this.root.querySelector('[data-id="knob"]');
-      if (!knob) throw new Error('Knob element is not found');
-    }
-  }
-
-  public update(state: IOptions): void {
-    const tooltip: HTMLElement | null = this.root.querySelector(
+    this.tooltipValueFirst = this.root.querySelector(
       '[data-id="tooltip-value-first"]',
     );
-    
-    if (tooltip) tooltip.innerText = `${state.valueFrom}`;
-  }
-
-  public static getTemplate(orientation: Orientation, color: Color): string {
-    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
-    const colorMod = checkColor(color) ? color : 'orange';
-    const verticalTooltipClass =
-      orientation === 'vertical' ? 'slider__tooltip_arrow_vertical' : '';
-
-    return `
-      <div class="slider__tooltip
-        slider__tooltip_${orientationMod}
-        slider__tooltip_${colorMod}"
-        data-id="tooltip-first"
-      >
-        <span class="tooltip__value" data-id="tooltip-value-first"></span>
-        <div class="slider__tooltip_arrow ${verticalTooltipClass}"></div>
-      </div>
-    `;
-  }
-}
-
-class SecondTooltip extends SliderComponent {
-  public init(): void {
-    const { hasTooltips } = this.state;
-
-    if (hasTooltips) {
-      const secondKnob = this.root.querySelector('[data-id="second-knob"]');
-      if (!secondKnob) throw new Error('Second knob element is not found');
-    }
+    this.tooltipValueSecond = this.root.querySelector(
+      '[data-id="tooltip-value-second"]',
+    );
   }
 
   public update(state: IOptions): void {
-    const tooltipValueSecond: HTMLElement | null = this.root.querySelector(
-      '[data-id="tooltip-value-second"]',
-    );
+    const { orientation } = this.state;
+  
+    if (this.tooltipValueFirst) this.tooltipValueFirst.innerText = `${state.valueFrom}`;
+
     const tooltipFirst: HTMLElement | null = this.root.querySelector(
       '[data-id="tooltip-first"]',
     );
     const tooltipSecond: HTMLElement | null = this.root.querySelector(
       '[data-id="tooltip-second"]',
     );
-    const { orientation } = this.state;
 
     const coords = this.getTooltipsCoords();
     if (!coords) return;
@@ -69,7 +36,7 @@ class SecondTooltip extends SliderComponent {
   
     const hasTooltips = tooltipFirst 
       && tooltipSecond 
-      && tooltipValueSecond;
+      && this.tooltipValueSecond;
     const hasTwoHorizontalNearby = orientation === 'horizontal' 
       && firstRight >= secondLeft
     const hasTwoVerticalNearby = orientation === 'vertical' 
@@ -77,16 +44,16 @@ class SecondTooltip extends SliderComponent {
     const hasTooltipsNearby = hasTwoHorizontalNearby  || hasTwoVerticalNearby;
 
     if (hasTooltips) {
-      if (hasTooltipsNearby) {
+      if (hasTooltipsNearby && this.tooltipValueSecond) {
         tooltipFirst.style.visibility = 'hidden'
-        tooltipValueSecond.innerText = `${state.valueFrom} \u2013 ${state.valueTo}`
+        this.tooltipValueSecond.innerText = `${state.valueFrom} \u2013 ${state.valueTo}`
         tooltipSecond?.classList.add('slider__tooltip_double')
-      } else {
+      } else if (this.tooltipValueSecond) {
         tooltipFirst.style.visibility = 'visible'
-        tooltipValueSecond.innerText = `${state.valueTo}`
+        this.tooltipValueSecond.innerText = `${state.valueTo}`
       }
-    } else if (tooltipValueSecond) {
-      tooltipValueSecond.innerText = `${state.valueTo}`
+    } else if (this.tooltipValueSecond) {
+      this.tooltipValueSecond.innerText = `${state.valueTo}`
     }
   }
 
@@ -109,7 +76,13 @@ class SecondTooltip extends SliderComponent {
     return null;
   }
 
-  public static getTemplate(orientation: Orientation, color: Color): string {
+  public static getTemplate(
+    orientation: Orientation,
+    color: Color,
+    target: TargetType,
+  ): string {
+    const tooltipId = target === TargetType.simple ? 'tooltip-first' : 'tooltip-second'
+    const tooltipValueId = target === TargetType.simple ? 'tooltip-value-first' : 'tooltip-value-second'
     const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
     const colorMod = checkColor(color) ? color : 'orange';
     const verticalTooltipClass =
@@ -119,15 +92,13 @@ class SecondTooltip extends SliderComponent {
       <div class="slider__tooltip
         slider__tooltip_${orientationMod}
         slider__tooltip_${colorMod}"
-        data-id="tooltip-second"
+        data-id="${tooltipId}"
       >
-        <span class="tooltip__value"
-          data-id="tooltip-value-second"
-        ></span>
+        <span class="tooltip__value" data-id="${tooltipValueId}"></span>
         <div class="slider__tooltip_arrow ${verticalTooltipClass}"></div>
       </div>
     `;
   }
 }
 
-export { Tooltip, SecondTooltip };
+export default Tooltip;

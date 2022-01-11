@@ -3,9 +3,9 @@
  */
 
 import defaultState from 'Source/defaultState';
-import Knob from 'Root/source/components/View/subViews/Knob/Knob';
+import Knob from 'Components/View/subViews/Knob/Knob';
 import { TargetType } from 'Components/View/Slider/Slider';
-import { Tooltip, SecondTooltip } from './Tooltips';
+import Tooltip from './Tooltip';
 
 const root = document.createElement('div');
 
@@ -37,11 +37,6 @@ describe('Tooltip:', () => {
     expect(tooltip).toBeInstanceOf(Tooltip);
   });
 
-  test('should return error if the knob is not found', () => {
-    root.innerHTML = '';
-    expect(() => tooltip.init()).toThrow('Knob element is not found');
-  });
-
   test('should update tooltip value', () => {
     tooltip.update({ ...defaultState, valueFrom: 10 });
     const tooltipValue: HTMLElement | null = root.querySelector(
@@ -71,7 +66,7 @@ describe('Tooltip:', () => {
 });
 
 describe('SecondTooltip:', () => {
-  let secondTooltip: SecondTooltip;
+  let secondTooltip: Tooltip;
   let secondKnob: Knob;
   const rangeSlider = `<div class="slider slider_horizontal">
       <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale">
@@ -97,7 +92,7 @@ describe('SecondTooltip:', () => {
     root.innerHTML = rangeSlider;
     secondKnob = new Knob({ ...defaultState, isRange: true }, root, TargetType.range);
     secondKnob.init();
-    secondTooltip = new SecondTooltip(
+    secondTooltip = new Tooltip(
       {
         ...defaultState,
         hasTooltips: true,
@@ -110,14 +105,7 @@ describe('SecondTooltip:', () => {
   });
 
   test('should return SecondTooltip instance', () => {
-    expect(secondTooltip).toBeInstanceOf(SecondTooltip);
-  });
-
-  test('should return error if the Second knob is not found', () => {
-    root.innerHTML = '';
-    expect(() => secondTooltip.init()).toThrow(
-      'Second knob element is not found',
-    );
+    expect(secondTooltip).toBeInstanceOf(Tooltip);
   });
 
   test('should not update secondTooltip value', () => {
