@@ -1,12 +1,19 @@
 /* eslint-disable fsd/no-function-declaration-in-event-listener */
 /* eslint-disable func-names */
-/* eslint-disable @typescript-eslint/ban-types */
+
 import Presenter from 'Components/Presenter/Presenter';
-import { IOptions, OptionValue } from 'Components/interfaces';
+import {
+  IOptions,
+  OptionsNumberValues,
+  OptionsBooleanValues,
+  Color,
+  Orientation,
+  OptionValue,
+} from 'Components/interfaces';
 import defaultState from './defaultState';
 
 const methods = {
-  init(this: JQuery, options: unknown) {
+  init(this: JQuery, options: Partial<IOptions>) {
     return this.each(function (this: HTMLElement): void {
       if (typeof options === 'object') {
         const sliderOptions = { ...defaultState, ...options }
@@ -26,28 +33,39 @@ const methods = {
     sliderPlugin.model.setValue(`${name}`, value);
   },
 
-  onChange(this: JQuery, func: Function) {
-    $(this).on('onChange', (args) => func(args));
+  onChange(this: JQuery, func: (event: CustomEventInit) => void) {
+    $(this).on('onChange', (event) => func(event));
   },
 };
 
 declare global {
   interface JQuery {
-    sliderPlugin: (
-      options?: keyof typeof methods | unknown,
-      args?: string | Function,
-      value?: OptionValue,
-    ) => IOptions;
+    sliderPlugin(): void;
+    sliderPlugin(options: Partial<IOptions>): void;
+    sliderPlugin(method: 'getState'): IOptions;
+    sliderPlugin(method: 'setValue', key: OptionsNumberValues, value: number): void;
+    sliderPlugin(method: 'setValue', key: OptionsBooleanValues, value: boolean): void;
+    sliderPlugin(method: 'setValue', key: 'orientation', value: Orientation): void;
+    sliderPlugin(method: 'setValue', key: 'color', value: Color): void;
+    sliderPlugin(method: 'onChange', func: (event: CustomEvent) => void): void;
   }
 }
+ 
+$.fn.sliderPlugin = function<T>(...args: T[]) {
+  const method = args[0];
+  const params = args.slice(1);
+  
+  const isMethod = typeof method === 'string';
+  const isOptionsOrNoOptions = typeof method === 'object' || !method;
 
-$.fn.sliderPlugin = function (method, ...args) {
-  if (methods[method as string]) {
-    return methods[method as string].apply(this, args);
+  if (isMethod) {
+    return methods[method as string].apply(this, params);
   }
-  if (typeof method === 'object' || !method) {
-    const options = method || {};
+
+  if (isOptionsOrNoOptions) {
+    const options = method || {};    
     return methods.init.call(this, options);
   }
+
   $.error(`Метод с именем ${method} не существует`);
 };

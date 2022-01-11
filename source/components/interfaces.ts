@@ -6,6 +6,8 @@ import { SecondTooltip, Tooltip } from './View/subViews/Tooltips/Tooltips';
 
 type Color = 'orange' | 'green';
 type Orientation = 'horizontal' | 'vertical';
+type OptionsNumberValues = 'valueFrom' | 'valueTo' | 'min' | 'max' | 'step';
+type OptionsBooleanValues = 'isRange' | 'hasFill' | 'hasLabels' | 'hasTooltips';
 
 interface IOptions {
   min: number;
@@ -72,4 +74,6 @@ export {
   Color,
   Orientation,
   TooltipCoords,
+  OptionsNumberValues,
+  OptionsBooleanValues,
 };
