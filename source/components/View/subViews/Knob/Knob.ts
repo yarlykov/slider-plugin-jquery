@@ -76,7 +76,7 @@ class Knob extends SliderComponent {
     this.handleKnobPointerDown(KnobEvents.KNOB_VALUE_TO_CHANGED)
   }
 
-  public handleKnobPointerDown(target: KnobEventTarget): void {
+  private handleKnobPointerDown(target: KnobEventTarget): void {
     const {
       min,
       max,
