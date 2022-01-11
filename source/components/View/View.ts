@@ -1,7 +1,7 @@
 import Observer from 'Source/Observer/Observer';
 import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observer/events';
 import { IOptions, RangeSliderType, SimpleSliderType } from 'Components/interfaces';
-import { SliderFactory } from './Factories/factories';
+import Slider from './Slider/Slider';
 
 type ViewEvent = 
   | { type: ViewEvents.VALUE_FROM_CHANGED, data: number | string }
@@ -22,9 +22,8 @@ class View extends Observer<ViewEvent> {
 
   public init(options: IOptions): void {
     this.type = options.isRange ? 'range' : 'simple';
-    const slider = SliderFactory.create(this.type);
-
-    this.components = slider.createComponents(options, this.root);
+    const slider = new Slider();
+    this.components = slider.createComponents(options, this.root, this.type);
 
     this.displaySlider();
     this.bindEvents();
