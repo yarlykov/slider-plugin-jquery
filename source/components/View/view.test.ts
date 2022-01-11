@@ -52,11 +52,4 @@ describe('View:', () => {
     const verticalSliders = root.querySelectorAll('.slider__scale_vertical');
     expect(verticalSliders.length).toBe(1);
   });
-
-  test('should update slider', () => {
-    view.update({ ...defaultState, valueFrom: 20});
-    const sliderValueFrom = view.components.knob?.state.valueFrom;
-    
-    expect(sliderValueFrom).toBe(20);
-  });
 });

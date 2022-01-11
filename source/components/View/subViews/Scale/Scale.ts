@@ -8,12 +8,12 @@ import { TargetType } from 'Components/View/Slider/Slider';
 import './scale.scss';
 
 class Scale extends SliderComponent {
-  public scaleNode!: HTMLElement | null;
+  private scaleNode!: HTMLElement | null;
 
   public init(): void {
     this.root.innerHTML = '';
     this.root.insertAdjacentHTML('afterbegin', this.getTemplate());
-
+    
     this.scaleNode = this.root.querySelector('.js-slider__scale');
 
     this.addScaleElements();
@@ -51,6 +51,10 @@ class Scale extends SliderComponent {
         this.emit(ScaleEvents.TARGET_TRIGGERED, event);
       }
     }
+  }
+
+  public getScaleNode(): HTMLElement | null {
+    return this.scaleNode;
   }
 
   private addScaleElements() {

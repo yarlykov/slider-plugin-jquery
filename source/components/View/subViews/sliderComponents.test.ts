@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import defaultState from 'Source/defaultState';
 import { TargetType } from 'Components/View/Slider/Slider';
@@ -25,9 +26,15 @@ describe('SliderComponent:', () => {
     sliderComponent = new SliderComponent(defaultState, elem, TargetType.simple);
   });
 
+  test('if do not transfer state to the update method should be return error', () => {
+    // @ts-ignore: Unreachable code error
+    expect(() => sliderComponent.update()).toThrow('The state for updating is not transferred');
+  });
+
   test('getCoords method should be defined', () => {
     expect(sliderComponent.getCoords(elem)).toBeDefined();
   });
+
 
   test('getCoords method should be return element coords', () => {
     expect(sliderComponent.getCoords(elem)).toEqual({

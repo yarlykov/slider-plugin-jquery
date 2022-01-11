@@ -34,11 +34,11 @@ type SliderComponentEvent =
     }
 
 class SliderComponent extends Observer<SliderComponentEvent> {
-  public state: IOptions;
+  public readonly state: IOptions;
 
-  public root: HTMLElement;
+  public readonly root: HTMLElement;
 
-  public target: TargetType;
+  public readonly target: TargetType;
 
   constructor(options: IOptions, root: HTMLElement, target: TargetType) {
     super();
@@ -47,9 +47,8 @@ class SliderComponent extends Observer<SliderComponentEvent> {
     this.target = target;
   }
 
-  public update(state: IOptions, target?: string): void
   public update(state: IOptions): void {
-    this.state = { ...state };
+    if (!state) throw new Error('The state for updating is not transferred')
   }
 
   public getCoords(elem: HTMLElement): ScaleCoords {

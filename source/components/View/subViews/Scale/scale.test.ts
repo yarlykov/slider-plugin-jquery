@@ -36,7 +36,8 @@ describe('Scale: init ', () => {
     scale = new Scale(newState, root, TargetType.simple);
     const spyEmit = jest.spyOn(scale, 'emit')
     scale.init();
-    if (scale.scaleNode) scale.scaleNode.dispatchEvent(event);
+    const scaleNode = scale.getScaleNode();
+    if (scaleNode) scaleNode.dispatchEvent(event);
     expect(spyEmit).toHaveBeenCalledWith(ScaleEvents.SCALE_VALUE_FROM_CHANGED, 'NaN');
   });
 });

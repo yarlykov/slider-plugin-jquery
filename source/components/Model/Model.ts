@@ -10,7 +10,7 @@ type ModelEvent =
   | { type: ModelEvents.STATE_CHANGED, data: IOptions }
 
 class Model extends Observer<ModelEvent> {
-  public state: IOptions = defaultState;
+  private state: IOptions = defaultState;
 
   private validation: Validation;
 

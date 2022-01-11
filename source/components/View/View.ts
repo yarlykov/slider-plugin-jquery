@@ -12,7 +12,7 @@ class View extends Observer<ViewEvent> {
 
   private type!: TargetType;
 
-  public components!: SimpleSliderType | RangeSliderType;
+  private components!: SimpleSliderType | RangeSliderType;
 
   constructor(root: HTMLElement, options: IOptions) {
     super();

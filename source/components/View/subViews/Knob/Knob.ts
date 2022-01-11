@@ -14,11 +14,13 @@ import './knob.scss';
 type KnobEventTarget = KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED;
 
 class Knob extends SliderComponent {
-  public scale!: HTMLElement | null;
+  private currentState!: IOptions;
 
-  public valueFrom!: HTMLElement | null;
+  private scale!: HTMLElement | null;
 
-  public valueTo!: HTMLElement | null;
+  private valueFrom!: HTMLElement | null;
+
+  private valueTo!: HTMLElement | null;
 
   public init(): void {
     this.scale = this.root.querySelector('.js-slider__scale');
@@ -40,7 +42,7 @@ class Knob extends SliderComponent {
   }
 
   public update(state: IOptions): void {
-    this.state = { ...state };
+    this.currentState = { ...state };
 
     const targetValue = this.target === TargetType.simple 
       ? 'valueFrom'
@@ -80,7 +82,7 @@ class Knob extends SliderComponent {
       max,
       step,
       orientation,
-    } = this.state;
+    } = this.currentState;
 
     const zIndex = target === KnobEvents.KNOB_VALUE_FROM_CHANGED ? '1' : '0'
     
@@ -125,8 +127,8 @@ class Knob extends SliderComponent {
       ? 'valueFrom'
       : 'valueTo'
 
-    const value = this.state[targetValue];
-    const { step } = this.state;
+    const value = this.currentState[targetValue];
+    const { step } = this.currentState;
     const { code } = event;
 
     if (code === 'ArrowRight' || code === 'ArrowUp') {

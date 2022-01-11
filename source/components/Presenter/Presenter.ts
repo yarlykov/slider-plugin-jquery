@@ -8,12 +8,12 @@ class Presenter {
 
   private view: View;
 
-  root: HTMLElement;
+  private root: HTMLElement;
 
   constructor(root: HTMLElement, options: IOptions) {
     this.root = root;
     this.model = new Model(options);
-    this.view = new View(root, this.model.state);
+    this.view = new View(root, this.model.getState());
 
     this.bindModelEvents();
     this.bindViewEvents();
@@ -44,7 +44,7 @@ class Presenter {
   private customEvent(): void {
     this.root.dispatchEvent(
       new CustomEvent('onChange', {
-        detail: this.model.state,
+        detail: this.model.getState(),
       }),
     );
   }
