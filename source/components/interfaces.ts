@@ -1,7 +1,7 @@
 import Fill from './View/subViews/Fill/Fill';
 import Labels from './View/subViews/Labels/Labels';
 import Scale from './View/subViews/Scale/Scale';
-import { Knob, SecondKnob } from './View/subViews/Knobs/Knobs';
+import Knob from './View/subViews/Knob/Knob';
 import { SecondTooltip, Tooltip } from './View/subViews/Tooltips/Tooltips';
 
 type Color = 'orange' | 'green';
@@ -53,7 +53,7 @@ type SimpleSliderType = {
 }
 
 type RangeSliderType = SimpleSliderType & {
-  secondKnob: SecondKnob;
+  secondKnob: Knob;
   secondTooltip: SecondTooltip;
 };
 

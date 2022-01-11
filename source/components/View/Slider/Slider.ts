@@ -5,26 +5,32 @@ import Scale from 'Components/View/subViews/Scale/Scale';
 import Fill from 'Components/View/subViews/Fill/Fill';
 import Labels from 'Components/View/subViews/Labels/Labels';
 import { Tooltip, SecondTooltip } from 'Components/View/subViews/Tooltips/Tooltips';
-import { Knob, SecondKnob } from 'Components/View/subViews/Knobs/Knobs';
+import Knob from 'Root/source/components/View/subViews/Knob/Knob';
 
 type SliderType = SimpleSliderType | RangeSliderType;
 
+enum TargetType {
+  'simple',
+  'range'
+}
+
 class Slider {
-  public createComponents(options: IOptions, root: HTMLElement, type: string): SimpleSliderType {
+  public createComponents(options: IOptions, root: HTMLElement, type: TargetType): SimpleSliderType {
     const elements = [Scale, Fill, Knob, Labels, Tooltip];
     const components = {};
 
     elements.forEach((Element) => {
-      const element = new Element(options, root);
+      const element = new Element(options, root, TargetType.simple);
       const elementName = changeFirstLetterToLower(element.constructor.name);
       components[elementName] = element;
     });
-    if (type === 'range') {
-      components['secondKnob'] = new SecondKnob(options, root);
-      components['secondTooltip'] = new SecondTooltip(options, root);
+    if (type === TargetType.range) {
+      components['secondKnob'] = new Knob(options, root, TargetType.range);
+      components['secondTooltip'] = new SecondTooltip(options, root, TargetType.range);
     }
+
     return <SliderType>components;
   }
 }
 
-export default Slider;
+export { Slider, TargetType };

@@ -3,7 +3,8 @@
  */
 
 import defaultState from 'Source/defaultState';
-import { Knob, SecondKnob } from 'Components/View/subViews/Knobs/Knobs';
+import Knob from 'Root/source/components/View/subViews/Knob/Knob';
+import { TargetType } from 'Components/View/Slider/Slider';
 import { Tooltip, SecondTooltip } from './Tooltips';
 
 const root = document.createElement('div');
@@ -26,9 +27,9 @@ describe('Tooltip:', () => {
 
   beforeEach(() => {
     root.innerHTML = slider;
-    knob = new Knob(defaultState, root);
+    knob = new Knob(defaultState, root, TargetType.simple);
     knob.init();
-    tooltip = new Tooltip({ ...defaultState, hasTooltips: true }, root);
+    tooltip = new Tooltip({ ...defaultState, hasTooltips: true }, root, TargetType.simple);
     tooltip.init();
   });
 
@@ -60,7 +61,7 @@ describe('Tooltip:', () => {
 
   test('should render vertical arrow', () => {
     root.innerHTML = slider;
-    knob = new Knob({ ...defaultState, orientation: 'vertical' }, root);
+    knob = new Knob({ ...defaultState, orientation: 'vertical' }, root, TargetType.simple);
     knob.init();
 
     expect(
@@ -71,7 +72,7 @@ describe('Tooltip:', () => {
 
 describe('SecondTooltip:', () => {
   let secondTooltip: SecondTooltip;
-  let secondKnob: SecondKnob;
+  let secondKnob: Knob;
   const rangeSlider = `<div class="slider slider_horizontal">
       <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale">
         <div
@@ -94,9 +95,17 @@ describe('SecondTooltip:', () => {
 
   beforeEach(() => {
     root.innerHTML = rangeSlider;
-    secondKnob = new SecondKnob({ ...defaultState, isRange: true }, root);
+    secondKnob = new Knob({ ...defaultState, isRange: true }, root, TargetType.range);
     secondKnob.init();
-    secondTooltip = new SecondTooltip({ ...defaultState, hasTooltips: true, isRange: true }, root);
+    secondTooltip = new SecondTooltip(
+      {
+        ...defaultState,
+        hasTooltips: true,
+        isRange: true
+      },
+      root,
+      TargetType.range
+    );
     secondTooltip.init();
   });
 

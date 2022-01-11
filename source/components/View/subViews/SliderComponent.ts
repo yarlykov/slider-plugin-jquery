@@ -1,6 +1,7 @@
 import Observer from 'Source/Observer/Observer';
 import { IOptions, ScaleCoords, PageCoords, Orientation } from 'Components/interfaces';
 import { KnobEvents, LabelsEvents, ScaleEvents } from 'Root/source/Observer/events';
+import { TargetType } from 'Components/View/Slider/Slider';
 
 type SliderComponentEvent = 
   | {
@@ -37,10 +38,13 @@ class SliderComponent extends Observer<SliderComponentEvent> {
 
   public root: HTMLElement;
 
-  constructor(options: IOptions, root: HTMLElement) {
+  public target: TargetType;
+
+  constructor(options: IOptions, root: HTMLElement, target: TargetType) {
     super();
     this.root = root;
     this.state = options;
+    this.target = target;
   }
 
   public update(state: IOptions, target?: string): void

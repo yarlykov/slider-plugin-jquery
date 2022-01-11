@@ -1,7 +1,7 @@
 import Observer from 'Source/Observer/Observer';
 import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observer/events';
 import { IOptions, RangeSliderType, SimpleSliderType } from 'Components/interfaces';
-import Slider from './Slider/Slider';
+import { Slider, TargetType } from './Slider/Slider';
 
 type ViewEvent = 
   | { type: ViewEvents.VALUE_FROM_CHANGED, data: number | string }
@@ -10,7 +10,7 @@ type ViewEvent =
 class View extends Observer<ViewEvent> {
   private root: HTMLElement;
 
-  private type!: 'range' | 'simple';
+  private type!: TargetType;
 
   public components!: SimpleSliderType | RangeSliderType;
 
@@ -21,7 +21,7 @@ class View extends Observer<ViewEvent> {
   }
 
   public init(options: IOptions): void {
-    this.type = options.isRange ? 'range' : 'simple';
+    this.type = options.isRange ? TargetType.range : TargetType.simple;
     const slider = new Slider();
     this.components = slider.createComponents(options, this.root, this.type);
 
@@ -64,7 +64,7 @@ class View extends Observer<ViewEvent> {
 
     this.components.scale.subscribe(ScaleEvents.TARGET_TRIGGERED, () => {
       if (this.components.knob)
-        this.components.knob.handleKnobPointerDown();
+        this.components.knob.handleFirstKnobPointerDown();
     });
 
     this.components.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, () => {
@@ -81,7 +81,7 @@ class View extends Observer<ViewEvent> {
       );
     }
 
-    if (this.type === 'range') {
+    if (this.type === TargetType.range) {
       if ('secondKnob' in this.components) {
         this.components.secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) =>
           this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),

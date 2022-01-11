@@ -3,6 +3,7 @@
  */
 
 import defaultState from 'Source/defaultState';
+import { TargetType } from 'Components/View/Slider/Slider';
 import SliderComponent from './SliderComponent';
 
 describe('SliderComponent:', () => {
@@ -21,7 +22,7 @@ describe('SliderComponent:', () => {
 
   beforeEach(() => {
     elem = document.createElement('div');
-    sliderComponent = new SliderComponent(defaultState, elem);
+    sliderComponent = new SliderComponent(defaultState, elem, TargetType.simple);
   });
 
   test('getCoords method should be defined', () => {

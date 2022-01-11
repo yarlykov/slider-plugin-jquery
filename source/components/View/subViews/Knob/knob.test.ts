@@ -4,8 +4,9 @@
 
 import { IOptions } from 'Components/interfaces';
 import Scale from 'Components/View/subViews/Scale/Scale';
+import { TargetType } from 'Components/View/Slider/Slider';
 import defaultState from 'Root/source/defaultState';
-import { Knob, SecondKnob } from './Knobs';
+import Knob from './Knob';
 
 const initialState: IOptions = {
   ...defaultState,
@@ -27,9 +28,9 @@ describe('Knob:', () => {
 
   beforeEach(() => {
     root.innerHTML = slider;
-    scale = new Scale(initialState, root);
+    scale = new Scale(initialState, root, TargetType.simple);
     scale.init();
-    knob = new Knob(defaultState, root);
+    knob = new Knob(defaultState, root, TargetType.simple);
     knob.init();
     knobNode = root.querySelector('[data-id="knob"]') as HTMLElement;
   });
@@ -46,7 +47,7 @@ describe('Knob:', () => {
 });
 
 describe('SecondKnob:', () => {
-  let secondKnob: SecondKnob;
+  let secondKnob: Knob;
   const slider = `
     <div class="slider slider_horizontal">
       <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale"></div>
@@ -55,15 +56,15 @@ describe('SecondKnob:', () => {
   beforeEach(() => {
     root.innerHTML = slider;
     const state = { ...initialState, isRange: true }
-    scale = new Scale(state, root);
+    scale = new Scale(state, root, TargetType.range);
     scale.init();
-    secondKnob = new SecondKnob(defaultState, root);
+    secondKnob = new Knob(defaultState, root, TargetType.range);
     secondKnob.init();
     knobNode = root.querySelector('[data-id="second-knob"]') as HTMLElement;
   });
 
   test('should return SecondKnob instance', () => {
-    expect(secondKnob).toBeInstanceOf(SecondKnob);
+    expect(secondKnob).toBeInstanceOf(Knob);
   });
 
   test('should update valueFrom', () => {

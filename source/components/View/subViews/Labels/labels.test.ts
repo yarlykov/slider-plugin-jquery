@@ -4,6 +4,7 @@
 
 import defaultState from 'Source/defaultState';
 import Scale from 'Components/View/subViews/Scale/Scale';
+import { TargetType } from 'Components/View/Slider/Slider';
 import Labels from './Labels';
 
 const root: HTMLElement = document.createElement('div');
@@ -19,9 +20,9 @@ describe('Labels:', () => {
 
   beforeEach(() => {
     root.innerHTML = slider;
-    scale = new Scale(defaultState, root);
+    scale = new Scale(defaultState, root, TargetType.simple);
     scale.init();
-    labels = new Labels({ ...defaultState, hasLabels: true }, root);
+    labels = new Labels({ ...defaultState, hasLabels: true }, root, TargetType.simple);
     labels.init();
   });
 
@@ -37,7 +38,7 @@ describe('Labels:', () => {
   test('should be 6 label items', () => {
     root.innerHTML = slider;
     const state = { ...defaultState, hasLabels: true }
-    scale = new Scale(state, root);
+    scale = new Scale(state, root, TargetType.simple);
     scale.init();
     const labelsNode = root.querySelectorAll('.slider__labels-item');
     expect(labelsNode.length).toBe(6);

@@ -7,12 +7,13 @@ import {
 import { KnobEvents } from 'Source/Observer/events';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { SecondTooltip, Tooltip } from 'Components/View/subViews/Tooltips/Tooltips';
+import { TargetType } from 'Components/View/Slider/Slider';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
-import './knobs.scss';
+import './knob.scss';
 
 type KnobEventTarget = KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED;
 
-class Knobs extends SliderComponent {
+class Knob extends SliderComponent {
   public scale!: HTMLElement | null;
 
   public valueFrom!: HTMLElement | null;
@@ -26,15 +27,25 @@ class Knobs extends SliderComponent {
 
     const { hasTooltips } = this.state;
     if (hasTooltips) this.addTooltips();
+
+    if (this.valueFrom) {
+      this.valueFrom.addEventListener('pointerdown', this.handleFirstKnobPointerDown.bind(this));
+      this.valueFrom.addEventListener('keydown', this.handleFirstKnobKeyDown.bind(this));
+    }
+
+    if (this.valueTo) {
+      this.valueTo.addEventListener('pointerdown', this.handleSecondKnobPointerDown.bind(this));
+      this.valueTo.addEventListener('keydown', this.handleSecondKnobKeyDown.bind(this));
+    }
   }
 
-  public update(state: IOptions, target: string): void {
+  public update(state: IOptions): void {
     this.state = { ...state };
 
-    const targetValue = target === KnobEvents.KNOB_VALUE_FROM_CHANGED 
+    const targetValue = this.target === TargetType.simple 
       ? 'valueFrom'
       : 'valueTo'
-    const { orientation} = this.state;
+    const { orientation } = this.state;
 
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const value  = state[targetValue];
@@ -55,7 +66,15 @@ class Knobs extends SliderComponent {
     }
   }
 
-  public handleKnobsPointerDown(target: KnobEventTarget): void {
+  public handleFirstKnobPointerDown(): void {
+    this.handleKnobPointerDown(KnobEvents.KNOB_VALUE_FROM_CHANGED)
+  }
+
+  public handleSecondKnobPointerDown(): void {
+    this.handleKnobPointerDown(KnobEvents.KNOB_VALUE_TO_CHANGED)
+  }
+
+  public handleKnobPointerDown(target: KnobEventTarget): void {
     const {
       min,
       max,
@@ -93,10 +112,19 @@ class Knobs extends SliderComponent {
     document.addEventListener('pointerup', handleKnobsPointerUp);
   }
 
-  public handleKnobsKeyDown(event: KeyboardEvent, target: KnobEventTarget): void {
+  private handleFirstKnobKeyDown(event: KeyboardEvent): void {
+    this.handleKnobKeyDown(event, KnobEvents.KNOB_VALUE_FROM_CHANGED);
+  }
+
+  private handleSecondKnobKeyDown(event: KeyboardEvent): void {
+    this.handleKnobKeyDown(event, KnobEvents.KNOB_VALUE_TO_CHANGED);
+  }
+
+  private handleKnobKeyDown(event: KeyboardEvent, target: KnobEventTarget): void {
     const targetValue = target === KnobEvents.KNOB_VALUE_FROM_CHANGED 
       ? 'valueFrom'
       : 'valueTo'
+
     const value = this.state[targetValue];
     const { step } = this.state;
     const { code } = event;
@@ -111,7 +139,7 @@ class Knobs extends SliderComponent {
     }
   }
 
-  public addTooltips(): void {
+  private addTooltips(): void {
     const { color, orientation } = this.state;
     const hasFirstTooltip = this.valueFrom?.querySelector('[data-id="tooltip-first"]')
     const hasSecondTooltip = this.valueTo?.querySelector('[data-id="tooltip-second"]')
@@ -133,13 +161,13 @@ class Knobs extends SliderComponent {
   public static getTemplate(
     color: Color,
     orientation: Orientation,
-    target: string
+    target: TargetType,
   ): string {
     let knobElementClass = 'knob'
     const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
     const colorMod = checkColor(color) ? color : 'orange';
 
-    if (target === KnobEvents.VALUE_TO) {
+    if (target === TargetType.range) {
       knobElementClass = 'second-knob'
     }
 
@@ -156,66 +184,4 @@ class Knobs extends SliderComponent {
   }
 }
 
-class Knob extends Knobs {
-  public init():void {
-    super.init();
-
-    this.addEventListeners();
-  }
-
-  public update(state: IOptions): void {
-    super.update(state, KnobEvents.KNOB_VALUE_FROM_CHANGED)
-  }
-
-  public handleKnobPointerDown(): void {
-    super.handleKnobsPointerDown(KnobEvents.KNOB_VALUE_FROM_CHANGED)
-  }
-
-  private handleKnobKeyDown(event: KeyboardEvent): void {
-    super.handleKnobsKeyDown(event, KnobEvents.KNOB_VALUE_FROM_CHANGED);
-  }
-
-  private addEventListeners(): void {
-    if (this.valueFrom) {
-      this.valueFrom.addEventListener('pointerdown', this.handleKnobPointerDown.bind(this));
-      this.valueFrom.addEventListener('keydown', this.handleKnobKeyDown.bind(this));
-    }
-  }
-
-  public static getTemplate(color: Color, orientation: Orientation): string {
-    return super.getTemplate(color, orientation, KnobEvents.VALUE_FROM)
-  }
-}
-
-class SecondKnob extends Knobs {
-  public init():void {
-    super.init();
-
-    this.addEventListeners();
-  }
-
-  public update(state: IOptions): void {
-    super.update(state, KnobEvents.KNOB_VALUE_TO_CHANGED)
-  }
-
-  public handleSecondKnobPointerDown(): void {
-    super.handleKnobsPointerDown(KnobEvents.KNOB_VALUE_TO_CHANGED)
-  }
-
-  private handleSecondKnobKeyDown(event: KeyboardEvent): void {
-    super.handleKnobsKeyDown(event, KnobEvents.KNOB_VALUE_TO_CHANGED);
-  }
-
-  private addEventListeners(): void {
-    if (this.valueTo) {
-      this.valueTo.addEventListener('pointerdown', this.handleSecondKnobPointerDown.bind(this));
-      this.valueTo.addEventListener('keydown', this.handleSecondKnobKeyDown.bind(this));
-    }
-  }
-
-  public static getTemplate(color: Color, orientation: Orientation): string {
-    return super.getTemplate(color, orientation, KnobEvents.VALUE_TO)
-  }
-}
-
-export { Knob, SecondKnob };
+export default Knob;

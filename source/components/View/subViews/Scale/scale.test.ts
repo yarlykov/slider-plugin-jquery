@@ -4,23 +4,21 @@
 
 import defaultState from 'Source/defaultState';
 import { ScaleEvents } from 'Source/Observer/events';
-import View from 'Components/View/View';
+import { TargetType } from 'Components/View/Slider/Slider';
 import Scale from './Scale';
 
 describe('Scale: init ', () => {
   let scale: Scale;
   let root: HTMLElement;
-  let view: View;
   let event: PointerEvent;
 
   beforeEach(() => {
     root = document.createElement('div');
-    view = new View(root, defaultState);
     event = new Event('pointerdown') as PointerEvent;
   });
 
   test('should return Scale instance', () => {
-    expect(new Scale(defaultState, root)).toBeInstanceOf(Scale);
+    expect(new Scale(defaultState, root, TargetType.simple)).toBeInstanceOf(Scale);
   });
 
   test('the target must be correctly determined ("scale" or "fill")', () => {
@@ -35,7 +33,7 @@ describe('Scale: init ', () => {
     const newState = Object.assign({}, defaultState, {
       isRange: true,
     });
-    scale = new Scale(newState, root);
+    scale = new Scale(newState, root, TargetType.simple);
     const spyEmit = jest.spyOn(scale, 'emit')
     scale.init();
     if (scale.scaleNode) scale.scaleNode.dispatchEvent(event);

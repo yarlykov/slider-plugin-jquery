@@ -1,9 +1,10 @@
 import { ScaleEvents } from 'Source/Observer/events';
 import { checkOrientation, getValueWithStep } from 'Source/utils/utils';
 import Fill from 'Components/View/subViews/Fill/Fill';
-import { Knob, SecondKnob } from 'Components/View/subViews/Knobs/Knobs';
+import Knob from 'Root/source/components/View/subViews/Knob/Knob';
 import Labels from 'Components/View/subViews/Labels/Labels';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
+import { TargetType } from 'Components/View/Slider/Slider';
 import './scale.scss';
 
 class Scale extends SliderComponent {
@@ -63,7 +64,7 @@ class Scale extends SliderComponent {
       
       this.scaleNode.insertAdjacentHTML(
         'beforeend',
-        Knob.getTemplate(color, orientation)
+        Knob.getTemplate(color, orientation, TargetType.simple)
       );
 
       if (hasFill) {
@@ -76,7 +77,7 @@ class Scale extends SliderComponent {
       if (isRange) {
         this.scaleNode.insertAdjacentHTML(
           'beforeend',
-          SecondKnob.getTemplate(color, orientation)
+          Knob.getTemplate(color, orientation, TargetType.range)
         );
       }
 
