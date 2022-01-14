@@ -1,7 +1,7 @@
 import Observer from 'Source/Observer/Observer';
 import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observer/events';
-import { IOptions, RangeSliderType, SimpleSliderType } from 'Components/interfaces';
-import { Slider, TargetType } from './Slider/Slider';
+import { IOptions } from 'Components/interfaces';
+import { Slider, SliderType, TargetType } from './Slider/Slider';
 
 type ViewEvent = 
   | { type: ViewEvents.VALUE_FROM_CHANGED, data: number | string }
@@ -12,7 +12,7 @@ class View extends Observer<ViewEvent> {
 
   private type!: TargetType;
 
-  private components!: SimpleSliderType | RangeSliderType;
+  private sliderComponents!: SliderType;
 
   constructor(root: HTMLElement, options: IOptions) {
     super();
@@ -22,25 +22,17 @@ class View extends Observer<ViewEvent> {
 
   public init(options: IOptions): void {
     this.type = options.isRange ? TargetType.range : TargetType.simple;
-    const slider = new Slider();
-    this.components = slider.createComponents(options, this.root, this.type);
-
-    this.displaySlider();
+    const slider = new Slider(options, this.root, this.type);
+    this.sliderComponents = slider.getComponents();
+    
     this.bindEvents();
     this.update(options);
   }
 
   public update(state: IOptions): void {
-    const componentInstances = Object.values(this.components)
+    const componentInstances = Object.values(this.sliderComponents)
     componentInstances.forEach((component) => {
       if (component) component.update(state);
-    });
-  }
-
-  private displaySlider(): void {
-    const componentInstances = Object.values(this.components)
-    componentInstances.forEach((element) => {
-      if (element) element.init();
     });
   }
 
@@ -52,38 +44,27 @@ class View extends Observer<ViewEvent> {
 
   /* istanbul ignore next */
   private bindScaleEvents(): void {
-    if (!this.components.scale) return;
+    if (!this.sliderComponents.scale) return;
 
-    this.components.scale.subscribe(ScaleEvents.SCALE_VALUE_FROM_CHANGED, (valueFrom) =>
+    this.sliderComponents.scale.subscribe(ScaleEvents.SCALE_VALUE_FROM_CHANGED, (valueFrom) =>
       this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
     );
 
-    this.components.scale.subscribe(ScaleEvents.SCALE_VALUE_TO_CHANGED, (valueTo) =>
+    this.sliderComponents.scale.subscribe(ScaleEvents.SCALE_VALUE_TO_CHANGED, (valueTo) =>
       this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
     );
-
-    this.components.scale.subscribe(ScaleEvents.TARGET_TRIGGERED, () => {
-      if (this.components.knob)
-        this.components.knob.handleFirstKnobPointerDown();
-    });
-
-    this.components.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, () => {
-      if ('secondKnob' in this.components) {
-        this.components.secondKnob.handleSecondKnobPointerDown();
-      }
-    });
   }
   /* istanbul ignore next */
   private bindKnobsEvents(): void {
-    if (this.components.knob) {
-      this.components.knob.subscribe(KnobEvents.KNOB_VALUE_FROM_CHANGED, (valueFrom) =>
+    if (this.sliderComponents.knob) {
+      this.sliderComponents.knob.subscribe(KnobEvents.KNOB_VALUE_FROM_CHANGED, (valueFrom) =>
         this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
       );
     }
 
-    if (this.type === TargetType.range) {
-      if ('secondKnob' in this.components) {
-        this.components.secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) =>
+    if (this.type === TargetType.range && this.sliderComponents['secondKnob']) {
+      if ('secondKnob' in this.sliderComponents) {
+        this.sliderComponents.secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) =>
           this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
         );
       }
@@ -91,13 +72,13 @@ class View extends Observer<ViewEvent> {
   }
   /* istanbul ignore next */
   private bindLabelsEvents(): void {
-    if (!this.components.labels) return;
+    if (!this.sliderComponents.labels) return;
     
-    this.components.labels.subscribe(LabelsEvents.LABELS_VALUE_FROM_CHANGED, (valueFrom) =>
+    this.sliderComponents.labels.subscribe(LabelsEvents.LABELS_VALUE_FROM_CHANGED, (valueFrom) =>
       this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
     );
 
-    this.components.labels.subscribe(LabelsEvents.LABELS_VALUE_TO_CHANGED, (valueTo) =>
+    this.sliderComponents.labels.subscribe(LabelsEvents.LABELS_VALUE_TO_CHANGED, (valueTo) =>
       this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
     );
   }
