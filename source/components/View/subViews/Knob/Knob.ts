@@ -63,19 +63,11 @@ class Knob extends SliderComponent {
       orientation,
     } = this.currentState;
     const scale: HTMLElement | null = this.root.querySelector('.js-slider__scale');
-    // const zIndex = target === KnobEvents.KNOB_VALUE_FROM_CHANGED ? '1' : '0'
     
     const handleKnobsPointerMove = (pointerEvent: PointerEvent):void => {
       pointerEvent.preventDefault();
       this.knob.ondragstart = () => false;
   
-        // this.knob.style.zIndex = zIndex;
-      // if (this.knob && secondKnob){
-      //   secondKnob.ondragstart = () => false;
-      //   this.knob.style.zIndex = zIndex;
-      // }
-      console.log('Iam here');
-
       const scaleCoords = scale ? this.getCoords(scale) : null;
       const pageCoords = this.getPageCoords(pointerEvent);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);

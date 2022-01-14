@@ -1,6 +1,7 @@
 import Observer from 'Source/Observer/Observer';
 import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observer/events';
 import { IOptions } from 'Components/interfaces';
+import Knob from './subViews/Knob/Knob';
 import { Slider, SliderType, TargetType } from './Slider/Slider';
 
 type ViewEvent = 
@@ -22,11 +23,13 @@ class View extends Observer<ViewEvent> {
 
   public init(options: IOptions): void {
     this.type = options.isRange ? TargetType.range : TargetType.simple;
+
     const slider = new Slider(options, this.root, this.type);
     this.sliderComponents = slider.getComponents();
     
     this.bindEvents();
     this.update(options);
+    this.checkKnobZIndex();
   }
 
   public update(state: IOptions): void {
@@ -34,6 +37,27 @@ class View extends Observer<ViewEvent> {
     componentInstances.forEach((component) => {
       if (component) component.update(state);
     });
+  }
+
+  private checkKnobZIndex() {
+    const { knob } = this.sliderComponents;
+    let secondKnob: Knob;
+    let secondKnobNode: HTMLDivElement;
+    
+    if ('secondKnob' in this.sliderComponents) {
+      secondKnob = this.sliderComponents.secondKnob;
+      secondKnobNode = secondKnob.getKnobNode();
+
+      knob.subscribe(KnobEvents.KNOB_VALUE_FROM_CHANGED, () => {
+        knob.getKnobNode().style.zIndex = '1';
+        secondKnobNode.style.zIndex = '0';
+      });
+
+      secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, () => {
+        knob.getKnobNode().style.zIndex = '0';
+        secondKnob.getKnobNode().style.zIndex = '1';
+      })
+    }
   }
 
   private bindEvents(): void {
@@ -44,8 +68,6 @@ class View extends Observer<ViewEvent> {
 
   /* istanbul ignore next */
   private bindScaleEvents(): void {
-    if (!this.sliderComponents.scale) return;
-
     this.sliderComponents.scale.subscribe(ScaleEvents.SCALE_VALUE_FROM_CHANGED, (valueFrom) =>
       this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
     );
@@ -56,15 +78,17 @@ class View extends Observer<ViewEvent> {
   }
   /* istanbul ignore next */
   private bindKnobsEvents(): void {
-    if (this.sliderComponents.knob) {
-      this.sliderComponents.knob.subscribe(KnobEvents.KNOB_VALUE_FROM_CHANGED, (valueFrom) =>
-        this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
-      );
-    }
+    const { knob } = this.sliderComponents;
+
+    knob.subscribe(KnobEvents.KNOB_VALUE_FROM_CHANGED, (valueFrom) =>
+      this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
+    );
 
     if (this.type === TargetType.range && this.sliderComponents['secondKnob']) {
       if ('secondKnob' in this.sliderComponents) {
-        this.sliderComponents.secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) =>
+        const { secondKnob } = this.sliderComponents
+
+        secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) => 
           this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
         );
       }
@@ -72,8 +96,6 @@ class View extends Observer<ViewEvent> {
   }
   /* istanbul ignore next */
   private bindLabelsEvents(): void {
-    if (!this.sliderComponents.labels) return;
-    
     this.sliderComponents.labels.subscribe(LabelsEvents.LABELS_VALUE_FROM_CHANGED, (valueFrom) =>
       this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
     );
