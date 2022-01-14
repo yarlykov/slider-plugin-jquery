@@ -10,12 +10,8 @@ import { TargetType } from 'Components/View/Slider/Slider';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
 import './knob.scss';
 
-type KnobEventTarget = KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED;
-
 class Knob extends SliderComponent {
   private currentState!: IOptions;
-
-  private valueTo!: HTMLElement | null;
 
   private knob!: HTMLDivElement;
 
@@ -31,6 +27,7 @@ class Knob extends SliderComponent {
 
     this.knob = this.createKnob(colorMod, orientationMod);
     this.knob.addEventListener('pointerdown', this.handleKnobPointerDown.bind(this));
+    this.knob.addEventListener('keydown', this.handleKnobKeyDown.bind(this));
   }
 
   public update(state: IOptions): void {
@@ -55,12 +52,9 @@ class Knob extends SliderComponent {
   }
 
   public handleKnobPointerDown(event: PointerEvent): void {
-    let knobTarget: KnobEventTarget;
-  
-    if (event.target instanceof HTMLElement) {
-      const { target } = event;
-      knobTarget = target.dataset.id === 'knob' ? KnobEvents.KNOB_VALUE_FROM_CHANGED : KnobEvents.KNOB_VALUE_TO_CHANGED
-    }
+    const knobTarget =  this.isFirstKnob(event)
+      ? KnobEvents.KNOB_VALUE_FROM_CHANGED
+      : KnobEvents.KNOB_VALUE_TO_CHANGED
     
     const {
       min,
@@ -69,20 +63,18 @@ class Knob extends SliderComponent {
       orientation,
     } = this.currentState;
     const scale: HTMLElement | null = this.root.querySelector('.js-slider__scale');
-    const secondKnob: HTMLElement | null = this.root.querySelector('[data-id="second-knob"]');
-
     // const zIndex = target === KnobEvents.KNOB_VALUE_FROM_CHANGED ? '1' : '0'
     
     const handleKnobsPointerMove = (pointerEvent: PointerEvent):void => {
       pointerEvent.preventDefault();
-      if (this.knob) {
-        this.knob.ondragstart = () => false;
+      this.knob.ondragstart = () => false;
+  
         // this.knob.style.zIndex = zIndex;
-      } 
-      if (this.knob && secondKnob){
-        secondKnob.ondragstart = () => false;
-        // this.knob.style.zIndex = zIndex;
-      }
+      // if (this.knob && secondKnob){
+      //   secondKnob.ondragstart = () => false;
+      //   this.knob.style.zIndex = zIndex;
+      // }
+      console.log('Iam here');
 
       const scaleCoords = scale ? this.getCoords(scale) : null;
       const pageCoords = this.getPageCoords(pointerEvent);
@@ -101,23 +93,34 @@ class Knob extends SliderComponent {
     document.addEventListener('pointerup', handleKnobsPointerUp);
   }
 
-  private handleKnobKeyDown(event: KeyboardEvent, target: KnobEventTarget): void {
-    const targetValue = target === KnobEvents.KNOB_VALUE_FROM_CHANGED 
-      ? 'valueFrom'
-      : 'valueTo'
-
+  private handleKnobKeyDown(event: KeyboardEvent): void {
+    const knobTarget =  this.isFirstKnob(event)
+      ? KnobEvents.KNOB_VALUE_FROM_CHANGED
+      : KnobEvents.KNOB_VALUE_TO_CHANGED
+    const targetValue =  this.isFirstKnob(event) ? 'valueFrom' : 'valueTo'
+    
     const value = this.currentState[targetValue];
     const { step } = this.currentState;
     const { code } = event;
-
+    
     if (code === 'ArrowRight' || code === 'ArrowUp') {
       const newValue = Number(value) + step;
-      this.emit(target, newValue);
+      this.emit(knobTarget, newValue);
     }
     if (code === 'ArrowLeft' || code === 'ArrowDown') {
       const newValue = Number(value) - step;
-      this.emit(target, newValue);
+      this.emit(knobTarget, newValue);
     }
+  }
+
+  private isFirstKnob(event: PointerEvent | KeyboardEvent): boolean {
+    if (event.target instanceof HTMLElement) {
+      const { target } = event;
+      return target.dataset.id === 'knob'
+        || target.dataset.id === 'tooltip-first'
+        || target.dataset.id === 'tooltip-value-first'
+    }
+    return false;
   }
 
   private createKnob( color: Color, orientation: Orientation ): HTMLDivElement {
