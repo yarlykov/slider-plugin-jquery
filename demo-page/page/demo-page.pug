@@ -1,6 +1,6 @@
 extends ../layout/layout.pug
 include ../components/control-panel/control-panel.pug
-include ../components/slider/slider.pug
+include ../components/slider-block/slider-block.pug
 
 block content
   .demo-page
@@ -23,7 +23,7 @@ block content
             { title: "tooltips", type: "checkbox", checked: true},
           ]
         })
-        +slider({ anchor: "sliderSingleHorizontal" })
+        +slider-block({ anchor: "sliderSingleHorizontal" })
 
       section.demo-page__block
         h2.demo-page__title.visually-hidden Slider demo
@@ -43,7 +43,7 @@ block content
             { title: "tooltips", type: "checkbox", checked: true},
           ]
         })
-        +slider({ anchor: "sliderSingleVertical" })
+        +slider-block({ anchor: "sliderSingleVertical" })
 
       section.demo-page__block
         h2.demo-page__title.visually-hidden Slider demo
@@ -63,7 +63,7 @@ block content
             { title: "tooltips", type: "checkbox", checked: true},
           ]
         })
-        +slider({ anchor: "sliderRangeHorizontal" })
+        +slider-block({ anchor: "sliderRangeHorizontal" })
 
       section.demo-page__block
         h2.demo-page__title.visually-hidden Slider demo
@@ -83,7 +83,7 @@ block content
             { title: "tooltips", type: "checkbox", checked: true},
           ]
         })
-        +slider({ anchor: "sliderRangeVertical" })
+        +slider-block({ anchor: "sliderRangeVertical" })
 
       section.demo-page__block
         h2.demo-page__title.visually-hidden Slider demo
@@ -103,7 +103,7 @@ block content
             { title: "tooltips", type: "checkbox", checked: true},
           ]
         })
-        +slider({ anchor: "defaultSlider" })
+        +slider-block({ anchor: "defaultSlider" })
 
       section.demo-page__block
         h2.demo-page__title.visually-hidden Slider demo
@@ -123,4 +123,4 @@ block content
             { title: "tooltips", type: "checkbox", checked: true},
           ]
         })
-        +slider({ anchor: "simpleSlider" })
+        +slider-block({ anchor: "simpleSlider" })

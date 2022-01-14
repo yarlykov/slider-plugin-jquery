@@ -6,6 +6,7 @@ import Fill from 'Components/View/subViews/Fill/Fill';
 import Labels from 'Components/View/subViews/Labels/Labels';
 import Tooltip from 'Components/View/subViews/Tooltip/Tooltip';
 import Knob from 'Components/View/subViews/Knob/Knob';
+import './slider.scss';
 
 type SliderType = SimpleSliderType | RangeSliderType;
 
@@ -52,7 +53,10 @@ class Slider {
   private addScaleElements() {
     const { isRange, hasFill, hasTooltips, hasLabels } = this.options;
   
-    const hasSecondKnob = Object.prototype.hasOwnProperty.call(this.components, 'secondKnob');
+    const hasSecondKnob = Object.prototype.hasOwnProperty.call(
+      this.components,
+      'secondKnob'
+    );
     const hasSecondTooltip = Object.prototype.hasOwnProperty.call(
       this.components,
       'secondTooltip'
@@ -66,7 +70,7 @@ class Slider {
     const secondKnob = hasSecondKnob
       ? this.components['secondKnob'].getKnobNode()
       : null;
-    const secondTooltip: HTMLDivElement = hasSecondTooltip 
+    const secondTooltip = hasSecondTooltip 
       ? this.components['secondTooltip'].getTooltipNode()
       : null;
     
@@ -110,7 +114,7 @@ class Slider {
     slider.classList.add('slider', `slider_${orientation}`)
 
     return slider;
-  } 
+  }
 }
 
 export { Slider, SliderType, TargetType };

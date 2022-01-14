@@ -1,24 +1,4 @@
 .slider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-
-  &_horizontal {
-    width: 100%;
-    min-width: 320px;
-  }
-
-  &_vertical {
-    height: 100%;
-    min-height: 320px;
-  }
-
-  &__wrapper {
-    display: flex;
-    width: 100%;
-  }
-
   &__scale {
     position: relative;
     background: #e5e5e5;
