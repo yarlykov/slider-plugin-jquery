@@ -1,7 +1,7 @@
 import { checkColor, checkOrientation, fromValueToPercent } from 'Source/utils/utils';
-import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
-import { TargetType } from '../../Slider/Slider';
+import { TargetType } from 'Components/View/Slider/Slider';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './fill.scss';
 
 class Fill extends SliderComponent {

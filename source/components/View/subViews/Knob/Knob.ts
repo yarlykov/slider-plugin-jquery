@@ -5,9 +5,9 @@ import {
   getValueWithStep
 } from 'Source/utils/utils';
 import { KnobEvents } from 'Source/Observer/events';
-import SliderComponent from 'Components/View/subViews/SliderComponent';
-import { TargetType } from 'Components/View/Slider/Slider';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
+import { TargetType } from 'Components/View/Slider/Slider';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './knob.scss';
 
 class Knob extends SliderComponent {

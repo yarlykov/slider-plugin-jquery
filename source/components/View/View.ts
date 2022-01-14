@@ -1,8 +1,8 @@
 import Observer from 'Source/Observer/Observer';
 import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observer/events';
 import { IOptions, TooltipCoords } from 'Components/interfaces';
-import Knob from './subViews/Knob/Knob';
 import { Slider, SliderType, TargetType } from './Slider/Slider';
+import Knob from './subViews/Knob/Knob';
 
 type ViewEvent = 
   | { type: ViewEvents.VALUE_FROM_CHANGED, data: number | string }

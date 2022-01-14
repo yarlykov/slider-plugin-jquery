@@ -1,8 +1,8 @@
 import { IOptions, Orientation } from 'Root/source/components/interfaces';
 import { LabelsEvents } from 'Source/Observer/events';
 import { checkOrientation, fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
-import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { TargetType } from 'Components/View/Slider/Slider';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './labels.scss';
 
 class Labels extends SliderComponent {

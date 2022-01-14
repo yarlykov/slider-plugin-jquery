@@ -1,7 +1,7 @@
-import SliderComponent from 'Components/View/subViews/SliderComponent';
-import { TargetType } from 'Components/View/Slider/Slider';
-import { Color, IOptions, Orientation, TooltipCoords } from 'Components/interfaces';
 import { checkColor, checkOrientation } from 'Root/source/utils/utils';
+import { Color, IOptions, Orientation } from 'Components/interfaces';
+import { TargetType } from 'Components/View/Slider/Slider';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './tooltip.scss';
 
 class Tooltip extends SliderComponent {

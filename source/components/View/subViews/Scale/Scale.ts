@@ -1,17 +1,16 @@
 import { ScaleEvents } from 'Source/Observer/events';
 import { checkOrientation, getValueWithStep } from 'Source/utils/utils';
-import SliderComponent from 'Components/View/subViews/SliderComponent';
+import { IOptions, Orientation } from 'Components/interfaces';
 import { TargetType } from 'Components/View/Slider/Slider';
+import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './scale.scss';
-import { IOptions, Orientation } from 'Root/source/components/interfaces';
 
 class Scale extends SliderComponent {
-  private scaleNode!: HTMLElement;
+  private scaleNode!: HTMLDivElement;
 
   constructor(options: IOptions, root: HTMLElement, target: TargetType) {
     super(options, root, target);
     this.init();
-    this.getScaleNode = this.getScaleNode.bind(this);
   }
 
   public init(): void {
@@ -59,10 +58,9 @@ class Scale extends SliderComponent {
     }
   }
 
-  public getScaleNode(): HTMLElement {
+  public getScaleNode(): HTMLDivElement {
     return this.scaleNode;
   }
-
 
   private isTarget(event: PointerEvent): boolean | unknown {
     if (event.target instanceof HTMLElement) {
