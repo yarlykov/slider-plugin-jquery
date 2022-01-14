@@ -1,13 +1,26 @@
 import { checkColor, checkOrientation, fromValueToPercent } from 'Source/utils/utils';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
+import { TargetType } from '../../Slider/Slider';
 import './fill.scss';
 
 class Fill extends SliderComponent {
-  private fill!: HTMLElement | null;
+  private fill!: HTMLDivElement;
+
+  constructor(options: IOptions, root: HTMLElement, target: TargetType) {
+    super(options, root, target);
+    this.init();
+  }
 
   public init(): void {
-    this.fill = this.root.querySelector('.js-slider__fill');
+    const { orientation, color } = this.state;
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+    const colorMod = checkColor(color) ? color : 'orange';
+    this.fill = this.createFill(colorMod, orientationMod);
+  }
+
+  public getFillNode(): HTMLDivElement {
+    return this.fill;
   }
 
   public update(state: IOptions): void {
@@ -31,19 +44,17 @@ class Fill extends SliderComponent {
     }
   }
 
-  public static getTemplate(color: Color, orientation: Orientation): string {
-    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
-    const colorMod = checkColor(color) ? color : 'orange';
+  private createFill(color: Color, orientation: Orientation): HTMLDivElement {
+    const fill = document.createElement('div');
+    fill.classList.add(
+      'js-slider__fill',
+      'slider__fill',
+      `slider__fill_${orientation}`,
+      `slider__fill_${color}`
+    );
+    fill.setAttribute('data-id', 'fill');
 
-    return `
-      <div
-        class="slider__fill
-        js-slider__fill
-        slider__fill_${orientationMod}
-        slider__fill_${colorMod}
-        "data-id="fill"
-      ></div>
-    `;
+    return fill;
   }
 }
 

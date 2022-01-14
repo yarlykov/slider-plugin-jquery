@@ -48,8 +48,9 @@ class Slider {
   }
 
   private addScaleElements() {
-    const { isRange } = this.options;
+    const { isRange, hasFill } = this.options;
     const knob = this.components.knob.getKnobNode();
+    const fill = this.components.fill.getFillNode();
     const hasSecondKnob = Object.prototype.hasOwnProperty.call(this.components, 'secondKnob')
     const secondKnob = hasSecondKnob ? this.components['secondKnob'].getKnobNode() : null;
     
@@ -58,6 +59,13 @@ class Slider {
       knob
     );    
 
+      if (hasFill) {
+        this.scale.insertAdjacentElement(
+          'afterbegin',
+          fill
+        );
+      }
+
       if (isRange && secondKnob) {
         this.scale.insertAdjacentElement(
           'beforeend',
@@ -65,7 +73,6 @@ class Slider {
         );
       }
   }
-
 
   private createComponents(): SimpleSliderType {
     const elements = [Scale, Fill, Knob, Labels, Tooltip];
@@ -76,6 +83,7 @@ class Slider {
       const elementName = changeFirstLetterToLower(element.constructor.name);
       components[elementName] = element;
     });
+  
     if (this.type === TargetType.range) {
       Object.defineProperties(components, {
         secondKnob: {
