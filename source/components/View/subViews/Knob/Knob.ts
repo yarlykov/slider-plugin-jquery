@@ -10,8 +10,12 @@ import { TargetType } from 'Components/View/Slider/Slider';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './knob.scss';
 
+type KnobEventTarget = KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED;
+
 class Knob extends SliderComponent {
   private currentState!: IOptions;
+
+  private knobTarget!: KnobEventTarget; 
 
   private knob!: HTMLDivElement;
 
@@ -26,7 +30,9 @@ class Knob extends SliderComponent {
     const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
 
     this.knob = this.createKnob(colorMod, orientationMod);
+    this.knob.addEventListener('pointerdown', this.handleKnobCheckTarget.bind(this));
     this.knob.addEventListener('pointerdown', this.handleKnobPointerDown.bind(this));
+    this.knob.addEventListener('keydown', this.handleKnobCheckTarget.bind(this));
     this.knob.addEventListener('keydown', this.handleKnobKeyDown.bind(this));
   }
 
@@ -51,11 +57,11 @@ class Knob extends SliderComponent {
     return this.knob;
   }
 
-  public handleKnobPointerDown(event: PointerEvent): void {
-    const knobTarget =  this.isFirstKnob(event)
-      ? KnobEvents.KNOB_VALUE_FROM_CHANGED
-      : KnobEvents.KNOB_VALUE_TO_CHANGED
-    
+  public setKnobTarget(knobEventTarget: KnobEventTarget): void {
+    this.knobTarget = knobEventTarget;
+  }
+
+  public handleKnobPointerDown(): void {    
     const {
       min,
       max,
@@ -73,23 +79,22 @@ class Knob extends SliderComponent {
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
       
-      this.emit(knobTarget, correctValue.toFixed());
+      this.emit(this.knobTarget, correctValue.toFixed());
     }
 
     const handleKnobsPointerUp = (): void => {
       document.removeEventListener('pointerup', handleKnobsPointerUp)
       document.removeEventListener('pointermove', handleKnobsPointerMove);
     }
-    
+
     document.addEventListener('pointermove', handleKnobsPointerMove)
     document.addEventListener('pointerup', handleKnobsPointerUp);
   }
 
   private handleKnobKeyDown(event: KeyboardEvent): void {
-    const knobTarget =  this.isFirstKnob(event)
-      ? KnobEvents.KNOB_VALUE_FROM_CHANGED
-      : KnobEvents.KNOB_VALUE_TO_CHANGED
-    const targetValue =  this.isFirstKnob(event) ? 'valueFrom' : 'valueTo'
+    const targetValue = this.knobTarget === KnobEvents.KNOB_VALUE_FROM_CHANGED
+      ? 'valueFrom'
+      : 'valueTo'
     
     const value = this.currentState[targetValue];
     const { step } = this.currentState;
@@ -97,22 +102,25 @@ class Knob extends SliderComponent {
     
     if (code === 'ArrowRight' || code === 'ArrowUp') {
       const newValue = Number(value) + step;
-      this.emit(knobTarget, newValue);
+      this.emit(this.knobTarget, newValue);
     }
     if (code === 'ArrowLeft' || code === 'ArrowDown') {
       const newValue = Number(value) - step;
-      this.emit(knobTarget, newValue);
+      this.emit(this.knobTarget, newValue);
     }
   }
 
-  private isFirstKnob(event: PointerEvent | KeyboardEvent): boolean {
+  private handleKnobCheckTarget(event: PointerEvent | KeyboardEvent): void {
     if (event.target instanceof HTMLElement) {
-      const { target } = event;
-      return target.dataset.id === 'knob'
+    const { target } = event;
+
+    const isFirstKnob = target.dataset.id === 'knob'
         || target.dataset.id === 'tooltip-first'
         || target.dataset.id === 'tooltip-value-first'
+    this.knobTarget = isFirstKnob
+      ? KnobEvents.KNOB_VALUE_FROM_CHANGED
+      : KnobEvents.KNOB_VALUE_TO_CHANGED
     }
-    return false;
   }
 
   private createKnob( color: Color, orientation: Orientation ): HTMLDivElement {

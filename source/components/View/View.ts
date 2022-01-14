@@ -58,7 +58,20 @@ class View extends Observer<ViewEvent> {
     this.sliderComponents.scale.subscribe(ScaleEvents.SCALE_VALUE_TO_CHANGED, (valueTo) =>
       this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
     );
+
+    this.sliderComponents.scale.subscribe(ScaleEvents.TARGET_TRIGGERED, () => {
+      this.sliderComponents.knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
+      this.sliderComponents.knob.handleKnobPointerDown();
+    });
+
+    this.sliderComponents.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, () => {
+      if ('secondKnob' in this.sliderComponents) {
+        this.sliderComponents.secondKnob.setKnobTarget(KnobEvents.KNOB_VALUE_TO_CHANGED);
+        this.sliderComponents.secondKnob.handleKnobPointerDown();
+      }
+    });
   }
+  
   /* istanbul ignore next */
   private bindKnobsEvents(): void {
     const { knob } = this.sliderComponents;
