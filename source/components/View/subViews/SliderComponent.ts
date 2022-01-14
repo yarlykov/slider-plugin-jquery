@@ -40,11 +40,19 @@ class SliderComponent extends Observer<SliderComponentEvent> {
 
   public readonly target: TargetType;
 
-  constructor(options: IOptions, root: HTMLElement, target: TargetType) {
+  public readonly id: string | null;
+
+  constructor(
+    options: IOptions,
+    root: HTMLElement,
+    target: TargetType,
+    id?: string | null,
+  ) {
     super();
     this.root = root;
     this.state = options;
     this.target = target;
+    this.id = id || null;
   }
 
   public update(state: IOptions): void {
