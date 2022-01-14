@@ -1,18 +1,29 @@
-import { Orientation } from 'Root/source/components/interfaces';
+import { IOptions, Orientation } from 'Root/source/components/interfaces';
 import { LabelsEvents } from 'Source/Observer/events';
 import { checkOrientation, fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
+import { TargetType } from 'Components/View/Slider/Slider';
 import './labels.scss';
 
 class Labels extends SliderComponent {
-  public init(): void {
-    if (this.state.hasLabels) {
-      const labels: HTMLElement | null = this.root.querySelector(
-        '.js-slider__labels',
-      );
+  private labels!: HTMLDivElement
 
-      if (labels) labels.addEventListener('pointerdown', this.handleLabelsPointerDown.bind(this));
-    }
+  constructor(options: IOptions, root: HTMLElement, target: TargetType) {
+    super(options, root, target);
+    this.init();
+  }
+
+  public getLabelsNode(): HTMLDivElement {
+    return this.labels;
+  }
+
+  private init(): void {
+    const { orientation, min, max, step } = this.state;
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+
+    this.labels = this.createLabels(orientationMod, min, max, step);
+
+    this.labels.addEventListener('pointerdown', this.handleLabelsPointerDown.bind(this));
   }
 
   private handleLabelsPointerDown(event: PointerEvent) {
@@ -44,32 +55,33 @@ class Labels extends SliderComponent {
     }
   }
 
-  public static getTemplate(
+  private createLabels(
     orientation: Orientation,
     min: number,
     max: number,
     step: number
-  ): string {
-    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+  ): HTMLDivElement {
+    const labels = document.createElement('div');
+    labels.classList.add(
+      'js-slider__labels',
+      'slider__labels',
+      `slider__labels_${orientation}`
+    );
+    labels.setAttribute('data-id', 'labels');
 
-    return `
-      <div class="slider__labels
-        js-slider__labels
-        slider__labels_${orientationMod}"
-        data-id="labels"
-      >
-        ${this.getLabels(orientation, min, max, step)}
-      </div>
-    `;
+    const labelsList = this.getLabels(orientation, min, max, step);
+    labelsList.forEach((label) => labels.insertAdjacentElement('afterbegin', label));
+
+    return labels;
   }
 
-  private static getLabels(
+  private getLabels(
     orientation: Orientation,
     min: number,
     max: number,
     step: number
-  ): string {
-    const itemLabels: string[] = [];
+  ): HTMLDivElement[] {
+    const itemLabels: HTMLDivElement[] = [];
     let labelValues: number[] = [20, 40, 60, 80];
 
     labelValues = labelValues
@@ -81,29 +93,27 @@ class Labels extends SliderComponent {
       itemLabels.push(this.createLabel(orientation, value, min, max, step));
     });
 
-    return itemLabels.join('');
+    return itemLabels;
   }
 
-  private static createLabel(
+  private createLabel(
     orientation: Orientation,
     labelPosition: number,
     min: number,
     max: number,
     step: number
-  ): string {
+  ): HTMLDivElement {
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const labelPosWithPercent = fromValueToPercent(
       { min, max, step },
       labelPosition,
     ).toFixed(2);
 
-    const label = `
-      <div class="slider__labels-item" 
-        style="${directionOfMove}: ${labelPosWithPercent}%;"
-        data-value=${labelPosWithPercent}>
-        ${labelPosition}
-      </div>
-    `;
+    const label = document.createElement('div');
+    label.classList.add('slider__labels-item');
+    label.setAttribute('data-value', `${labelPosWithPercent}`);
+    label.style[directionOfMove] = `${labelPosWithPercent}%`
+    label.textContent = `${labelPosition}`
 
     return label;
   }

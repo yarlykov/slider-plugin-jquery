@@ -37,10 +37,12 @@ class Slider {
     const { orientation } = this.options;
     const orientationModifier = checkOrientation(orientation) ? orientation : 'horizontal';
     const slider = this.createSlider(orientationModifier);
+  
     this.components = this.createComponents();
     this.scale = this.components.scale.getScaleNode();
     
     slider.insertAdjacentElement('afterbegin', this.scale)
+  
     this.root.innerHTML = '';
     this.root.insertAdjacentElement('afterbegin', slider);
   
@@ -48,41 +50,33 @@ class Slider {
   }
 
   private addScaleElements() {
-    const { isRange, hasFill, hasTooltips } = this.options;
+    const { isRange, hasFill, hasTooltips, hasLabels } = this.options;
+  
+    const hasSecondKnob = Object.prototype.hasOwnProperty.call(this.components, 'secondKnob');
+    const hasSecondTooltip = Object.prototype.hasOwnProperty.call(
+      this.components,
+      'secondTooltip'
+    ) && hasTooltips;
+  
     const knob = this.components.knob.getKnobNode();
     const fill = this.components.fill.getFillNode();
     const tooltip = this.components.tooltip.getTooltipNode();
-    const hasSecondKnob = Object.prototype.hasOwnProperty.call(this.components, 'secondKnob');
-    const hasSecondTooltip = Object.prototype.hasOwnProperty.call(this.components, 'secondTooltip') && hasTooltips;
-    const secondKnob = hasSecondKnob ? this.components['secondKnob'].getKnobNode() : null;
-    const secondTooltip: HTMLDivElement = hasSecondTooltip ? this.components['secondTooltip'].getTooltipNode() : null;
+    const labels = this.components.labels.getLabelsNode();
+  
+    const secondKnob = hasSecondKnob
+      ? this.components['secondKnob'].getKnobNode()
+      : null;
+    const secondTooltip: HTMLDivElement = hasSecondTooltip 
+      ? this.components['secondTooltip'].getTooltipNode()
+      : null;
     
-    this.scale.insertAdjacentElement(
-      'beforeend',
-      knob
-    );
-    
-    if (hasTooltips) {
-      knob.insertAdjacentElement('afterbegin', tooltip)
-    }
-
-    if (hasFill) {
-      this.scale.insertAdjacentElement(
-        'afterbegin',
-        fill
-      );
-    }
-
-    if (isRange && secondKnob) {
-      this.scale.insertAdjacentElement(
-        'beforeend',
-        secondKnob
-      );
-    }
-
-    if (isRange && hasSecondTooltip) {
-      secondKnob.insertAdjacentElement('afterbegin', secondTooltip)
-    }
+    this.scale.insertAdjacentElement('beforeend', knob);
+  
+    if (hasFill) this.scale.insertAdjacentElement('afterbegin', fill);
+    if (hasTooltips) knob.insertAdjacentElement('afterbegin', tooltip);
+    if (isRange && secondKnob) this.scale.insertAdjacentElement('beforeend', secondKnob);
+    if (isRange && hasSecondTooltip) secondKnob.insertAdjacentElement('afterbegin', secondTooltip);
+    if (hasLabels) this.scale.insertAdjacentElement('beforeend', labels);
   }
 
   private createComponents(): SimpleSliderType {
