@@ -16,29 +16,25 @@ type KnobEventTarget = KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALU
 class Knob extends SliderComponent {
   private currentState!: IOptions;
 
-  private scale!: HTMLElement | null;
-
-  private valueFrom!: HTMLElement | null;
-
   private valueTo!: HTMLElement | null;
 
+  private knob!: HTMLDivElement;
+
+  constructor(options: IOptions, root: HTMLElement, target: TargetType, id?: string) {
+    super(options, root, target, id);
+    this.init();
+  }
+
   public init(): void {
-    this.scale = this.root.querySelector('.js-slider__scale');
-    this.valueFrom = this.root.querySelector('[data-id="knob"]');
-    this.valueTo = this.root.querySelector('[data-id="second-knob"]');
+    const { color, orientation } = this.state;
+    const colorMod = checkColor(color) ? color : 'orange';
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+
+    this.knob = this.createKnob(colorMod, orientationMod);
+    this.knob.addEventListener('pointerdown', this.handleKnobPointerDown.bind(this));
 
     const { hasTooltips } = this.state;
     if (hasTooltips) this.addTooltips();
-
-    if (this.valueFrom) {
-      this.valueFrom.addEventListener('pointerdown', this.handleFirstKnobPointerDown.bind(this));
-      this.valueFrom.addEventListener('keydown', this.handleFirstKnobKeyDown.bind(this));
-    }
-
-    if (this.valueTo) {
-      this.valueTo.addEventListener('pointerdown', this.handleSecondKnobPointerDown.bind(this));
-      this.valueTo.addEventListener('keydown', this.handleSecondKnobKeyDown.bind(this));
-    }
   }
 
   public update(state: IOptions): void {
@@ -51,58 +47,56 @@ class Knob extends SliderComponent {
 
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const value  = state[targetValue];
-    const isValueFromTarget = targetValue === 'valueFrom';
-    const isValueToTarget = targetValue === 'valueTo';
+
     
-    if (this.valueFrom && isValueFromTarget) {
-      this.valueFrom.style[directionOfMove] = `${fromValueToPercent(
-        state,
-        Number(value),
-      )}%`;
-    }
-    if (this.valueTo && isValueToTarget) {
-      this.valueTo.style[directionOfMove] = `${fromValueToPercent(
+    if (this.knob) {
+      this.knob.style[directionOfMove] = `${fromValueToPercent(
         state,
         Number(value),
       )}%`;
     }
   }
 
-  public handleFirstKnobPointerDown(): void {
-    this.handleKnobPointerDown(KnobEvents.KNOB_VALUE_FROM_CHANGED)
+  public getKnobNode(): HTMLDivElement {
+    return this.knob;
   }
 
-  public handleSecondKnobPointerDown(): void {
-    this.handleKnobPointerDown(KnobEvents.KNOB_VALUE_TO_CHANGED)
-  }
-
-  private handleKnobPointerDown(target: KnobEventTarget): void {
+  public handleKnobPointerDown(event: PointerEvent): void {
+    let knobTarget: KnobEventTarget;
+  
+    if (event !== null && event.target instanceof HTMLElement) {
+      const { target } = event;
+      knobTarget = target.dataset.id === 'knob' ? KnobEvents.KNOB_VALUE_FROM_CHANGED : KnobEvents.KNOB_VALUE_TO_CHANGED
+    }
+    
     const {
       min,
       max,
       step,
       orientation,
     } = this.currentState;
+    const scale: HTMLElement | null = this.root.querySelector('.js-slider__scale');
+    const secondKnob: HTMLElement | null = this.root.querySelector('[data-id="second-knob"]');
 
-    const zIndex = target === KnobEvents.KNOB_VALUE_FROM_CHANGED ? '1' : '0'
+    // const zIndex = target === KnobEvents.KNOB_VALUE_FROM_CHANGED ? '1' : '0'
     
     const handleKnobsPointerMove = (pointerEvent: PointerEvent):void => {
       pointerEvent.preventDefault();
-      if (this.valueFrom) {
-        this.valueFrom.ondragstart = () => false;
-        this.valueFrom.style.zIndex = zIndex;
+      if (this.knob) {
+        this.knob.ondragstart = () => false;
+        // this.knob.style.zIndex = zIndex;
       } 
-      if (this.valueFrom && this.valueTo){
-        this.valueTo.ondragstart = () => false;
-        this.valueFrom.style.zIndex = zIndex;
+      if (this.knob && secondKnob){
+        secondKnob.ondragstart = () => false;
+        // this.knob.style.zIndex = zIndex;
       }
-      
-      const scaleCoords = this.scale ? this.getCoords(this.scale) : null;
+
+      const scaleCoords = scale ? this.getCoords(scale) : null;
       const pageCoords = this.getPageCoords(pointerEvent);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       const correctValue = getValueWithStep(min, max, step, position);
       
-      this.emit(target, correctValue.toFixed());
+      this.emit(knobTarget, correctValue.toFixed());
     }
 
     const handleKnobsPointerUp = (): void => {
@@ -112,14 +106,6 @@ class Knob extends SliderComponent {
     
     document.addEventListener('pointermove', handleKnobsPointerMove)
     document.addEventListener('pointerup', handleKnobsPointerUp);
-  }
-
-  private handleFirstKnobKeyDown(event: KeyboardEvent): void {
-    this.handleKnobKeyDown(event, KnobEvents.KNOB_VALUE_FROM_CHANGED);
-  }
-
-  private handleSecondKnobKeyDown(event: KeyboardEvent): void {
-    this.handleKnobKeyDown(event, KnobEvents.KNOB_VALUE_TO_CHANGED);
   }
 
   private handleKnobKeyDown(event: KeyboardEvent, target: KnobEventTarget): void {
@@ -143,11 +129,11 @@ class Knob extends SliderComponent {
 
   private addTooltips(): void {
     const { color, orientation } = this.state;
-    const hasFirstTooltip = this.valueFrom?.querySelector('[data-id="tooltip-first"]')
+    const hasFirstTooltip = this.knob?.querySelector('[data-id="tooltip-first"]')
     const hasSecondTooltip = this.valueTo?.querySelector('[data-id="tooltip-second"]')
 
-    if (this.valueFrom && !hasFirstTooltip) {
-      this.valueFrom.insertAdjacentHTML(
+    if (this.knob && !hasFirstTooltip) {
+      this.knob.insertAdjacentHTML(
         'afterbegin',
         Tooltip.getTemplate(orientation, color, TargetType.simple)
       );
@@ -160,29 +146,22 @@ class Knob extends SliderComponent {
     }
   }
 
-  public static getTemplate(
+  private createKnob(
     color: Color,
     orientation: Orientation,
-    target: TargetType,
-  ): string {
-    let knobElementClass = 'knob'
-    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
-    const colorMod = checkColor(color) ? color : 'orange';
+  ): HTMLDivElement {
+    const knobElementClass = this.id ? this.id : 'knob';
+    const knob = document.createElement('div');
+    knob.classList.add(
+      'slider__knob',
+      `slider__knob_${orientation}`,
+      `slider__knob_${color}`
+    );
+    knob.setAttribute('data-id', `${knobElementClass}`);
+    knob.setAttribute('role', 'slider');
+    knob.setAttribute('tabindex', '0');
 
-    if (target === TargetType.range) {
-      knobElementClass = 'second-knob'
-    }
-
-    return `
-      <div
-        class="slider__knob
-        slider__knob_${orientationMod}
-        slider__knob_${colorMod}" 
-        data-id=${knobElementClass}
-        role="slider"
-        tabindex="0"
-      ></div>
-    `;
+    return knob;
   }
 }
 
