@@ -1,22 +1,28 @@
 import { ScaleEvents } from 'Source/Observer/events';
 import { checkOrientation, getValueWithStep } from 'Source/utils/utils';
-import Fill from 'Components/View/subViews/Fill/Fill';
-import Knob from 'Root/source/components/View/subViews/Knob/Knob';
-import Labels from 'Components/View/subViews/Labels/Labels';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { TargetType } from 'Components/View/Slider/Slider';
 import './scale.scss';
+import { IOptions, Orientation } from 'Root/source/components/interfaces';
 
 class Scale extends SliderComponent {
-  private scaleNode!: HTMLElement | null;
+  private scaleNode!: HTMLElement;
+
+  constructor(options: IOptions, root: HTMLElement, target: TargetType) {
+    super(options, root, target);
+    this.init();
+    this.getScaleNode = this.getScaleNode.bind(this);
+  }
 
   public init(): void {
-    this.root.innerHTML = '';
-    this.root.insertAdjacentHTML('afterbegin', this.getTemplate());
-    
-    this.scaleNode = this.root.querySelector('.js-slider__scale');
-
-    this.addScaleElements();
+    const { orientation } = this.state;
+    const orientationModifier = checkOrientation(orientation) ? orientation : 'horizontal';
+  
+    this.scaleNode = this.createScale(orientationModifier);
+    this.scaleNode.addEventListener(
+      'pointerdown',
+      this.handleScalePointerDown.bind(this)
+    );
   }
 
   public handleScalePointerDown(event: PointerEvent): void {
@@ -53,48 +59,10 @@ class Scale extends SliderComponent {
     }
   }
 
-  public getScaleNode(): HTMLElement | null {
+  public getScaleNode(): HTMLElement {
     return this.scaleNode;
   }
 
-  private addScaleElements() {
-    const { color, orientation, hasFill, isRange, hasLabels, min, max, step } = this.state;
-
-    if (this.scaleNode) {
-      this.scaleNode.addEventListener(
-        'pointerdown',
-        this.handleScalePointerDown.bind(this)
-      );
-      
-      this.scaleNode.insertAdjacentHTML(
-        'beforeend',
-        Knob.getTemplate(color, orientation, TargetType.simple)
-      );
-
-      if (hasFill) {
-        this.scaleNode.insertAdjacentHTML(
-          'afterbegin',
-          Fill.getTemplate(color, orientation)
-        );
-      }
-
-      if (isRange) {
-        this.scaleNode.insertAdjacentHTML(
-          'beforeend',
-          Knob.getTemplate(color, orientation, TargetType.range)
-        );
-      }
-
-      if (hasLabels) {
-        this.scaleNode.insertAdjacentHTML('beforeend', Labels.getTemplate(
-          orientation,
-          min,
-          max,
-          step,
-        ));
-      }
-    }
-  }
 
   private isTarget(event: PointerEvent): boolean | unknown {
     if (event.target instanceof HTMLElement) {
@@ -105,20 +73,12 @@ class Scale extends SliderComponent {
     }
   }
 
-  private getTemplate(): string {
-    const { orientation } = this.state;
-    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+  private createScale(orientation: Orientation): HTMLDivElement {
+    const scale = document.createElement('div');
+    scale.classList.add('js-slider__scale', 'slider__scale', `slider__scale_${orientation}`);
+    scale.setAttribute('data-id', 'scale');
 
-    return `
-      <div class="slider slider_${orientationMod}">
-        <div
-          class="slider__scale
-          js-slider__scale
-          slider__scale_${orientationMod}"
-          data-id="scale"
-        ></div>
-      </div>
-    `;
+    return scale;
   }
 }
 
