@@ -10,29 +10,27 @@ let root: HTMLElement;
 
 describe('Slider', () => {
     beforeEach(() => {
-      slider = new Slider();
       root = document.createElement('div');
+      slider = new Slider(defaultState, root, TargetType.simple);
   });
 
   test('Slider should be defined', () => {
     expect(slider).toBeInstanceOf(Slider);
   });
 
-  test('createComponents should be defined', () => {
-    expect(slider.createComponents(defaultState, root, TargetType.simple)).toBeDefined();
-    expect(slider.createComponents(defaultState, root, TargetType.range)).toBeDefined();
-  });
-
   test('createComponents should be create simple slider', () => {
-    expect(slider.createComponents(defaultState, root, TargetType.simple)).toHaveProperty('scale');
-    expect(slider.createComponents(defaultState, root, TargetType.simple)).toHaveProperty('fill');
-    expect(slider.createComponents(defaultState, root, TargetType.simple)).toHaveProperty('knob');
-    expect(slider.createComponents(defaultState, root, TargetType.simple)).toHaveProperty('labels');
-    expect(slider.createComponents(defaultState, root, TargetType.simple)).toHaveProperty('tooltip');
+    const components = slider.getComponents();
+    expect(components).toHaveProperty('scale');
+    expect(components).toHaveProperty('fill');
+    expect(components).toHaveProperty('knob');
+    expect(components).toHaveProperty('labels');
+    expect(components).toHaveProperty('tooltip');
   });
 
   test('createComponents should be create range slider', () => {
-    expect(slider.createComponents(defaultState, root, TargetType.range)).toHaveProperty('secondKnob');
-    expect(slider.createComponents(defaultState, root, TargetType.range)).toHaveProperty('secondTooltip');
+    const rangeSlider = new Slider(defaultState, root, TargetType.range);
+    const components = rangeSlider.getComponents();
+    expect(components).toHaveProperty('secondKnob');
+    expect(components).toHaveProperty('secondTooltip');
   });
 });
