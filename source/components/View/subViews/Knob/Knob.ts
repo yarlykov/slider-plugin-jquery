@@ -5,7 +5,6 @@ import {
   getValueWithStep
 } from 'Source/utils/utils';
 import { KnobEvents } from 'Source/Observer/events';
-import Tooltip from 'Components/View/subViews/Tooltip/Tooltip';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import { TargetType } from 'Components/View/Slider/Slider';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
@@ -32,9 +31,6 @@ class Knob extends SliderComponent {
 
     this.knob = this.createKnob(colorMod, orientationMod);
     this.knob.addEventListener('pointerdown', this.handleKnobPointerDown.bind(this));
-
-    const { hasTooltips } = this.state;
-    if (hasTooltips) this.addTooltips();
   }
 
   public update(state: IOptions): void {
@@ -47,14 +43,11 @@ class Knob extends SliderComponent {
 
     const directionOfMove = orientation === 'horizontal' ? 'left' : 'bottom';
     const value  = state[targetValue];
-
     
-    if (this.knob) {
-      this.knob.style[directionOfMove] = `${fromValueToPercent(
-        state,
-        Number(value),
-      )}%`;
-    }
+    this.knob.style[directionOfMove] = `${fromValueToPercent(
+      state,
+      Number(value),
+    )}%`;
   }
 
   public getKnobNode(): HTMLDivElement {
@@ -64,7 +57,7 @@ class Knob extends SliderComponent {
   public handleKnobPointerDown(event: PointerEvent): void {
     let knobTarget: KnobEventTarget;
   
-    if (event !== null && event.target instanceof HTMLElement) {
+    if (event.target instanceof HTMLElement) {
       const { target } = event;
       knobTarget = target.dataset.id === 'knob' ? KnobEvents.KNOB_VALUE_FROM_CHANGED : KnobEvents.KNOB_VALUE_TO_CHANGED
     }
@@ -127,29 +120,7 @@ class Knob extends SliderComponent {
     }
   }
 
-  private addTooltips(): void {
-    const { color, orientation } = this.state;
-    const hasFirstTooltip = this.knob?.querySelector('[data-id="tooltip-first"]')
-    const hasSecondTooltip = this.valueTo?.querySelector('[data-id="tooltip-second"]')
-
-    if (this.knob && !hasFirstTooltip) {
-      this.knob.insertAdjacentHTML(
-        'afterbegin',
-        Tooltip.getTemplate(orientation, color, TargetType.simple)
-      );
-    }
-    if (this.valueTo && !hasSecondTooltip) {
-      this.valueTo.insertAdjacentHTML(
-        'afterbegin',
-        Tooltip.getTemplate(orientation, color, TargetType.range)
-      );
-    }
-  }
-
-  private createKnob(
-    color: Color,
-    orientation: Orientation,
-  ): HTMLDivElement {
+  private createKnob( color: Color, orientation: Orientation ): HTMLDivElement {
     const knobElementClass = this.id ? this.id : 'knob';
     const knob = document.createElement('div');
     knob.classList.add(

@@ -48,30 +48,41 @@ class Slider {
   }
 
   private addScaleElements() {
-    const { isRange, hasFill } = this.options;
+    const { isRange, hasFill, hasTooltips } = this.options;
     const knob = this.components.knob.getKnobNode();
     const fill = this.components.fill.getFillNode();
-    const hasSecondKnob = Object.prototype.hasOwnProperty.call(this.components, 'secondKnob')
+    const tooltip = this.components.tooltip.getTooltipNode();
+    const hasSecondKnob = Object.prototype.hasOwnProperty.call(this.components, 'secondKnob');
+    const hasSecondTooltip = Object.prototype.hasOwnProperty.call(this.components, 'secondTooltip') && hasTooltips;
     const secondKnob = hasSecondKnob ? this.components['secondKnob'].getKnobNode() : null;
+    const secondTooltip: HTMLDivElement = hasSecondTooltip ? this.components['secondTooltip'].getTooltipNode() : null;
     
     this.scale.insertAdjacentElement(
-      'afterbegin',
+      'beforeend',
       knob
-    );    
+    );
+    
+    if (hasTooltips) {
+      knob.insertAdjacentElement('afterbegin', tooltip)
+    }
 
-      if (hasFill) {
-        this.scale.insertAdjacentElement(
-          'afterbegin',
-          fill
-        );
-      }
+    if (hasFill) {
+      this.scale.insertAdjacentElement(
+        'afterbegin',
+        fill
+      );
+    }
 
-      if (isRange && secondKnob) {
-        this.scale.insertAdjacentElement(
-          'beforeend',
-          secondKnob
-        );
-      }
+    if (isRange && secondKnob) {
+      this.scale.insertAdjacentElement(
+        'beforeend',
+        secondKnob
+      );
+    }
+
+    if (isRange && hasSecondTooltip) {
+      secondKnob.insertAdjacentElement('afterbegin', secondTooltip)
+    }
   }
 
   private createComponents(): SimpleSliderType {
@@ -91,7 +102,7 @@ class Slider {
           enumerable: true,
         },
         secondTooltip: {
-          value: new Tooltip(this.options, this.root, TargetType.range),
+          value: new Tooltip(this.options, this.root, TargetType.range, 'tooltip-second'),
           enumerable: true,
         }
       })
