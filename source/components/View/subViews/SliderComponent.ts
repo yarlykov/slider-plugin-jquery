@@ -33,14 +33,14 @@ type SliderComponentEvent =
       data: PointerEvent
     }
 
-class SliderComponent extends Observer<SliderComponentEvent> {
-  public readonly state: IOptions;
+abstract class SliderComponent extends Observer<SliderComponentEvent> {
+  protected readonly state: IOptions;
 
-  public readonly root: HTMLElement;
+  protected readonly root: HTMLElement;
 
-  public readonly target: TargetType;
+  protected readonly target: TargetType;
 
-  public readonly id: string | null;
+  protected readonly id: string | null;
 
   constructor(
     options: IOptions,
@@ -59,7 +59,7 @@ class SliderComponent extends Observer<SliderComponentEvent> {
     if (!state) throw new Error('The state for updating is not transferred')
   }
 
-  public getCoords(elem: HTMLElement): ScaleCoords {
+  protected getCoords(elem: HTMLElement): ScaleCoords {
     const boxLeft = elem.getBoundingClientRect().left;
     const boxTop = elem.getBoundingClientRect().top;
     const boxRight = elem.getBoundingClientRect().right;
@@ -75,7 +75,7 @@ class SliderComponent extends Observer<SliderComponentEvent> {
     };
   }
 
-  public getPageCoords(event: PointerEvent): PageCoords {
+  protected getPageCoords(event: PointerEvent): PageCoords {
     const { pageX } = event;
     const { pageY } = event;
 
@@ -85,7 +85,7 @@ class SliderComponent extends Observer<SliderComponentEvent> {
     };
   }
 
-  public getPosition(
+  protected getPosition(
     orientation: Orientation,
     scaleCoords: ScaleCoords | null,
     pageCoords: PageCoords,
