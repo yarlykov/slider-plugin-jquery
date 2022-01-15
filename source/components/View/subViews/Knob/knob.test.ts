@@ -1,11 +1,12 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import { IOptions } from 'Components/interfaces';
-import Scale from 'Components/View/subViews/Scale/Scale';
-import { TargetType } from 'Components/View/Slider/Slider';
+import { Slider, SliderType, TargetType } from 'Components/View/Slider/Slider';
 import defaultState from 'Root/source/defaultState';
+import { KnobEvents } from 'Root/source/Observer/events';
 import Knob from './Knob';
 
 const initialState: IOptions = {
@@ -17,22 +18,19 @@ const initialState: IOptions = {
 };
 const root = document.createElement('div');
 let knobNode: HTMLElement;
-let scale: Scale;
+let slider: Slider;
+let components: SliderType;
+let event: KeyboardEvent;
 
 describe('Knob:', () => {
   let knob: Knob;
-  const slider = `
-    <div class="slider slider_horizontal">
-      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale"></div>
-    </div>`;
 
   beforeEach(() => {
-    root.innerHTML = slider;
-    scale = new Scale(initialState, root, TargetType.simple);
-    scale.init();
-    knob = new Knob(defaultState, root, TargetType.simple);
-    knob.init();
-    knobNode = root.querySelector('[data-id="knob"]') as HTMLElement;
+    slider = new Slider(defaultState, root, TargetType.simple);
+    components = slider.getComponents();
+    knob = components.knob;
+    knobNode = components.knob.getKnobNode();
+    event = new Event('keydown') as KeyboardEvent;
   });
 
   test('should return Knob instance', () => {
@@ -44,23 +42,56 @@ describe('Knob:', () => {
     expect(root.querySelectorAll('.slider__knob_horizontal').length).toBe(1);
     expect(root.querySelectorAll('.slider__knob_orange').length).toBe(1);
   });
+
+  test(
+    'when the right arrow is pressed, an event should emit KnobEvents.KNOB_VALUE_FROM_CHANGED with valueFrom = 51',
+  () => {
+    // @ts-ignore: Unreachable code error
+    event.code = 'ArrowRight'
+    const spyEmit = jest.spyOn(knob, 'emit')
+    knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
+    knob.update(defaultState);
+    knobNode.dispatchEvent(event);
+
+    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_VALUE_FROM_CHANGED, 51);
+  });
+
+  test(
+    'when the up arrow is pressed, an event should emit KnobEvents.KNOB_VALUE_FROM_CHANGED with valueFrom = 51',
+  () => {
+    // @ts-ignore: Unreachable code error
+    event.code = 'ArrowUp'
+    const spyEmit = jest.spyOn(knob, 'emit')
+    knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
+    knob.update(defaultState);
+    knobNode.dispatchEvent(event);
+    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_VALUE_FROM_CHANGED, 51);
+  });
+
+  test(
+    'when the left arrow is pressed, an event should emit KnobEvents.KNOB_VALUE_FROM_CHANGED with valueFrom = 49',
+  () => {
+    // @ts-ignore: Unreachable code error
+    event.code = 'ArrowLeft'
+    const spyEmit = jest.spyOn(knob, 'emit')
+    knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
+    knob.update(defaultState);
+    knobNode.dispatchEvent(event);
+    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_VALUE_FROM_CHANGED, 49);
+  });
 });
 
 describe('SecondKnob:', () => {
   let secondKnob: Knob;
-  const slider = `
-    <div class="slider slider_horizontal">
-      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale"></div>
-    </div>`;
 
   beforeEach(() => {
-    root.innerHTML = slider;
-    const state = { ...initialState, isRange: true }
-    scale = new Scale(state, root, TargetType.range);
-    scale.init();
-    secondKnob = new Knob(defaultState, root, TargetType.range);
-    secondKnob.init();
-    knobNode = root.querySelector('[data-id="second-knob"]') as HTMLElement;
+    slider = new Slider(defaultState, root, TargetType.range);
+    components = slider.getComponents();
+    if ('secondKnob' in components) {
+      secondKnob = components.secondKnob;
+      
+      knobNode = components.secondKnob.getKnobNode();
+    }
   });
 
   test('should return SecondKnob instance', () => {

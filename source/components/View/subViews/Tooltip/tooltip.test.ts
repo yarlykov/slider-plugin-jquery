@@ -1,40 +1,36 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 import defaultState from 'Source/defaultState';
-import Knob from 'Components/View/subViews/Knob/Knob';
-import { TargetType } from 'Components/View/Slider/Slider';
+import { Slider, SliderType, TargetType } from 'Components/View/Slider/Slider';
 import Tooltip from './Tooltip';
 
 const root = document.createElement('div');
 
 describe('Tooltip:', () => {
   let tooltip: Tooltip;
-  let knob: Knob;
-  const slider = `<div class="slider slider_horizontal">
-      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale">
-        <div
-          class="slider__fill js-slider__fill slider__fill_horizontal slider__fill_orange"
-          data-id="fill"
-        ></div>
-        <div
-          class="slider__knob slider__knob_horizontal slider__knob_orange"
-          data-id="knob"
-        ></div>
-      </div>
-    </div>`;
+  let slider: Slider;
+  let components: SliderType;
 
   beforeEach(() => {
-    root.innerHTML = slider;
-    knob = new Knob(defaultState, root, TargetType.simple);
-    knob.init();
-    tooltip = new Tooltip({ ...defaultState, hasTooltips: true }, root, TargetType.simple);
-    tooltip.init();
+    slider = new Slider(defaultState, root, TargetType.simple);
+    components = slider.getComponents();
+    tooltip = components.tooltip;
   });
 
   test('should return Tooltip instance', () => {
     expect(tooltip).toBeInstanceOf(Tooltip);
+  });
+
+  test('should render correct color', () => {
+    // @ts-ignore: Unreachable code error
+    slider = new Slider({ ...defaultState, color: ''}, root, TargetType.simple)
+    components = slider.getComponents();
+    const tooltip = components.tooltip.getTooltipNode();
+    
+    expect(tooltip.parentElement?.querySelectorAll('.slider__tooltip_orange').length).toBe(1);
   });
 
   test('should update tooltip value', () => {
@@ -55,9 +51,7 @@ describe('Tooltip:', () => {
   });
 
   test('should render vertical arrow', () => {
-    root.innerHTML = slider;
-    knob = new Knob({ ...defaultState, orientation: 'vertical' }, root, TargetType.simple);
-    knob.init();
+    slider = new Slider({ ...defaultState, orientation: 'vertical' }, root, TargetType.simple)
 
     expect(
       root.querySelectorAll('.slider__tooltip_arrow_vertical').length,
@@ -67,53 +61,18 @@ describe('Tooltip:', () => {
 
 describe('SecondTooltip:', () => {
   let secondTooltip: Tooltip;
-  let secondKnob: Knob;
-  const rangeSlider = `<div class="slider slider_horizontal">
-      <div class="slider__scale js-slider__scale slider__scale_horizontal" data-id="scale">
-        <div
-          class="slider__fill js-slider__fill slider__fill_horizontal slider__fill_orange "
-          data-id="fill"
-        ></div>
-        <div
-          class="slider__knob js-slider__knob slider__knob_horizontal slider__knob_orange"
-          data-id="knob"
-        ></div>
-        <div 
-          class="slider__knob
-          slider__knob_horizontal
-          slider__knob_orange"
-          data-id="second-knob"
-        ></div
-        ></div>
-      </div>
-    </div>`;
+  let slider: Slider;
+  let components: SliderType;
 
   beforeEach(() => {
-    root.innerHTML = rangeSlider;
-    secondKnob = new Knob({ ...defaultState, isRange: true }, root, TargetType.range);
-    secondKnob.init();
-    secondTooltip = new Tooltip(
-      {
-        ...defaultState,
-        hasTooltips: true,
-        isRange: true
-      },
-      root,
-      TargetType.range
-    );
-    secondTooltip.init();
+    slider = new Slider(defaultState, root, TargetType.range)
+    components = slider.getComponents();
+    if ('secondTooltip' in components) {
+      secondTooltip = components.secondTooltip;
+    }
   });
 
   test('should return SecondTooltip instance', () => {
     expect(secondTooltip).toBeInstanceOf(Tooltip);
-  });
-
-  test('should not update secondTooltip value', () => {
-    root.innerHTML = '';
-    secondTooltip.update({ ...defaultState, valueTo: 10 });
-    const tooltipValue = root.querySelector(
-      '[data-id="tooltip-value-second"]',
-    );
-    expect(tooltipValue).toBeNull();
   });
 });

@@ -2,8 +2,7 @@
  * @jest-environment jsdom
  */
 
-import Scale from 'Components/View/subViews/Scale/Scale';
-import { TargetType } from 'Components/View/Slider/Slider';
+import { Slider, SliderType, TargetType } from 'Components/View/Slider/Slider';
 import defaultState from 'Root/source/defaultState';
 import { IOptions } from 'Components/interfaces';
 import Fill from './Fill';
@@ -17,28 +16,19 @@ const initialState: IOptions = {
   valueTo: 84,
   hasFill: true,
 };
+
 const root = document.createElement('div');
 let fill: Fill;
-let scale: Scale;
-let sliderNode: string;
+let slider: Slider;
 let fillNode: HTMLElement;
+let components: SliderType;
 
 describe('Fill:', () => {
   beforeEach(() => {
-    sliderNode = `<div class="slider slider_horizontal">
-        <div class="slider__scale
-          js-slider__scale
-          slider__scale_horizontal"
-          data-id="scale"
-        ></div>
-      </div>`;
-    root.innerHTML = sliderNode;
-
-    scale = new Scale(initialState, root, TargetType.simple);
-    scale.init();
-    fill = new Fill(initialState, root, TargetType.simple);
-    fill.init();
-    fillNode = root.querySelector('.js-slider__fill') as HTMLElement;
+    slider = new Slider(defaultState, root, TargetType.simple);
+    components = slider.getComponents();
+    fill = components.fill;
+    fillNode = fill.getFillNode();
   });
 
   test('should return Fill instance', () => {
@@ -46,10 +36,6 @@ describe('Fill:', () => {
   });
 
   test('should render default template', () => {
-    root.innerHTML = sliderNode;
-    scale = new Scale(initialState, root, TargetType.simple);
-    scale.init();
-
     expect(root.querySelectorAll('.slider__fill_horizontal').length).toBe(1);
     expect(root.querySelectorAll('.slider__fill_orange').length).toBe(1);
   });

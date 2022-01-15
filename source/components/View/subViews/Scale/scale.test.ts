@@ -21,14 +21,6 @@ describe('Scale: init ', () => {
     expect(new Scale(defaultState, root, TargetType.simple)).toBeInstanceOf(Scale);
   });
 
-  test('the target must be correctly determined ("scale" or "fill")', () => {
-    const scale = root.querySelector('.js-slider__scale');
-    const fill = root.querySelector('.js-slider__fill');
-
-    if (scale) scale.dispatchEvent(event);
-    if (fill) fill.dispatchEvent(event);
-  });
-
   test('handleScalePointerDown method should emit valueFrom if range slider scale ', () => {
     const newState = Object.assign({}, defaultState, {
       isRange: true,
