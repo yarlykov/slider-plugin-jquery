@@ -7,7 +7,7 @@ module.exports = function () {
         new TerserPlugin({
           terserOptions: {
             mangle: {
-              reserved: ['Scale', 'Knob', 'SecondKnob', 'Labels', 'Tooltip', 'Fill', 'SecondTooltip']
+              reserved: ['Scale', 'Knob', 'Labels', 'Tooltip', 'Fill']
             },
           },
         }),

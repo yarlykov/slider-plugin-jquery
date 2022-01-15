@@ -22,7 +22,6 @@ class Labels extends SliderComponent {
     const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
 
     this.labels = this.createLabels(orientationMod, min, max, step);
-
     this.labels.addEventListener('pointerdown', this.handleLabelsPointerDown.bind(this));
   }
 
@@ -63,7 +62,6 @@ class Labels extends SliderComponent {
   ): HTMLDivElement {
     const labels = document.createElement('div');
     labels.classList.add(
-      'js-slider__labels',
       'slider__labels',
       `slider__labels_${orientation}`
     );

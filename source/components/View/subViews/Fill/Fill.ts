@@ -47,7 +47,6 @@ class Fill extends SliderComponent {
   private createFill(color: Color, orientation: Orientation): HTMLDivElement {
     const fill = document.createElement('div');
     fill.classList.add(
-      'js-slider__fill',
       'slider__fill',
       `slider__fill_${orientation}`,
       `slider__fill_${color}`

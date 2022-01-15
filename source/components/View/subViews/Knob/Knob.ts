@@ -70,7 +70,7 @@ class Knob extends SliderComponent {
     } = this.currentState;
     const scale: HTMLElement | null = this.root.querySelector('.js-slider__scale');
     
-    const handleKnobsPointerMove = (pointerEvent: PointerEvent):void => {
+    const handleKnobPointerMove = (pointerEvent: PointerEvent):void => {
       pointerEvent.preventDefault();
       this.knob.ondragstart = () => false;
   
@@ -82,13 +82,13 @@ class Knob extends SliderComponent {
       this.emit(this.knobTarget, correctValue.toFixed());
     }
 
-    const handleKnobsPointerUp = (): void => {
-      document.removeEventListener('pointerup', handleKnobsPointerUp)
-      document.removeEventListener('pointermove', handleKnobsPointerMove);
+    const handleKnobPointerUp = (): void => {
+      document.removeEventListener('pointerup', handleKnobPointerUp)
+      document.removeEventListener('pointermove', handleKnobPointerMove);
     }
 
-    document.addEventListener('pointermove', handleKnobsPointerMove)
-    document.addEventListener('pointerup', handleKnobsPointerUp);
+    document.addEventListener('pointermove', handleKnobPointerMove)
+    document.addEventListener('pointerup', handleKnobPointerUp);
   }
 
   private handleKnobKeyDown(event: KeyboardEvent): void {

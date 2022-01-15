@@ -73,7 +73,11 @@ class Scale extends SliderComponent {
 
   private createScale(orientation: Orientation): HTMLDivElement {
     const scale = document.createElement('div');
-    scale.classList.add('js-slider__scale', 'slider__scale', `slider__scale_${orientation}`);
+    scale.classList.add(
+      'js-slider__scale',
+      'slider__scale',
+      `slider__scale_${orientation}`
+    );
     scale.setAttribute('data-id', 'scale');
 
     return scale;
