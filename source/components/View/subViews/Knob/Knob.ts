@@ -24,18 +24,6 @@ class Knob extends SliderComponent {
     this.init();
   }
 
-  public init(): void {
-    const { color, orientation } = this.state;
-    const colorMod = checkColor(color) ? color : 'orange';
-    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
-
-    this.knob = this.createKnob(colorMod, orientationMod);
-    this.knob.addEventListener('pointerdown', this.handleKnobCheckTarget.bind(this));
-    this.knob.addEventListener('pointerdown', this.handleKnobPointerDown.bind(this));
-    this.knob.addEventListener('keydown', this.handleKnobCheckTarget.bind(this));
-    this.knob.addEventListener('keydown', this.handleKnobKeyDown.bind(this));
-  }
-
   public update(state: IOptions): void {
     this.currentState = { ...state };
 
@@ -89,6 +77,18 @@ class Knob extends SliderComponent {
 
     document.addEventListener('pointermove', handleKnobPointerMove)
     document.addEventListener('pointerup', handleKnobPointerUp);
+  }
+
+  private init(): void {
+    const { color, orientation } = this.state;
+    const colorMod = checkColor(color) ? color : 'orange';
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+
+    this.knob = this.createKnob(colorMod, orientationMod);
+    this.knob.addEventListener('pointerdown', this.handleKnobCheckTarget.bind(this));
+    this.knob.addEventListener('pointerdown', this.handleKnobPointerDown.bind(this));
+    this.knob.addEventListener('keydown', this.handleKnobCheckTarget.bind(this));
+    this.knob.addEventListener('keydown', this.handleKnobKeyDown.bind(this));
   }
 
   private handleKnobKeyDown(event: KeyboardEvent): void {
