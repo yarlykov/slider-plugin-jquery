@@ -2,7 +2,7 @@ type ObserverEvent = { type: string; data: unknown }
 type Narrow<T, K> = T extends { type: K } ? T : never;
 type EventCallback<T extends ObserverEvent, K> = (data: Narrow<T, K>['data']) => void;
 
-class Observer<T extends ObserverEvent> {
+abstract class Observer<T extends ObserverEvent> {
   private observers: { [key in T['type']]?: EventCallback<T, key>[] } = {};
 
   public emit<K extends T['type']>(event: K, data: Narrow<T, K>['data']): void {
