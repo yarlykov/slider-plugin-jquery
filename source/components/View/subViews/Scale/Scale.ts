@@ -13,17 +13,6 @@ class Scale extends SliderComponent {
     this.init();
   }
 
-  public init(): void {
-    const { orientation } = this.state;
-    const orientationModifier = checkOrientation(orientation) ? orientation : 'horizontal';
-  
-    this.scaleNode = this.createScale(orientationModifier);
-    this.scaleNode.addEventListener(
-      'pointerdown',
-      this.handleScalePointerDown.bind(this)
-    );
-  }
-
   public handleScalePointerDown(event: PointerEvent): void {
     if (this.isTarget(event)) {
       const {
@@ -60,6 +49,17 @@ class Scale extends SliderComponent {
 
   public getScaleNode(): HTMLDivElement {
     return this.scaleNode;
+  }
+
+  private init(): void {
+    const { orientation } = this.state;
+    const orientationModifier = checkOrientation(orientation) ? orientation : 'horizontal';
+  
+    this.scaleNode = this.createScale(orientationModifier);
+    this.scaleNode.addEventListener(
+      'pointerdown',
+      this.handleScalePointerDown.bind(this)
+    );
   }
 
   private isTarget(event: PointerEvent): boolean | unknown {

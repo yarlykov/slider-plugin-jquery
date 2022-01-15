@@ -59,9 +59,10 @@ describe('Fill:', () => {
   });
 
   test('if not fill should not update width or height value', () => {
-    root.innerHTML = '';
-    fill.init();
-    fill.update(defaultState);
+    slider = new Slider({ ...defaultState, hasFill: false }, root, TargetType.simple);
+    components = slider.getComponents();
+    fill = components.fill;
+    fillNode = fill.getFillNode();
     expect(fillNode.style.width).toBe('');
     expect(fillNode.style.height).toBe('');
   });

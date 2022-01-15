@@ -13,25 +13,24 @@ class Tooltip extends SliderComponent {
     this.init();
   }
 
-  public init(): void {
-    const { orientation, color } = this.state;
-    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
-    const colorMod = checkColor(color) ? color : 'orange';
-
-    this.tooltip = this.createTooltip(colorMod, orientationMod);
-  }
-
   public getTooltipNode(): HTMLDivElement {
     return this.tooltip;
   }
 
   public update(state: IOptions): void {
-
     const targetValue = this.target === TargetType.simple 
-      ? 'valueFrom'
-      : 'valueTo'
-
+    ? 'valueFrom'
+    : 'valueTo'
+    
     this.tooltipValue.innerText = String(state[targetValue]);
+  }
+
+  private init(): void {
+    const { orientation, color } = this.state;
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+    const colorMod = checkColor(color) ? color : 'orange';
+
+    this.tooltip = this.createTooltip(colorMod, orientationMod);
   }
 
   private createTooltip(color: Color, orientation: Orientation ): HTMLDivElement {

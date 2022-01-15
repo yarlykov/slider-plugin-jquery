@@ -12,13 +12,6 @@ class Fill extends SliderComponent {
     this.init();
   }
 
-  public init(): void {
-    const { orientation, color } = this.state;
-    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
-    const colorMod = checkColor(color) ? color : 'orange';
-    this.fill = this.createFill(colorMod, orientationMod);
-  }
-
   public getFillNode(): HTMLDivElement {
     return this.fill;
   }
@@ -42,6 +35,13 @@ class Fill extends SliderComponent {
     } else if (this.fill) {
       this.fill.style[wayOfFilling] = `${newValueFrom}%`;
     }
+  }
+
+  private init(): void {
+    const { orientation, color } = this.state;
+    const orientationMod = checkOrientation(orientation) ? orientation : 'horizontal';
+    const colorMod = checkColor(color) ? color : 'orange';
+    this.fill = this.createFill(colorMod, orientationMod);
   }
 
   private createFill(color: Color, orientation: Orientation): HTMLDivElement {
