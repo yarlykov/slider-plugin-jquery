@@ -46,6 +46,13 @@ class Model extends Observer<ModelEvent> {
     }
   }
 
+  public processPercentValue(option: 'valueFrom' | 'valueTo', value: number): void {
+    const {min, max, step} = this.state;
+    const correctValue = this.validation.getValueWithStep(min, max, step, value);
+    
+    this.setValue(option, correctValue);
+  }
+
   private checkStateValue<Option extends keyof IOptions>(
     option: Option,
     optionValue: IOptions[Option],

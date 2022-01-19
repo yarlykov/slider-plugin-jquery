@@ -3,7 +3,7 @@
  */
 
 import defaultState from 'Source/defaultState';
-import { changeFirstLetterToLower, fromValueToPercent, getValueWithStep } from './utils';
+import { changeFirstLetterToLower, fromValueToPercent } from './utils';
 
 describe('Utils: fromValueToPercent', () => {
   const state = {
@@ -26,16 +26,6 @@ describe('Utils: fromValueToPercent', () => {
 
   test('should be return correct value in percent if value less than 100 percents', () => {
     expect(fromValueToPercent(state, -100)).toBe(0);
-  });
-});
-
-describe('Utils: getValueWithStep', () => {
-  test('should be defined', () => {
-    expect(getValueWithStep(0, 0, 0, 0)).toBeDefined();
-  });
-
-  test('should be return correct value with step', () => {
-    expect(getValueWithStep(0, 100, 1, 25)).toBe(25);
   });
 });
 

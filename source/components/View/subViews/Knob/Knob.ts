@@ -2,7 +2,6 @@ import {
   checkColor,
   checkOrientation,
   fromValueToPercent,
-  getValueWithStep
 } from 'Source/utils/utils';
 import { KnobEvents } from 'Source/Observer/events';
 import { Color, IOptions, Orientation } from 'Components/interfaces';
@@ -50,12 +49,7 @@ class Knob extends SliderComponent {
   }
 
   public handleKnobPointerDown(): void {    
-    const {
-      min,
-      max,
-      step,
-      orientation,
-    } = this.currentState;
+    const { orientation } = this.currentState;
     const scale: HTMLElement | null = this.root.querySelector('.js-slider__scale');
     
     const handleKnobPointerMove = (pointerEvent: PointerEvent):void => {
@@ -65,9 +59,8 @@ class Knob extends SliderComponent {
       const scaleCoords = scale ? this.getCoords(scale) : null;
       const pageCoords = this.getPageCoords(pointerEvent);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
-      const correctValue = getValueWithStep(min, max, step, position);
       
-      this.emit(this.knobTarget, correctValue.toFixed());
+      this.emit(this.knobTarget, position.toFixed());
     }
 
     const handleKnobPointerUp = (): void => {

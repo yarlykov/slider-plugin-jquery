@@ -33,11 +33,11 @@ class Presenter {
 
   private bindViewEvents(): void {
     this.view.subscribe(ViewEvents.VALUE_FROM_CHANGED, (valueFrom) => {
-      this.model.setValue('valueFrom', Number(valueFrom));
+      this.model.processPercentValue('valueFrom', Number(valueFrom));
     });
 
     this.view.subscribe(ViewEvents.VALUE_TO_CHANGED, (valueTo) => {
-      this.model.setValue('valueTo', Number(valueTo));
+      this.model.processPercentValue('valueTo', Number(valueTo));
     });
   }
 

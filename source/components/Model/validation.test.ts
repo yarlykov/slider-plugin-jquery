@@ -159,4 +159,12 @@ describe('Validation:', () => {
     expect(validation.checkStep(100, 101, 50)).toEqual(1);
     expect(validation.checkStep(0, 100, 150)).toEqual(100);
   });
+
+  test('should be defined', () => {
+    expect(validation.getValueWithStep(0, 0, 0, 0)).toBeDefined();
+  });
+
+  test('should be return correct value with step', () => {
+    expect(validation.getValueWithStep(0, 100, 1, 25)).toBe(25);
+  });
 });

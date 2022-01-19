@@ -1,6 +1,6 @@
 import { IOptions, Orientation } from 'Root/source/components/interfaces';
 import { LabelsEvents } from 'Source/Observer/events';
-import { checkOrientation, fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
+import { checkOrientation, fromValueToPercent } from 'Source/utils/utils';
 import { TargetType } from 'Components/View/Slider/Slider';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './labels.scss';
@@ -27,30 +27,21 @@ class Labels extends SliderComponent {
 
   private handleLabelsPointerDown(event: PointerEvent) {
     if (event.target instanceof HTMLElement) {
-      const {
-        min,
-        max,
-        step,
-        valueFrom,
-        valueTo,
-        isRange,
-      } = this.state;
-
       const targetValue = Number(event.target.dataset.value);
-      let correctValue = getValueWithStep(min, max, step, targetValue);
-      if (targetValue === 100) correctValue = max;
+      // let correctValue = getValueWithStep(min, max, step, targetValue);
+      // if (targetValue === 100) correctValue = max;
 
-      if (isRange) {
-        const delta = (valueTo - valueFrom) / 2;
-        const leftHalfOfScale = valueFrom + delta;
-        if (correctValue >= leftHalfOfScale) {
-          this.emit(LabelsEvents.LABELS_VALUE_TO_CHANGED, correctValue);
-        } else {
-          this.emit(LabelsEvents.LABELS_VALUE_FROM_CHANGED, correctValue);
-        }
-      } else {
-        this.emit(LabelsEvents.LABELS_VALUE_FROM_CHANGED, correctValue);
-      }
+      // if (isRange) {
+      //   const delta = (valueTo - valueFrom) / 2;
+      //   const leftHalfOfScale = valueFrom + delta;
+      //   if (correctValue >= leftHalfOfScale) {
+      //     this.emit(LabelsEvents.LABELS_VALUE_TO_CHANGED, correctValue);
+      //   } else {
+      //     this.emit(LabelsEvents.LABELS_VALUE_FROM_CHANGED, correctValue);
+      //   }
+      // } else {
+      // }
+      this.emit(LabelsEvents.LABELS_VALUE_FROM_CHANGED, targetValue);
     }
   }
 
@@ -83,7 +74,13 @@ class Labels extends SliderComponent {
     let labelValues: number[] = [20, 40, 60, 80];
 
     labelValues = labelValues
-      .map((value) => getValueWithStep(min, max, step, value))
+      .map((value) => {
+        const stepCount = (max - min) / step;
+        const stepPercent = 100 / stepCount;
+        const stepPosition = Math.round(value / stepPercent) * step;
+        const valueWithStep = stepPosition + min;
+        return valueWithStep;
+      })
       .concat(min, max)
       .sort((a, b) => a - b);
 

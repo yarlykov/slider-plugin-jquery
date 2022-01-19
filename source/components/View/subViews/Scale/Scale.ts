@@ -1,5 +1,5 @@
 import { ScaleEvents } from 'Source/Observer/events';
-import { checkOrientation, getValueWithStep } from 'Source/utils/utils';
+import { checkOrientation } from 'Source/utils/utils';
 import { IOptions, Orientation } from 'Components/interfaces';
 import { TargetType } from 'Components/View/Slider/Slider';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
@@ -15,35 +15,26 @@ class Scale extends SliderComponent {
 
   public handleScalePointerDown(event: PointerEvent): void {
     if (this.isTarget(event)) {
-      const {
-        min,
-        max,
-        valueFrom,
-        valueTo,
-        step,
-        orientation,
-        isRange,
-      } = this.state;
+      const { orientation } = this.state;
 
       const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : null;
       const pageCoords = this.getPageCoords(event);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
-      const correctValue = getValueWithStep(min, max, step, position);
 
-      if (isRange) {
-        const delta = (valueTo - valueFrom) / 2;
-        const leftHalfOfScale = valueFrom + delta;
-        if (correctValue >= leftHalfOfScale) {
-          this.emit(ScaleEvents.SCALE_VALUE_TO_CHANGED, correctValue.toFixed());
-          this.emit(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, event);
-        } else {
-          this.emit(ScaleEvents.SCALE_VALUE_FROM_CHANGED, correctValue.toFixed());
-          this.emit(ScaleEvents.TARGET_TRIGGERED, event);
-        }
-      } else {
-        this.emit(ScaleEvents.SCALE_VALUE_FROM_CHANGED, correctValue.toFixed());
-        this.emit(ScaleEvents.TARGET_TRIGGERED, event);
-      }
+      // if (isRange) {
+      //   const delta = (valueTo - valueFrom) / 2;
+      //   const leftHalfOfScale = valueFrom + delta;
+      //   if (correctValue >= leftHalfOfScale) {
+      //     this.emit(ScaleEvents.SCALE_VALUE_TO_CHANGED, correctValue.toFixed());
+      //     this.emit(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, event);
+      //   } else {
+      //     this.emit(ScaleEvents.SCALE_VALUE_FROM_CHANGED, correctValue.toFixed());
+      //     this.emit(ScaleEvents.TARGET_TRIGGERED, event);
+      //   }
+      // } else {
+      // }
+      this.emit(ScaleEvents.SCALE_VALUE_FROM_CHANGED, position.toFixed());
+      this.emit(ScaleEvents.TARGET_TRIGGERED, event);
     }
   }
 
