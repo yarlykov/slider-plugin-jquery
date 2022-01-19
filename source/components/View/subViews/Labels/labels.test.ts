@@ -55,6 +55,6 @@ describe('Labels:', () => {
     labels.update(defaultState);
     labelsNode.dispatchEvent(event);
 
-    expect(spyEmit).toHaveBeenCalledWith(LabelsEvents.LABELS_VALUE_FROM_CHANGED, NaN);
+    expect(spyEmit).toHaveBeenCalledWith(LabelsEvents.LABELS_VALUE_CHANGED, NaN);
   });
 });

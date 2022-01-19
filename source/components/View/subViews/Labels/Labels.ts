@@ -28,20 +28,8 @@ class Labels extends SliderComponent {
   private handleLabelsPointerDown(event: PointerEvent) {
     if (event.target instanceof HTMLElement) {
       const targetValue = Number(event.target.dataset.value);
-      // let correctValue = getValueWithStep(min, max, step, targetValue);
-      // if (targetValue === 100) correctValue = max;
 
-      // if (isRange) {
-      //   const delta = (valueTo - valueFrom) / 2;
-      //   const leftHalfOfScale = valueFrom + delta;
-      //   if (correctValue >= leftHalfOfScale) {
-      //     this.emit(LabelsEvents.LABELS_VALUE_TO_CHANGED, correctValue);
-      //   } else {
-      //     this.emit(LabelsEvents.LABELS_VALUE_FROM_CHANGED, correctValue);
-      //   }
-      // } else {
-      // }
-      this.emit(LabelsEvents.LABELS_VALUE_FROM_CHANGED, targetValue);
+      this.emit(LabelsEvents.LABELS_VALUE_CHANGED, Number(targetValue));
     }
   }
 

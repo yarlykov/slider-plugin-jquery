@@ -39,6 +39,11 @@ class Presenter {
     this.view.subscribe(ViewEvents.VALUE_TO_CHANGED, (valueTo) => {
       this.model.processPercentValue('valueTo', Number(valueTo));
     });
+
+    this.view.subscribe(ViewEvents.VALUE_CHANGED, (value) => {
+      const target = this.model.processNearValue(value);
+      this.view.changedKnobPosition(target);
+    })
   }
 
   private customEvent(): void {

@@ -5,8 +5,9 @@ import { Slider, SliderType, TargetType } from './Slider/Slider';
 import Knob from './subViews/Knob/Knob';
 
 type ViewEvent = 
-  | { type: ViewEvents.VALUE_FROM_CHANGED, data: number | string }
-  | { type: ViewEvents.VALUE_TO_CHANGED, data: number | string }
+  | { type: ViewEvents.VALUE_FROM_CHANGED, data: number }
+  | { type: ViewEvents.VALUE_TO_CHANGED, data: number }
+  | { type: ViewEvents.VALUE_CHANGED, data: number }
 
 class View extends Observer<ViewEvent> {
   private root: HTMLElement;
@@ -43,6 +44,16 @@ class View extends Observer<ViewEvent> {
     if (this.options.hasTooltips) this.createDoubleTooltip(state);
   }
 
+  public changedKnobPosition(target: string): void {
+    if (target === 'valueFrom') {
+      this.sliderComponents.knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
+      this.sliderComponents.knob.handleKnobPointerDown();
+    } else if ('secondKnob' in this.sliderComponents) {
+      this.sliderComponents.secondKnob.setKnobTarget(KnobEvents.KNOB_VALUE_TO_CHANGED);
+      this.sliderComponents.secondKnob.handleKnobPointerDown();
+    }
+  }
+
   private bindEvents(): void {
     this.bindScaleEvents();
     this.bindKnobsEvents();
@@ -51,25 +62,9 @@ class View extends Observer<ViewEvent> {
 
   /* istanbul ignore next */
   private bindScaleEvents(): void {
-    this.sliderComponents.scale.subscribe(ScaleEvents.SCALE_VALUE_FROM_CHANGED, (valueFrom) =>
-      this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
+    this.sliderComponents.scale.subscribe(ScaleEvents.SCALE_VALUE_CHANGED, (value) =>
+      this.emit(ViewEvents.VALUE_CHANGED, value),
     );
-
-    this.sliderComponents.scale.subscribe(ScaleEvents.SCALE_VALUE_TO_CHANGED, (valueTo) =>
-      this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
-    );
-
-    this.sliderComponents.scale.subscribe(ScaleEvents.TARGET_TRIGGERED, () => {
-      this.sliderComponents.knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
-      this.sliderComponents.knob.handleKnobPointerDown();
-    });
-
-    this.sliderComponents.scale.subscribe(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, () => {
-      if ('secondKnob' in this.sliderComponents) {
-        this.sliderComponents.secondKnob.setKnobTarget(KnobEvents.KNOB_VALUE_TO_CHANGED);
-        this.sliderComponents.secondKnob.handleKnobPointerDown();
-      }
-    });
   }
   
   /* istanbul ignore next */
@@ -92,12 +87,8 @@ class View extends Observer<ViewEvent> {
   }
   /* istanbul ignore next */
   private bindLabelsEvents(): void {
-    this.sliderComponents.labels.subscribe(LabelsEvents.LABELS_VALUE_FROM_CHANGED, (valueFrom) =>
-      this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
-    );
-
-    this.sliderComponents.labels.subscribe(LabelsEvents.LABELS_VALUE_TO_CHANGED, (valueTo) =>
-      this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
+    this.sliderComponents.labels.subscribe(LabelsEvents.LABELS_VALUE_CHANGED, (value) =>
+      this.emit(ViewEvents.VALUE_CHANGED, value),
     );
   }
   

@@ -6,31 +6,15 @@ import { TargetType } from 'Components/View/Slider/Slider';
 type SliderComponentEvent = 
   | {
       type: KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED,
-      data: number | string
-    }
-  | { 
-      type: LabelsEvents.LABELS_VALUE_FROM_CHANGED,
       data: number
     }
   | { 
-      type: LabelsEvents.LABELS_VALUE_TO_CHANGED,
+      type: LabelsEvents.LABELS_VALUE_CHANGED,
       data: number
     }
   | {
-      type: ScaleEvents.SCALE_VALUE_FROM_CHANGED,
-      data: number | string
-    }
-  | {
-      type: ScaleEvents.SCALE_VALUE_TO_CHANGED,
-      data: number | string
-    }
-  | {
-      type: ScaleEvents.TARGET_TRIGGERED,
-      data: PointerEvent
-    }
-  | {
-      type: ScaleEvents.TARGET_MAX_VALUE_TRIGGERED,
-      data: PointerEvent
+      type: ScaleEvents.SCALE_VALUE_CHANGED,
+      data: number
     }
 
 abstract class SliderComponent extends Observer<SliderComponentEvent> {

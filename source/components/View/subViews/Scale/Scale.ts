@@ -21,20 +21,7 @@ class Scale extends SliderComponent {
       const pageCoords = this.getPageCoords(event);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
 
-      // if (isRange) {
-      //   const delta = (valueTo - valueFrom) / 2;
-      //   const leftHalfOfScale = valueFrom + delta;
-      //   if (correctValue >= leftHalfOfScale) {
-      //     this.emit(ScaleEvents.SCALE_VALUE_TO_CHANGED, correctValue.toFixed());
-      //     this.emit(ScaleEvents.TARGET_MAX_VALUE_TRIGGERED, event);
-      //   } else {
-      //     this.emit(ScaleEvents.SCALE_VALUE_FROM_CHANGED, correctValue.toFixed());
-      //     this.emit(ScaleEvents.TARGET_TRIGGERED, event);
-      //   }
-      // } else {
-      // }
-      this.emit(ScaleEvents.SCALE_VALUE_FROM_CHANGED, position.toFixed());
-      this.emit(ScaleEvents.TARGET_TRIGGERED, event);
+      this.emit(ScaleEvents.SCALE_VALUE_CHANGED, Number(position.toFixed()));
     }
   }
 

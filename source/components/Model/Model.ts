@@ -53,6 +53,23 @@ class Model extends Observer<ModelEvent> {
     this.setValue(option, correctValue);
   }
 
+  public processNearValue(value: number): string {
+    const { min, max, step, isRange, valueTo, valueFrom } = this.state;
+    const correctValue = this.validation.getValueWithStep(min, max, step, value);
+
+    if (isRange) {
+      const delta = (valueTo - valueFrom) / 2;
+      const leftHalfOfScale = valueFrom + delta;
+
+      if (correctValue >= leftHalfOfScale) {
+        this.setValue('valueTo', correctValue);
+        return 'valueTo'
+      }
+    }
+    this.setValue('valueFrom', correctValue);
+    return 'valueFrom'
+  }
+
   private checkStateValue<Option extends keyof IOptions>(
     option: Option,
     optionValue: IOptions[Option],
