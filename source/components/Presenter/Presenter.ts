@@ -42,7 +42,7 @@ class Presenter {
 
     this.view.subscribe(ViewEvents.VALUE_CHANGED, (value) => {
       const target = this.model.processNearValue(value);
-      this.view.changedKnobPosition(target);
+      this.view.changeKnobPosition(target);
     })
 
     this.view.subscribe(

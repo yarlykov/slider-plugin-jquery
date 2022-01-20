@@ -46,7 +46,7 @@ class View extends Observer<ViewEvent> {
     if (this.options.hasTooltips) this.createDoubleTooltip(state);
   }
 
-  public changedKnobPosition(target: string): void {
+  public changeKnobPosition(target: string): void {
     if (target === 'valueFrom') {
       this.sliderComponents.knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
       this.sliderComponents.knob.handleKnobPointerDown();
