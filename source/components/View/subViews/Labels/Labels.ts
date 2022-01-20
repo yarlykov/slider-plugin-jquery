@@ -1,6 +1,6 @@
 import { IOptions, Orientation } from 'Root/source/components/interfaces';
 import { LabelsEvents } from 'Source/Observer/events';
-import { checkOrientation, fromValueToPercent } from 'Source/utils/utils';
+import { checkOrientation, fromValueToPercent, getValueWithStep } from 'Source/utils/utils';
 import { TargetType } from 'Components/View/Slider/Slider';
 import SliderComponent from 'Components/View/subViews/SliderComponent';
 import './labels.scss';
@@ -62,13 +62,7 @@ class Labels extends SliderComponent {
     let labelValues: number[] = [20, 40, 60, 80];
 
     labelValues = labelValues
-      .map((value) => {
-        const stepCount = (max - min) / step;
-        const stepPercent = 100 / stepCount;
-        const stepPosition = Math.round(value / stepPercent) * step;
-        const valueWithStep = stepPosition + min;
-        return valueWithStep;
-      })
+      .map((value) => getValueWithStep(min, max, step, value))
       .concat(min, max)
       .sort((a, b) => a - b);
 

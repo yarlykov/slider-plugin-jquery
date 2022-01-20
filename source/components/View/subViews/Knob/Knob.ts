@@ -12,8 +12,6 @@ import './knob.scss';
 type KnobEventTarget = KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED;
 
 class Knob extends SliderComponent {
-  private currentState!: IOptions;
-
   private knobTarget!: KnobEventTarget; 
 
   private knob!: HTMLDivElement;
@@ -24,8 +22,6 @@ class Knob extends SliderComponent {
   }
 
   public update(state: IOptions): void {
-    this.currentState = { ...state };
-
     const targetValue = this.target === TargetType.simple 
       ? 'valueFrom'
       : 'valueTo'
@@ -48,17 +44,12 @@ class Knob extends SliderComponent {
     this.knobTarget = knobEventTarget;
   }
 
-  public handleKnobPointerDown(): void {    
-    const { orientation } = this.currentState;
-    const scale: HTMLElement | null = this.root.querySelector('.js-slider__scale');
-    
+  public handleKnobPointerDown(): void {      
     const handleKnobPointerMove = (pointerEvent: PointerEvent):void => {
       pointerEvent.preventDefault();
       this.knob.ondragstart = () => false;
   
-      const scaleCoords = scale ? this.getCoords(scale) : null;
-      const pageCoords = this.getPageCoords(pointerEvent);
-      const position = this.getPosition(orientation, scaleCoords, pageCoords);
+      const position = this.getPosition(pointerEvent);
       
       this.emit(this.knobTarget, Number(position.toFixed(3)));
     }

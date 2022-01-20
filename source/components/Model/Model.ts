@@ -46,16 +46,15 @@ class Model extends Observer<ModelEvent> {
     }
   }
 
-  public processPercentValue(valueName: OptionsKnobValues, value: number): void {
-    const {min, max, step} = this.state;
-    const correctValue = this.validation.getValueWithStep(min, max, step, value);
+  public processPercentValue(valueName: OptionsKnobValues, percentValue: number): void {
+    const correctValue = this.validation.fromPercentToCorrect(percentValue);
     
     this.setValue(valueName, correctValue);
   }
 
-  public processNearValue(value: number): string {
-    const { min, max, step, isRange, valueTo, valueFrom } = this.state;
-    const correctValue = this.validation.getValueWithStep(min, max, step, value);
+  public processNearValue(percentValue: number): string {
+    const { isRange, valueTo, valueFrom } = this.state;
+    const correctValue = this.validation.fromPercentToCorrect(percentValue);
 
     if (isRange) {
       const delta = (valueTo - valueFrom) / 2;

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import defaultState from 'Root/source/defaultState';
-import { fromValueToPercent } from 'Root/source/utils/utils';
+import { fromValueToPercent, getValueWithStep } from 'Root/source/utils/utils';
 import { IOptions } from 'Components/interfaces';
 
 class Validation {
@@ -53,32 +53,20 @@ class Validation {
       value,
     );
 
-    const correctValue = this.getValueWithStep(
+    return this.fromPercentToCorrect(valueInPercent);
+  }
+
+  public fromPercentToCorrect(percentValue: number): number {
+    const correctValue = getValueWithStep(
       this.min,
       this.max,
       this.step,
-      valueInPercent,
+      percentValue,
     );
 
     if (correctValue > this.max) return this.max;
 
     return correctValue;
-  }
-
-  public getValueWithStep(
-    min: number,
-    max: number,
-    step: number,
-    valueInPercent: number
-  ): number {
-    const stepCount = (max - min) / step;
-    const stepPercent = 100 / stepCount;
-    const stepPosition = Math.round(valueInPercent / stepPercent) * step;
-    const valueWithStep = stepPosition + min;
-    
-    if (valueInPercent >= 100) return valueInPercent * valueWithStep;  
-    
-    return valueWithStep;
   }
 
   public checkMinRange(value: number): number {

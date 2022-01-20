@@ -51,7 +51,25 @@ abstract class SliderComponent extends Observer<SliderComponentEvent> {
     if (!state) throw new Error('The state for updating is not transferred')
   }
 
-  protected getCoords(elem: HTMLElement): ScaleCoords {
+  protected getPosition(event: PointerEvent): number {
+    const { orientation } = this.state;
+    const scaleNode = this.root.querySelector('.js-slider__scale');
+    const scaleCoords = scaleNode ? this.getCoords(scaleNode) : null;
+    const pageCoords = this.getPageCoords(event);
+    const horizontal = orientation === 'horizontal';
+    const mockValue = 50;
+
+    if (scaleCoords === null) return mockValue;
+    const { pageX, pageY } = pageCoords;
+    const { left, bottom, width, height } = scaleCoords;
+
+    if (horizontal) {
+      return ((pageX - left) / width) * 100;
+    }
+    return ((bottom - pageY) / height) * 100;
+  }
+
+  private getCoords(elem: Element): ScaleCoords {
     const boxLeft = elem.getBoundingClientRect().left;
     const boxTop = elem.getBoundingClientRect().top;
     const boxRight = elem.getBoundingClientRect().right;
@@ -67,7 +85,7 @@ abstract class SliderComponent extends Observer<SliderComponentEvent> {
     };
   }
 
-  protected getPageCoords(event: PointerEvent): PageCoords {
+  private getPageCoords(event: PointerEvent): PageCoords {
     const { pageX } = event;
     const { pageY } = event;
 
@@ -75,23 +93,6 @@ abstract class SliderComponent extends Observer<SliderComponentEvent> {
       pageX,
       pageY,
     };
-  }
-
-  protected getPosition(
-    orientation: Orientation,
-    scaleCoords: ScaleCoords | null,
-    pageCoords: PageCoords,
-  ): number {
-    const horizontal = orientation === 'horizontal';
-    const mockValue = 50;
-    if (scaleCoords === null) return mockValue;
-    const { pageX, pageY } = pageCoords;
-    const { left, bottom, width, height } = scaleCoords;
-
-    if (horizontal) {
-      return ((pageX - left) / width) * 100;
-    }
-    return ((bottom - pageY) / height) * 100;
   }
 }
 

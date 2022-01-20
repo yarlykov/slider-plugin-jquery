@@ -15,11 +15,7 @@ class Scale extends SliderComponent {
 
   public handleScalePointerDown(event: PointerEvent): void {
     if (this.isTarget(event)) {
-      const { orientation } = this.state;
-
-      const scaleCoords = this.scaleNode ? this.getCoords(this.scaleNode) : null;
-      const pageCoords = this.getPageCoords(event);
-      const position = this.getPosition(orientation, scaleCoords, pageCoords);
+      const position = this.getPosition(event);
 
       this.emit(ScaleEvents.SCALE_VALUE_CHANGED, Number(position.toFixed(3)));
     }
