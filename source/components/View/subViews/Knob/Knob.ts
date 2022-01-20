@@ -60,7 +60,7 @@ class Knob extends SliderComponent {
       const pageCoords = this.getPageCoords(pointerEvent);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
       
-      this.emit(this.knobTarget, Number(position.toFixed()));
+      this.emit(this.knobTarget, Number(position.toFixed(3)));
     }
 
     const handleKnobPointerUp = (): void => {

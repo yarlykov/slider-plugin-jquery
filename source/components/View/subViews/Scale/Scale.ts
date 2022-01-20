@@ -21,7 +21,7 @@ class Scale extends SliderComponent {
       const pageCoords = this.getPageCoords(event);
       const position = this.getPosition(orientation, scaleCoords, pageCoords);
 
-      this.emit(ScaleEvents.SCALE_VALUE_CHANGED, Number(position.toFixed()));
+      this.emit(ScaleEvents.SCALE_VALUE_CHANGED, Number(position.toFixed(3)));
     }
   }
 

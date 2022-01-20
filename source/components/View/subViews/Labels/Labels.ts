@@ -90,7 +90,7 @@ class Labels extends SliderComponent {
     const labelPosWithPercent = fromValueToPercent(
       { min, max, step },
       labelPosition,
-    ).toFixed(2);
+    ).toFixed(3);
 
     const label = document.createElement('div');
     label.classList.add('slider__labels-item');
