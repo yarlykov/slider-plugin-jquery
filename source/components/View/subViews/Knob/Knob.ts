@@ -89,6 +89,8 @@ class Knob extends SliderComponent {
       ? 'valueFrom'
       : 'valueTo'
     const { code } = event;
+
+    if (code !== 'Tab') event.preventDefault();
     
     if (code === 'ArrowRight' || code === 'ArrowUp') {
       this.emit(KnobEvents.KNOB_INCREMENT, targetValue);
