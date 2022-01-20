@@ -1,7 +1,7 @@
 import defaultState from 'Root/source/defaultState';
 import Observer from 'Source/Observer/Observer';
 import { ModelEvents } from 'Source/Observer/events';
-import { IOptions, OptionValue } from 'Components/interfaces';
+import { IOptions, OptionsKnobValues, OptionValue } from 'Components/interfaces';
 import Validation from './Validation';
 
 type Option = keyof IOptions;
@@ -46,7 +46,7 @@ class Model extends Observer<ModelEvent> {
     }
   }
 
-  public processPercentValue(valueName: 'valueFrom' | 'valueTo', value: number): void {
+  public processPercentValue(valueName: OptionsKnobValues, value: number): void {
     const {min, max, step} = this.state;
     const correctValue = this.validation.getValueWithStep(min, max, step, value);
     
@@ -70,12 +70,12 @@ class Model extends Observer<ModelEvent> {
     return 'valueFrom'
   }
 
-  public increment(valueName: 'valueFrom' | 'valueTo'): void {
+  public increment(valueName: OptionsKnobValues): void {
     const newValue = this.state[valueName] + this.state.step;
     this.setValue(valueName, newValue)
   }
 
-  public decrement(valueName: 'valueFrom' | 'valueTo'): void {
+  public decrement(valueName: OptionsKnobValues): void {
     const newValue = this.state[valueName] - this.state.step;
     this.setValue(valueName, newValue)
   }

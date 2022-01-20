@@ -7,6 +7,7 @@ import Tooltip from './View/subViews/Tooltip/Tooltip';
 type Color = 'orange' | 'green';
 type Orientation = 'horizontal' | 'vertical';
 type OptionsNumberValues = 'valueFrom' | 'valueTo' | 'min' | 'max' | 'step';
+type OptionsKnobValues = 'valueFrom' | 'valueTo'
 type OptionsBooleanValues = 'isRange' | 'hasFill' | 'hasLabels' | 'hasTooltips';
 
 interface IOptions {
@@ -76,4 +77,5 @@ export {
   TooltipCoords,
   OptionsNumberValues,
   OptionsBooleanValues,
+  OptionsKnobValues,
 };

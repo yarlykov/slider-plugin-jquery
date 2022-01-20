@@ -1,5 +1,5 @@
 import Observer from 'Source/Observer/Observer';
-import { IOptions, ScaleCoords, PageCoords, Orientation } from 'Components/interfaces';
+import { IOptions, ScaleCoords, PageCoords, Orientation, OptionsKnobValues } from 'Components/interfaces';
 import { KnobEvents, LabelsEvents, ScaleEvents } from 'Root/source/Observer/events';
 import { TargetType } from 'Components/View/Slider/Slider';
 
@@ -10,11 +10,11 @@ type SliderComponentEvent =
     }
   | {
       type: KnobEvents.KNOB_INCREMENT,
-      data: 'valueFrom' | 'valueTo'
+      data: OptionsKnobValues
     }
   | {
       type: KnobEvents.KNOB_DECREMENT,
-      data: 'valueFrom' | 'valueTo'
+      data: OptionsKnobValues
     }
   | { 
       type: LabelsEvents.LABELS_VALUE_CHANGED,

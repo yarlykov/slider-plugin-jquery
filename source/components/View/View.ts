@@ -1,6 +1,6 @@
 import Observer from 'Source/Observer/Observer';
 import { KnobEvents, LabelsEvents, ScaleEvents, ViewEvents } from 'Source/Observer/events';
-import { IOptions, TooltipCoords } from 'Components/interfaces';
+import { IOptions, OptionsKnobValues, TooltipCoords } from 'Components/interfaces';
 import { Slider, SliderType, TargetType } from './Slider/Slider';
 import Knob from './subViews/Knob/Knob';
 
@@ -8,8 +8,8 @@ type ViewEvent =
   | { type: ViewEvents.VALUE_FROM_CHANGED, data: number }
   | { type: ViewEvents.VALUE_TO_CHANGED, data: number }
   | { type: ViewEvents.VALUE_CHANGED, data: number }
-  | { type: ViewEvents.VALUE_INCREMENT, data: 'valueFrom' | 'valueTo' }
-  | { type: ViewEvents.VALUE_DECREMENT, data: 'valueFrom' | 'valueTo' }
+  | { type: ViewEvents.VALUE_INCREMENT, data: OptionsKnobValues }
+  | { type: ViewEvents.VALUE_DECREMENT, data: OptionsKnobValues }
 
 class View extends Observer<ViewEvent> {
   private root: HTMLElement;
