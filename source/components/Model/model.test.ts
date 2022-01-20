@@ -52,4 +52,28 @@ describe('Model:', () => {
     expect(model.getValue('valueTo')).toBe(25);
     expect(model.getValue('valueFrom')).toBe(25);
   });
+
+  test('processPercentValue should return correct value', () => {
+    model.processPercentValue('valueFrom', 20);
+    expect(model.getState().valueFrom).toBe(20);
+  });
+
+  test('processNearValue should return correct valueName: valueFrom', () => {
+    expect(model.processNearValue(20)).toBe('valueFrom');
+  });
+
+  test('processNearValue should return correct valueName: valueTo', () => {
+    model.setState({ ...defaultState, isRange: true });
+    expect(model.processNearValue(80)).toBe('valueTo');
+  });
+
+  test('increment should increase the value by the step value', () => {
+    model.increment('valueFrom');
+    expect(model.getState().valueFrom).toBe(51);    
+  });
+
+  test('decrement should decrease the value by the step value', () => {
+    model.decrement('valueFrom');
+    expect(model.getState().valueFrom).toBe(49);    
+  });
 });

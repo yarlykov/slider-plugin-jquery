@@ -1,5 +1,5 @@
 import Observer from 'Source/Observer/Observer';
-import { IOptions, ScaleCoords, PageCoords, Orientation, OptionsKnobValues } from 'Components/interfaces';
+import { IOptions, ScaleCoords, PageCoords, OptionsKnobValues } from 'Components/interfaces';
 import { KnobEvents, LabelsEvents, ScaleEvents } from 'Root/source/Observer/events';
 import { TargetType } from 'Components/View/Slider/Slider';
 
