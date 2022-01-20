@@ -8,6 +8,14 @@ type SliderComponentEvent =
       type: KnobEvents.KNOB_VALUE_FROM_CHANGED | KnobEvents.KNOB_VALUE_TO_CHANGED,
       data: number
     }
+  | {
+      type: KnobEvents.KNOB_INCREMENT,
+      data: 'valueFrom' | 'valueTo'
+    }
+  | {
+      type: KnobEvents.KNOB_DECREMENT,
+      data: 'valueFrom' | 'valueTo'
+    }
   | { 
       type: LabelsEvents.LABELS_VALUE_CHANGED,
       data: number

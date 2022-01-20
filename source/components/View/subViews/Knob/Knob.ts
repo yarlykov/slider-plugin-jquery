@@ -88,18 +88,13 @@ class Knob extends SliderComponent {
     const targetValue = this.knobTarget === KnobEvents.KNOB_VALUE_FROM_CHANGED
       ? 'valueFrom'
       : 'valueTo'
-    
-    const value = this.currentState[targetValue];
-    const { step } = this.currentState;
     const { code } = event;
     
     if (code === 'ArrowRight' || code === 'ArrowUp') {
-      const newValue = Number(value) + step;
-      this.emit(this.knobTarget, newValue);
+      this.emit(KnobEvents.KNOB_INCREMENT, targetValue);
     }
     if (code === 'ArrowLeft' || code === 'ArrowDown') {
-      const newValue = Number(value) - step;
-      this.emit(this.knobTarget, newValue);
+      this.emit(KnobEvents.KNOB_DECREMENT, targetValue);
     }
   }
 

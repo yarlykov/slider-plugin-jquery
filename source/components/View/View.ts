@@ -8,6 +8,8 @@ type ViewEvent =
   | { type: ViewEvents.VALUE_FROM_CHANGED, data: number }
   | { type: ViewEvents.VALUE_TO_CHANGED, data: number }
   | { type: ViewEvents.VALUE_CHANGED, data: number }
+  | { type: ViewEvents.VALUE_INCREMENT, data: 'valueFrom' | 'valueTo' }
+  | { type: ViewEvents.VALUE_DECREMENT, data: 'valueFrom' | 'valueTo' }
 
 class View extends Observer<ViewEvent> {
   private root: HTMLElement;
@@ -75,12 +77,28 @@ class View extends Observer<ViewEvent> {
       this.emit(ViewEvents.VALUE_FROM_CHANGED, valueFrom),
     );
 
+    knob.subscribe(KnobEvents.KNOB_INCREMENT, (valueName) =>
+      this.emit(ViewEvents.VALUE_INCREMENT, valueName),
+    );
+
+    knob.subscribe(KnobEvents.KNOB_DECREMENT, (valueName) =>
+      this.emit(ViewEvents.VALUE_DECREMENT, valueName),
+    );
+
     if (this.type === TargetType.range && this.sliderComponents['secondKnob']) {
       if ('secondKnob' in this.sliderComponents) {
         const { secondKnob } = this.sliderComponents
 
         secondKnob.subscribe(KnobEvents.KNOB_VALUE_TO_CHANGED, (valueTo) => 
           this.emit(ViewEvents.VALUE_TO_CHANGED, valueTo),
+        );
+
+        secondKnob.subscribe(KnobEvents.KNOB_INCREMENT, (valueName) =>
+          this.emit(ViewEvents.VALUE_INCREMENT, valueName),
+        );
+
+        secondKnob.subscribe(KnobEvents.KNOB_DECREMENT, (valueName) =>
+          this.emit(ViewEvents.VALUE_DECREMENT, valueName),
         );
       }
     }

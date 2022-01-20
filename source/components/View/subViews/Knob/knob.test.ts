@@ -44,7 +44,7 @@ describe('Knob:', () => {
   });
 
   test(
-    'when the right arrow is pressed, an event should emit KnobEvents.KNOB_VALUE_FROM_CHANGED with valueFrom = 51',
+    'when the right arrow is pressed, an event should emit KnobEvents.KNOB_INCREMENT with valueFrom',
   () => {
     // @ts-ignore: Unreachable code error
     event.code = 'ArrowRight'
@@ -53,11 +53,11 @@ describe('Knob:', () => {
     knob.update(defaultState);
     knobNode.dispatchEvent(event);
 
-    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_VALUE_FROM_CHANGED, 51);
+    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_INCREMENT, 'valueFrom');
   });
 
   test(
-    'when the up arrow is pressed, an event should emit KnobEvents.KNOB_VALUE_FROM_CHANGED with valueFrom = 51',
+    'when the up arrow is pressed, an event should emit KnobEvents.KNOB_INCREMENT with valueFrom',
   () => {
     // @ts-ignore: Unreachable code error
     event.code = 'ArrowUp'
@@ -65,11 +65,11 @@ describe('Knob:', () => {
     knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
     knob.update(defaultState);
     knobNode.dispatchEvent(event);
-    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_VALUE_FROM_CHANGED, 51);
+    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_INCREMENT, 'valueFrom');
   });
 
   test(
-    'when the left arrow is pressed, an event should emit KnobEvents.KNOB_VALUE_FROM_CHANGED with valueFrom = 49',
+    'when the left arrow is pressed, an event should emit KnobEvents.KNOB_DECREMENT with valueFrom',
   () => {
     // @ts-ignore: Unreachable code error
     event.code = 'ArrowLeft'
@@ -77,7 +77,7 @@ describe('Knob:', () => {
     knob.setKnobTarget(KnobEvents.KNOB_VALUE_FROM_CHANGED);
     knob.update(defaultState);
     knobNode.dispatchEvent(event);
-    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_VALUE_FROM_CHANGED, 49);
+    expect(spyEmit).toHaveBeenCalledWith(KnobEvents.KNOB_DECREMENT, 'valueFrom');
   });
 });
 

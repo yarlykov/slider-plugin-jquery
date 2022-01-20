@@ -46,11 +46,11 @@ class Model extends Observer<ModelEvent> {
     }
   }
 
-  public processPercentValue(option: 'valueFrom' | 'valueTo', value: number): void {
+  public processPercentValue(valueName: 'valueFrom' | 'valueTo', value: number): void {
     const {min, max, step} = this.state;
     const correctValue = this.validation.getValueWithStep(min, max, step, value);
     
-    this.setValue(option, correctValue);
+    this.setValue(valueName, correctValue);
   }
 
   public processNearValue(value: number): string {
@@ -68,6 +68,16 @@ class Model extends Observer<ModelEvent> {
     }
     this.setValue('valueFrom', correctValue);
     return 'valueFrom'
+  }
+
+  public increment(valueName: 'valueFrom' | 'valueTo'): void {
+    const newValue = this.state[valueName] + this.state.step;
+    this.setValue(valueName, newValue)
+  }
+
+  public decrement(valueName: 'valueFrom' | 'valueTo'): void {
+    const newValue = this.state[valueName] - this.state.step;
+    this.setValue(valueName, newValue)
   }
 
   private checkStateValue<Option extends keyof IOptions>(

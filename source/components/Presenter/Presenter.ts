@@ -44,6 +44,14 @@ class Presenter {
       const target = this.model.processNearValue(value);
       this.view.changedKnobPosition(target);
     })
+
+    this.view.subscribe(
+      ViewEvents.VALUE_INCREMENT, (valueName) => this.model.increment(valueName)
+    )
+
+    this.view.subscribe(
+      ViewEvents.VALUE_DECREMENT, (valueName) => this.model.decrement(valueName)
+    )
   }
 
   private customEvent(): void {
