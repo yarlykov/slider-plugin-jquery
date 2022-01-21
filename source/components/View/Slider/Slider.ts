@@ -1,4 +1,3 @@
-/* eslint max-classes-per-file: "off" */
 import { changeFirstLetterToLower, checkOrientation, fromValueToPercent } from 'Source/utils/utils';
 import { IOptions, Orientation, RangeSliderType, SimpleSliderType } from 'Components/interfaces';
 import Scale from 'Components/View/subViews/Scale/Scale';
