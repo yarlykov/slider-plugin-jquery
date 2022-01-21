@@ -1,5 +1,5 @@
 /* eslint max-classes-per-file: "off" */
-import { changeFirstLetterToLower, checkOrientation } from 'Source/utils/utils';
+import { changeFirstLetterToLower, checkOrientation, fromValueToPercent } from 'Source/utils/utils';
 import { IOptions, Orientation, RangeSliderType, SimpleSliderType } from 'Components/interfaces';
 import Scale from 'Components/View/subViews/Scale/Scale';
 import Fill from 'Components/View/subViews/Fill/Fill';
@@ -51,15 +51,7 @@ class Slider {
   }
 
   private addScaleElements() {
-    const {
-      max,
-      valueFrom,
-      valueTo,
-      isRange,
-      hasFill,
-      hasTooltips,
-      hasLabels
-    } = this.options;
+    const { isRange, hasFill, hasTooltips, hasLabels } = this.options;
   
     const hasSecondKnob = Object.prototype.hasOwnProperty.call(
       this.components,
@@ -84,14 +76,29 @@ class Slider {
     
     this.scale.insertAdjacentElement('beforeend', knob);
 
-    const bothKnobsAtMax = valueFrom === max && valueTo === max;
-    const secondKnobElemNodePosition = bothKnobsAtMax ? 'afterbegin' : 'beforeend';
-  
     if (hasFill) this.scale.insertAdjacentElement('afterbegin', fill);
     if (hasTooltips) knob.insertAdjacentElement('afterbegin', tooltip);
-    if (isRange && secondKnob) this.scale.insertAdjacentElement(secondKnobElemNodePosition, secondKnob);
+    if (isRange && secondKnob) {
+      const secondKnobElemNodePosition = this.isKnobsPositionMoreThenHalf()
+        ? 'afterbegin'
+        : 'beforeend';
+      this.scale.insertAdjacentElement(secondKnobElemNodePosition, secondKnob);
+    }
     if (isRange && hasSecondTooltip) secondKnob.insertAdjacentElement('afterbegin', secondTooltip);
     if (hasLabels) this.scale.insertAdjacentElement('beforeend', labels);
+  }
+
+  private isKnobsPositionMoreThenHalf(): boolean {
+    const {
+      valueFrom,
+      valueTo,
+    } = this.options;
+
+    const FIFTY_PERCENT = 50;
+    const valueFromPercent = fromValueToPercent(this.options, valueFrom)
+    const valueToPercent = fromValueToPercent(this.options, valueTo)    
+
+    return  valueFromPercent > FIFTY_PERCENT && valueToPercent > FIFTY_PERCENT;
   }
 
   private createComponents(): SimpleSliderType {
