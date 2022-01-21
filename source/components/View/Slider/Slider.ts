@@ -51,7 +51,15 @@ class Slider {
   }
 
   private addScaleElements() {
-    const { isRange, hasFill, hasTooltips, hasLabels } = this.options;
+    const {
+      max,
+      valueFrom,
+      valueTo,
+      isRange,
+      hasFill,
+      hasTooltips,
+      hasLabels
+    } = this.options;
   
     const hasSecondKnob = Object.prototype.hasOwnProperty.call(
       this.components,
@@ -75,10 +83,13 @@ class Slider {
       : null;
     
     this.scale.insertAdjacentElement('beforeend', knob);
+
+    const bothKnobsAtMax = valueFrom === max && valueTo === max;
+    const secondKnobElemNodePosition = bothKnobsAtMax ? 'afterbegin' : 'beforeend';
   
     if (hasFill) this.scale.insertAdjacentElement('afterbegin', fill);
     if (hasTooltips) knob.insertAdjacentElement('afterbegin', tooltip);
-    if (isRange && secondKnob) this.scale.insertAdjacentElement('beforeend', secondKnob);
+    if (isRange && secondKnob) this.scale.insertAdjacentElement(secondKnobElemNodePosition, secondKnob);
     if (isRange && hasSecondTooltip) secondKnob.insertAdjacentElement('afterbegin', secondTooltip);
     if (hasLabels) this.scale.insertAdjacentElement('beforeend', labels);
   }
